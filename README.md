@@ -1,5 +1,5 @@
 <h1>C3: Centro Commerciale in Centro</h1>
-<h2> Author: Matteo Rondini, Greta Sorritelli, Clarissa Albanese</h2>
+<h2> Authors: Matteo Rondini, Greta Sorritelli, Clarissa Albanese</h2>
 
 
 Progetto per la realizzazione di un'applicazione rivolta ai centri abitati medi della provincia italiana
