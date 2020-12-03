@@ -1,20 +1,18 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-import java.util.Collection;
-
 public class GestoreMagazzini {
-
-	public <DatiMagazzino> Collection<DatiMagazzino> getDettagli() {
-		// TODO - implement GestoreMagazzini.getDettagli
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
-	 * @param magazziniere
+	 * @param magazzino
 	 */
-	public void mandaAlert(Magazziniere magazziniere) {
-		// TODO - implement GestoreMagazzini.mandaAlert
+	public Magazziniere getMagazziniere(PuntoPrelievo magazzino) {
+		// TODO - implement GestoreMagazzini.getMagazziniere
+		throw new UnsupportedOperationException();
+	}
+
+	public void getMagazziniDisponibili() {
+		// TODO - implement GestoreMagazzini.getMagazziniDisponibili
 		throw new UnsupportedOperationException();
 	}
 

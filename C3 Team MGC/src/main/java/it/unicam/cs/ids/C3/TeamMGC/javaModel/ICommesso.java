@@ -2,40 +2,61 @@ package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 public interface ICommesso {
 
-    void comunicazioneCodice();
+	void compilazioneOrdine();
 
-    void comunicazioneCodiceCliente(String idCliente);
+	/**
+	 * 
+	 * @param IDCliente
+	 * @param Nome
+	 * @param Cognome
+	 */
+	void registraOrdine(String IDCliente, String Nome, String Cognome);
 
-    void getCodice(String idCliente);
+	/**
+	 * 
+	 * @param descrizione
+	 * @param quantita
+	 * @param prezzo
+	 */
+	void registraMerce(String descrizione, int quantita, double prezzo);
 
-    void createCodice();
+	void riceviPagamento();
 
-    void setCodice(String codice);
+	void sceltaCorriere();
 
-    void compilazioneOrdine();
+	Corriere selezionaCorriere();
 
-    void getMerceDisponibile();
+	/**
+	 * 
+	 * @param via
+	 * @param NCivico
+	 */
+	void addResidenza(String via, int NCivico);
 
-    void registraOrdine(String IDCliente, String Nome, String Cognome);
+	void getMagazziniDisponibili();
 
-    void registraMerce(String descrizione, int quantita, double prezzo);
+	/**
+	 * 
+	 * @param magazzino
+	 */
+	void setPuntodiPrelievo(PuntoPrelievo magazzino);
 
-    void riceviPagamento();
+	/**
+	 * 
+	 * @param RITIRATO
+	 */
+	void setStatoOrdine(StatoOrdine RITIRATO);
 
-    void sceltaCorriere();
+	/**
+	 * 
+	 * @param IDCliente
+	 */
+	void verificaValiditaCodice(int IDCliente);
 
-    int getCorrieriDisponibili();
-
-    Corriere selezionaCorriere();
-
-    void addResidenza(String via, int NCivico);
-
-    void getMagazziniDisponibili();
-
-    void setPuntodiPrelievo(PuntoDiPrelievo magazzino);
-
-    Magazziniere getMagazziniere(PuntoDiPrelievo magazzino);
-
-    void setStatoOrdine(StatoOrdine RITIRATO);
+	/**
+	 *
+	 * @return
+	 */
+	String generaCodiceRitiro();
 
 }

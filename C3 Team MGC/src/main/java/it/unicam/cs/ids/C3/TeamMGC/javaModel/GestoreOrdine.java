@@ -1,37 +1,29 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-import java.util.Collection;
+import java.util.*;
 
 public class GestoreOrdine {
 
     Negozio impiega;
     Collection<Ordine> prepara;
 
-    public void createOrdine() {
-        // TODO - implement GestoreOrdine.createOrdine
+    /**
+     * @param IDCliente
+     * @param Nome
+     * @param Cognome
+     */
+    public void registraOrdine(int IDCliente, int Nome, int Cognome) {
+        // TODO - implement GestoreOrdine.registraOrdine
         throw new UnsupportedOperationException();
     }
 
-
-    public void getMerce(String descrizione) {
-        // TODO - implement GestoreOrdine.getMerce
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void aggiungiMerce(Merce merce, int quantita) {
-        // TODO - implement GestoreOrdine.aggiungiMerce
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void associaOrdine(String IDOrdine) {
-        // TODO - implement GestoreOrdine.associaOrdine
-        throw new UnsupportedOperationException();
-    }
-
-    public <DatiOrdine> Collection<DatiOrdine> getDettagli() {
-        // TODO - implement GestoreOrdine.getDettagli
+    /**
+     * @param descrizione
+     * @param quantita
+     * @param prezzo
+     */
+    public void registraMerce(int descrizione, int quantita, int prezzo) {
+        // TODO - implement GestoreOrdine.registraMerce
         throw new UnsupportedOperationException();
     }
 

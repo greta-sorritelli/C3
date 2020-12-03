@@ -9,4 +9,18 @@ public class Negozio {
 	private String indirizzo;
 	private String telefono;
 
+	public void getMerceDisponibile() {
+		// TODO - implement Negozio.getMerceDisponibile
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param descrizione
+	 */
+	public void getMerce(int descrizione) {
+		// TODO - implement Negozio.getMerce
+		throw new UnsupportedOperationException();
+	}
+
 }
