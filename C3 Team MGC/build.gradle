@@ -40,7 +40,7 @@ dependencies {
 
     // this is for mysql java connector
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
-    runtime "mysql:mysql-connector-java:8.0.15"
+    runtime "mysql:mysql-connector-java:8.0.22"
 }
 
 application {
