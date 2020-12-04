@@ -2,17 +2,16 @@ package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 public interface IMagazziniere {
 
+	/**
+	 * 
+	 * @param IDCliente
+	 */
+	void cercaCliente(int IDCliente);
 
-	void getOrdini(String idCliente);
-
-	void getID(int ordine);
-
-	void getMerceMagazzino(String idOrdine);
-
-	void selezionaStatoMerce(StatoOrdine RITIRATO);
-
-	void getMerceTotale(String idOrdine);
-
-	void selezionaStatoOrdine(StatoOrdine RITIRATO);
+	/**
+	 * 
+	 * @param codiceRitiro
+	 */
+	void verificaCodice(int codiceRitiro);
 
 }
