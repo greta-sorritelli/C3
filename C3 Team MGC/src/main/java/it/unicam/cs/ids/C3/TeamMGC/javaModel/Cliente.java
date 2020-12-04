@@ -24,7 +24,7 @@ public class Cliente {
         this();
         //todo generare ID dal Database
         try {
-            executeQuery("INSERT INTO clienti ('nome', 'cognome') VALUES ('nome  ', 'cognome ');");
+            executeQuery("INSERT INTO `sys`.`clienti` (`nome`) VALUES ('pippo');");
             //executeQuery("INSERT INTO clienti ('nome', 'cognome') VALUES ('" + nome + "', '" + cognome + "');");
         } catch (SQLException throwables) {
             //todo
