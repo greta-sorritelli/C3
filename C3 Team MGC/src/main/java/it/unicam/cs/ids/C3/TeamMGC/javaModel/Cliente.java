@@ -1,7 +1,11 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.Date;
+
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+
 
 public class Cliente {
 
@@ -12,13 +16,20 @@ public class Cliente {
     private Date dataCreazioneCodice;
 
     private Cliente() {
-        //todo generare ID dal Database
         codiceRitiro = null;
         dataCreazioneCodice = null;
     }
 
     public Cliente(String nome, String cognome) {
         this();
+        //todo generare ID dal Database
+        try {
+            executeQuery("INSERT INTO clienti ('nome', 'cognome') VALUES ('nome  ', 'cognome ');");
+            //executeQuery("INSERT INTO clienti ('nome', 'cognome') VALUES ('" + nome + "', '" + cognome + "');");
+        } catch (SQLException throwables) {
+            //todo
+            throwables.printStackTrace();
+        }
         this.nome = nome;
         this.cognome = cognome;
     }

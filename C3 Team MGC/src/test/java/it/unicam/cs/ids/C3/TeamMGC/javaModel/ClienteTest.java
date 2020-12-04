@@ -7,6 +7,10 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ClienteTest {
+    @Test
+    void creazioneCliente() {
+        Cliente cliente = new Cliente("Mario", "Rossi");
+    }
 
     @Test
     void setCodiceRitiro() {

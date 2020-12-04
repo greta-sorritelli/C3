@@ -10,16 +10,12 @@ public class Ordine {
     private StatoOrdine stato;
     private PuntoPrelievo puntoPrelievo;
 
-    public void getID() {
-        // TODO - implement Ordine.getID
-        throw new UnsupportedOperationException();
-    }
-
     /**
-     * @param RITIRATO
+     * @param via
+     * @param NCivico
      */
-    public void setStato(int RITIRATO) {
-        // TODO - implement Ordine.setStato
+    public void addResidenza(int via, int NCivico) {
+        // TODO - implement Ordine.addResidenza
         throw new UnsupportedOperationException();
     }
 
@@ -30,6 +26,10 @@ public class Ordine {
     public void aggiungiMerce(int merce, int quantita) {
         // TODO - implement Ordine.aggiungiMerce
         throw new UnsupportedOperationException();
+    }
+
+    public String getID() {
+        return ID;
     }
 
 //todo implementare DatiOrdine
@@ -44,19 +44,18 @@ public class Ordine {
     }
 
     /**
-     * @param via
-     * @param NCivico
-     */
-    public void addResidenza(int via, int NCivico) {
-        // TODO - implement Ordine.addResidenza
-        throw new UnsupportedOperationException();
-    }
-
-    /**
      * @param magazzino
      */
     public void setPuntodiPrelievo(int magazzino) {
         // TODO - implement Ordine.setPuntodiPrelievo
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @param RITIRATO
+     */
+    public void setStato(int RITIRATO) {
+        // TODO - implement Ordine.setStato
         throw new UnsupportedOperationException();
     }
 

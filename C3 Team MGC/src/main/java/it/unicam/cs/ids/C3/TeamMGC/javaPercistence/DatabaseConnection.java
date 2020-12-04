@@ -6,15 +6,15 @@ import java.sql.*;
  * How to connect to a mySQL Database.
  *
  * @author Jon Bonso
- *
  */
 public class DatabaseConnection {
 
     /**
      * Connect to MySQL Database
+     *
      * @throws SQLException
      */
-    private static void connectToDB() throws SQLException{
+    private static void connectToDB() throws SQLException {
 
         // 1. Get the Connection instance using the DriverManager.getConnection() method
         //    with your MySQL Database Credentails
@@ -27,8 +27,7 @@ public class DatabaseConnection {
         // 2. Execute your SQL Query using conn.createStatement.executeQuery()
         //    and get the result as a ResultSet object.
         //    with your MySQL Database Credentails
-
-        ResultSet rs   = conn.createStatement().executeQuery("select now()");
+        ResultSet rs = conn.createStatement().executeQuery("select now()");
         ResultSetMetaData rsmd = rs.getMetaData();
 
         System.out.println("Query Results: \n\n");
@@ -37,8 +36,8 @@ public class DatabaseConnection {
         getColumnNames(rsmd);
 
         // Getting the Results
-        while (rs.next()){
-            for ( int i=1; i <= rsmd.getColumnCount(); i++){;
+        while (rs.next()) {
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                 System.out.print(rs.getString(i) + "\t\t");
             }
 
@@ -46,14 +45,26 @@ public class DatabaseConnection {
         }
     }
 
+    public static void executeQuery(String query) throws SQLException {
+        //todo
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/C3", "root", "root");
+        conn.createStatement().executeQuery(query);
+    }
+
     /**
      * Shows the Column Names
+     *
      * @param rsmd
      * @throws SQLException
      */
-    private static void getColumnNames(ResultSetMetaData rsmd) throws SQLException{
+    private static void getColumnNames(ResultSetMetaData rsmd) throws SQLException {
         // Getting the list of COLUMN Names
-        for ( int i=1; i <= rsmd.getColumnCount(); i++){
+        for (int i = 1; i <= rsmd.getColumnCount(); i++) {
             System.out.print(rsmd.getColumnName(i) + "\t\t|");
         }
 
