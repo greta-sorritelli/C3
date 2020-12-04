@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaPercistence;
 
 import java.sql.*;
+import java.util.TimeZone;
 
 /**
  * How to connect to a mySQL Database.
@@ -45,15 +46,16 @@ public class DatabaseConnection {
         }
     }
 
-    public static void executeQuery(String query) throws SQLException {
+    public static void updateData(String query) throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/sys?serverTimezone=" + TimeZone.getDefault().getID();
         //todo
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/C3", "root", "root");
-        conn.createStatement().executeQuery(query);
+        Connection conn = DriverManager.getConnection(url, "root", "root");
+        conn.createStatement().executeUpdate(query);
     }
 
     /**

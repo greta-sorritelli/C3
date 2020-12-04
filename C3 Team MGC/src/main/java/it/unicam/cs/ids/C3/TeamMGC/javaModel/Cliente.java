@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.util.Date;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 
 public class Cliente {
@@ -22,13 +22,11 @@ public class Cliente {
 
     public Cliente(String nome, String cognome) {
         this();
-        //todo generare ID dal Database
         try {
-            executeQuery("INSERT INTO `sys`.`clienti` (`nome`) VALUES ('pippo');");
-            //executeQuery("INSERT INTO clienti ('nome', 'cognome') VALUES ('" + nome + "', '" + cognome + "');");
-        } catch (SQLException throwables) {
+            updateData("INSERT INTO `sys`.`clienti` (`nome`, `cognome`) VALUES ('" + nome + "', '" + cognome + "');");
+        } catch (SQLException exception) {
             //todo
-            throwables.printStackTrace();
+            exception.printStackTrace();
         }
         this.nome = nome;
         this.cognome = cognome;
