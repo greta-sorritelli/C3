@@ -1,62 +1,75 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-public interface ICommesso {
+import java.util.Random;
 
-	void compilazioneOrdine();
+public class ICommesso {
 
-	/**
-	 * 
-	 * @param IDCliente
-	 * @param Nome
-	 * @param Cognome
-	 */
-	void registraOrdine(String IDCliente, String Nome, String Cognome);
+    void compilazioneOrdine() {
+    }
 
-	/**
-	 * 
-	 * @param descrizione
-	 * @param quantita
-	 * @param prezzo
-	 */
-	void registraMerce(String descrizione, int quantita, double prezzo);
+    /**
+     * @param IDCliente
+     * @param Nome
+     * @param Cognome
+     */
+    void registraOrdine(String IDCliente, String Nome, String Cognome) {
+    }
 
-	void riceviPagamento();
+    /**
+     * @param descrizione
+     * @param quantita
+     * @param prezzo
+     */
+    void registraMerce(String descrizione, int quantita, double prezzo) {
+    }
 
-	void sceltaCorriere();
+    void riceviPagamento() {
+    }
 
-	Corriere selezionaCorriere();
+    void sceltaCorriere() {
+    }
 
-	/**
-	 * 
-	 * @param via
-	 * @param NCivico
-	 */
-	void addResidenza(String via, int NCivico);
+    Corriere selezionaCorriere() {
+        return null;
+    }
 
-	void getMagazziniDisponibili();
+    /**
+     * @param via
+     * @param NCivico
+     */
+    void addResidenza(String via, int NCivico) {
+    }
 
-	/**
-	 * 
-	 * @param magazzino
-	 */
-	void setPuntodiPrelievo(PuntoPrelievo magazzino);
+    void getMagazziniDisponibili() {
+    }
 
-	/**
-	 * 
-	 * @param RITIRATO
-	 */
-	void setStatoOrdine(StatoOrdine RITIRATO);
+    /**
+     * @param magazzino
+     */
+    void setPuntodiPrelievo(PuntoPrelievo magazzino) {
+    }
 
-	/**
-	 * 
-	 * @param IDCliente
-	 */
-	void verificaValiditaCodice(int IDCliente);
+    /**
+     * @param RITIRATO
+     */
+    void setStatoOrdine(StatoOrdine RITIRATO) {
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	String generaCodiceRitiro();
+    /**
+     * @param IDCliente
+     */
+    void verificaValiditaCodice(int IDCliente) {
+    }
+
+    /**
+     * @return
+     */
+    String generaCodiceRitiro() {
+        Random rand = new Random();
+        String tmp = "";
+        for (int i = 0; i < 8; i++)
+            tmp = tmp.concat(String.valueOf(rand.nextInt(10)));
+        return tmp;
+    }
 
 }

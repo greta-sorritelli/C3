@@ -90,30 +90,36 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="it.unicam.cs.ids.C3.TeamMGC.javaModel" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Greta\Documents\GitHub\C3\C3 Team MGC" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Greta\Documents\GitHub\C3\C3 Team MGC\src" />
       <recent name="C:\Users\Greta\Documents\GitHub\C3\C3 Team MGC\src\main\resources" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Greta\Documents\GitHub\C3\C3 Team MGC" />
+    </key>
   </component>
-  <component name="RunManager" selected="Gradle.ClienteTest.creazioneCliente">
-    <configuration name="C3" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="it.unicam.cs.ids.C3.TeamMGC.C3" />
-      <module name="C3_Team_MGC.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.unicam.cs.ids.C3.TeamMGC.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Gradle.ClienteTest">
+    <configuration name="ClienteTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;it.unicam.cs.ids.C3.TeamMGC.javaModel.ClienteTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="ClienteTest.creazioneCliente" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -172,12 +178,32 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="ICommessoTest.generaCodiceRitiro" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;it.unicam.cs.ids.C3.TeamMGC.javaModel.ICommessoTest.generaCodiceRitiro&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ClienteTest" />
+        <item itemvalue="Gradle.ICommessoTest.generaCodiceRitiro" />
         <item itemvalue="Gradle.ClienteTest.creazioneCliente" />
         <item itemvalue="Gradle.ClienteTest.setCodiceRitiro" />
         <item itemvalue="Gradle.CommessoTest.generaCodiceRitiro" />
-        <item itemvalue="Application.C3" />
       </list>
     </recent_temporary>
   </component>
@@ -229,22 +255,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="307" y="197" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606488049009" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1607093403594">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1607335503355">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607093403594" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1607093403594">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607335503355" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1607335503355">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1607093403594" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1607093403594">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1607335503355" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1607335503354">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1607093403594" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1607093403594">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1607335503354" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1607335503355">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1607093403594" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1607335503355" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1607090541399">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -265,10 +291,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="14" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1607093131317" />
-    <state x="774" y="117" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1607089687187">
+    <state x="774" y="117" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1607334275926">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="774" y="117" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1607089687187" />
+    <state x="774" y="117" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1607334275926" />
     <state x="308" y="148" width="919" height="628" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1607093215889">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

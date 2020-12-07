@@ -15,7 +15,7 @@ public class DatabaseConnection {
      *
      * @throws SQLException
      */
-    private static void connectToDB() throws SQLException {
+    private static void visualizzaQuery() throws SQLException {
 
         // 1. Get the Connection instance using the DriverManager.getConnection() method
         //    with your MySQL Database Credentails
@@ -46,7 +46,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static void updateData(String query) throws SQLException {
+    private static Connection connectToDB() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/sys?serverTimezone=" + TimeZone.getDefault().getID();
         //todo
         try {
@@ -54,8 +54,15 @@ public class DatabaseConnection {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        Connection conn = DriverManager.getConnection(url, "root", "root");
-        conn.createStatement().executeUpdate(query);
+        return DriverManager.getConnection(url, "root", "root");
+    }
+
+    public static void executeQuery(String query) throws SQLException {
+        connectToDB().createStatement().executeQuery(query);
+    }
+
+    public static void updateData(String query) throws SQLException {
+        connectToDB().createStatement().executeUpdate(query);
     }
 
     /**

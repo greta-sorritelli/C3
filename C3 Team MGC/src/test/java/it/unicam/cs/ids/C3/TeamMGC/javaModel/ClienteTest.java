@@ -1,12 +1,21 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.Date;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ClienteTest {
+
+    @BeforeAll
+    static void preparaDB() throws SQLException {
+        updateData("TRUNCATE `sys`.`clienti`;");
+    }
+
     @Test
     void creazioneCliente() {
         Cliente cliente = new Cliente("Mario", "Rossi");
