@@ -23,12 +23,4 @@ class ICommessoTest {
         assertTrue(iCommesso.verificaValiditaCodice(test));
     }
 
-    @Test
-    void generaCodiceRitiro() {
-        ICommesso iCommesso = new ICommesso();
-        String prova = iCommesso.generaCodiceRitiro();
-        assertNotEquals(prova, iCommesso.generaCodiceRitiro());
-    }
-
-
 }

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
@@ -11,16 +12,39 @@ import java.util.Random;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class ICommesso {
+    Negozio negozio;
+    GestoreOrdine gestoreOrdine;
 
-    void compilazioneOrdine() {
+    /**
+     * @param via
+     * @param NCivico
+     */
+    void addResidenza(String via, int NCivico) {
     }
 
     /**
-     * @param IDCliente
-     * @param Nome
-     * @param Cognome
+     * Ritorna la {@link Merce} all' interno dell' inventario del {@link Negozio}.
+     *
+     * @return l'elenco della Merce
      */
-    void registraOrdine(String IDCliente, String Nome, String Cognome) {
+    public ArrayList<Merce> compilazioneOrdine() {
+        return negozio.getMerceDisponibile();
+    }
+
+    /**
+     * Genera il nuovo {@code Codice di Ritiro} del {@link Cliente}.
+     *
+     * @return il Codice generato
+     */
+    private String generaCodiceRitiro() {
+        Random rand = new Random();
+        String tmp = "";
+        for (int i = 0; i < 8; i++)
+            tmp = tmp.concat(String.valueOf(rand.nextInt(10)));
+        return tmp;
+    }
+
+    void getMagazziniDisponibili() {
     }
 
     /**
@@ -29,6 +53,15 @@ public class ICommesso {
      * @param prezzo
      */
     void registraMerce(String descrizione, int quantita, double prezzo) {
+    }
+
+    /**
+     * @param IDCliente ID del Cliente
+     * @param Nome      Nome del Cliente
+     * @param Cognome   Cognome del Cliente
+     */
+    void registraOrdine(int IDCliente, String Nome, String Cognome) {
+        gestoreOrdine.registraOrdine(IDCliente, Nome, Cognome);
     }
 
     void riceviPagamento() {
@@ -42,13 +75,12 @@ public class ICommesso {
     }
 
     /**
-     * @param via
-     * @param NCivico
+     * Imposta il negozio collegato all' interfaccia.
+     *
+     * @param negozio Negozio da impostare
      */
-    void addResidenza(String via, int NCivico) {
-    }
-
-    void getMagazziniDisponibili() {
+    public void setNegozio(Negozio negozio) {
+        this.negozio = negozio;
     }
 
     /**
@@ -80,17 +112,6 @@ public class ICommesso {
             exception.printStackTrace();
         }
         return false;
-    }
-
-    /**
-     * @return
-     */
-    String generaCodiceRitiro() {
-        Random rand = new Random();
-        String tmp = "";
-        for (int i = 0; i < 8; i++)
-            tmp = tmp.concat(String.valueOf(rand.nextInt(10)));
-        return tmp;
     }
 
 }

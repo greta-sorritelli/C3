@@ -12,7 +12,7 @@ public class GestoreOrdine {
      * @param Nome
      * @param Cognome
      */
-    public void registraOrdine(int IDCliente, int Nome, int Cognome) {
+    public void registraOrdine(int IDCliente, String Nome, String Cognome) {
         // TODO - implement GestoreOrdine.registraOrdine
         throw new UnsupportedOperationException();
     }
