@@ -101,7 +101,7 @@
       <recent name="C:\Users\Greta\Documents\GitHub\C3\C3 Team MGC" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ClienteTest">
+  <component name="RunManager" selected="Gradle.ClienteTest.creazioneCliente">
     <configuration name="ClienteTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -118,7 +118,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="ClienteTest.creazioneCliente" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -137,7 +139,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="ClienteTest.setCodiceRitiro" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -156,7 +160,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="CommessoTest.generaCodiceRitiro" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -175,7 +181,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="ICommessoTest.generaCodiceRitiro" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -194,14 +202,16 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ClienteTest.creazioneCliente" />
         <item itemvalue="Gradle.ClienteTest" />
         <item itemvalue="Gradle.ICommessoTest.generaCodiceRitiro" />
-        <item itemvalue="Gradle.ClienteTest.creazioneCliente" />
         <item itemvalue="Gradle.ClienteTest.setCodiceRitiro" />
         <item itemvalue="Gradle.CommessoTest.generaCodiceRitiro" />
       </list>
@@ -229,88 +239,6 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="223" y="67" width="1089" height="737" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606494887368">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="223" y="67" width="1089" height="737" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1606494887368" />
-    <state x="574" y="119" key="#com.intellij.ide.util.MemberChooser" timestamp="1607075747451">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="574" y="119" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1607075747451" />
-    <state x="539" y="281" width="459" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1606493148875">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="539" y="281" width="459" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1606493148875" />
-    <state x="483" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606991835262">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="483" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1606991835262" />
-    <state x="453" y="262" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1607075784540">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="453" y="262" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1607075784540" />
-    <state x="307" y="197" key="FileChooserDialogImpl" timestamp="1606488049009">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="307" y="197" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606488049009" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1607335503355">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607335503355" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1607335503355">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1607335503355" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1607335503354">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1607335503354" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1607335503355">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1607335503355" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1607090541399">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607090541399" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1607090541398">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1607090541398" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1607090541398">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1607090541398" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1607090541399">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1607090541399" />
-    <state x="14" y="0" key="SettingsEditor" timestamp="1607093131317">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="14" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1607093131317" />
-    <state x="774" y="117" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1607334275926">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="774" y="117" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1607334275926" />
-    <state x="308" y="148" width="919" height="628" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1607093215889">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="308" y="148" width="919" height="628" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1607093215889" />
-    <state x="407" y="33" width="1099" height="758" key="new project wizard" timestamp="1606993209456">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="407" y="33" width="1099" height="758" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1606993209456" />
-    <state x="545" y="161" key="refactoring.ChangeSignatureDialog" timestamp="1606994604783">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="545" y="161" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1606994604783" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1607092345928">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1607092345928" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

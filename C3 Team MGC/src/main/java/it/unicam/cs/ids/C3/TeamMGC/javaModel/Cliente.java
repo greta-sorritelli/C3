@@ -1,15 +1,17 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.Date;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 
 public class Cliente {
 
-    private String ID;
+    private int ID;
     private String nome;
     private String cognome;
     private String codiceRitiro;
@@ -20,17 +22,35 @@ public class Cliente {
         dataCreazioneCodice = null;
     }
 
+//    public Cliente(String nome, String cognome) {
+//        this();
+//        try {
+//            updateData("INSERT INTO `sys`.`clienti` (`nome`, `cognome`) VALUES ('" + nome + "', '" + cognome + "');");
+//        } catch (SQLException exception) {
+//            //todo
+//            exception.printStackTrace();
+//        }
+//        this.nome = nome;
+//        this.cognome = cognome;
+//    }
+
     public Cliente(String nome, String cognome) {
         this();
         try {
             updateData("INSERT INTO `sys`.`clienti` (`nome`, `cognome`) VALUES ('" + nome + "', '" + cognome + "');");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID FROM clienti;");
+            rs.next();
+            ID = rs.getInt("ID");
+
         } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
         }
+
         this.nome = nome;
         this.cognome = cognome;
     }
+
 
     public String getCodiceRitiro() {
         return codiceRitiro;
@@ -52,7 +72,7 @@ public class Cliente {
         return dataCreazioneCodice;
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 

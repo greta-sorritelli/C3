@@ -46,8 +46,10 @@ public class DatabaseConnection {
         }
     }
 
+
+
     private static Connection connectToDB() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/sys?serverTimezone=" + TimeZone.getDefault().getID();
+        String url = "jdbc:mysql://localhost:3306/sys?allowMultiQueries=TRUE&serverTimezone=" + TimeZone.getDefault().getID();
         //todo
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -57,8 +59,8 @@ public class DatabaseConnection {
         return DriverManager.getConnection(url, "root", "root");
     }
 
-    public static void executeQuery(String query) throws SQLException {
-        connectToDB().createStatement().executeQuery(query);
+    public static ResultSet executeQuery(String query) throws SQLException {
+        return connectToDB().createStatement().executeQuery(query);
     }
 
     public static void updateData(String query) throws SQLException {

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ClienteTest {
@@ -18,7 +19,8 @@ class ClienteTest {
 
     @Test
     void creazioneCliente() {
-        Cliente cliente = new Cliente("Mario", "Rossi");
+        Cliente cliente = new Cliente("Mario", "Terzi");
+        assertEquals(1, cliente.getID());
     }
 
     @Test
