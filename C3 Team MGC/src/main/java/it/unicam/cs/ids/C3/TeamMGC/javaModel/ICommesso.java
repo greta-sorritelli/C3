@@ -1,6 +1,14 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Random;
+
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class ICommesso {
 
@@ -55,10 +63,23 @@ public class ICommesso {
     void setStatoOrdine(StatoOrdine RITIRATO) {
     }
 
-    /**
-     * @param IDCliente
-     */
-    void verificaValiditaCodice(int IDCliente) {
+    boolean verificaValiditaCodice(Cliente cliente) {
+        try {
+            ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + cliente.getID() + ";");
+            if (rs.next()) {
+                String date = rs.getString("dataCreazione");
+                String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
+                if (Objects.isNull(date) || !date.equals(dataOdierna)) {
+                    cliente.setCodiceRitiro(generaCodiceRitiro());
+                    return false;
+                }
+                return true;
+            }
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+        return false;
     }
 
     /**

@@ -15,22 +15,15 @@ public class Cliente {
     private int ID;
     private String nome;
     private String cognome;
-    private String codiceRitiro;
-    private String dataCreazioneCodice;
-
-    private Cliente() {
-        codiceRitiro = null;
-        dataCreazioneCodice = "1900-01-01";
-    }
+    private String codiceRitiro = null;
+    private String dataCreazioneCodice = null;
 
     public Cliente(String nome, String cognome) {
-        this();
         try {
             updateData("INSERT INTO `sys`.`clienti` (`nome`, `cognome`) VALUES ('" + nome + "', '" + cognome + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from clienti;");
             rs.next();
             ID = rs.getInt("ID");
-
         } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
@@ -53,7 +46,7 @@ public class Cliente {
             dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
             this.codiceRitiro = codiceRitiro;
             updateData("UPDATE `sys`.`clienti` SET `codiceRitiro` = '" + codiceRitiro + "', `dataCreazione` = '" + dataCreazioneCodice + "' WHERE (`ID` = '" + this.ID + "');");
-        }catch (SQLException exception) {
+        } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
         }
