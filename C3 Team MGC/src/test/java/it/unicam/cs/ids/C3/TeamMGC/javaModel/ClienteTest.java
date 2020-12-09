@@ -1,32 +1,29 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
-import java.util.Date;
-
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ClienteTest {
 
-    @BeforeAll
-    static void preparaDB() throws SQLException {
-        updateData("TRUNCATE `sys`.`clienti`;");
-    }
+//    @BeforeAll
+//    static void preparaDB() throws SQLException {
+//        updateData("TRUNCATE `sys`.`clienti`;");
+//    }
 
     @Test
     void creazioneCliente() {
-        Cliente cliente = new Cliente("Mario", "Rossi");
+       Cliente cliente = new Cliente("Mario", "Rossi");
+       assertEquals(1, cliente.getID());
     }
 
     @Test
     void setCodiceRitiro() {
-        Cliente cliente = new Cliente("Test", "Test");
-        assertNull(cliente.getDataCreazioneCodice());
-        cliente.setCodiceRitiro("Test Prova");
-        Date after = cliente.getDataCreazioneCodice();
+        Cliente cliente = new Cliente("Matteo", "Rondini");
+//        assertNull(cliente.getDataCreazioneCodice());
+        cliente.setCodiceRitiro("85963214");
+        assertEquals(2, cliente.getID());
+//        Date after = cliente.getDataCreazioneCodice();
         //todo finire il test
     }
 }
