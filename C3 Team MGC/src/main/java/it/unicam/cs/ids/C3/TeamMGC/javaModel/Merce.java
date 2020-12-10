@@ -8,6 +8,10 @@ public class Merce {
     private int quantita;
     private StatoOrdine stato;
 
+    public void setQuantita(int quantita) {
+        this.quantita = quantita;
+    }
+
     public Merce(int ID, int IDOrdine, double prezzo, String descrizione, int quantita, StatoOrdine stato) {
         this.ID = ID;
         this.IDOrdine = IDOrdine;

@@ -28,6 +28,7 @@ public class ICommesso {
      * @return l'elenco della Merce
      */
     public ArrayList<Merce> compilazioneOrdine() {
+
         return negozio.getMerceDisponibile();
     }
 

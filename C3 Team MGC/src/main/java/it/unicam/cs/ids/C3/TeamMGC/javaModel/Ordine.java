@@ -1,42 +1,62 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+
 public class Ordine {
 
-    private String ID;
+    private int ID;
     private String IDCliente;
     private String nomeCliente;
     private String cognomeCliente;
     private double totalePrezzo;
     private StatoOrdine stato;
-    private PuntoPrelievo puntoPrelievo;
+    private PuntoPrelievo puntoPrelievo = null;
+    private String residenza = null;
+    private ArrayList<Merce> merci = new ArrayList<>();
+
+    public Ordine(int ID) {
+        this.ID = ID;
+    }
 
     /**
-     * @param via
-     * @param NCivico
+     * Aggiunge l'indirizzo della residenza all'ordine.
+     * @param indirizzo Indirizzo residenza del cliente.
+     *
      */
-    public void addResidenza(int via, int NCivico) {
-        // TODO - implement Ordine.addResidenza
-        throw new UnsupportedOperationException();
+    public void addResidenza(String indirizzo) {
+        puntoPrelievo = null;
+        residenza = indirizzo;
     }
 
     /**
      * @param merce
      * @param quantita
      */
-    public void aggiungiMerce(int merce, int quantita) {
-        // TODO - implement Ordine.aggiungiMerce
-        throw new UnsupportedOperationException();
+    public void aggiungiMerce(Merce merce, int quantita) {
+        merce.setQuantita(quantita);
+        merci.add(merce);
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-//todo implementare DatiOrdine
-//	public Collection<DatiOrdine> getDettagli() {
-//		// TODO - implement Ordine.getDettagli
-//		throw new UnsupportedOperationException();
-//	}
+	public ArrayList<Ordine> getDettagli() {
+		try{
+		    ArrayList<Ordine> dettagliOrdini = new ArrayList<>();
+            ResultSet rs = executeQuery("SELECT * FROM sys.ordini");
+            while(rs.next()){
+            }
+        } catch (SQLException exception) {
+		    //todo
+            exception.printStackTrace();
+        }
+        return null;
+    }
 
     public void riceviPagamento() {
         // TODO - implement Ordine.riceviPagamento
@@ -46,17 +66,19 @@ public class Ordine {
     /**
      * @param magazzino
      */
-    public void setPuntodiPrelievo(int magazzino) {
-        // TODO - implement Ordine.setPuntodiPrelievo
-        throw new UnsupportedOperationException();
+    public void setPuntoPrelievo(PuntoPrelievo magazzino) {
+        puntoPrelievo = magazzino;
     }
 
     /**
-     * @param RITIRATO
+     * Imposta lo stato dell'ordine.
+     * @param statoOrdine  Stato dell'ordine da impostare.
      */
-    public void setStato(int RITIRATO) {
-        // TODO - implement Ordine.setStato
-        throw new UnsupportedOperationException();
+    public void setStato(StatoOrdine statoOrdine) {
+        stato = statoOrdine;
     }
 
+    public StatoOrdine getStato() {
+        return stato;
+    }
 }
