@@ -1,15 +1,11 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class Ordine {
 
     private int ID;
-    private String IDCliente;
+    private int IDCliente;
     private String nomeCliente;
     private String cognomeCliente;
     private double totalePrezzo;
@@ -18,13 +14,36 @@ public class Ordine {
     private String residenza = null;
     private ArrayList<Merce> merci = new ArrayList<>();
 
-    public Ordine(int ID) {
+    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo, String residenza, ArrayList<Merce> merci) {
         this.ID = ID;
+        this.IDCliente = IDCliente;
+        this.nomeCliente = nomeCliente;
+        this.cognomeCliente = cognomeCliente;
+        this.totalePrezzo = totalePrezzo;
+        this.stato = stato;
+        this.puntoPrelievo = puntoPrelievo;
+        this.residenza = residenza;
+        this.merci = merci;
+    }
+
+    @Override
+    public String toString() {
+        return "Ordine{" +
+                "ID=" + ID +
+                ", IDCliente=" + IDCliente +
+                ", nomeCliente='" + nomeCliente + '\'' +
+                ", cognomeCliente='" + cognomeCliente + '\'' +
+                ", totalePrezzo=" + totalePrezzo +
+                ", stato=" + stato +
+                ", puntoPrelievo=" + puntoPrelievo +
+                ", residenza='" + residenza + '\'' +
+                ", merci=" + merci +
+                '}';
     }
 
     /**
      * Aggiunge l'indirizzo della residenza all'ordine.
-     * @param indirizzo Indirizzo residenza del cliente.
+     * @param indirizzo Indirizzo residenza del cliente
      *
      */
     public void addResidenza(String indirizzo) {
@@ -33,8 +52,9 @@ public class Ordine {
     }
 
     /**
-     * @param merce
-     * @param quantita
+     * Aggiunge la merce all'ordine del cliente.
+     * @param merce       Merce da aggiungere
+     * @param quantita    Quantita della merce da aggiungere
      */
     public void aggiungiMerce(Merce merce, int quantita) {
         merce.setQuantita(quantita);
@@ -45,17 +65,8 @@ public class Ordine {
         return ID;
     }
 
-	public ArrayList<Ordine> getDettagli() {
-		try{
-		    ArrayList<Ordine> dettagliOrdini = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.ordini");
-            while(rs.next()){
-            }
-        } catch (SQLException exception) {
-		    //todo
-            exception.printStackTrace();
-        }
-        return null;
+	public String getDettagli() {
+        return this.toString();
     }
 
     public void riceviPagamento() {
@@ -63,22 +74,23 @@ public class Ordine {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @param magazzino
-     */
     public void setPuntoPrelievo(PuntoPrelievo magazzino) {
         puntoPrelievo = magazzino;
     }
 
-    /**
-     * Imposta lo stato dell'ordine.
-     * @param statoOrdine  Stato dell'ordine da impostare.
-     */
     public void setStato(StatoOrdine statoOrdine) {
         stato = statoOrdine;
     }
 
     public StatoOrdine getStato() {
         return stato;
+    }
+
+    public PuntoPrelievo getPuntoPrelievo() {
+        return puntoPrelievo;
+    }
+
+    public String getResidenza() {
+        return residenza;
     }
 }
