@@ -1,14 +1,23 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 public class Merce {
-
-    private String IDOrdine;
+    private int ID;
+    private int IDOrdine;
     private double prezzo;
     private String descrizione;
     private int quantita;
     private StatoOrdine stato;
 
-    //todo implementare DatiMerce
+    public Merce(int ID, int IDOrdine, double prezzo, String descrizione, int quantita, StatoOrdine stato) {
+        this.ID = ID;
+        this.IDOrdine = IDOrdine;
+        this.prezzo = prezzo;
+        this.descrizione = descrizione;
+        this.quantita = quantita;
+        this.stato = stato;
+    }
+
+//todo implementare DatiMerce
 //	public Collection<DatiMerce> getDettagli() {
 //		// TODO - implement Merce.getDettagli
 //		throw new UnsupportedOperationException();
