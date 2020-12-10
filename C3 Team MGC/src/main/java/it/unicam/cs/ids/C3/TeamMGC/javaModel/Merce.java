@@ -8,10 +8,9 @@ public class Merce {
     private int quantita;
     private StatoOrdine stato;
 
-    public void setQuantita(int quantita) {
-        this.quantita = quantita;
-    }
-
+    /**
+     * Costruttore per importare i dati dal DB.
+     */
     public Merce(int ID, int IDOrdine, double prezzo, String descrizione, int quantita, StatoOrdine stato) {
         this.ID = ID;
         this.IDOrdine = IDOrdine;
@@ -19,6 +18,35 @@ public class Merce {
         this.descrizione = descrizione;
         this.quantita = quantita;
         this.stato = stato;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public int getIDOrdine() {
+        return IDOrdine;
+    }
+
+    public double getPrezzo() {
+        return prezzo;
+    }
+
+    public int getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(int quantita) {
+        //todo fare la modifica anche sul DB
+        this.quantita = quantita;
+    }
+
+    public StatoOrdine getStato() {
+        return stato;
     }
 
 //todo implementare DatiMerce

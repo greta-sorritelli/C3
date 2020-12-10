@@ -14,10 +14,13 @@ public class Negozio {
     private String indirizzo;
     private String telefono;
 
+    /**
+     * @return l'elenco della Merce del Negozio
+     */
     public ArrayList<Merce> getMerceDisponibile() {
         try {
             ArrayList<Merce> toReturn = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.merce;");
+            ResultSet rs = executeQuery("SELECT * FROM sys.merci;");
             while (rs.next()) {
                 Merce tmp = new Merce(rs.getInt("ID"), rs.getInt("IDOrdine"),
                         rs.getDouble("prezzo"), rs.getString("descrizione"),
