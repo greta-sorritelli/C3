@@ -1,9 +1,12 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Negozio {
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
+public class Negozio {
     private String nome;
     private String categoria;
     private String orarioApertura;
@@ -11,8 +14,24 @@ public class Negozio {
     private String indirizzo;
     private String telefono;
 
+    /**
+     * @return l'elenco della Merce del Negozio
+     */
     public ArrayList<Merce> getMerceDisponibile() {
-        //todo
+        try {
+            ArrayList<Merce> toReturn = new ArrayList<>();
+            ResultSet rs = executeQuery("SELECT * FROM sys.merci;");
+            while (rs.next()) {
+                Merce tmp = new Merce(rs.getInt("ID"), rs.getInt("IDOrdine"),
+                        rs.getDouble("prezzo"), rs.getString("descrizione"),
+                        rs.getInt("quantita"), StatoOrdine.valueOf(rs.getString("stato")));
+                toReturn.add(tmp);
+            }
+            return toReturn;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
         return null;
     }
 

@@ -43,7 +43,6 @@ public class Cliente {
     }
 
     public String getCodiceRitiro() {
-
         return codiceRitiro;
     }
 
