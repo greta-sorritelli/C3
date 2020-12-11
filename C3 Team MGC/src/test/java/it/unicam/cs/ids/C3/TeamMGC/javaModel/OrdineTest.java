@@ -14,6 +14,8 @@ class OrdineTest {
     @BeforeAll
     static void clearDB() throws SQLException {
         updateData("TRUNCATE `sys`.`ordini`;");
+        updateData("TRUNCATE `sys`.`merci`;");
+
     }
 
     @Test
