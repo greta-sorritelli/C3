@@ -18,7 +18,7 @@ public class Ordine {
     private StatoOrdine stato;
     private PuntoPrelievo puntoPrelievo = null;
     private String residenza = null;
-    private ArrayList<Merce> merci = new ArrayList<>();
+    private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
 
     public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
@@ -90,7 +90,7 @@ public class Ordine {
         return residenza;
     }
 
-    public ArrayList<Merce> getMerci() {
+    public ArrayList<MerceOrdine> getMerci() {
         return merci;
     }
 
@@ -117,8 +117,8 @@ public class Ordine {
      * @param merce    Merce da aggiungere
      * @param quantita Quantita della merce da aggiungere
      */
-    public void aggiungiMerce(Merce merce, int quantita) {
-//        merce.setQuantitaOrdine(quantita);
+    public void aggiungiMerce(MerceOrdine merce, int quantita) {
+//        merce.setQuantita(quantita);
         merci.add(merce);
         merce.setIDOrdine(this.getID());
     }
