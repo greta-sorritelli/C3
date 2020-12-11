@@ -1,12 +1,33 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+
 public class Merce {
     private int ID;
-    private int IDOrdine;
-    private double prezzo;
-    private String descrizione;
-    private int quantita;
+    private int IDOrdine = 0;
+    private double prezzo = 0;
+    private String descrizione = "";
+    private int quantita = 0;
     private StatoOrdine stato;
+
+    public Merce(double prezzo, String descrizione) {
+        try {
+            updateData("INSERT INTO `sys`.`merci` (`prezzo`, `descrizione`) VALUES ('" + prezzo + "', '" + descrizione + "');");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from merci;");
+            rs.next();
+            ID = rs.getInt("ID");
+            this.prezzo = prezzo;
+            this.descrizione = descrizione;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+    }
 
     /**
      * Costruttore per importare i dati dal DB.
@@ -24,12 +45,35 @@ public class Merce {
         return descrizione;
     }
 
+    /**
+     * @return
+     */
+    public ArrayList<String> getDettagli() {
+        ArrayList<String> toReturn = new ArrayList<>();
+        toReturn.add(String.valueOf(getID()));
+        toReturn.add(String.valueOf(getIDOrdine()));
+        toReturn.add(String.valueOf(getPrezzo()));
+        toReturn.add(getDescrizione());
+        toReturn.add(String.valueOf(getQuantita()));
+        toReturn.add(getStato().toString());
+        return toReturn;
+    }
+
     public int getID() {
         return ID;
     }
 
     public int getIDOrdine() {
         return IDOrdine;
+    }
+
+    public void setIDOrdine(int IDOrdine) {
+        try {
+            updateData("UPDATE `sys`.`merci` SET `IDOrdine` = '" + IDOrdine + "' WHERE (`ID` = '" + getID() + "');");
+            this.IDOrdine = IDOrdine;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public double getPrezzo() {
@@ -41,19 +85,17 @@ public class Merce {
     }
 
     public void setQuantita(int quantita) {
-        //todo fare la modifica anche sul DB
-        this.quantita = quantita;
+        try {
+            updateData("UPDATE `sys`.`merci` SET `quantita` = '" + quantita + "' WHERE (`ID` = '" + getID() + "');");
+            this.quantita = quantita;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public StatoOrdine getStato() {
         return stato;
     }
-
-//todo implementare DatiMerce
-//	public Collection<DatiMerce> getDettagli() {
-//		// TODO - implement Merce.getDettagli
-//		throw new UnsupportedOperationException();
-//	}
 
     /**
      * @param riRITIRATO

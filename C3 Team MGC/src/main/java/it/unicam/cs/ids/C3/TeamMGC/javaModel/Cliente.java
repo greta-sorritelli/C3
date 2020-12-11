@@ -33,13 +33,12 @@ public class Cliente {
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from clienti;");
             rs.next();
             ID = rs.getInt("ID");
+            this.nome = nome;
+            this.cognome = cognome;
         } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
         }
-
-        this.nome = nome;
-        this.cognome = cognome;
     }
 
     public String getCodiceRitiro() {
