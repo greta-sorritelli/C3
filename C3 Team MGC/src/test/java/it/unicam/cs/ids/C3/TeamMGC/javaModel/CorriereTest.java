@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -11,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CorriereTest {
 
-    @BeforeAll
-    static void clearDB() throws SQLException {
+    @BeforeEach
+    void clearDB() throws SQLException {
         updateData("TRUNCATE `sys`.`corrieri`;");
     }
 
