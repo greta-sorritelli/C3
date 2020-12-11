@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
@@ -17,6 +18,14 @@ public class Cliente {
     private String cognome;
     private String codiceRitiro = null;
     private String dataCreazioneCodice = null;
+
+    public Cliente(int ID, String nome, String cognome, String codiceRitiro, String dataCreazioneCodice) {
+        this.ID = ID;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.codiceRitiro = codiceRitiro;
+        this.dataCreazioneCodice = dataCreazioneCodice;
+    }
 
     public Cliente(String nome, String cognome) {
         try {
@@ -67,4 +76,16 @@ public class Cliente {
         return nome;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente)) return false;
+        Cliente cliente = (Cliente) o;
+        return getID() == cliente.getID() && getNome().equals(cliente.getNome()) && getCognome().equals(cliente.getCognome());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID(), getNome(), getCognome());
+    }
 }

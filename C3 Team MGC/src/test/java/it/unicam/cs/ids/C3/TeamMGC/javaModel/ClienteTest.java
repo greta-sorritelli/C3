@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ClienteTest {
 
     @BeforeAll
-    static void preparaDB() throws SQLException {
+    static void clearDB() throws SQLException {
         updateData("TRUNCATE `sys`.`clienti`;");
     }
 
@@ -26,7 +26,7 @@ class ClienteTest {
         Cliente cliente = new Cliente("Matteo", "Rondini");
 //        assertNull(cliente.getDataCreazioneCodice());
         cliente.setCodiceRitiro("85963214");
-        assertEquals(1, cliente.getID());
+        assertEquals(2, cliente.getID());
 //        Date after = cliente.getDataCreazioneCodice();
         //todo finire il test
     }
