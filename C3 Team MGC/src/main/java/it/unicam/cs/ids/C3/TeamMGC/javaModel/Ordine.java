@@ -3,6 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
@@ -19,6 +20,7 @@ public class Ordine {
     private String residenza = null;
     private ArrayList<Merce> merci = new ArrayList<>();
 
+
     public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
         this.ID = ID;
         this.IDCliente = IDCliente;
@@ -29,18 +31,19 @@ public class Ordine {
         this.puntoPrelievo = puntoPrelievo;
     }
 
-    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo){
+    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
         try {
             updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
-                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '"+ stato + "'," +
+                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
                     "'" + puntoPrelievo.getNome() + "', \"null\");");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
             rs.next();
             ID = rs.getInt("ID");
             this.IDCliente = IDCliente;
-            this.nomeCliente= nomeCliente;
+            this.nomeCliente = nomeCliente;
             this.cognomeCliente = cognomeCliente;
             this.totalePrezzo = totalePrezzo;
+            this.puntoPrelievo = puntoPrelievo;
             this.residenza = null;
         } catch (SQLException exception) {
             //todo
@@ -49,9 +52,9 @@ public class Ordine {
     }
 
     public int getID() {
-
         return ID;
     }
+
     public int getIDCliente() {
         return IDCliente;
     }
@@ -67,6 +70,7 @@ public class Ordine {
     public double getTotalePrezzo() {
         return totalePrezzo;
     }
+
     public StatoOrdine getStato() {
         return stato;
     }
@@ -89,8 +93,15 @@ public class Ordine {
      * @param indirizzo Indirizzo residenza del cliente
      */
     public void addResidenza(String indirizzo) {
-        puntoPrelievo = null;
-        residenza = indirizzo;
+        try {
+            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` =  \"null\" WHERE (`ID` = '" + this.ID + "');");
+            updateData("UPDATE `sys`.`ordini` SET `residenza` = '" + indirizzo + "' WHERE (`ID` = '" + this.ID + "');");
+            puntoPrelievo = null;
+            residenza = indirizzo;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -106,25 +117,25 @@ public class Ordine {
     }
 
     /**
-     *
-     * @return
+     * Ritorna un arraylist con i dettagli dell'ordine in stringa.
+     * @return      ArrayList dei dettagli
      */
     public ArrayList<String> getDettagli() {
-        ArrayList<String> ord = new ArrayList<>();
-        ord.add(String.valueOf(getID()));
-        ord.add(String.valueOf(getIDCliente()));
-        ord.add(getNomeCliente());
-        ord.add(getCognomeCliente());
-        ord.add(String.valueOf(getTotalePrezzo()));
-        ord.add(getStato().toString());
+        ArrayList<String> ordini = new ArrayList<>();
+        ordini.add(String.valueOf(getID()));
+        ordini.add(String.valueOf(getIDCliente()));
+        ordini.add(getNomeCliente());
+        ordini.add(getCognomeCliente());
+        ordini.add(String.valueOf(getTotalePrezzo()));
+        ordini.add(getStato().toString());
 
         if (puntoPrelievo != null)
-            ord.add(String.valueOf(getPuntoPrelievo()));
+            ordini.add(String.valueOf(getPuntoPrelievo()));
         else
-            ord.add(String.valueOf(getResidenza()));
+            ordini.add(String.valueOf(getResidenza()));
 
-        ord.add(String.valueOf(getMerci()));
-        return ord;
+        ordini.add(String.valueOf(getMerci()));
+        return ordini;
     }
 
     public void riceviPagamento() {
@@ -143,14 +154,29 @@ public class Ordine {
     }
 
     public void setStato(StatoOrdine statoOrdine) {
-        try{
-        stato = statoOrdine;
-        updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
-        this.stato = statoOrdine;
-    } catch (SQLException exception) {
-        //TODO
-        exception.printStackTrace();
+        try {
+            stato = statoOrdine;
+            updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
+            this.stato = statoOrdine;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ordine ordine = (Ordine) o;
+        return ID == ordine.ID;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
+    }
+
+
 }
 

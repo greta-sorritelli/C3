@@ -26,7 +26,7 @@ class OrdineTest {
     void setPuntoPrelievo() {
         Ordine ordine = new Ordine(1,2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,null);
         PuntoPrelievo p = new PuntoPrelievo("via ciao","B2");
-        Ordine ordine1 = new Ordine(2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,p);
+        Ordine ordine1 = new Ordine(2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,null);
         ordine.setPuntoPrelievo(p);
         PuntoPrelievo p1 = new PuntoPrelievo("via op","B3");
         ordine1.setPuntoPrelievo(p1);
@@ -36,9 +36,13 @@ class OrdineTest {
     @Test
     void setStato() {
         Ordine ordine = new Ordine(1,2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,null);
+        PuntoPrelievo p = new PuntoPrelievo("via ciao","B2");
+        Ordine ordine1 = new Ordine(2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,p);
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
         assertNotEquals(ordine.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
+        ordine1.setStato(StatoOrdine.PAGATO);
+        assertEquals(ordine1.getStato(), StatoOrdine.PAGATO);
 
     }
 
@@ -48,7 +52,10 @@ class OrdineTest {
        Ordine ordine = new Ordine(1,2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,null);
        ordine.aggiungiMerce(merce,2);
        System.out.println(ordine.getDettagli().toString());
+    }
 
-
+    @Test
+    void addResidenza() {
+        //TODO
     }
 }
