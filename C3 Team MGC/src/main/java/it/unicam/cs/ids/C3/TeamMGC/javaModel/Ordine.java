@@ -33,9 +33,16 @@ public class Ordine {
 
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
         try {
-            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
-                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
-                    "'" + puntoPrelievo.getNome() + "', \"null\");");
+            if(puntoPrelievo != null) {
+                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
+                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
+                        "'" + puntoPrelievo.getNome() + "', \"null\");");
+                this.puntoPrelievo = puntoPrelievo;
+            } else {
+                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
+                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "', \"null\" , \"null\");");
+                this.puntoPrelievo = null;
+            }
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
             rs.next();
             ID = rs.getInt("ID");
@@ -43,7 +50,7 @@ public class Ordine {
             this.nomeCliente = nomeCliente;
             this.cognomeCliente = cognomeCliente;
             this.totalePrezzo = totalePrezzo;
-            this.puntoPrelievo = puntoPrelievo;
+
             this.residenza = null;
         } catch (SQLException exception) {
             //todo
@@ -111,7 +118,7 @@ public class Ordine {
      * @param quantita Quantita della merce da aggiungere
      */
     public void aggiungiMerce(Merce merce, int quantita) {
-        merce.setQuantita(quantita);
+//        merce.setQuantitaOrdine(quantita);
         merci.add(merce);
         merce.setIDOrdine(this.getID());
     }

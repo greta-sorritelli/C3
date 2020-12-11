@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class OrdineTest {
 
@@ -41,8 +40,8 @@ class OrdineTest {
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
         assertNotEquals(ordine.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-        ordine1.setStato(StatoOrdine.PAGATO);
-        assertEquals(ordine1.getStato(), StatoOrdine.PAGATO);
+        ordine1.setStato(StatoOrdine.AFFIDATO_AL_CORRIERE);
+        assertEquals(ordine1.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
 
     }
 
@@ -56,6 +55,13 @@ class OrdineTest {
 
     @Test
     void addResidenza() {
-        //TODO
+        PuntoPrelievo p = new PuntoPrelievo("via ciao","B2");
+        Ordine ordine = new Ordine(1,2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,p);
+        Ordine ordine1 = new Ordine(2,"Matteo","Rondini",52,StatoOrdine.RITIRATO,p);
+        ordine.addResidenza("Via Giuseppe Garibaldi");
+        ordine1.addResidenza("Via Giuseppe Rossi");
+        assertEquals(ordine.getResidenza(),"Via Giuseppe Garibaldi");
+        assertNull(ordine1.getPuntoPrelievo());
+
     }
 }
