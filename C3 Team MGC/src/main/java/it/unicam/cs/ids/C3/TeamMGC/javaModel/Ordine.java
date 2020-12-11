@@ -118,7 +118,7 @@ public class Ordine {
      * @param quantita Quantita della merce da aggiungere
      */
     public void aggiungiMerce(MerceOrdine merce, int quantita) {
-//        merce.setQuantita(quantita);
+        merce.setQuantita(quantita);
         merci.add(merce);
         merce.setIDOrdine(this.getID());
     }

@@ -22,7 +22,7 @@ public class Corriere {
     public Corriere(StatoCorriere stato, int capienza) {
         try {
             updateData("INSERT INTO `sys`.`corrieri` (`stato`, `capienza`) VALUES ('" + stato + "', '" + capienza + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from clienti;");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from corrieri;");
             rs.next();
             ID = rs.getInt("ID");
             this.stato = stato;
@@ -31,10 +31,12 @@ public class Corriere {
             //todo
             exception.printStackTrace();
         }
-
     }
 
-
+    /**
+     * Ritorna un arraylist con i dettagli del corriere in stringa.
+     * @return      ArrayList dei dettagli
+     */
     public ArrayList<String> getDettagli() {
         ArrayList<String> corriere = new ArrayList<>();
         corriere.add(getStato().toString());
@@ -42,11 +44,14 @@ public class Corriere {
         return corriere;
     }
 
-
-        public void mandaAlert () {
+    public void mandaAlert () {
             // TODO - implement Corriere.mandaAlert
             throw new UnsupportedOperationException();
         }
+
+    public int getID() {
+        return ID;
+    }
 
     public StatoCorriere getStato() {
         return stato;
@@ -55,4 +60,26 @@ public class Corriere {
     public int getCapienza() {
         return capienza;
     }
+
+    public void setStato(StatoCorriere statoCorriere) {
+        try {
+            updateData("UPDATE `sys`.`corrieri` SET `stato` = '" + statoCorriere + "' WHERE (`ID` = '" + this.ID + "');");
+            this.stato = statoCorriere;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
+    }
+
+    public void setCapienza(int capienza) {
+        try {
+            updateData("UPDATE `sys`.`corrieri` SET `capienza` = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
+            this.capienza = capienza;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
+    }
+
+
 }
