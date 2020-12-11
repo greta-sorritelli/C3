@@ -29,10 +29,11 @@ public class Ordine {
         this.puntoPrelievo = puntoPrelievo;
     }
 
-    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, PuntoPrelievo puntoPrelievo){
+    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo){
         try {
-            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`puntoPrelievo`) " +
-                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + puntoPrelievo.getNome() + "');");
+            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
+                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '"+ stato + "'," +
+                    "'" + puntoPrelievo.getNome() + "', \"null\");");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
             rs.next();
             ID = rs.getInt("ID");
@@ -40,6 +41,7 @@ public class Ordine {
             this.nomeCliente= nomeCliente;
             this.cognomeCliente = cognomeCliente;
             this.totalePrezzo = totalePrezzo;
+            this.residenza = null;
         } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
@@ -131,12 +133,24 @@ public class Ordine {
     }
 
     public void setPuntoPrelievo(PuntoPrelievo magazzino) {
-        puntoPrelievo = magazzino;
+        try {
+            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + this.ID + "');");
+            this.puntoPrelievo = magazzino;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
     }
 
     public void setStato(StatoOrdine statoOrdine) {
+        try{
         stato = statoOrdine;
+        updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
+        this.stato = statoOrdine;
+    } catch (SQLException exception) {
+        //TODO
+        exception.printStackTrace();
     }
-
-
+    }
 }
+
