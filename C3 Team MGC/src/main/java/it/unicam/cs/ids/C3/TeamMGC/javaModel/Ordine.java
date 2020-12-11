@@ -14,7 +14,7 @@ public class Ordine {
     private String residenza = null;
     private ArrayList<Merce> merci = new ArrayList<>();
 
-    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo, String residenza, ArrayList<Merce> merci) {
+    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
         this.ID = ID;
         this.IDCliente = IDCliente;
         this.nomeCliente = nomeCliente;
@@ -22,29 +22,47 @@ public class Ordine {
         this.totalePrezzo = totalePrezzo;
         this.stato = stato;
         this.puntoPrelievo = puntoPrelievo;
-        this.residenza = residenza;
-        this.merci = merci;
     }
 
-    @Override
-    public String toString() {
-        return "Ordine{" +
-                "ID=" + ID +
-                ", IDCliente=" + IDCliente +
-                ", nomeCliente='" + nomeCliente + '\'' +
-                ", cognomeCliente='" + cognomeCliente + '\'' +
-                ", totalePrezzo=" + totalePrezzo +
-                ", stato=" + stato +
-                ", puntoPrelievo=" + puntoPrelievo +
-                ", residenza='" + residenza + '\'' +
-                ", merci=" + merci +
-                '}';
+    public int getID() {
+
+        return ID;
+    }
+    public int getIDCliente() {
+        return IDCliente;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public String getCognomeCliente() {
+        return cognomeCliente;
+    }
+
+    public double getTotalePrezzo() {
+        return totalePrezzo;
+    }
+    public StatoOrdine getStato() {
+        return stato;
+    }
+
+    public PuntoPrelievo getPuntoPrelievo() {
+        return puntoPrelievo;
+    }
+
+    public String getResidenza() {
+        return residenza;
+    }
+
+    public ArrayList<Merce> getMerci() {
+        return merci;
     }
 
     /**
      * Aggiunge l'indirizzo della residenza all'ordine.
-     * @param indirizzo Indirizzo residenza del cliente
      *
+     * @param indirizzo Indirizzo residenza del cliente
      */
     public void addResidenza(String indirizzo) {
         puntoPrelievo = null;
@@ -53,20 +71,35 @@ public class Ordine {
 
     /**
      * Aggiunge la merce all'ordine del cliente.
-     * @param merce       Merce da aggiungere
-     * @param quantita    Quantita della merce da aggiungere
+     *
+     * @param merce    Merce da aggiungere
+     * @param quantita Quantita della merce da aggiungere
      */
     public void aggiungiMerce(Merce merce, int quantita) {
         merce.setQuantita(quantita);
         merci.add(merce);
     }
 
-    public int getID() {
-        return ID;
-    }
+    /**
+     *
+     * @return
+     */
+    public ArrayList<String> getDettagli() {
+        ArrayList<String> ord = new ArrayList<>();
+        ord.add(String.valueOf(getID()));
+        ord.add(String.valueOf(getIDCliente()));
+        ord.add(getNomeCliente());
+        ord.add(getCognomeCliente());
+        ord.add(String.valueOf(getTotalePrezzo()));
+        ord.add(getStato().toString());
 
-	public String getDettagli() {
-        return this.toString();
+        if (puntoPrelievo != null)
+            ord.add(String.valueOf(getPuntoPrelievo()));
+        else
+            ord.add(String.valueOf(getResidenza()));
+
+        ord.add(String.valueOf(getMerci()));
+        return ord;
     }
 
     public void riceviPagamento() {
@@ -82,15 +115,5 @@ public class Ordine {
         stato = statoOrdine;
     }
 
-    public StatoOrdine getStato() {
-        return stato;
-    }
 
-    public PuntoPrelievo getPuntoPrelievo() {
-        return puntoPrelievo;
-    }
-
-    public String getResidenza() {
-        return residenza;
-    }
 }
