@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -13,8 +14,8 @@ class PuntoPrelievoTest {
 
     static PuntoPrelievo puntoPrelievo;
 
-    @BeforeAll
-    static void prepareDB() throws SQLException {
+    @BeforeEach
+    void prepareDB() throws SQLException {
         updateData("TRUNCATE `sys`.`ordini`;");
         updateData("TRUNCATE `sys`.`merci`;");
         puntoPrelievo = new PuntoPrelievo("Castelraimondo", "Stazione");
