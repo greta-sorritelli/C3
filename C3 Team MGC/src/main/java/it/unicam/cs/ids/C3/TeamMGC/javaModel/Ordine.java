@@ -1,6 +1,11 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Ordine {
 
@@ -22,6 +27,23 @@ public class Ordine {
         this.totalePrezzo = totalePrezzo;
         this.stato = stato;
         this.puntoPrelievo = puntoPrelievo;
+    }
+
+    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo){
+        try {
+            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`) " +
+                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "');");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
+            rs.next();
+            ID = rs.getInt("ID");
+            this.IDCliente = IDCliente;
+            this.nomeCliente= nomeCliente;
+            this.cognomeCliente = cognomeCliente;
+            this.totalePrezzo = totalePrezzo;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
     }
 
     public int getID() {
