@@ -49,6 +49,19 @@ public class MerceOrdine {
                 getIDOrdine() == that.getIDOrdine();
     }
 
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        try {
+            updateData("UPDATE `sys`.`merci` SET `descrizione` = '" + descrizione + "' WHERE (`ID` = '" + ID + "');");
+            this.descrizione = descrizione;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public int getIDOrdine() {
         return IDOrdine;
     }
@@ -62,9 +75,21 @@ public class MerceOrdine {
         }
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(ID, getIDOrdine());
+    public double getPrezzo() {
+        return prezzo;
+    }
+
+    public void setPrezzo(double prezzo) {
+        try {
+            updateData("UPDATE `sys`.`merci` SET `prezzo` = '" + prezzo + "' WHERE (`ID` = '" + ID + "');");
+            this.prezzo = prezzo;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public int getQuantita() {
+        return quantita;
     }
 
     public void setQuantita(int quantita) {
@@ -74,6 +99,24 @@ public class MerceOrdine {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public StatoOrdine getStato() {
+        return stato;
+    }
+
+    public void setStato(StatoOrdine stato) {
+        try {
+            updateData("UPDATE `sys`.`merci` SET `stato` = '" + stato + "' WHERE (`ID` = '" + ID + "');");
+            this.stato = stato;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, getIDOrdine());
     }
 
     @Override
