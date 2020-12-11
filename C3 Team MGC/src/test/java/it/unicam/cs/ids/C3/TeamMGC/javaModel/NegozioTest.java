@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class NegozioTest {
     @BeforeAll
     static void preparaDB() throws SQLException {
-        updateData("TRUNCATE `sys`.`merci`;");
-        updateData("INSERT INTO `sys`.`merci` (`IDOrdine`, `prezzo`, `descrizione`, `quantita`, `stato`) VALUES ('1', '1', 'test', '1', 'PAGATO');");
-        updateData("INSERT INTO `sys`.`merci` (`IDOrdine`, `prezzo`, `descrizione`, `quantita`, `stato`) VALUES ('1', '2', 'test', '1', 'PAGATO');");
-        updateData("INSERT INTO `sys`.`merci` (`IDOrdine`, `prezzo`, `descrizione`, `quantita`, `stato`) VALUES ('1', '10', 'test', '1', 'PAGATO');");
+        updateData("TRUNCATE `sys`.`inventario`;");
+        updateData("INSERT INTO `sys`.`inventario` (`IDNegozio`, `prezzo`, `descrizione`, `quantita`) VALUES ('1', '10', 'test Negozio', '10');");
+        updateData("INSERT INTO `sys`.`inventario` (`IDNegozio`, `prezzo`, `descrizione`, `quantita`) VALUES ('1', '5', 'test Negozio', '1');");
+        updateData("INSERT INTO `sys`.`inventario` (`IDNegozio`, `prezzo`, `descrizione`, `quantita`) VALUES ('1', '50', 'test Negozio', '20');");
     }
 
     @Test
@@ -24,7 +24,7 @@ class NegozioTest {
         Negozio negozio = new Negozio();
         ArrayList<Merce> toTest = negozio.getMerceDisponibile();
         assertEquals(toTest.get(0).getID(), 1);
-        assertEquals(toTest.get(1).getIDOrdine(), 1);
-        assertEquals(toTest.get(2).getStato(), StatoOrdine.PAGATO);
+        assertEquals(toTest.get(1).getIDNegozio(), 1);
+        assertEquals(toTest.get(2).getDescrizione(), "test Negozio");
     }
 }

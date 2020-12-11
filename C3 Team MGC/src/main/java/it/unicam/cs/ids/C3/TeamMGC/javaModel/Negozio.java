@@ -20,11 +20,11 @@ public class Negozio {
     public ArrayList<Merce> getMerceDisponibile() {
         try {
             ArrayList<Merce> toReturn = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.merci;");
+            ResultSet rs = executeQuery("SELECT * FROM sys.inventario;");
             while (rs.next()) {
-                Merce tmp = new Merce(rs.getInt("ID"), rs.getInt("IDOrdine"),
+                Merce tmp = new Merce(rs.getInt("ID"), rs.getInt("IDNegozio"),
                         rs.getDouble("prezzo"), rs.getString("descrizione"),
-                        rs.getInt("quantita"), StatoOrdine.valueOf(rs.getString("stato")));
+                        rs.getInt("quantita"));
                 toReturn.add(tmp);
             }
             return toReturn;

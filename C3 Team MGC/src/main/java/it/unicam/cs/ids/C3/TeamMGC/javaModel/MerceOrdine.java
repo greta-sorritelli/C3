@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
@@ -14,16 +15,15 @@ public class MerceOrdine {
     private int quantita = 0;
     private StatoOrdine stato;
 
-    public MerceOrdine(double prezzo, String descrizione, int quantita, StatoOrdine stato) {
+    public MerceOrdine(double prezzo, String descrizione, StatoOrdine stato) {
         try {
-            updateData("INSERT INTO `sys`.`merci` (`prezzo`, `descrizione`, `quantita`, `stato`) " +
-                    "VALUES ('" + prezzo + "', '" + descrizione + "', '" + quantita + "', '" + stato + "');");
+            updateData("INSERT INTO `sys`.`merci` (`prezzo`, `descrizione`, `stato`) " +
+                    "VALUES ('" + prezzo + "', '" + descrizione + "', '" + stato + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from merci;");
             rs.next();
             ID = rs.getInt("ID");
             this.prezzo = prezzo;
             this.descrizione = descrizione;
-            this.quantita = quantita;
             this.stato = stato;
         } catch (SQLException exception) {
             //todo
@@ -40,6 +40,15 @@ public class MerceOrdine {
         this.stato = stato;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MerceOrdine that = (MerceOrdine) o;
+        return ID == that.ID &&
+                getIDOrdine() == that.getIDOrdine();
+    }
+
     public int getIDOrdine() {
         return IDOrdine;
     }
@@ -48,6 +57,20 @@ public class MerceOrdine {
         try {
             updateData("UPDATE `sys`.`merci` SET `IDOrdine` = '" + IDOrdine + "' WHERE (`ID` = '" + ID + "');");
             this.IDOrdine = IDOrdine;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, getIDOrdine());
+    }
+
+    public void setQuantita(int quantita) {
+        try {
+            updateData("UPDATE `sys`.`merci` SET `quantita` = '" + quantita + "' WHERE (`ID` = '" + ID + "');");
+            this.quantita = quantita;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
