@@ -18,7 +18,7 @@ class OrdineTest {
 
     @Test
     void creazioneOrdine() {
-        Ordine ordine = new Ordine(2,"Matteo","Rondini",52);
+        Ordine ordine = new Ordine(2,"Matteo","Rondini",52,null);
         assertEquals(1, ordine.getID());
     }
 

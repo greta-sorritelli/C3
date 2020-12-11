@@ -29,10 +29,10 @@ public class Ordine {
         this.puntoPrelievo = puntoPrelievo;
     }
 
-    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo){
+    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, PuntoPrelievo puntoPrelievo){
         try {
-            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`) " +
-                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "');");
+            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`puntoPrelievo`) " +
+                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + puntoPrelievo.getNome() + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
             rs.next();
             ID = rs.getInt("ID");
@@ -100,6 +100,7 @@ public class Ordine {
     public void aggiungiMerce(Merce merce, int quantita) {
         merce.setQuantita(quantita);
         merci.add(merce);
+        merce.setIDOrdine(this.getID());
     }
 
     /**
