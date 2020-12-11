@@ -48,7 +48,7 @@ class OrdineTest {
 
     @Test
     void getDettagli() {
-        MerceOrdine merce = new MerceOrdine(12, "matita", 5, StatoOrdine.IN_DEPOSITO);
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
         Ordine ordine = new Ordine(1, 2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
         ordine.aggiungiMerce(merce, 2);
