@@ -12,10 +12,10 @@ public class IMagazziniere {
             ResultSet rs = executeQuery("SELECT * from clienti\n" +
                     "WHERE ID = " + IDCliente + ";");
             if (rs.next()) {
-                String nome = rs.getString(2);
-                String cognome = rs.getString(3);
-                String codice = rs.getString(4);
-                String data = rs.getString(5);
+                String nome = rs.getString("nome");
+                String cognome = rs.getString("cognome");
+                String codice = rs.getString("codiceRitiro");
+                String data = rs.getString("dataCreazione");
                 return new Cliente(IDCliente, nome, cognome, codice, data);
             } else return null;
         } catch (SQLException exception) {
@@ -31,6 +31,8 @@ public class IMagazziniere {
     }
 
 
-    public void verificaCodice(int codiceRitiro) {
+    public boolean verificaCodice(int codiceRitiro) {
+        //TODO
+        return true;
     }
 }

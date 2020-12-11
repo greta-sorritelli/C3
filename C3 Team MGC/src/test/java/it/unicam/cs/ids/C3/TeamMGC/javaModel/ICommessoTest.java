@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ICommessoTest {
 
     @BeforeAll
-    static void preparaDB() throws SQLException {
+    static void clearDB() throws SQLException {
         updateData("TRUNCATE `sys`.`clienti`;");
     }
 
