@@ -14,19 +14,6 @@ public class MerceOrdine {
     private int quantita = 0;
     private StatoOrdine stato;
 
-    public int getIDOrdine() {
-        return IDOrdine;
-    }
-
-    public void setIDOrdine(int IDOrdine) {
-        try {
-            updateData("UPDATE `sys`.`merci` SET `IDOrdine` = '" + IDOrdine + "' WHERE (`ID` = '" + ID + "');");
-            this.IDOrdine = IDOrdine;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
-
     public MerceOrdine(double prezzo, String descrizione, int quantita, StatoOrdine stato) {
         try {
             updateData("INSERT INTO `sys`.`merci` (`prezzo`, `descrizione`, `quantita`, `stato`) " +
@@ -44,5 +31,37 @@ public class MerceOrdine {
         }
     }
 
+    public MerceOrdine(int ID, int IDOrdine, double prezzo, String descrizione, int quantita, StatoOrdine stato) {
+        this.ID = ID;
+        this.IDOrdine = IDOrdine;
+        this.prezzo = prezzo;
+        this.descrizione = descrizione;
+        this.quantita = quantita;
+        this.stato = stato;
+    }
 
+    public int getIDOrdine() {
+        return IDOrdine;
+    }
+
+    public void setIDOrdine(int IDOrdine) {
+        try {
+            updateData("UPDATE `sys`.`merci` SET `IDOrdine` = '" + IDOrdine + "' WHERE (`ID` = '" + ID + "');");
+            this.IDOrdine = IDOrdine;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "MerceOrdine{" +
+                "ID=" + ID +
+                ", IDOrdine=" + IDOrdine +
+                ", prezzo=" + prezzo +
+                ", descrizione='" + descrizione + '\'' +
+                ", quantita=" + quantita +
+                ", stato=" + stato +
+                '}';
+    }
 }
