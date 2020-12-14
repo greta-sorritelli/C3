@@ -15,7 +15,6 @@ class OrdineTest {
     void clearDB() throws SQLException {
         updateData("TRUNCATE `sys`.`ordini`;");
         updateData("TRUNCATE `sys`.`merci`;");
-
     }
 
     @Test
@@ -75,6 +74,17 @@ class OrdineTest {
         ordine1.addResidenza("Via Giuseppe Rossi");
         assertEquals(ordine.getResidenza(), "Via Giuseppe Garibaldi");
         assertNull(ordine1.getPuntoPrelievo());
+
+    }
+
+    @Test
+    void aggiungiMerce() {
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO);
+        Ordine ordine = new Ordine(2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        ordine.aggiungiMerce(merce,15);
+        assertEquals(merce.getQuantita(), 15);
+        assertTrue(ordine.getMerci().contains(merce));
+        assertEquals(merce.getIDOrdine(),1);
 
     }
 }

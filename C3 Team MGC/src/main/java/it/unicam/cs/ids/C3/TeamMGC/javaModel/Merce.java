@@ -59,7 +59,12 @@ public class Merce {
     }
 
     public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+        try {
+            updateData("UPDATE `sys`.`inventario` SET `descrizione` = '" + descrizione + "' WHERE (`ID` = '" + getID() + "');");
+            this.descrizione = descrizione;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -88,7 +93,12 @@ public class Merce {
     }
 
     public void setPrezzo(double prezzo) {
-        this.prezzo = prezzo;
+        try {
+            updateData("UPDATE `sys`.`inventario` SET `prezzo` = '" + prezzo + "' WHERE (`ID` = '" + getID() + "');");
+            this.prezzo = prezzo;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public int getQuantita() {
