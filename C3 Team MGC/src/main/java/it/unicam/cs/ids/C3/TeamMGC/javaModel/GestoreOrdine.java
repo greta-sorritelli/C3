@@ -1,20 +1,24 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-import java.util.*;
-
 public class GestoreOrdine {
 
-    Negozio impiega;
-    Collection<Ordine> prepara;
+    private final Negozio negozio;
+
+    public GestoreOrdine(Negozio negozio) {
+        this.negozio = negozio;
+    }
 
     /**
-     * @param IDCliente
-     * @param Nome
-     * @param Cognome
+     * Registra l'ordine con i dati del cliente e cambia il suo stato in "PAGATO.
+     *
+     * @param IDCliente ID del cliente a cui appartiene l'ordine
+     * @param nome      Nome del cliente a cui appartiene l'ordine
+     * @param cognome   Cognome del cliente a cui appartiene l'ordine
      */
-    public void registraOrdine(int IDCliente, String Nome, String Cognome) {
-        // TODO - implement GestoreOrdine.registraOrdine
-        throw new UnsupportedOperationException();
+    public Ordine registraOrdine(int IDCliente, String nome, String cognome) {
+        Ordine ordine = new Ordine(IDCliente,nome,cognome);
+        ordine.setStato(StatoOrdine.PAGATO);
+        return ordine;
     }
 
     /**
@@ -22,9 +26,8 @@ public class GestoreOrdine {
      * @param quantita
      * @param prezzo
      */
-    public void registraMerce(int descrizione, int quantita, int prezzo) {
-        // TODO - implement GestoreOrdine.registraMerce
-        throw new UnsupportedOperationException();
+    public void registraMerce(String descrizione, int quantita, double prezzo) {
+
     }
 
 }

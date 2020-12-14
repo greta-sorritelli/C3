@@ -36,9 +36,9 @@ public class Negozio {
     }
 
     /**
-     * @param descrizione
+     * @param ID
      */
-    public void getMerce(int descrizione) {
+    public void getMerce(int ID) {
         // TODO - implement Negozio.getMerce
         throw new UnsupportedOperationException();
     }

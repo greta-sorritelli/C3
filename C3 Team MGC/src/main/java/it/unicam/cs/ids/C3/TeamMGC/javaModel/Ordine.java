@@ -20,7 +20,6 @@ public class Ordine {
     private String residenza = null;
     private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
-
     public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
         this.ID = ID;
         this.IDCliente = IDCliente;
@@ -56,6 +55,13 @@ public class Ordine {
             //todo
             exception.printStackTrace();
         }
+    }
+
+    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente) {
+        this.IDCliente = IDCliente;
+        this.nomeCliente = nomeCliente;
+        this.cognomeCliente = cognomeCliente;
+        //Todo per database
     }
 
     public int getID() {
@@ -145,11 +151,6 @@ public class Ordine {
         return ordini;
     }
 
-    public void riceviPagamento() {
-        // TODO - implement Ordine.riceviPagamento
-        throw new UnsupportedOperationException();
-    }
-
     public void setPuntoPrelievo(PuntoPrelievo magazzino) {
         try {
             updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + this.ID + "');");
@@ -165,6 +166,36 @@ public class Ordine {
             stato = statoOrdine;
             updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
             this.stato = statoOrdine;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
+    }
+
+    public void setIDCliente(int IDCliente) {
+        try {
+            updateData("UPDATE `sys`.`ordini` SET `IDCliente` = '" + IDCliente + "' WHERE (`ID` = '" + this.ID + "');");
+            this.IDCliente = IDCliente;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        try {
+            updateData("UPDATE `sys`.`ordini` SET `nomeCliente` = '" + nomeCliente + "' WHERE (`ID` = '" + this.ID + "');");
+            this.nomeCliente = nomeCliente;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
+    }
+
+    public void setCognomeCliente(String cognomeCliente) {
+        try {
+            updateData("UPDATE `sys`.`ordini` SET `cognomeCliente` = '" + cognomeCliente + "' WHERE (`ID` = '" + this.ID + "');");
+            this.cognomeCliente = cognomeCliente;
         } catch (SQLException exception) {
             //TODO
             exception.printStackTrace();

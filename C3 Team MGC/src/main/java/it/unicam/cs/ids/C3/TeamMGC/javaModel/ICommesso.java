@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Random;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class ICommesso {
     Negozio negozio;
@@ -45,14 +46,16 @@ public class ICommesso {
     }
 
     void getMagazziniDisponibili() {
+
     }
 
     /**
-     * @param descrizione
-     * @param quantita
-     * @param prezzo
+     * @param descrizione    Descrizione della merce
+     * @param quantita       Quantita della merce
+     * @param prezzo         Prezzo della merce
      */
     void registraMerce(String descrizione, int quantita, double prezzo) {
+        gestoreOrdine.registraMerce(descrizione,quantita,prezzo);
     }
 
     /**
@@ -60,7 +63,7 @@ public class ICommesso {
      * @param Nome      Nome del Cliente
      * @param Cognome   Cognome del Cliente
      */
-    void registraOrdine(int IDCliente, String Nome, String Cognome) {
+    void registraOrdine(Ordine ordine, int IDCliente, String Nome, String Cognome) {
         gestoreOrdine.registraOrdine(IDCliente, Nome, Cognome);
     }
 
@@ -84,15 +87,31 @@ public class ICommesso {
     }
 
     /**
+     * @param ordine
      * @param magazzino
      */
-    void setPuntodiPrelievo(PuntoPrelievo magazzino) {
+    void setPuntodiPrelievo(Ordine ordine,PuntoPrelievo magazzino) {
+        try {
+        ordine.setPuntoPrelievo(magazzino);
+        updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + ordine.getID()+ "');");
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
     }
 
     /**
-     * @param RITIRATO
+     * @param ordine
+     * @param statoOrdine
      */
-    void setStatoOrdine(StatoOrdine RITIRATO) {
+    void setStatoOrdine(Ordine ordine,StatoOrdine statoOrdine) {
+        try {
+            ordine.setStato(statoOrdine); ;
+            updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + ordine.getID() + "');");
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
     }
 
     boolean verificaValiditaCodice(Cliente cliente) {
