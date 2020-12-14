@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +17,13 @@ class PuntoPrelievoTest {
     void prepareDB() throws SQLException {
         updateData("TRUNCATE `sys`.`ordini`;");
         updateData("TRUNCATE `sys`.`merci`;");
-        puntoPrelievo = new PuntoPrelievo("Castelraimondo", "Stazione");
+        puntoPrelievo = new PuntoPrelievo(1, "Castelraimondo", "Stazione");
         setMagazziniere();
     }
 
     @Test
     static void setMagazziniere() {
-        IMagazziniere magazziniere = new IMagazziniere();
+        IMagazziniere magazziniere = new IMagazziniere(puntoPrelievo, "Alejandro", "Roberto");
         puntoPrelievo.setMagazziniere(magazziniere);
     }
 

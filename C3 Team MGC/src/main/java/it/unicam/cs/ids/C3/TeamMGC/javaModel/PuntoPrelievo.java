@@ -5,20 +5,43 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class PuntoPrelievo {
 
-    private final String indirizzo;
-    private final String nome;
+    private int ID = 0;
+    private String indirizzo = null;
+    private String nome = null;
     private IMagazziniere magazziniere = null;
 
-    public PuntoPrelievo(String indirizzo, String nome) {
+    public PuntoPrelievo(int ID, String indirizzo, String nome) {
+        this.ID = ID;
         this.indirizzo = indirizzo;
         this.nome = nome;
     }
 
+    public PuntoPrelievo(String indirizzo, String nome) {
+        try {
+            updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`,`indirizzo`) \n" +
+                    "VALUES ('" + nome + "' , '" + indirizzo + "');");
+            this.nome = nome;
+            this.indirizzo = indirizzo;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+    }
+
     public void setMagazziniere(IMagazziniere magazziniere) {
+        try {
+            updateData("UPDATE `sys`.`punti_prelievo` SET `magazziniere` = '" + magazziniere.getID() + "' WHERE (`ID` = '" + this.ID + "');");
+            this.magazziniere = magazziniere;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
         this.magazziniere = magazziniere;
+
     }
 
     public IMagazziniere getMagazziniere() {
