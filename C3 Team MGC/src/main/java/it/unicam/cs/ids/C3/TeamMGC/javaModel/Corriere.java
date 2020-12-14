@@ -10,22 +10,22 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 public class Corriere {
 
     private int ID;
-    private StatoCorriere stato;
+    private boolean disponibilita;
     private int capienza;
 
-    public Corriere(int ID, StatoCorriere stato, int capienza) {
+    public Corriere(int ID, boolean disponibilita, int capienza) {
         this.ID = ID;
-        this.stato = stato;
+        this.disponibilita = disponibilita;
         this.capienza = capienza;
     }
 
-    public Corriere(StatoCorriere stato, int capienza) {
+    public Corriere(boolean disponibilita, int capienza) {
         try {
-            updateData("INSERT INTO `sys`.`corrieri` (`stato`, `capienza`) VALUES ('" + stato + "', '" + capienza + "');");
+            updateData("INSERT INTO `sys`.`corrieri` (`stato`, `capienza`) VALUES ('" + disponibilita + "', '" + capienza + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from corrieri;");
             rs.next();
             ID = rs.getInt("ID");
-            this.stato = stato;
+            this.disponibilita = disponibilita;
             this.capienza = capienza;
         } catch (SQLException exception) {
             //todo
@@ -39,7 +39,7 @@ public class Corriere {
      */
     public ArrayList<String> getDettagli() {
         ArrayList<String> corriere = new ArrayList<>();
-        corriere.add(getStato().toString());
+        corriere.add(String.valueOf(getDisponibilita()));
         corriere.add(String.valueOf(getCapienza()));
         return corriere;
     }
@@ -53,18 +53,18 @@ public class Corriere {
         return ID;
     }
 
-    public StatoCorriere getStato() {
-        return stato;
+    public boolean getDisponibilita() {
+        return disponibilita;
     }
 
     public int getCapienza() {
         return capienza;
     }
 
-    public void setStato(StatoCorriere statoCorriere) {
+    public void setDisponibilita(boolean statoCorriere) {
         try {
             updateData("UPDATE `sys`.`corrieri` SET `stato` = '" + statoCorriere + "' WHERE (`ID` = '" + this.ID + "');");
-            this.stato = statoCorriere;
+            this.disponibilita = statoCorriere;
         } catch (SQLException exception) {
             //TODO
             exception.printStackTrace();

@@ -18,11 +18,12 @@ class GestoreCorrieriTest {
         updateData("INSERT INTO `sys`.`corrieri` (`stato`, `capienza`) VALUES ('NON_DISPONIBILE','13');");
         updateData("INSERT INTO `sys`.`corrieri` (`stato`, `capienza`) VALUES ('DISPONIBILE','16');");
     }
+
     @Test
     void getCorrieriDisponibili() {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         ArrayList<Corriere> test = gestoreCorrieri.getCorrieriDisponibili();
-        assertEquals(test.get(0).getID(),1);
-        assertEquals(test.get(1).getStato(),StatoCorriere.DISPONIBILE);
+        assertEquals(test.get(0).getID(), 1);
+        assertEquals(test.get(1).getDisponibilita(), true);
     }
 }

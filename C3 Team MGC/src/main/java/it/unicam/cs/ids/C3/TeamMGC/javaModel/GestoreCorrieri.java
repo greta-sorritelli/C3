@@ -15,8 +15,7 @@ public class GestoreCorrieri {
 			ArrayList<Corriere> corrieri = new ArrayList<>();
 			ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'DISPONIBILE' );");
 			while (rs.next()) {
-				Corriere tmp = new Corriere(rs.getInt("ID"), StatoCorriere.valueOf(rs.getString("stato")),
-						rs.getInt("capienza"));
+				Corriere tmp = new Corriere(rs.getInt("ID"), true, rs.getInt("capienza"));
 				corrieri.add(tmp);
 			}
 			return corrieri;

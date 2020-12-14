@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,33 +18,33 @@ class CorriereTest {
 
     @Test
     void creazioneCorriere() {
-        Corriere corriere = new Corriere(StatoCorriere.DISPONIBILE, 30);
+        Corriere corriere = new Corriere(true, 30);
         assertEquals(1, corriere.getID());
     }
 
     @Test
     void getDettagli() {
-        Corriere corriere = new Corriere(StatoCorriere.DISPONIBILE, 30);
+        Corriere corriere = new Corriere(true, 30);
         ArrayList<String> corriere1 = new ArrayList<>();
-        corriere1.add(corriere.getStato().toString());
+        corriere1.add(String.valueOf(corriere.getDisponibilita()));
         corriere1.add(String.valueOf(corriere.getCapienza()));
-        assertEquals(corriere.getDettagli(),corriere1);
+        assertEquals(corriere.getDettagli(), corriere1);
     }
 
     @Test
     void setStato() {
-        Corriere corriere = new Corriere(StatoCorriere.DISPONIBILE, 30);
-        Corriere corriere1 = new Corriere(5,StatoCorriere.NON_DISPONIBILE, 30);
-        corriere.setStato(StatoCorriere.NON_DISPONIBILE);
-        corriere1.setStato((StatoCorriere.DISPONIBILE));
-        assertEquals(corriere.getStato(), StatoCorriere.NON_DISPONIBILE);
-        assertEquals(corriere1.getStato(), StatoCorriere.DISPONIBILE);
+        Corriere corriere = new Corriere(true, 30);
+        Corriere corriere1 = new Corriere(5, false, 30);
+        corriere.setDisponibilita(false);
+        corriere1.setDisponibilita((true));
+        assertEquals(corriere.getDisponibilita(), false);
+        assertEquals(corriere1.getDisponibilita(), true);
     }
 
     @Test
     void setCapienza() {
-        Corriere corriere = new Corriere(StatoCorriere.DISPONIBILE, 30);
+        Corriere corriere = new Corriere(true, 30);
         corriere.setCapienza(52);
-        assertEquals(corriere.getCapienza(),52);
+        assertEquals(corriere.getCapienza(), 52);
     }
 }
