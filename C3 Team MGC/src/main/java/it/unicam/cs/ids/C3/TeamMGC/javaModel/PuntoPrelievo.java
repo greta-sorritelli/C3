@@ -12,7 +12,7 @@ public class PuntoPrelievo {
     private int ID = 0;
     private String indirizzo = null;
     private String nome = null;
-    private IMagazziniere magazziniere = null;
+//    private IMagazziniere magazziniere = null;
 
     public PuntoPrelievo(int ID, String indirizzo, String nome) {
         this.ID = ID;
@@ -24,6 +24,9 @@ public class PuntoPrelievo {
         try {
             updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`,`indirizzo`) \n" +
                     "VALUES ('" + nome + "' , '" + indirizzo + "');");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from punti_prelievo;");
+            rs.next();
+            this.ID = rs.getInt("ID");
             this.nome = nome;
             this.indirizzo = indirizzo;
         } catch (SQLException exception) {
@@ -32,25 +35,18 @@ public class PuntoPrelievo {
         }
     }
 
-    public void setMagazziniere(IMagazziniere magazziniere) {
-        try {
-            updateData("UPDATE `sys`.`punti_prelievo` SET `magazziniere` = '" + magazziniere.getID() + "' WHERE (`ID` = '" + this.ID + "');");
-            this.magazziniere = magazziniere;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
-        this.magazziniere = magazziniere;
+//    public void setMagazziniere(IMagazziniere magazziniere) {
+//        try {
+//            updateData("UPDATE `sys`.`punti_prelievo` SET `magazziniere` = '" + magazziniere.getID() + "' WHERE (`ID` = '" + this.ID + "');");
+//            this.magazziniere = magazziniere;
+//        } catch (SQLException exception) {
+//            //TODO
+//            exception.printStackTrace();
+//        }
+//        this.magazziniere = magazziniere;
+//
+//    }
 
-    }
-
-    public IMagazziniere getMagazziniere() {
-        return magazziniere;
-    }
-
-    public String getIndirizzo() {
-        return indirizzo;
-    }
 
     public String getNome() {
         return nome;
@@ -60,11 +56,9 @@ public class PuntoPrelievo {
      * Ritorna l'insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo
      *
      * @param IDCliente    id del cliente
-     * @param codiceRitiro codice necessario per ritirare gli ordini
      */
-    public ArrayList<Ordine> getOrdini(int IDCliente, int codiceRitiro) {
+    public ArrayList<Ordine> getOrdini(int IDCliente) {
         ArrayList<Ordine> lista = new ArrayList<>();
-        if (magazziniere.verificaCodice(codiceRitiro)) {
             try {
                 ResultSet rs = executeQuery("SELECT * from ordini\n" +
                         "WHERE IDCliente = " + IDCliente + " AND puntoPrelievo = \"" + this.nome + "\";");
@@ -81,7 +75,6 @@ public class PuntoPrelievo {
                 exception.printStackTrace();
                 return null;
             }
-        }
         return lista;
     }
 

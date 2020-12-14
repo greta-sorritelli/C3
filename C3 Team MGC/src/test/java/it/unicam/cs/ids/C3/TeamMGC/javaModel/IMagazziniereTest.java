@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class IMagazziniereTest {
 
+    static PuntoPrelievo puntoPrelievo = new PuntoPrelievo("Castelraimondo", "A1");
+
 
     @BeforeAll
     static void clearDB() throws SQLException {

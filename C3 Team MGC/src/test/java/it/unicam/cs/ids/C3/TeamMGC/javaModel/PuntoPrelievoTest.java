@@ -18,30 +18,30 @@ class PuntoPrelievoTest {
         updateData("TRUNCATE `sys`.`ordini`;");
         updateData("TRUNCATE `sys`.`merci`;");
         puntoPrelievo = new PuntoPrelievo(1, "Castelraimondo", "Stazione");
-        setMagazziniere();
+//        setMagazziniere();
     }
 
-    @Test
-    static void setMagazziniere() {
-        IMagazziniere magazziniere = new IMagazziniere(puntoPrelievo, "Alejandro", "Roberto");
-        puntoPrelievo.setMagazziniere(magazziniere);
-    }
+//    @Test
+//    static void setMagazziniere() {
+//        IMagazziniere magazziniere = new IMagazziniere(puntoPrelievo, "Alejandro", "Roberto");
+//        puntoPrelievo.setMagazziniere(magazziniere);
+//    }
 
     @Test
     void getOrdini() {
-        assertTrue(puntoPrelievo.getOrdini(1, 100).isEmpty());
+        assertTrue(puntoPrelievo.getOrdini(1).isEmpty());
         ArrayList<Ordine> lista1 = new ArrayList<>();
         ArrayList<Ordine> lista2 = new ArrayList<>();
         Ordine ordine1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO , puntoPrelievo);
         lista1.add(ordine1);
         Ordine ordineTest1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO, puntoPrelievo);
-        assertEquals(puntoPrelievo.getOrdini(1, 100).get(0), lista1.get(0));
-        assertEquals(puntoPrelievo.getOrdini(1, 100), lista1);
+        assertEquals(puntoPrelievo.getOrdini(1).get(0), lista1.get(0));
+        assertEquals(puntoPrelievo.getOrdini(1), lista1);
         Ordine ordine2 = new Ordine(2, 1, "Mario", "Verdi", 100, StatoOrdine.RITIRATO , puntoPrelievo);
         lista2.add(ordine2);
-        assertNotEquals(puntoPrelievo.getOrdini(2, 100), lista1);
+        assertNotEquals(puntoPrelievo.getOrdini(2), lista1);
         Ordine ordineTest2 = new Ordine(2, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo);
-        assertEquals(puntoPrelievo.getOrdini(2, 100), lista2);
+        assertEquals(puntoPrelievo.getOrdini(2), lista2);
     }
 
     @Test
