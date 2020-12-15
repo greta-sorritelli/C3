@@ -109,7 +109,7 @@ public class Ordine {
     }
 
     /**
-     * Aggiunge l'indirizzo della residenza all'ordine.
+     * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine}.
      *
      * @param indirizzo Indirizzo residenza del cliente
      */
@@ -126,7 +126,7 @@ public class Ordine {
     }
 
     /**
-     * Aggiunge la merce all'ordine del cliente.
+     * Aggiunge la {@link Merce} all'{@link Ordine} del cliente.
      *
      * @param merce    Merce da aggiungere
      * @param quantita Quantita della merce da aggiungere
@@ -145,7 +145,7 @@ public class Ordine {
     }
 
     /**
-     * Ritorna un arraylist con i dettagli dell'ordine in stringa.
+     * Ritorna un arraylist con i dettagli dell'{@link Ordine} in stringa.
      *
      * @return ArrayList dei dettagli
      */

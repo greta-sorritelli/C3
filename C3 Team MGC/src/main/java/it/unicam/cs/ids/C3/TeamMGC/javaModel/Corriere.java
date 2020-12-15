@@ -34,7 +34,6 @@ public class Corriere {
     }
 
     /**
-     * Ritorna un arraylist con i dettagli del corriere in stringa.
      * @return      ArrayList dei dettagli
      */
     public ArrayList<String> getDettagli() {
