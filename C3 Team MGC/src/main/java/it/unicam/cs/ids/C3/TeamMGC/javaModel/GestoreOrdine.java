@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import java.util.ArrayList;
+
 public class GestoreOrdine {
 
     private final Negozio negozio;
@@ -22,12 +24,16 @@ public class GestoreOrdine {
     }
 
     /**
-     * @param descrizione
-     * @param quantita
-     * @param prezzo
+     * Registra la merce
+     *
+     * @param descrizione  Descrizione della merce
+     * @param quantita     Quantita della merce
      */
-    public void registraMerce(String descrizione, int quantita, double prezzo) {
-
-    }
+    public void registraMerce(String descrizione, int quantita) {
+        ArrayList<Merce> array = new ArrayList<>();
+        for (:
+             ) {
+            
+        }}
 
 }

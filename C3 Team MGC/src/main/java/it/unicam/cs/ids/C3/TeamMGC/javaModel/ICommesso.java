@@ -52,10 +52,9 @@ public class ICommesso {
     /**
      * @param descrizione    Descrizione della merce
      * @param quantita       Quantita della merce
-     * @param prezzo         Prezzo della merce
      */
-    void registraMerce(String descrizione, int quantita, double prezzo) {
-        gestoreOrdine.registraMerce(descrizione,quantita,prezzo);
+    void registraMerce(String descrizione, int quantita) {
+        gestoreOrdine.registraMerce(descrizione,quantita);
     }
 
     /**

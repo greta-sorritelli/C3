@@ -14,6 +14,7 @@ public class PuntoPrelievo {
     private String nome = null;
 //    private IMagazziniere magazziniere = null;
 
+
     public PuntoPrelievo(int ID, String indirizzo, String nome) {
         this.ID = ID;
         this.indirizzo = indirizzo;
@@ -50,6 +51,10 @@ public class PuntoPrelievo {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
     }
 
     /**
