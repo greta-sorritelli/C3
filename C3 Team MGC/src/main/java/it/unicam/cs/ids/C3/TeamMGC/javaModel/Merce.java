@@ -117,11 +117,6 @@ public class Merce {
     public void delete() {
         try {
             updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
-            ID = -1;
-            IDNegozio = -1;
-            prezzo = -1;
-            descrizione = null;
-            quantita = -1;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

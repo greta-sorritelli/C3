@@ -22,7 +22,6 @@ public class Negozio {
     }
 
     /**
-     *
      * @param merce
      * @return
      */
@@ -57,7 +56,7 @@ public class Negozio {
         Merce toReturn = new Merce(rs.getInt("ID"), rs.getInt("IDNegozio"),
                 rs.getDouble("prezzo"), rs.getString("descrizione"),
                 rs.getInt("quantita"));
-        inventario.add(toReturn);
+        addMerce(toReturn);
         return toReturn;
     }
 

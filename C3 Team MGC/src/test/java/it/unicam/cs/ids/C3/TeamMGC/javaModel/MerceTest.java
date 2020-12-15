@@ -26,12 +26,6 @@ class MerceTest {
         toDelete.delete();
         int tmpID = toDelete.getID();
 
-        assertEquals(-1, toDelete.getID());
-        assertEquals(-1, toDelete.getIDNegozio());
-        assertEquals(-1, toDelete.getPrezzo());
-        assertNull(toDelete.getDescrizione());
-        assertEquals(-1, toDelete.getQuantita());
-
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = '" + tmpID + "';");
         assertFalse(rs.next());
     }
