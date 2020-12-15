@@ -2,45 +2,70 @@ package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class Negozio {
+    private int ID;
     private String nome;
     private String categoria;
     private String orarioApertura;
     private String orarioChiusura;
     private String indirizzo;
     private String telefono;
+    private final ArrayList<Merce> inventario = new ArrayList<>();
+
+    //todo
+    public Negozio(int ID) {
+        this.ID = ID;
+    }
+
+    private Merce addMerceInventario(ResultSet rs) throws SQLException {
+        Merce toReturn = new Merce(rs.getInt("ID"), rs.getInt("IDNegozio"),
+                rs.getDouble("prezzo"), rs.getString("descrizione"),
+                rs.getInt("quantita"));
+        inventario.add(toReturn);
+        return toReturn;
+    }
 
     /**
-     * @return l'elenco della Merce del Negozio
+     * @param ID
+     * @return
      */
-    public ArrayList<Merce> getMerceDisponibile() {
+    public Merce getMerce(int ID) {
+        //todo controllare che l'IDNegozio della merce corrisponda all'ID del Negozio in java
+
+        for (Merce toReturn : inventario) {
+            if (toReturn.getID() == ID)
+                return toReturn;
+        }
+
         try {
-            ArrayList<Merce> toReturn = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.inventario;");
-            while (rs.next()) {
-                Merce tmp = new Merce(rs.getInt("ID"), rs.getInt("IDNegozio"),
-                        rs.getDouble("prezzo"), rs.getString("descrizione"),
-                        rs.getInt("quantita"));
-                toReturn.add(tmp);
-            }
-            return toReturn;
+            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "';");
+            if (rs.next())
+                return addMerceInventario(rs);
         } catch (SQLException exception) {
-            //todo
             exception.printStackTrace();
         }
         return null;
     }
 
     /**
-     * @param ID
+     * @return l'elenco della Merce del Negozio
      */
-    public void getMerce(int ID) {
-        // TODO - implement Negozio.getMerce
-        throw new UnsupportedOperationException();
+    public ArrayList<Merce> getMerceDisponibile() {
+        inventario.clear();
+        try {
+            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
+            while (rs.next())
+                addMerceInventario(rs);
+            return inventario;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+        return null;
     }
 
 }

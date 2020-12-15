@@ -18,7 +18,7 @@ public class GestoreOrdine {
      * @param cognome   Cognome del cliente a cui appartiene l'ordine
      */
     public Ordine registraOrdine(int IDCliente, String nome, String cognome) {
-        Ordine ordine = new Ordine(IDCliente,nome,cognome);
+        Ordine ordine = new Ordine(IDCliente, nome, cognome);
         ordine.setStato(StatoOrdine.PAGATO);
         return ordine;
     }
@@ -26,14 +26,11 @@ public class GestoreOrdine {
     /**
      * Registra la merce
      *
-     * @param descrizione  Descrizione della merce
-     * @param quantita     Quantita della merce
+     * @param descrizione Descrizione della merce
+     * @param quantita    Quantita della merce
      */
     public void registraMerce(String descrizione, int quantita) {
         ArrayList<Merce> array = new ArrayList<>();
-        for (:
-             ) {
-            
-        }}
+    }
 
 }

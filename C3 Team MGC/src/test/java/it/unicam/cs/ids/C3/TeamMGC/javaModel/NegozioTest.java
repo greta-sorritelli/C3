@@ -20,8 +20,18 @@ class NegozioTest {
     }
 
     @Test
+    void getMerce() {
+        Negozio negozio = new Negozio(1);
+        Merce merce1 = negozio.getMerce(1);
+        Merce merce2 = negozio.getMerce(1);
+        merce1.setQuantita(500);
+        assertEquals(merce1.getQuantita(), 500);
+        assertEquals(merce2.getQuantita(), 500);
+    }
+
+    @Test
     void getMerceDisponibile() {
-        Negozio negozio = new Negozio();
+        Negozio negozio = new Negozio(1);
         ArrayList<Merce> toTest = negozio.getMerceDisponibile();
         assertEquals(toTest.get(0).getID(), 1);
         assertEquals(toTest.get(1).getIDNegozio(), 1);
