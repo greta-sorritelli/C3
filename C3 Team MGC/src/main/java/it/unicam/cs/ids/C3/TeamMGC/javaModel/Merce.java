@@ -27,7 +27,7 @@ public class Merce {
      */
     public Merce(int IDNegozio, double prezzo, String descrizione, int quantita) {
         try {
-            updateData("INSERT INTO `sys`.`inventario` (`IDNegozio`, `prezzo`, `descrizione`, `quantita`) " +
+            updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) " +
                     "VALUES ('" + IDNegozio + "', '" + prezzo + "', '" + descrizione + "', '" + quantita + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from inventario;");
             rs.next();
@@ -60,7 +60,7 @@ public class Merce {
 
     public void setDescrizione(String descrizione) {
         try {
-            updateData("UPDATE `sys`.`inventario` SET `descrizione` = '" + descrizione + "' WHERE (`ID` = '" + getID() + "');");
+            updateData("UPDATE sys.inventario SET descrizione = '" + descrizione + "' WHERE (ID = '" + getID() + "');");
             this.descrizione = descrizione;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -94,7 +94,7 @@ public class Merce {
 
     public void setPrezzo(double prezzo) {
         try {
-            updateData("UPDATE `sys`.`inventario` SET `prezzo` = '" + prezzo + "' WHERE (`ID` = '" + getID() + "');");
+            updateData("UPDATE sys.inventario SET prezzo = '" + prezzo + "' WHERE (ID = '" + getID() + "');");
             this.prezzo = prezzo;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -107,12 +107,24 @@ public class Merce {
 
     public void setQuantita(int quantita) {
         try {
-            updateData("UPDATE `sys`.`inventario` SET `quantita` = '" + quantita + "' WHERE (`ID` = '" + getID() + "');");
+            updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");
             this.quantita = quantita;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
 
+    public void delete() {
+        try {
+            updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
+            ID = -1;
+            IDNegozio = -1;
+            prezzo = -1;
+            descrizione = null;
+            quantita = -1;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
 
 }

@@ -7,6 +7,7 @@ import java.util.*;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class Negozio {
+    private final ArrayList<Merce> inventario = new ArrayList<>();
     private int IDNegozio;
     private String nome;
     private String categoria;
@@ -14,11 +15,20 @@ public class Negozio {
     private String orarioChiusura;
     private String indirizzo;
     private String telefono;
-    private final ArrayList<Merce> inventario = new ArrayList<>();
 
     //todo
     public Negozio(int IDNegozio) {
         this.IDNegozio = IDNegozio;
+    }
+
+    /**
+     *
+     * @param merce
+     * @return
+     */
+    public boolean removeMerce(Merce merce) {
+        merce.delete();
+        return inventario.remove(merce);
     }
 
     /**
@@ -28,11 +38,10 @@ public class Negozio {
      * @return {@code true} se la Merce viene inserita correttamente, {@code false} altrimenti
      */
     public boolean addMerce(Merce merce) {
-        if (!inventario.contains(merce)) {
-            inventario.add(merce);
-            return true;
-        }
-        return false;
+        if (!inventario.contains(merce))
+            return inventario.add(merce);
+        else
+            return false;
     }
 
     /**

@@ -17,7 +17,7 @@ public class MerceOrdine {
 
     public MerceOrdine(double prezzo, String descrizione, StatoOrdine stato) {
         try {
-            updateData("INSERT INTO `sys`.`merci` (`prezzo`, `descrizione`, `stato`) " +
+            updateData("INSERT INTO sys.merci (prezzo, descrizione, stato) " +
                     "VALUES ('" + prezzo + "', '" + descrizione + "', '" + stato + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from merci;");
             rs.next();
@@ -55,7 +55,7 @@ public class MerceOrdine {
 
     public void setDescrizione(String descrizione) {
         try {
-            updateData("UPDATE `sys`.`merci` SET `descrizione` = '" + descrizione + "' WHERE (`ID` = '" + ID + "');");
+            updateData("UPDATE sys.merci SET descrizione = '" + descrizione + "' WHERE (ID = '" + ID + "');");
             this.descrizione = descrizione;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -68,7 +68,7 @@ public class MerceOrdine {
 
     public void setIDOrdine(int IDOrdine) {
         try {
-            updateData("UPDATE `sys`.`merci` SET `IDOrdine` = '" + IDOrdine + "' WHERE (`ID` = '" + ID + "');");
+            updateData("UPDATE sys.merci SET IDOrdine = '" + IDOrdine + "' WHERE (ID = '" + ID + "');");
             this.IDOrdine = IDOrdine;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -81,7 +81,7 @@ public class MerceOrdine {
 
     public void setPrezzo(double prezzo) {
         try {
-            updateData("UPDATE `sys`.`merci` SET `prezzo` = '" + prezzo + "' WHERE (`ID` = '" + ID + "');");
+            updateData("UPDATE sys.merci SET prezzo = '" + prezzo + "' WHERE (ID = '" + ID + "');");
             this.prezzo = prezzo;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -94,7 +94,7 @@ public class MerceOrdine {
 
     public void setQuantita(int quantita) {
         try {
-            updateData("UPDATE `sys`.`merci` SET `quantita` = '" + quantita + "' WHERE (`ID` = '" + ID + "');");
+            updateData("UPDATE sys.merci SET quantita = '" + quantita + "' WHERE (ID = '" + ID + "');");
             this.quantita = quantita;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -107,7 +107,7 @@ public class MerceOrdine {
 
     public void setStato(StatoOrdine stato) {
         try {
-            updateData("UPDATE `sys`.`merci` SET `stato` = '" + stato + "' WHERE (`ID` = '" + ID + "');");
+            updateData("UPDATE sys.merci SET stato = '" + stato + "' WHERE (ID = '" + ID + "');");
             this.stato = stato;
         } catch (SQLException exception) {
             exception.printStackTrace();
