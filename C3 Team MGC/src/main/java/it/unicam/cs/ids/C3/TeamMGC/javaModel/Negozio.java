@@ -7,7 +7,7 @@ import java.util.*;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class Negozio {
-    private int ID;
+    private int IDNegozio;
     private String nome;
     private String categoria;
     private String orarioApertura;
@@ -17,11 +17,34 @@ public class Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
 
     //todo
-    public Negozio(int ID) {
-        this.ID = ID;
+    public Negozio(int IDNegozio) {
+        this.IDNegozio = IDNegozio;
     }
 
+    /**
+     * Aggiunge la {@link Merce} al {@link Negozio}.
+     *
+     * @param merce Merce da aggiungere
+     * @return {@code true} se la Merce viene inserita correttamente, {@code false} altrimenti
+     */
+    public boolean addMerce(Merce merce) {
+        if (!inventario.contains(merce)) {
+            inventario.add(merce);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Controlla se la {@link Merce} che si vuole creare e' gia' presente nell' Inventario. Se non e' presente
+     * viene creata e aggiunta all' Inventario del {@link Negozio}.
+     *
+     * @return la Merce
+     */
     private Merce addMerceInventario(ResultSet rs) throws SQLException {
+        for (Merce merce : inventario)
+            if (merce.getID() == rs.getInt("ID"))
+                return merce;
         Merce toReturn = new Merce(rs.getInt("ID"), rs.getInt("IDNegozio"),
                 rs.getDouble("prezzo"), rs.getString("descrizione"),
                 rs.getInt("quantita"));
@@ -30,17 +53,13 @@ public class Negozio {
     }
 
     /**
-     * @param ID
-     * @return
+     * Ritorna la {@link Merce} collegata all' {@code ID}.
+     *
+     * @param ID Codice Identificativo della Merce
+     * @return la Merce desiderata
      */
     public Merce getMerce(int ID) {
         //todo controllare che l'IDNegozio della merce corrisponda all'ID del Negozio in java
-
-        for (Merce toReturn : inventario) {
-            if (toReturn.getID() == ID)
-                return toReturn;
-        }
-
         try {
             ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "';");
             if (rs.next())
@@ -52,12 +71,13 @@ public class Negozio {
     }
 
     /**
+     * Ritorna tutta la {@link Merce} all' interno del {@link Negozio}.
+     *
      * @return l'elenco della Merce del Negozio
      */
     public ArrayList<Merce> getMerceDisponibile() {
-        inventario.clear();
         try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
+            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + IDNegozio + "';");
             while (rs.next())
                 addMerceInventario(rs);
             return inventario;

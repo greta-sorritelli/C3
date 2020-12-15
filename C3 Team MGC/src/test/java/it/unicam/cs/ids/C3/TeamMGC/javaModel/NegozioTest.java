@@ -32,9 +32,13 @@ class NegozioTest {
     @Test
     void getMerceDisponibile() {
         Negozio negozio = new Negozio(1);
-        ArrayList<Merce> toTest = negozio.getMerceDisponibile();
-        assertEquals(toTest.get(0).getID(), 1);
-        assertEquals(toTest.get(1).getIDNegozio(), 1);
-        assertEquals(toTest.get(2).getDescrizione(), "test Negozio");
+        ArrayList<Merce> inventario = negozio.getMerceDisponibile();
+        assertEquals(1, inventario.get(0).getID());
+        assertEquals(1, inventario.get(1).getIDNegozio());
+        assertEquals("test Negozio", inventario.get(2).getDescrizione());
+
+        assertEquals(3, inventario.size());
+        inventario = negozio.getMerceDisponibile();
+        assertEquals(3, inventario.size());
     }
 }
