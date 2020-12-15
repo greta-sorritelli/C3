@@ -32,7 +32,7 @@ public class Ordine {
 
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
         try {
-            if(puntoPrelievo != null) {
+            if (puntoPrelievo != null) {
                 updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
                         "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
                         "'" + puntoPrelievo.getNome() + "', \"null\");");
@@ -49,7 +49,6 @@ public class Ordine {
             this.nomeCliente = nomeCliente;
             this.cognomeCliente = cognomeCliente;
             this.totalePrezzo = totalePrezzo;
-
             this.residenza = null;
         } catch (SQLException exception) {
             //todo
@@ -58,10 +57,19 @@ public class Ordine {
     }
 
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente) {
-        this.IDCliente = IDCliente;
-        this.nomeCliente = nomeCliente;
-        this.cognomeCliente = cognomeCliente;
-        //Todo per database
+        try {
+            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`) " +
+                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "');");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
+            rs.next();
+            ID = rs.getInt("ID");
+            this.IDCliente = IDCliente;
+            this.nomeCliente = nomeCliente;
+            this.cognomeCliente = cognomeCliente;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
     }
 
     public int getID() {
@@ -124,14 +132,22 @@ public class Ordine {
      * @param quantita Quantita della merce da aggiungere
      */
     public void aggiungiMerce(MerceOrdine merce, int quantita) {
-        merce.setQuantita(quantita);
-        merci.add(merce);
-        merce.setIDOrdine(this.getID());
+        try {
+            merce.setQuantita(quantita);
+            merci.add(merce);
+            merce.setIDOrdine(this.getID());
+            this.totalePrezzo += (merce.getPrezzo() * quantita);
+            updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     /**
      * Ritorna un arraylist con i dettagli dell'ordine in stringa.
-     * @return      ArrayList dei dettagli
+     *
+     * @return ArrayList dei dettagli
      */
     public ArrayList<String> getDettagli() {
         ArrayList<String> ordini = new ArrayList<>();
@@ -163,7 +179,6 @@ public class Ordine {
 
     public void setStato(StatoOrdine statoOrdine) {
         try {
-            stato = statoOrdine;
             updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
             this.stato = statoOrdine;
         } catch (SQLException exception) {

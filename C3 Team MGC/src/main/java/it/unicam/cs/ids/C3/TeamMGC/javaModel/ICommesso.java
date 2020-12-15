@@ -47,11 +47,12 @@ public class ICommesso {
     }
 
     /**
-     * @param descrizione    Descrizione della merce
+     * @param ID             Descrizione della merce
      * @param quantita       Quantita della merce
+     * @param ordine         Ordine in cui registrare la merce
      */
-    void registraMerce(String descrizione, int quantita) {
-        gestoreOrdine.registraMerce(descrizione,quantita);
+    void registraMerce(int ID, int quantita, Ordine ordine) {
+        gestoreOrdine.registraMerce(ID,quantita,ordine);
     }
 
     /**
