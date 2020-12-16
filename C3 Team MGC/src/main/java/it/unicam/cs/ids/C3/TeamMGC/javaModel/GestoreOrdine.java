@@ -60,9 +60,8 @@ public class GestoreOrdine {
             throw new IllegalArgumentException();
 
         merce.setQuantita(merce.getQuantita() - quantita);
-        MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO);
+        MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO,ordine.getID());
         ordine.aggiungiMerce(merceOrdine, quantita);
-        merceOrdine.setIDOrdine(ordine.getID());
     }
 
     /**
