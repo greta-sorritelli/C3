@@ -37,8 +37,8 @@ class CorriereTest {
         Corriere corriere1 = new Corriere(5, false, 30);
         corriere.setDisponibilita(false);
         corriere1.setDisponibilita((true));
-        assertEquals(corriere.getDisponibilita(), false);
-        assertEquals(corriere1.getDisponibilita(), true);
+        assertFalse(corriere.getDisponibilita());
+        assertTrue(corriere1.getDisponibilita());
     }
 
     @Test

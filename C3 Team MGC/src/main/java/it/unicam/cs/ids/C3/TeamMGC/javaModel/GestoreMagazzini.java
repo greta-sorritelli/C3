@@ -8,10 +8,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 
 public class GestoreMagazzini {
 
-	/**
-	 * @param magazzino
-	 */
-//	public Magazziniere getMagazziniere(PuntoPrelievo magazzino) {
+	//	public Magazziniere getMagazziniere(PuntoPrelievo magazzino) {
 //		return magazzino.getMagazziniere();
 //	}
 
