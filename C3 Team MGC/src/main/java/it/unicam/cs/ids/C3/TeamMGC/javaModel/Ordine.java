@@ -136,7 +136,6 @@ public class Ordine {
         try {
             merce.setQuantita(quantita);
             merci.add(merce);
-//            merce.setIDOrdine(this.getID());
             this.totalePrezzo += (merce.getPrezzo() * quantita);
             updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
         } catch (SQLException exception) {
@@ -181,36 +180,6 @@ public class Ordine {
         try {
             updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
             this.stato = statoOrdine;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
-    }
-
-    public void setIDCliente(int IDCliente) {
-        try {
-            updateData("UPDATE `sys`.`ordini` SET `IDCliente` = '" + IDCliente + "' WHERE (`ID` = '" + this.ID + "');");
-            this.IDCliente = IDCliente;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
-    }
-
-    public void setNomeCliente(String nomeCliente) {
-        try {
-            updateData("UPDATE `sys`.`ordini` SET `nomeCliente` = '" + nomeCliente + "' WHERE (`ID` = '" + this.ID + "');");
-            this.nomeCliente = nomeCliente;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
-    }
-
-    public void setCognomeCliente(String cognomeCliente) {
-        try {
-            updateData("UPDATE `sys`.`ordini` SET `cognomeCliente` = '" + cognomeCliente + "' WHERE (`ID` = '" + this.ID + "');");
-            this.cognomeCliente = cognomeCliente;
         } catch (SQLException exception) {
             //TODO
             exception.printStackTrace();
