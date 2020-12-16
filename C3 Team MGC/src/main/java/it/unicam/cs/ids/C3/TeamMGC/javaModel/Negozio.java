@@ -22,7 +22,7 @@ public class Negozio {
             updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) " +
                     "VALUES ('" + nome + "', '" + categoria + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
                     indirizzo + "', '" + telefono + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from inventario;");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from negozi;");
             rs.next();
             IDNegozio = rs.getInt("ID");
             this.nome = nome;
