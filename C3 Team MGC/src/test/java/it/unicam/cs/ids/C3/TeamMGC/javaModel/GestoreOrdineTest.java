@@ -40,12 +40,16 @@ class GestoreOrdineTest {
 
         Merce merce = new Merce(1, 52, "gomma", 10);
         Merce merce1 = new Merce(1, 10, "matita", 20);
+        Merce merce2 = new Merce(1,20,"pennello",5);
+        Merce merce3 = new Merce(1,15,"maglietta",0);
 
         Cliente cliente = new Cliente("Maria","Giuseppa");
         Cliente cliente1 = new Cliente("Giuseppe", "Rossi");
 
         negozio.addMerce(merce);
         negozio.addMerce(merce1);
+        negozio.addMerce(merce2);
+        negozio.addMerce(merce3);
 
         GestoreOrdine gestoreOrdine = new GestoreOrdine(negozio);
         Ordine ordine = gestoreOrdine.registraOrdine(1, "Maria", "Giuseppa");
@@ -55,9 +59,28 @@ class GestoreOrdineTest {
         gestoreOrdine.registraMerce(2, 6, ordine1);
 
         assertEquals(520, ordine.getTotalePrezzo());
-        assertFalse(negozio.getMerceDisponibile().contains(merce));
+        assertTrue(negozio.getMerceDisponibile().contains(merce));
         assertEquals(ordine.getID(), ordine.getMerci().get(0).getIDOrdine());
         assertEquals(60, ordine1.getTotalePrezzo());
         assertEquals(ordine1.getID(), ordine1.getMerci().get(0).getIDOrdine());
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdine.registraMerce(3,6, ordine1));
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdine.registraMerce(4,2, ordine1));
+
+    }
+
+    @Test
+    void terminaOrdine() {
+        Negozio negozio = new Negozio(1);
+        Merce merce = new Merce(1, 52, "gomma", 10);
+        Merce merce1 = new Merce(1, 10, "matita", 20);
+        Cliente cliente = new Cliente("Maria","Giuseppa");
+        GestoreOrdine gestoreOrdine = new GestoreOrdine(negozio);
+        Ordine ordine = gestoreOrdine.registraOrdine(1, "Maria", "Giuseppa");
+
+        gestoreOrdine.registraMerce(1,5,ordine);
+        gestoreOrdine.registraMerce(2,10,ordine);
+        gestoreOrdine.terminaOrdine(ordine);
+        assertSame(StatoOrdine.PAGATO, ordine.getStato());
+
     }
 }

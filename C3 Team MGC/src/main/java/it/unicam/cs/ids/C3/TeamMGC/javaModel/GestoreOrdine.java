@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
@@ -23,9 +24,7 @@ public class GestoreOrdine {
      */
     public Ordine registraOrdine(int IDCliente, String nome, String cognome) {
         controllaCliente(IDCliente, nome, cognome);
-        Ordine ordine = new Ordine(IDCliente, nome, cognome);
-        ordine.setStato(StatoOrdine.PAGATO);
-        return ordine;
+        return new Ordine(IDCliente, nome, cognome);
     }
 
     /**
@@ -40,7 +39,7 @@ public class GestoreOrdine {
         try {
             ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID = '" + IDCliente + "' and nome = '" + nome + "' and cognome = '" + cognome + "';");
             if (!rs.next())
-                //todo vedere eccezione giusta
+                //todo eccezione
                 throw new IllegalArgumentException();
         } catch (SQLException exception) {
             //todo
@@ -57,13 +56,30 @@ public class GestoreOrdine {
      */
     public void registraMerce(int IDMerce, int quantita, Ordine ordine) {
         Merce merce = negozio.getMerce(IDMerce);
-        merce.setQuantita(merce.getQuantita() - quantita);
-        if (merce.getQuantita() <= 0)
-            negozio.removeMerce(merce);
+        if(merce.getQuantita() == 0 || merce.getQuantita() < quantita)
+            throw new IllegalArgumentException();
 
+        merce.setQuantita(merce.getQuantita() - quantita);
         MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO);
         ordine.aggiungiMerce(merceOrdine, quantita);
         merceOrdine.setIDOrdine(ordine.getID());
+    }
+
+    /**
+     * Imposta lo stato dell'{@link Ordine} come pagato se tutta la {@link MerceOrdine} in esso è pagata.
+     * @param ordine    Ordine da controllare
+     */
+    public void terminaOrdine(Ordine ordine) {
+        ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
+        for (MerceOrdine m : ordine.getMerci()) {
+            if (m.getStato() == StatoOrdine.PAGATO)
+                mercePagata.add(m);
+        }
+        if (mercePagata.equals(ordine.getMerci()))
+            ordine.setStato(StatoOrdine.PAGATO);
+        else
+            //todo eccezione
+            throw new IllegalArgumentException();
     }
 
 }
