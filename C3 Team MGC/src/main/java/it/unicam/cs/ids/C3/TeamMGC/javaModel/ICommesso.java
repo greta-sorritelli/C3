@@ -22,15 +22,6 @@ public class ICommesso {
     }
 
     /**
-     * Ritorna la {@link Merce} all' interno dell' inventario del {@link Negozio}.
-     *
-     * @return l'elenco della Merce
-     */
-    public ArrayList<Merce> compilazioneOrdine() {
-        return negozio.getMerceDisponibile();
-    }
-
-    /**
      * Genera il nuovo {@code Codice di Ritiro} del {@link Cliente}.
      *
      * @return il Codice generato
@@ -44,7 +35,7 @@ public class ICommesso {
     }
 
     void getMagazziniDisponibili() {
-//todo
+     //todo
     }
 
     /**
@@ -53,6 +44,7 @@ public class ICommesso {
      * @param ordine   Ordine in cui registrare la merce
      */
     void registraMerce(int ID, int quantita, Ordine ordine) {
+
         gestoreOrdine.registraMerce(ID, quantita, ordine);
     }
 
@@ -84,6 +76,7 @@ public class ICommesso {
      * @param negozio Negozio da impostare
      */
     public void setNegozio(Negozio negozio) {
+
         this.negozio = negozio;
     }
 

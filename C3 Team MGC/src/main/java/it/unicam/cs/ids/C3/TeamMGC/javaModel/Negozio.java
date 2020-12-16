@@ -38,6 +38,7 @@ public class Negozio {
 
     //todo
     public Negozio(int IDNegozio) {
+
         this.IDNegozio = IDNegozio;
     }
 

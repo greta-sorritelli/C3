@@ -30,6 +30,7 @@ public class Ordine {
         this.puntoPrelievo = puntoPrelievo;
     }
 
+    //Todo forse levare
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
         try {
             if (puntoPrelievo != null) {
@@ -141,7 +142,6 @@ public class Ordine {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
     }
 
     /**

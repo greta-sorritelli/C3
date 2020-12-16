@@ -16,7 +16,8 @@ public class IMagazziniereTest {
 
     @BeforeAll
     static void clearDB() throws SQLException {
-        updateData("TRUNCATE `sys`.`clienti`;");
+        updateData("delete from sys.clienti;");
+        updateData("alter table clienti AUTO_INCREMENT = 1;");
     }
 
     @Test
