@@ -11,23 +11,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrdineTest {
 
+    static Ordine ordineTest;
+    static Cliente cliente1;
+
     @BeforeEach
     void clearDB() throws SQLException {
-        updateData("TRUNCATE `sys`.`ordini`;");
-        updateData("TRUNCATE `sys`.`merci`;");
+        updateData("delete from sys.ordini;");
+        updateData("alter table ordini AUTO_INCREMENT = 1;");
+        updateData("delete from sys.merci;");
+        updateData("alter table merci AUTO_INCREMENT = 1;");
+        updateData("delete from sys.clienti;");
+        updateData("alter table clienti AUTO_INCREMENT = 1;");
     }
 
     @Test
     void creazioneOrdine() {
-        Ordine ordine = new Ordine(2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        cliente1 = new Cliente("Matteo", "Rondini");
+        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
         assertEquals(1, ordine.getID());
     }
 
     @Test
     void setPuntoPrelievo() {
-        Ordine ordine = new Ordine(1, 2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        cliente1 = new Cliente("Matteo", "Rondini");
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
         ordine.setPuntoPrelievo(p);
         PuntoPrelievo p1 = new PuntoPrelievo("via op", "B3");
         ordine1.setPuntoPrelievo(p1);
@@ -36,9 +45,10 @@ class OrdineTest {
 
     @Test
     void setStato() {
-        Ordine ordine = new Ordine(1, 2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        cliente1 = new Cliente("Matteo", "Rondini");
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
         assertNotEquals(ordine.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
@@ -49,9 +59,11 @@ class OrdineTest {
 
     @Test
     void getDettagli() {
-        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO);
+        cliente1 = new Cliente("Matteo", "Rondini");
+        ordineTest = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(1, 2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
         ordine.aggiungiMerce(merce, 2);
         ArrayList<String> ordine1 = new ArrayList<>();
         ordine1.add(String.valueOf(ordine.getID()));
@@ -67,9 +79,10 @@ class OrdineTest {
 
     @Test
     void addResidenza() {
+        cliente1 = new Cliente("Matteo", "Rondini");
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(1, 2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
-        Ordine ordine1 = new Ordine(2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
         ordine.addResidenza("Via Giuseppe Garibaldi");
         ordine1.addResidenza("Via Giuseppe Rossi");
         assertEquals(ordine.getResidenza(), "Via Giuseppe Garibaldi");
@@ -79,8 +92,9 @@ class OrdineTest {
 
     @Test
     void aggiungiMerce() {
-        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO);
-        Ordine ordine = new Ordine(2, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        cliente1 = new Cliente("Matteo", "Rondini");
+        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
         ordine.aggiungiMerce(merce,15);
         assertEquals(merce.getQuantita(), 15);
         assertTrue(ordine.getMerci().contains(merce));

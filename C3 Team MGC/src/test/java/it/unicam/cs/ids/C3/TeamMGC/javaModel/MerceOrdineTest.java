@@ -18,6 +18,8 @@ class MerceOrdineTest {
     static void clearDB() throws SQLException {
         updateData("delete from sys.merci;");
         updateData("alter table merci AUTO_INCREMENT = 1;");
+        updateData("delete from sys.ordini;");
+        updateData("alter table ordini AUTO_INCREMENT = 1;");
         ordineTest = new Ordine(1, "Marco", "Papera");
         merceOrdineTest = new MerceOrdine(10, "test allSet", StatoOrdine.PAGATO, 1);
     }
@@ -32,17 +34,6 @@ class MerceOrdineTest {
         if (rs.next())
             assertEquals("test setDescrizione", rs.getString("descrizione"));
     }
-
-//    @Test
-//    void setIDOrdine() throws SQLException {
-//        assertEquals(-1, merceOrdineTest.getIDOrdine());
-//        merceOrdineTest.setIDOrdine(50);
-//        assertEquals(50, merceOrdineTest.getIDOrdine());
-//
-//        ResultSet rs = executeQuery("SELECT IDOrdine FROM sys.merci where ID = 1;");
-//        if (rs.next())
-//            assertEquals(50, rs.getInt("IDOrdine"));
-//    }
 
     @Test
     void setPrezzo() throws SQLException {
