@@ -12,10 +12,14 @@ class GestoreOrdineTest {
 
     @BeforeEach
     void clearDB() throws SQLException {
-        updateData("TRUNCATE `sys`.`ordini`;");
-        updateData("TRUNCATE `sys`.`merci`;");
-        updateData("TRUNCATE `sys`.`inventario`;");
-        updateData("TRUNCATE `sys`.`clienti`;");
+        updateData("delete from sys.ordini;");
+        updateData("alter table ordini AUTO_INCREMENT = 1;");
+        updateData("delete from `sys`.`merci`;");
+        updateData("alter table merci AUTO_INCREMENT = 1;");
+        updateData("delete from sys.inventario;");
+        updateData("alter table inventario AUTO_INCREMENT = 1;");
+        updateData("delete from `sys`.`clienti`;");
+        updateData("alter table clienti AUTO_INCREMENT = 1;");
     }
 
     @Test
@@ -36,8 +40,7 @@ class GestoreOrdineTest {
 
     @Test
     void registraMerce() {
-        Negozio negozio = new Negozio(1);
-
+        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         Merce merce = new Merce(1, 52, "gomma", 10);
         Merce merce1 = new Merce(1, 10, "matita", 20);
         Merce merce2 = new Merce(1,20,"pennello",5);
@@ -70,7 +73,7 @@ class GestoreOrdineTest {
 
     @Test
     void terminaOrdine() {
-        Negozio negozio = new Negozio(1);
+        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         Merce merce = new Merce(1, 52, "gomma", 10);
         Merce merce1 = new Merce(1, 10, "matita", 20);
         Cliente cliente = new Cliente("Maria","Giuseppa");

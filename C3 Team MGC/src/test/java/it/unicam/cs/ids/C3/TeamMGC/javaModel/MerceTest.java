@@ -13,10 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MerceTest {
     static Merce merceTest;
+    static Negozio negozioTest;
 
     @BeforeAll
     static void clearDB() throws SQLException {
-        updateData("TRUNCATE sys.inventario;");
+        updateData("delete from sys.inventario;");
+        updateData("alter table inventario AUTO_INCREMENT = 1;");
+        updateData("delete from sys.negozi;");
+        updateData("alter table negozi AUTO_INCREMENT = 1;");
+        negozioTest = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         merceTest = new Merce(1, 12, "test allSet", 10);
     }
 
@@ -32,10 +37,10 @@ class MerceTest {
 
     @Test
     void getDettagli() {
-        Merce merce = new Merce(5, 6.5, "test getDettagli", 2);
+        Merce merce = new Merce(1, 6.5, "test getDettagli", 2);
         ArrayList<String> toControl = new ArrayList<>();
         toControl.add("3");
-        toControl.add("5");
+        toControl.add("1");
         toControl.add("6.5");
         toControl.add("test getDettagli");
         toControl.add("2");

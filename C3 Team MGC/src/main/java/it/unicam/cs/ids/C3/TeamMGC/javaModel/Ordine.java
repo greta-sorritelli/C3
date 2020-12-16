@@ -136,7 +136,7 @@ public class Ordine {
         try {
             merce.setQuantita(quantita);
             merci.add(merce);
-            merce.setIDOrdine(this.getID());
+//            merce.setIDOrdine(this.getID());
             this.totalePrezzo += (merce.getPrezzo() * quantita);
             updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
         } catch (SQLException exception) {

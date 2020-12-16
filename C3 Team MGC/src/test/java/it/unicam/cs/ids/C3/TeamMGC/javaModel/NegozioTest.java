@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NegozioTest {
     @BeforeAll
     static void preparaDB() throws SQLException {
-        updateData("TRUNCATE `sys`.`inventario`;");
+        updateData("delete from sys.inventario;");
+        updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("INSERT INTO `sys`.`inventario` (`IDNegozio`, `prezzo`, `descrizione`, `quantita`) VALUES ('1', '10', 'test Negozio', '10');");
         updateData("INSERT INTO `sys`.`inventario` (`IDNegozio`, `prezzo`, `descrizione`, `quantita`) VALUES ('1', '5', 'test Negozio', '1');");
         updateData("INSERT INTO `sys`.`inventario` (`IDNegozio`, `prezzo`, `descrizione`, `quantita`) VALUES ('1', '50', 'test Negozio', '20');");
