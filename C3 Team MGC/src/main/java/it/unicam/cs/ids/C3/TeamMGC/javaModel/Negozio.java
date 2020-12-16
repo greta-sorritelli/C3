@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
@@ -15,6 +16,25 @@ public class Negozio {
     private String orarioChiusura;
     private String indirizzo;
     private String telefono;
+
+    public Negozio(String nome, String categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) {
+        try {
+            updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) " +
+                    "VALUES ('" + nome + "', '" + categoria + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
+                    indirizzo + "', '" + telefono + "');");
+            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from inventario;");
+            rs.next();
+            IDNegozio = rs.getInt("ID");
+            this.nome = nome;
+            this.categoria = categoria;
+            this.orarioApertura = orarioApertura;
+            this.orarioChiusura = orarioChiusura;
+            this.indirizzo = indirizzo;
+            this.telefono = telefono;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     //todo
     public Negozio(int IDNegozio) {
