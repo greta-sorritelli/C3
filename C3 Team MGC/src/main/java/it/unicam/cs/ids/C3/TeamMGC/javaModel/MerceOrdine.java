@@ -15,13 +15,14 @@ public class MerceOrdine {
     private int quantita = 0;
     private StatoOrdine stato;
 
-    public MerceOrdine(double prezzo, String descrizione, StatoOrdine stato) {
+    public MerceOrdine(double prezzo, String descrizione, StatoOrdine stato, int IDOrdine) {
         try {
-            updateData("INSERT INTO sys.merci (prezzo, descrizione, stato) " +
-                    "VALUES ('" + prezzo + "', '" + descrizione + "', '" + stato + "');");
+            updateData("INSERT INTO sys.merci (prezzo, descrizione, stato, IDOrdine) " +
+                    "VALUES ('" + prezzo + "', '" + descrizione + "', '" + stato + "', '" + IDOrdine + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from merci;");
             rs.next();
             ID = rs.getInt("ID");
+            this.IDOrdine = IDOrdine;
             this.prezzo = prezzo;
             this.descrizione = descrizione;
             this.stato = stato;
@@ -64,15 +65,6 @@ public class MerceOrdine {
 
     public int getIDOrdine() {
         return IDOrdine;
-    }
-
-    public void setIDOrdine(int IDOrdine) {
-        try {
-            updateData("UPDATE sys.merci SET IDOrdine = '" + IDOrdine + "' WHERE (ID = '" + ID + "');");
-            this.IDOrdine = IDOrdine;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
     }
 
     public double getPrezzo() {
