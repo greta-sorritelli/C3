@@ -18,6 +18,7 @@ public class ICommesso {
      * @param NCivico
      */
     void addResidenza(String via, int NCivico) {
+        //todo
     }
 
     /**
@@ -43,16 +44,16 @@ public class ICommesso {
     }
 
     void getMagazziniDisponibili() {
-
+//todo
     }
 
     /**
-     * @param ID             Descrizione della merce
-     * @param quantita       Quantita della merce
-     * @param ordine         Ordine in cui registrare la merce
+     * @param ID       Descrizione della merce
+     * @param quantita Quantita della merce
+     * @param ordine   Ordine in cui registrare la merce
      */
     void registraMerce(int ID, int quantita, Ordine ordine) {
-        gestoreOrdine.registraMerce(ID,quantita,ordine);
+        gestoreOrdine.registraMerce(ID, quantita, ordine);
     }
 
     /**
@@ -65,12 +66,15 @@ public class ICommesso {
     }
 
     void riceviPagamento() {
+        //todo
     }
 
     void sceltaCorriere() {
+        //todo
     }
 
     Corriere selezionaCorriere() {
+        //todo
         return null;
     }
 
@@ -87,10 +91,10 @@ public class ICommesso {
      * @param ordine
      * @param magazzino
      */
-    void setPuntodiPrelievo(Ordine ordine,PuntoPrelievo magazzino) {
+    void setPuntodiPrelievo(Ordine ordine, PuntoPrelievo magazzino) {
         try {
-        ordine.setPuntoPrelievo(magazzino);
-        updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + ordine.getID()+ "');");
+            ordine.setPuntoPrelievo(magazzino);
+            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + ordine.getID() + "');");
         } catch (SQLException exception) {
             //TODO
             exception.printStackTrace();
@@ -101,9 +105,9 @@ public class ICommesso {
      * @param ordine
      * @param statoOrdine
      */
-    void setStatoOrdine(Ordine ordine,StatoOrdine statoOrdine) {
+    void setStatoOrdine(Ordine ordine, StatoOrdine statoOrdine) {
         try {
-            ordine.setStato(statoOrdine); ;
+            ordine.setStato(statoOrdine);
             updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + ordine.getID() + "');");
         } catch (SQLException exception) {
             //TODO

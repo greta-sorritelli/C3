@@ -29,9 +29,11 @@ public class IMagazziniereTest {
 
     @Test
     void mandaAlertTest() {
+        //todo
     }
 
     @Test
     void verificaCodiceTest() {
+        //todo
     }
 }

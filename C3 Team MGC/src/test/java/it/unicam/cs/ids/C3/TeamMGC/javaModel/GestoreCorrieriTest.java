@@ -24,6 +24,6 @@ class GestoreCorrieriTest {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         ArrayList<Corriere> test = gestoreCorrieri.getCorrieriDisponibili();
         assertEquals(test.get(0).getID(), 1);
-        assertEquals(test.get(1).getDisponibilita(), true);
+        assertTrue(test.get(1).getDisponibilita());
     }
 }
