@@ -53,7 +53,7 @@ public class ICommesso {
      * @param Nome      Nome del Cliente
      * @param Cognome   Cognome del Cliente
      */
-    public void registraOrdine(Ordine ordine, int IDCliente, String Nome, String Cognome) {
+    void registraOrdine(int IDCliente, String Nome, String Cognome) {
         gestoreOrdine.registraOrdine(IDCliente, Nome, Cognome);
     }
 
