@@ -138,4 +138,12 @@ public class ICommesso {
         }
     }
 
+    /**
+     *
+     * @param ordine
+     */
+    public void terminaOrdine(Ordine ordine){
+        gestoreOrdine.terminaOrdine(ordine);
+    }
+
 }
