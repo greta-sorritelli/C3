@@ -20,11 +20,13 @@ class GestoreOrdineTest {
         updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("delete from `sys`.`clienti`;");
         updateData("alter table clienti AUTO_INCREMENT = 1;");
+        updateData("delete from `sys`.`negozi`;");
+        updateData("alter table negozi AUTO_INCREMENT = 1;");
     }
 
     @Test
     void registraOrdine() {
-        Negozio negozio = new Negozio(1);
+        Negozio negozio = new Negozio("ABC", null, null, null, null, null);
         GestoreOrdine gestoreOrdine = new GestoreOrdine(negozio);
         Cliente cliente = new Cliente("Maria","Giuseppa");
         Ordine ordine = gestoreOrdine.registraOrdine(1, "Maria", "Giuseppa");
@@ -41,10 +43,10 @@ class GestoreOrdineTest {
     @Test
     void registraMerce() {
         Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
-        Merce merce = new Merce(1, 52, "gomma", 10);
-        Merce merce1 = new Merce(1, 10, "matita", 20);
-        Merce merce2 = new Merce(1,20,"pennello",5);
-        Merce merce3 = new Merce(1,15,"maglietta",0);
+        Merce merce = new Merce(negozio.getIDNegozio(), 52, "gomma", 10);
+        Merce merce1 = new Merce(negozio.getIDNegozio(), 10, "matita", 20);
+        Merce merce2 = new Merce(negozio.getIDNegozio(), 20,"pennello",5);
+        Merce merce3 = new Merce(negozio.getIDNegozio(), 15,"maglietta",0);
 
         Cliente cliente = new Cliente("Maria","Giuseppa");
         Cliente cliente1 = new Cliente("Giuseppe", "Rossi");
@@ -55,16 +57,16 @@ class GestoreOrdineTest {
         negozio.addMerce(merce3);
 
         GestoreOrdine gestoreOrdine = new GestoreOrdine(negozio);
-        Ordine ordine = gestoreOrdine.registraOrdine(1, "Maria", "Giuseppa");
-        Ordine ordine1 = gestoreOrdine.registraOrdine(2, "Giuseppe", "Rossi");
+        Ordine ordine = gestoreOrdine.registraOrdine(cliente.getID(), "Maria", "Giuseppa");
+        Ordine ordine1 = gestoreOrdine.registraOrdine(cliente1.getID(), "Giuseppe", "Rossi");
 
-        gestoreOrdine.registraMerce(1, 10, ordine);
-        gestoreOrdine.registraMerce(2, 6, ordine1);
+        gestoreOrdine.registraMerce(merce.getID(), 10, ordine);
+        gestoreOrdine.registraMerce(merce2.getID(), 4, ordine1);
 
         assertEquals(520, ordine.getTotalePrezzo());
         assertTrue(negozio.getMerceDisponibile().contains(merce));
         assertEquals(ordine.getID(), ordine.getMerci().get(0).getIDOrdine());
-        assertEquals(60, ordine1.getTotalePrezzo());
+        assertEquals(80, ordine1.getTotalePrezzo());
         assertEquals(ordine1.getID(), ordine1.getMerci().get(0).getIDOrdine());
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdine.registraMerce(3,6, ordine1));
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdine.registraMerce(4,2, ordine1));
@@ -78,10 +80,10 @@ class GestoreOrdineTest {
         Merce merce1 = new Merce(1, 10, "matita", 20);
         Cliente cliente = new Cliente("Maria","Giuseppa");
         GestoreOrdine gestoreOrdine = new GestoreOrdine(negozio);
-        Ordine ordine = gestoreOrdine.registraOrdine(1, "Maria", "Giuseppa");
+        Ordine ordine = gestoreOrdine.registraOrdine(cliente.getID(), "Maria", "Giuseppa");
 
-        gestoreOrdine.registraMerce(1,5,ordine);
-        gestoreOrdine.registraMerce(2,10,ordine);
+        gestoreOrdine.registraMerce(merce.getID(),5,ordine);
+        gestoreOrdine.registraMerce(merce1.getID(),10,ordine);
         gestoreOrdine.terminaOrdine(ordine);
         assertSame(StatoOrdine.PAGATO, ordine.getStato());
 

@@ -17,11 +17,12 @@ class ICommessoTest {
     }
 
     @Test
-    void verificaValiditaCodice() {
+    void verificaEsistenzaCodice() {
         Cliente test = new Cliente("Mario", "Rossi");
+        Ordine ordine = new Ordine(1, "Mario", "Rossi");
         ICommesso iCommesso = new ICommesso();
-        assertFalse(iCommesso.verificaValiditaCodice(test));
-        assertTrue(iCommesso.verificaValiditaCodice(test));
+        assertNull(test.getCodiceRitiro());
+        assertEquals(iCommesso.verificaEsistenzaCodice(test, ordine), test.getCodiceRitiro());
     }
 
 }

@@ -42,7 +42,13 @@ public class Negozio {
         this.IDNegozio = IDNegozio;
     }
 
+
+    public int getIDNegozio() {
+        return IDNegozio;
+    }
+
     /**
+     * todo da scrivere su visualParadigm
      * @param merce
      * @return
      */
@@ -52,6 +58,7 @@ public class Negozio {
     }
 
     /**
+     * todo scrivere su visualParadigm
      * Aggiunge la {@link Merce} al {@link Negozio}.
      *
      * @param merce Merce da aggiungere

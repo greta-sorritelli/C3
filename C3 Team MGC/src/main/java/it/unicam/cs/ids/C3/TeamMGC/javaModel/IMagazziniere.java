@@ -32,7 +32,7 @@ public class IMagazziniere {
     }
 
 
-    public boolean verificaCodice(int IDCliente, int codiceRitiro) {
+    public boolean verificaCodice(int IDCliente, String codiceRitiro) {
         try {
             ResultSet rs = executeQuery("SELECT * FROM sys.codici_ritiro where codice = '" + codiceRitiro +
                     "' and IDCliente = '" + IDCliente + "';");
