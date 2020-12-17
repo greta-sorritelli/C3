@@ -88,11 +88,14 @@ public class Negozio {
      * @return la Merce desiderata
      */
     public Merce getMerce(int ID) {
-        //todo controllare che l'IDNegozio della merce corrisponda all'ID del Negozio in java
         try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "';");
+            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
+                    this.IDNegozio + "' ;");
             if (rs.next())
                 return addMerceInventario(rs);
+            else
+                //todo eccezione
+                throw new IllegalArgumentException();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
