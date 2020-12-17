@@ -17,7 +17,7 @@ public class ICommesso {
      * @param via
      * @param NCivico
      */
-    void addResidenza(String via, int NCivico) {
+    public void addResidenza(String via, int NCivico) {
         //todo
     }
 
@@ -29,12 +29,12 @@ public class ICommesso {
     private String generaCodiceRitiro() {
         Random rand = new Random();
         String tmp = "";
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 12; i++)
             tmp = tmp.concat(String.valueOf(rand.nextInt(10)));
         return tmp;
     }
 
-    void getMagazziniDisponibili() {
+    public void getMagazziniDisponibili() {
      //todo
     }
 
@@ -43,7 +43,7 @@ public class ICommesso {
      * @param quantita Quantita della merce
      * @param ordine   Ordine in cui registrare la merce
      */
-    void registraMerce(int ID, int quantita, Ordine ordine) {
+    public void registraMerce(int ID, int quantita, Ordine ordine) {
 
         gestoreOrdine.registraMerce(ID, quantita, ordine);
     }
@@ -53,19 +53,19 @@ public class ICommesso {
      * @param Nome      Nome del Cliente
      * @param Cognome   Cognome del Cliente
      */
-    void registraOrdine(Ordine ordine, int IDCliente, String Nome, String Cognome) {
+    public void registraOrdine(Ordine ordine, int IDCliente, String Nome, String Cognome) {
         gestoreOrdine.registraOrdine(IDCliente, Nome, Cognome);
     }
 
-    void riceviPagamento() {
+    public void riceviPagamento() {
         //todo
     }
 
-    void sceltaCorriere() {
+    public void sceltaCorriere() {
         //todo
     }
 
-    Corriere selezionaCorriere() {
+    public Corriere selezionaCorriere() {
         //todo
         return null;
     }
@@ -84,7 +84,7 @@ public class ICommesso {
      * @param ordine
      * @param magazzino
      */
-    void setPuntodiPrelievo(Ordine ordine, PuntoPrelievo magazzino) {
+    public void setPuntoPrelievo(Ordine ordine, PuntoPrelievo magazzino) {
         try {
             ordine.setPuntoPrelievo(magazzino);
             updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + ordine.getID() + "');");
@@ -98,7 +98,7 @@ public class ICommesso {
      * @param ordine
      * @param statoOrdine
      */
-    void setStatoOrdine(Ordine ordine, StatoOrdine statoOrdine) {
+    public void setStatoOrdine(Ordine ordine, StatoOrdine statoOrdine) {
         try {
             ordine.setStato(statoOrdine);
             updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + ordine.getID() + "');");
@@ -108,7 +108,7 @@ public class ICommesso {
         }
     }
 
-    boolean verificaValiditaCodice(Cliente cliente) {
+    public String verificaEsistenzaCodice(Cliente cliente, Ordine ordine) {
         try {
             ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + cliente.getID() + ";");
             if (rs.next()) {
@@ -116,15 +116,26 @@ public class ICommesso {
                 String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
                 if (Objects.isNull(date) || !date.equals(dataOdierna)) {
                     cliente.setCodiceRitiro(generaCodiceRitiro());
-                    return false;
+                    this.creazioneCodice(cliente, ordine);
+                    return cliente.getCodiceRitiro();
                 }
-                return true;
+                return cliente.getCodiceRitiro();
             }
         } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
         }
-        return false;
+        return cliente.getCodiceRitiro();
+    }
+
+    private void creazioneCodice(Cliente cliente, Ordine ordine) {
+        try {
+            updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
+                    "VALUES ('" + cliente.getCodiceRitiro() + "', '" + cliente.getID() + "', '" + ordine.getID() + "', '" + cliente.getDataCreazioneCodice() + "');");
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
     }
 
 }

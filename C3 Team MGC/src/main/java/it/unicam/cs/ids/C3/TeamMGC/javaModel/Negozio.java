@@ -42,6 +42,11 @@ public class Negozio {
         this.IDNegozio = IDNegozio;
     }
 
+
+    public int getIDNegozio() {
+        return IDNegozio;
+    }
+
     /**
      * @param merce
      * @return

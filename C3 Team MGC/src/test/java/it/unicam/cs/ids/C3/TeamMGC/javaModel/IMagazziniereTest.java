@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class IMagazziniereTest {
 
@@ -35,6 +34,33 @@ public class IMagazziniereTest {
 
     @Test
     void verificaCodiceTest() {
-        //todo
+        ICommesso commesso = new ICommesso();
+        Cliente cliente = new Cliente("Mario", "Rossi");
+        Ordine ordine = new Ordine(cliente.getID(), "Mario", "Rossi");
+        assertNull(cliente.getCodiceRitiro());
+        String codice = commesso.verificaEsistenzaCodice(cliente, ordine);
+        assertNotNull(cliente.getCodiceRitiro());
+        assertEquals(codice, cliente.getCodiceRitiro());
+        IMagazziniere m = new IMagazziniere();
+        assertTrue(m.verificaCodice(cliente.getID(), codice));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
