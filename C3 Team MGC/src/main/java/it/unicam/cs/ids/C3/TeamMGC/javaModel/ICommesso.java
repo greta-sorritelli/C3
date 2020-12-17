@@ -44,7 +44,6 @@ public class ICommesso {
      * @param ordine   Ordine in cui registrare la merce
      */
     void registraMerce(int ID, int quantita, Ordine ordine) {
-
         gestoreOrdine.registraMerce(ID, quantita, ordine);
     }
 
@@ -53,7 +52,7 @@ public class ICommesso {
      * @param Nome      Nome del Cliente
      * @param Cognome   Cognome del Cliente
      */
-    void registraOrdine(Ordine ordine, int IDCliente, String Nome, String Cognome) {
+    void registraOrdine(int IDCliente, String Nome, String Cognome) {
         gestoreOrdine.registraOrdine(IDCliente, Nome, Cognome);
     }
 
@@ -76,7 +75,6 @@ public class ICommesso {
      * @param negozio Negozio da impostare
      */
     public void setNegozio(Negozio negozio) {
-
         this.negozio = negozio;
     }
 

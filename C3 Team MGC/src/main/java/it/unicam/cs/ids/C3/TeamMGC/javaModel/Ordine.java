@@ -73,42 +73,6 @@ public class Ordine {
         }
     }
 
-    public int getID() {
-        return ID;
-    }
-
-    public int getIDCliente() {
-        return IDCliente;
-    }
-
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
-
-    public String getCognomeCliente() {
-        return cognomeCliente;
-    }
-
-    public double getTotalePrezzo() {
-        return totalePrezzo;
-    }
-
-    public StatoOrdine getStato() {
-        return stato;
-    }
-
-    public PuntoPrelievo getPuntoPrelievo() {
-        return puntoPrelievo;
-    }
-
-    public String getResidenza() {
-        return residenza;
-    }
-
-    public ArrayList<MerceOrdine> getMerci() {
-        return merci;
-    }
-
     /**
      * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine}.
      *
@@ -143,6 +107,18 @@ public class Ordine {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ordine ordine = (Ordine) o;
+        return ID == ordine.ID;
+    }
+
+    public String getCognomeCliente() {
+        return cognomeCliente;
+    }
+
     /**
      * Ritorna un arraylist con i dettagli dell'{@link Ordine} in stringa.
      *
@@ -166,6 +142,26 @@ public class Ordine {
         return ordini;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public int getIDCliente() {
+        return IDCliente;
+    }
+
+    public ArrayList<MerceOrdine> getMerci() {
+        return merci;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public PuntoPrelievo getPuntoPrelievo() {
+        return puntoPrelievo;
+    }
+
     public void setPuntoPrelievo(PuntoPrelievo magazzino) {
         try {
             updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + this.ID + "');");
@@ -174,6 +170,14 @@ public class Ordine {
             //TODO
             exception.printStackTrace();
         }
+    }
+
+    public String getResidenza() {
+        return residenza;
+    }
+
+    public StatoOrdine getStato() {
+        return stato;
     }
 
     public void setStato(StatoOrdine statoOrdine) {
@@ -186,12 +190,8 @@ public class Ordine {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ordine ordine = (Ordine) o;
-        return ID == ordine.ID;
+    public double getTotalePrezzo() {
+        return totalePrezzo;
     }
 
     @Override
