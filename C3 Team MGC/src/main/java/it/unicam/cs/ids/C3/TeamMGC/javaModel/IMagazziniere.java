@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class IMagazziniere {
-
+    //todo essendo un' interfaccia forse il cerca cliente non deve creare un Cliente come oggetto ma deve
+    //todo semplicemente visualizzare nella view le informazioni.
     public Cliente cercaCliente(int IDCliente) {
         try {
             ResultSet rs = executeQuery("SELECT * from clienti\n" +
@@ -31,8 +32,14 @@ public class IMagazziniere {
     }
 
 
-    public boolean verificaCodice(int codiceRitiro) {
-        //TODO
-        return true;
+    public boolean verificaCodice(int IDCliente, int codiceRitiro) {
+        try {
+            ResultSet rs = executeQuery("SELECT * FROM sys.codici_ritiro where codice = '" + codiceRitiro +
+                    "' and IDCliente = '" + IDCliente + "';");
+            return rs.next();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return false;
     }
 }
