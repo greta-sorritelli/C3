@@ -72,6 +72,9 @@ public class Corriere {
 
     public void setCapienza(int capienza) {
         try {
+            if(capienza < 0)
+                //todo eccezione
+                throw new IllegalArgumentException();
             updateData("UPDATE `sys`.`corrieri` SET `capienza` = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
             this.capienza = capienza;
         } catch (SQLException exception) {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NegozioTest {
     @BeforeAll
@@ -27,6 +28,8 @@ class NegozioTest {
         merce1.setQuantita(500);
         assertEquals(merce1.getQuantita(), 500);
         assertEquals(merce2.getQuantita(), 500);
+        assertTrue(negozio.getMerceDisponibile().contains(merce1));
+        assertTrue(negozio.getMerceDisponibile().contains(merce2));
     }
 
     @Test

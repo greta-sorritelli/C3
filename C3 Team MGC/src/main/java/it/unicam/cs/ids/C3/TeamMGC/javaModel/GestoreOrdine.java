@@ -56,17 +56,18 @@ public class GestoreOrdine {
      */
     public void registraMerce(int IDMerce, int quantita, Ordine ordine) {
         Merce merce = negozio.getMerce(IDMerce);
-        if(merce.getQuantita() == 0 || merce.getQuantita() < quantita)
+        if (merce.getQuantita() == 0 || merce.getQuantita() < quantita)
             throw new IllegalArgumentException();
 
         merce.setQuantita(merce.getQuantita() - quantita);
-        MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO,ordine.getID());
+        MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO, ordine.getID());
         ordine.aggiungiMerce(merceOrdine, quantita);
     }
 
     /**
      * Imposta lo stato dell'{@link Ordine} come pagato se tutta la {@link MerceOrdine} in esso è pagata.
-     * @param ordine    Ordine da controllare
+     *
+     * @param ordine Ordine da controllare
      */
     public void terminaOrdine(Ordine ordine) {
         ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
