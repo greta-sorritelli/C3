@@ -1,4 +1,7 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaModel;
+package it.unicam.cs.ids.C3.TeamMGC.ordine;
+
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

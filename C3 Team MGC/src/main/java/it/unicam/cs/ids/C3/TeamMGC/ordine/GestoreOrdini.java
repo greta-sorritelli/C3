@@ -1,4 +1,8 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaModel;
+package it.unicam.cs.ids.C3.TeamMGC.ordine;
+
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,11 +10,11 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
-public class GestoreOrdine {
+public class GestoreOrdini {
 
     private final Negozio negozio;
 
-    public GestoreOrdine(Negozio negozio) {
+    public GestoreOrdini(Negozio negozio) {
         this.negozio = negozio;
     }
 

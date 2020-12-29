@@ -1,5 +1,8 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

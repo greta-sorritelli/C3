@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;

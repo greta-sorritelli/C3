@@ -1,4 +1,12 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaModel;
+package it.unicam.cs.ids.C3.TeamMGC.view;
+
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +19,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 
 public class ICommesso {
     Negozio negozio;
-    GestoreOrdine gestoreOrdine;
+    GestoreOrdini gestoreOrdini;
 
     /**
      * @param via
@@ -45,7 +53,7 @@ public class ICommesso {
      */
     public void registraMerce(int ID, int quantita, Ordine ordine) {
 
-        gestoreOrdine.registraMerce(ID, quantita, ordine);
+        gestoreOrdini.registraMerce(ID, quantita, ordine);
     }
 
     /**
@@ -54,7 +62,7 @@ public class ICommesso {
      * @param Cognome   Cognome del Cliente
      */
     void registraOrdine(int IDCliente, String Nome, String Cognome) {
-        gestoreOrdine.registraOrdine(IDCliente, Nome, Cognome);
+        gestoreOrdini.registraOrdine(IDCliente, Nome, Cognome);
     }
 
     public void riceviPagamento() {
@@ -143,7 +151,7 @@ public class ICommesso {
      * @param ordine
      */
     public void terminaOrdine(Ordine ordine){
-        gestoreOrdine.terminaOrdine(ordine);
+        gestoreOrdini.terminaOrdine(ordine);
     }
 
 }

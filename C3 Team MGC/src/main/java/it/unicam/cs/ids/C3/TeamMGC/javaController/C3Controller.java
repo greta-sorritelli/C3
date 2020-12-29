@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaController;
 
 
-import it.unicam.cs.ids.C3.TeamMGC.javaModel.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 
 /**
  * Interfaccia per il funzionamento del controller MVC

@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

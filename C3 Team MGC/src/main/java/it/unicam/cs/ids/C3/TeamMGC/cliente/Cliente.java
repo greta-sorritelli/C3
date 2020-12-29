@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaModel;
+package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import java.sql.Date;
 import java.sql.ResultSet;

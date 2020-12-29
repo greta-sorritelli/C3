@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaModel;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,6 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaModel;
+package it.unicam.cs.ids.C3.TeamMGC.view;
+
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

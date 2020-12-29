@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaModel;
+package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
