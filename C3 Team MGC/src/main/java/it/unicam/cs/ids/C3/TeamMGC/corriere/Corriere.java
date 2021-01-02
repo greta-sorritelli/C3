@@ -15,18 +15,24 @@ public class Corriere {
     private int capienza;
 
     //todo da aggiornare per il nome ed il cognome
-    public Corriere(int ID, boolean disponibilita, int capienza) {
+    public Corriere(int ID, String nome, String cognome, boolean disponibilita, int capienza) {
         this.ID = ID;
+        this.nome = nome;
+        this.cognome = cognome;
         this.disponibilita = disponibilita;
         this.capienza = capienza;
     }
 
-    public Corriere(boolean disponibilita, int capienza) {
+    //todo da rivedere con le nuove informazioni (nome-cognome)
+    public Corriere(String nome, String cognome, boolean disponibilita, int capienza) {
         try {
-            updateData("INSERT INTO `sys`.`corrieri` (`stato`, `capienza`) VALUES ('" + disponibilita + "', '" + capienza + "');");
+            updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('" + nome + "', '" + cognome +
+                    "', '" + disponibilita + "', '" + capienza + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from corrieri;");
             rs.next();
             ID = rs.getInt("ID");
+            this.nome = nome;
+            this.cognome = cognome;
             this.disponibilita = disponibilita;
             this.capienza = capienza;
         } catch (SQLException exception) {
@@ -36,7 +42,6 @@ public class Corriere {
     }
 
     public int getCapienza() {
-
         return capienza;
     }
 
@@ -45,7 +50,7 @@ public class Corriere {
             if (capienza < 0)
                 //todo eccezione
                 throw new IllegalArgumentException();
-            updateData("UPDATE `sys`.`corrieri` SET `capienza` = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
+            updateData("UPDATE sys.corrieri SET capienza = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
             this.capienza = capienza;
         } catch (SQLException exception) {
             //TODO
@@ -59,6 +64,8 @@ public class Corriere {
     //todo
     public ArrayList<String> getDettagli() {
         ArrayList<String> corriere = new ArrayList<>();
+        corriere.add(nome);
+        corriere.add(cognome);
         corriere.add(String.valueOf(getDisponibilita()));
         corriere.add(String.valueOf(getCapienza()));
         return corriere;
@@ -70,7 +77,7 @@ public class Corriere {
 
     public void setDisponibilita(boolean disponibilita) {
         try {
-            updateData("UPDATE `sys`.`corrieri` SET `stato` = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
+            updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
             this.disponibilita = disponibilita;
         } catch (SQLException exception) {
             //TODO
