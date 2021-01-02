@@ -14,7 +14,6 @@ public class Corriere {
     private boolean disponibilita;
     private int capienza;
 
-    //todo da aggiornare per il nome ed il cognome
     public Corriere(int ID, String nome, String cognome, boolean disponibilita, int capienza) {
         this.ID = ID;
         this.nome = nome;
@@ -23,7 +22,6 @@ public class Corriere {
         this.capienza = capienza;
     }
 
-    //todo da rivedere con le nuove informazioni (nome-cognome)
     public Corriere(String nome, String cognome, boolean disponibilita, int capienza) {
         try {
             updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('" + nome + "', '" + cognome +
@@ -58,10 +56,15 @@ public class Corriere {
         }
     }
 
+    public String getCognome() {
+        return cognome;
+    }
+
     /**
+     * Ritorna un arraylist con i dettagli del {@link Corriere} in stringa.
+     *
      * @return ArrayList dei dettagli
      */
-    //todo
     public ArrayList<String> getDettagli() {
         ArrayList<String> corriere = new ArrayList<>();
         corriere.add(nome);
@@ -87,6 +90,10 @@ public class Corriere {
 
     public int getID() {
         return ID;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public void mandaAlert() {

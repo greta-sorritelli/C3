@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -11,39 +11,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CorriereTest {
 
-    @BeforeEach
-    void clearDB() throws SQLException {
+    @BeforeAll
+    static void clearDB() throws SQLException {
         updateData("TRUNCATE sys.corrieri;");
     }
 
-    @Test
-    void creazioneCorriere() {
+    @BeforeAll
+    static void creazioneCorriere() {
         Corriere corriere = new Corriere("Clarissa", "Albanese", true, 30);
         assertEquals(1, corriere.getID());
+        assertEquals("Clarissa", corriere.getNome());
+        assertEquals("Albanese", corriere.getCognome());
+        assertTrue(corriere.getDisponibilita());
+        assertEquals(30, corriere.getCapienza());
     }
 
     @Test
     void getDettagli() {
-        Corriere corriere = new Corriere("Clarissa", "Albanese", true, 30);
+        Corriere corriereTest = new Corriere("Mario", "Rossi", true, 30);
         ArrayList<String> corriere1 = new ArrayList<>();
-        corriere1.add("Clarissa");
-        corriere1.add("Albanese");
-        corriere1.add(String.valueOf(corriere.getDisponibilita()));
-        corriere1.add(String.valueOf(corriere.getCapienza()));
-        assertEquals(corriere.getDettagli(), corriere1);
-    }
-
-    @Test
-    void setStato() {
-        Corriere corriere = new Corriere("Clarissa", "Albanese", true, 30);
-        corriere.setDisponibilita(false);
-        assertFalse(corriere.getDisponibilita());
+        corriere1.add("Mario");
+        corriere1.add("Rossi");
+        corriere1.add("true");
+        corriere1.add("30");
+        assertEquals(corriere1, corriereTest.getDettagli());
     }
 
     @Test
     void setCapienza() {
-        Corriere corriere = new Corriere("Clarissa", "Albanese", true, 30);
-        corriere.setCapienza(52);
-        assertEquals(corriere.getCapienza(), 52);
+        Corriere corriereTest = new Corriere("Matteo", "Rondini", true, 30);
+        assertEquals(30, corriereTest.getCapienza());
+        corriereTest.setCapienza(52);
+        assertEquals(52, corriereTest.getCapienza());
+    }
+
+    @Test
+    void setStato() {
+        Corriere corriereTest = new Corriere("Greta", "Sorritelli", true, 30);
+        assertTrue(corriereTest.getDisponibilita());
+        corriereTest.setDisponibilita(false);
+        assertFalse(corriereTest.getDisponibilita());
     }
 }
