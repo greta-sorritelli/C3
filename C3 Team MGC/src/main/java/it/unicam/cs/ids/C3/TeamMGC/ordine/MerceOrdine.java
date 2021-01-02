@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
@@ -61,6 +62,11 @@ public class MerceOrdine {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public ArrayList<String> getDettagli(){
+        //todo
+        return null;
     }
 
     public int getIDOrdine() {

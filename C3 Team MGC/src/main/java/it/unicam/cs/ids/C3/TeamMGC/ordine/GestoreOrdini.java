@@ -90,64 +90,67 @@ public class GestoreOrdini {
     }
 
     /**
-     *
      * @param IDOrdine
      * @param indirizzo
      */
     //todo
-    public void addResidenza(int IDOrdine, String indirizzo){
+    public void addResidenza(int IDOrdine, String indirizzo) {
 
     }
 
     /**
-     *
      * @param IDCliente
      * @return
      */
     //todo
-    public ArrayList<String> getDettagliOrdine(int IDCliente){
+    public ArrayList<String> getDettagliOrdine(int IDCliente) {
 
         return null;
     }
 
     /**
-     *
      * @param IDOrdine
      * @return
      */
     //todo
-    public ArrayList<String> getDettagliMerceTotale(int IDOrdine){
+    public ArrayList<String> getDettagliMerceTotale(int IDOrdine) {
 
         return null;
     }
 
     /**
-     *
      * @param IDOrdine
      * @param magazzino
      */
     //todo
-    public void setPuntoPrelievo(int IDOrdine, PuntoPrelievo magazzino){
+    public void setPuntoPrelievo(int IDOrdine, PuntoPrelievo magazzino) {
 
     }
 
     /**
-     *
      * @param IDMerce
      * @param statoOrdine
      */
     //todo
-    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine){
+    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) {
 
     }
 
     /**
-     *
      * @param IDOrdine
      * @param statoOrdine
      */
     //todo
-    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine){
+    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) {
 
+    }
+
+    public void visualizzaMerce() {
+        //todo arraylist di arraylist
+    }
+
+    public MerceOrdine getMerceOrdine(int ID) {
+        //todo
+        return null;
     }
 }

@@ -14,7 +14,6 @@ public class GestoreMagazzini {
 //	}
 
     /**
-     * todo cambiare con getDettagliMagazziniDisponibili
      *
      * @return l'elenco dei Magazzini Disponibili
      */
@@ -44,4 +43,18 @@ public class GestoreMagazzini {
 
     }
 
+    public ArrayList<String> getDettagliMagazziniDisponibili() {
+        //todo
+        return null;
+    }
+
+    public PuntoPrelievo selezionaPuntoPrelievo(int ID){
+        //todo
+        return null;
+    }
+
+    //todo
+    public PuntoPrelievo getPuntoPrelievo(int ID){
+        return null;
+    }
 }

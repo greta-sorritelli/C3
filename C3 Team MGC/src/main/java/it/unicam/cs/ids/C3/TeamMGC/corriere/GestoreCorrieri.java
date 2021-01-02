@@ -37,14 +37,33 @@ public class GestoreCorrieri {
         return null;
     }
 
+    public ArrayList<String> getDettagliCorrieriDisponibili(){
+        //todo
+        return null;
+    }
+
     public Corriere selezionaCorriere() {
         // TODO - implement GestoreCorrieri.selezionaCorriere
         throw new UnsupportedOperationException();
     }
 
-    //todo da implementare
+    //todo
     public void setCapienza(int IDCorriere, int capienza) {
 
+    }
+
+    public void selezionaCorriere(int ID){
+        //todo
+    }
+
+
+    public Corriere getCorriere(int ID){
+        //todo
+        return null;
+    }
+
+    public void setDisponibilita(int IDCorriere, boolean disponibilita){
+        //todo
     }
 
 }

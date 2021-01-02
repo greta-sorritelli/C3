@@ -36,6 +36,7 @@ public class Corriere {
     }
 
     public int getCapienza() {
+
         return capienza;
     }
 
@@ -55,6 +56,7 @@ public class Corriere {
     /**
      * @return ArrayList dei dettagli
      */
+    //todo
     public ArrayList<String> getDettagli() {
         ArrayList<String> corriere = new ArrayList<>();
         corriere.add(String.valueOf(getDisponibilita()));
@@ -66,10 +68,10 @@ public class Corriere {
         return disponibilita;
     }
 
-    public void setDisponibilita(boolean statoCorriere) {
+    public void setDisponibilita(boolean disponibilita) {
         try {
-            updateData("UPDATE `sys`.`corrieri` SET `stato` = '" + statoCorriere + "' WHERE (`ID` = '" + this.ID + "');");
-            this.disponibilita = statoCorriere;
+            updateData("UPDATE `sys`.`corrieri` SET `stato` = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
+            this.disponibilita = disponibilita;
         } catch (SQLException exception) {
             //TODO
             exception.printStackTrace();
@@ -84,4 +86,6 @@ public class Corriere {
         // TODO - implement Corriere.mandaAlert
         throw new UnsupportedOperationException();
     }
+
+
 }
