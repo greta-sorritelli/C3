@@ -14,6 +14,8 @@ public class GestoreMagazzini {
 //	}
 
     /**
+     * todo cambiare con getDettagliMagazziniDisponibili
+     *
      * @return l'elenco dei Magazzini Disponibili
      */
     public ArrayList<PuntoPrelievo> getMagazziniDisponibili() {
@@ -30,6 +32,16 @@ public class GestoreMagazzini {
             exception.printStackTrace();
         }
         return null;
+    }
+
+    //todo
+    public void mandaAlert(PuntoPrelievo magazzino) {
+
+    }
+
+    //todo
+    public void sceltaPuntoPrelievo(int ID) {
+
     }
 
 }

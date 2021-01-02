@@ -12,7 +12,6 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 
 
 public class Cliente {
-
     private int ID;
     private String nome;
     private String cognome;
@@ -39,6 +38,14 @@ public class Cliente {
             //todo
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente)) return false;
+        Cliente cliente = (Cliente) o;
+        return getID() == cliente.getID() && getNome().equals(cliente.getNome()) && getCognome().equals(cliente.getCognome());
     }
 
     public String getCodiceRitiro() {
@@ -70,14 +77,6 @@ public class Cliente {
 
     public String getNome() {
         return nome;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cliente)) return false;
-        Cliente cliente = (Cliente) o;
-        return getID() == cliente.getID() && getNome().equals(cliente.getNome()) && getCognome().equals(cliente.getCognome());
     }
 
     @Override

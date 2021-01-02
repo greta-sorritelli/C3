@@ -8,11 +8,13 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Corriere {
-
     private int ID;
+    private String nome;
+    private String cognome;
     private boolean disponibilita;
     private int capienza;
 
+    //todo da aggiornare per il nome ed il cognome
     public Corriere(int ID, boolean disponibilita, int capienza) {
         this.ID = ID;
         this.disponibilita = disponibilita;
@@ -33,8 +35,25 @@ public class Corriere {
         }
     }
 
+    public int getCapienza() {
+        return capienza;
+    }
+
+    public void setCapienza(int capienza) {
+        try {
+            if (capienza < 0)
+                //todo eccezione
+                throw new IllegalArgumentException();
+            updateData("UPDATE `sys`.`corrieri` SET `capienza` = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
+            this.capienza = capienza;
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
+    }
+
     /**
-     * @return      ArrayList dei dettagli
+     * @return ArrayList dei dettagli
      */
     public ArrayList<String> getDettagli() {
         ArrayList<String> corriere = new ArrayList<>();
@@ -43,21 +62,8 @@ public class Corriere {
         return corriere;
     }
 
-    public void mandaAlert () {
-            // TODO - implement Corriere.mandaAlert
-            throw new UnsupportedOperationException();
-        }
-
-    public int getID() {
-        return ID;
-    }
-
     public boolean getDisponibilita() {
         return disponibilita;
-    }
-
-    public int getCapienza() {
-        return capienza;
     }
 
     public void setDisponibilita(boolean statoCorriere) {
@@ -70,18 +76,12 @@ public class Corriere {
         }
     }
 
-    public void setCapienza(int capienza) {
-        try {
-            if(capienza < 0)
-                //todo eccezione
-                throw new IllegalArgumentException();
-            updateData("UPDATE `sys`.`corrieri` SET `capienza` = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
-            this.capienza = capienza;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
+    public int getID() {
+        return ID;
     }
 
-
+    public void mandaAlert() {
+        // TODO - implement Corriere.mandaAlert
+        throw new UnsupportedOperationException();
+    }
 }

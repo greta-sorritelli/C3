@@ -7,7 +7,6 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Magazziniere {
-
     private int ID = 0;
     private PuntoPrelievo puntoPrelievo = null;
     private String nome = null;
@@ -38,6 +37,11 @@ public class Magazziniere {
 
     public int getID() {
         return ID;
+    }
+
+    //todo
+    public void mandaAlert() {
+
     }
 
 }

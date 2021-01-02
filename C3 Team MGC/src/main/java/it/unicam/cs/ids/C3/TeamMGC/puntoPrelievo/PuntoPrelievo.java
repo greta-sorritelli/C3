@@ -12,12 +12,9 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class PuntoPrelievo {
-
     private int ID = 0;
     private String indirizzo = null;
     private String nome = null;
-//    private IMagazziniere magazziniere = null;
-
 
     public PuntoPrelievo(int ID, String indirizzo, String nome) {
         this.ID = ID;
@@ -52,39 +49,20 @@ public class PuntoPrelievo {
 //
 //    }
 
+    public ArrayList<String> getDettagli() {
+        ArrayList<String> dettagli = new ArrayList<>();
+        dettagli.add(this.nome);
+        dettagli.add(this.indirizzo);
+        return dettagli;
+    }
 
-    public String getNome() {
-        return nome;
+    //todo
+    public ArrayList<String> getDettagliMerceMagazzino(int IDOrdine) {
+        return null;
     }
 
     public String getIndirizzo() {
         return indirizzo;
-    }
-
-    /**
-     * Ritorna l'insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo
-     *
-     * @param IDCliente    id del cliente
-     */
-    public ArrayList<Ordine> getOrdini(int IDCliente) {
-        ArrayList<Ordine> lista = new ArrayList<>();
-            try {
-                ResultSet rs = executeQuery("SELECT * from ordini\n" +
-                        "WHERE IDCliente = " + IDCliente + " AND puntoPrelievo = \"" + this.nome + "\";");
-                while (rs.next()) {
-                    int id = rs.getInt("ID");
-                    String nomeCliente = rs.getString("nomeCliente");
-                    String cognomeCliente = rs.getString("cognomeCliente");
-                    double totalePrezzo = rs.getDouble("totalePrezzo");
-                    StatoOrdine stato = StatoOrdine.valueOf(rs.getString("stato"));
-                    lista.add(new Ordine(id, IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, this));
-                }
-            } catch (SQLException exception) {
-                //todo
-                exception.printStackTrace();
-                return null;
-            }
-        return lista;
     }
 
     /**
@@ -141,12 +119,34 @@ public class PuntoPrelievo {
         }
     }
 
+    public String getNome() {
+        return nome;
+    }
 
-    public ArrayList<String> getDettagli() {
-        ArrayList<String> dettagli = new ArrayList<>();
-        dettagli.add(this.nome);
-        dettagli.add(this.indirizzo);
-        return dettagli;
+    /**
+     * Ritorna l'insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo
+     *
+     * @param IDCliente id del cliente
+     */
+    public ArrayList<Ordine> getOrdini(int IDCliente) {
+        ArrayList<Ordine> lista = new ArrayList<>();
+        try {
+            ResultSet rs = executeQuery("SELECT * from ordini\n" +
+                    "WHERE IDCliente = " + IDCliente + " AND puntoPrelievo = \"" + this.nome + "\";");
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                String nomeCliente = rs.getString("nomeCliente");
+                String cognomeCliente = rs.getString("cognomeCliente");
+                double totalePrezzo = rs.getDouble("totalePrezzo");
+                StatoOrdine stato = StatoOrdine.valueOf(rs.getString("stato"));
+                lista.add(new Ordine(id, IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, this));
+            }
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+            return null;
+        }
+        return lista;
     }
 
 }

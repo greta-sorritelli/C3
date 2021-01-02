@@ -42,4 +42,9 @@ public class GestoreCorrieri {
         throw new UnsupportedOperationException();
     }
 
+    //todo da implementare
+    public void setCapienza(int IDCorriere, int capienza) {
+
+    }
+
 }

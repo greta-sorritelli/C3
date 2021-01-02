@@ -8,7 +8,6 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Negozio {
-    private final ArrayList<Merce> inventario = new ArrayList<>();
     private int IDNegozio;
     private String nome;
     private String categoria;
@@ -16,6 +15,7 @@ public class Negozio {
     private String orarioChiusura;
     private String indirizzo;
     private String telefono;
+    private final ArrayList<Merce> inventario = new ArrayList<>();
 
     public Negozio(String nome, String categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) {
         try {
@@ -42,23 +42,7 @@ public class Negozio {
         this.IDNegozio = IDNegozio;
     }
 
-
-    public int getIDNegozio() {
-        return IDNegozio;
-    }
-
     /**
-     * todo da scrivere su visualParadigm
-     * @param merce
-     * @return
-     */
-    public boolean removeMerce(Merce merce) {
-        merce.delete();
-        return inventario.remove(merce);
-    }
-
-    /**
-     * todo scrivere su visualParadigm
      * Aggiunge la {@link Merce} al {@link Negozio}.
      *
      * @param merce Merce da aggiungere
@@ -86,6 +70,10 @@ public class Negozio {
                 rs.getInt("quantita"));
         addMerce(toReturn);
         return toReturn;
+    }
+
+    public int getIDNegozio() {
+        return IDNegozio;
     }
 
     /**
@@ -125,6 +113,15 @@ public class Negozio {
             exception.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * @param merce
+     * @return
+     */
+    public boolean removeMerce(Merce merce) {
+        merce.delete();
+        return inventario.remove(merce);
     }
 
 }

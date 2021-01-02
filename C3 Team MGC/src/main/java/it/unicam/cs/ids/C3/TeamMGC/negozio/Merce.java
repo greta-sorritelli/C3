@@ -54,6 +54,14 @@ public class Merce {
         this.quantita = quantita;
     }
 
+    public void delete() {
+        try {
+            updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public String getDescrizione() {
         return descrizione;
     }
@@ -109,14 +117,6 @@ public class Merce {
         try {
             updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");
             this.quantita = quantita;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    public void delete() {
-        try {
-            updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
