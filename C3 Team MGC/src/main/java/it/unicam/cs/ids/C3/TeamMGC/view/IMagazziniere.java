@@ -1,9 +1,11 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
@@ -28,12 +30,52 @@ public class IMagazziniere {
         }
     }
 
+    /**
+     * @param IDOrdine
+     * @return
+     */
+    public ArrayList<String> getDettagliMerceMagazzino(int IDOrdine) {
+        //todo
+        return null;
+    }
+
+    /**
+     * @param IDOrdine
+     * @return
+     */
+    public ArrayList<String> getDettagliMerceTotale(int IDOrdine) {
+        //todo
+        return null;
+    }
+
+    /**
+     * @param IDCliente
+     * @return
+     */
+    public ArrayList<String> getDettagliOrdine(int IDCliente) {
+        //todo
+        return null;
+    }
+
     public void mandaAlert() {
         // TODO - implement Magazziniere.mandaAlert
         throw new UnsupportedOperationException();
     }
 
+    /**
+     *
+     * @param IDMerce
+     * @param statoOrdine
+     */
+    //todo
+    public void setStato(int IDMerce, StatoOrdine statoOrdine){
+    }
 
+    /**
+     * @param IDCliente
+     * @param codiceRitiro
+     * @return
+     */
     public boolean verificaCodice(int IDCliente, String codiceRitiro) {
         try {
             ResultSet rs = executeQuery("SELECT * FROM sys.codici_ritiro where codice = '" + codiceRitiro +

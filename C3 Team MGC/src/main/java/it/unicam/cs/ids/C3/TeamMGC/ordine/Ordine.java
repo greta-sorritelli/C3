@@ -99,6 +99,7 @@ public class Ordine {
      * @param merce    Merce da aggiungere
      * @param quantita Quantita della merce da aggiungere
      */
+    //todo
     public void aggiungiMerce(MerceOrdine merce, int quantita) {
         try {
             merce.setQuantita(quantita);

@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
@@ -12,7 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Random;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
@@ -22,11 +24,23 @@ public class ICommesso {
     GestoreOrdini gestoreOrdini;
 
     /**
-     * @param via
-     * @param NCivico
+     *
+     * @param IDOrdine
+     * @param indirizzo
      */
-    public void addResidenza(String via, int NCivico) {
+    public void addResidenza(int IDOrdine, String indirizzo) {
         //todo
+    }
+
+    //todo gestoreClienti
+    private void creazioneCodice(Cliente cliente, Ordine ordine) {
+        try {
+            updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
+                    "VALUES ('" + cliente.getCodiceRitiro() + "', '" + cliente.getID() + "', '" + ordine.getID() + "', '" + cliente.getDataCreazioneCodice() + "');");
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -42,8 +56,12 @@ public class ICommesso {
         return tmp;
     }
 
-    public void getMagazziniDisponibili() {
+    /**
+     * @return
+     */
+    public ArrayList<String> getDettagliMagazziniDisponibili() {
      //todo
+        return null;
     }
 
     /**
@@ -51,6 +69,7 @@ public class ICommesso {
      * @param quantita Quantita della merce
      * @param ordine   Ordine in cui registrare la merce
      */
+    //todo IDOrdine
     public void registraMerce(int ID, int quantita, Ordine ordine) {
 
         gestoreOrdini.registraMerce(ID, quantita, ordine);
@@ -73,9 +92,16 @@ public class ICommesso {
         //todo
     }
 
-    public Corriere selezionaCorriere() {
+    public void sceltaPuntoPrelievo(int ID){
         //todo
-        return null;
+    }
+
+    public void selezionaCorriere(int ID) {
+        //todo
+    }
+
+    public void selezionaPuntoPrelievo(int IDOrdine){
+        //todo
     }
 
     /**
@@ -92,6 +118,7 @@ public class ICommesso {
      * @param ordine
      * @param magazzino
      */
+    //todo IDOrdine
     public void setPuntoPrelievo(Ordine ordine, PuntoPrelievo magazzino) {
         try {
             ordine.setPuntoPrelievo(magazzino);
@@ -106,6 +133,7 @@ public class ICommesso {
      * @param ordine
      * @param statoOrdine
      */
+    //todo IDOrdine
     public void setStatoOrdine(Ordine ordine, StatoOrdine statoOrdine) {
         try {
             ordine.setStato(statoOrdine);
@@ -116,6 +144,22 @@ public class ICommesso {
         }
     }
 
+    /**
+     *
+     * @param ordine
+     */
+    //todo IDOrdine
+    public void terminaOrdine(Ordine ordine){
+        gestoreOrdini.terminaOrdine(ordine);
+    }
+
+    /**
+     *
+     * @param cliente
+     * @param ordine
+     * @return
+     */
+    //todo IDOrdine IDCliente
     public String verificaEsistenzaCodice(Cliente cliente, Ordine ordine) {
         try {
             ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + cliente.getID() + ";");
@@ -136,22 +180,5 @@ public class ICommesso {
         return cliente.getCodiceRitiro();
     }
 
-    private void creazioneCodice(Cliente cliente, Ordine ordine) {
-        try {
-            updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
-                    "VALUES ('" + cliente.getCodiceRitiro() + "', '" + cliente.getID() + "', '" + ordine.getID() + "', '" + cliente.getDataCreazioneCodice() + "');");
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-    }
-
-    /**
-     *
-     * @param ordine
-     */
-    public void terminaOrdine(Ordine ordine){
-        gestoreOrdini.terminaOrdine(ordine);
-    }
 
 }

@@ -3,6 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,6 +59,7 @@ public class GestoreOrdini {
      * @param quantita Quantita della merce
      * @param ordine   Ordine in cui registrare la merce
      */
+    //todo
     public void registraMerce(int IDMerce, int quantita, Ordine ordine) {
         Merce merce = negozio.getMerce(IDMerce);
         if (merce.getQuantita() == 0 || merce.getQuantita() < quantita)
@@ -73,6 +75,7 @@ public class GestoreOrdini {
      *
      * @param ordine Ordine da controllare
      */
+    //todo
     public void terminaOrdine(Ordine ordine) {
         ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
         for (MerceOrdine m : ordine.getMerci()) {
@@ -86,4 +89,65 @@ public class GestoreOrdini {
             throw new IllegalArgumentException();
     }
 
+    /**
+     *
+     * @param IDOrdine
+     * @param indirizzo
+     */
+    //todo
+    public void addResidenza(int IDOrdine, String indirizzo){
+
+    }
+
+    /**
+     *
+     * @param IDCliente
+     * @return
+     */
+    //todo
+    public ArrayList<String> getDettagliOrdine(int IDCliente){
+
+        return null;
+    }
+
+    /**
+     *
+     * @param IDOrdine
+     * @return
+     */
+    //todo
+    public ArrayList<String> getDettagliMerceTotale(int IDOrdine){
+
+        return null;
+    }
+
+    /**
+     *
+     * @param IDOrdine
+     * @param magazzino
+     */
+    //todo
+    public void setPuntoPrelievo(int IDOrdine, PuntoPrelievo magazzino){
+
+    }
+
+    /**
+     *
+     * @param IDMerce
+     * @param statoOrdine
+     */
+    //todo
+    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine){
+
+    }
+
+    /**
+     *
+     * @param IDOrdine
+     * @param statoOrdine
+     */
+    //todo
+    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine){
+
+    }
 }
