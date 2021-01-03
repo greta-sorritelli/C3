@@ -128,6 +128,7 @@ public class GestoreCorrieri {
     }
 
     public void setCapienza(int IDCorriere, int capienza) {
+
         getCorriere(IDCorriere).setCapienza(capienza);
     }
 
@@ -135,4 +136,12 @@ public class GestoreCorrieri {
         getCorriere(IDCorriere).setDisponibilita(disponibilita);
     }
 
+    public boolean getDisponibilita(int IDCorriere){
+        return getCorriere(IDCorriere).getDisponibilita();
+    }
+
+    //todo controllare su SD(registrazione sulla piattaforma) se ritorna corriere o dettagli
+    public Corriere inserisciDati(String nome, String cognome, int capienza){
+        return  new Corriere(nome,cognome,true,capienza);
+    }
 }

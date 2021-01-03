@@ -76,7 +76,7 @@ public class Merce {
     }
 
     /**
-     * @return
+     * @return ArrayList<String> dei dettagli.
      */
     public ArrayList<String> getDettagli() {
         ArrayList<String> toReturn = new ArrayList<>();

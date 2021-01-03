@@ -146,12 +146,36 @@ public class GestoreOrdini {
     }
 
     public ArrayList<ArrayList<String>> visualizzaMerce() {
-        //todo arraylist di arraylist
+        //todo arraylist di arraylist (con stato pagato e che rientra nella capienza)
         return null;
     }
 
     public MerceOrdine getMerceOrdine(int ID) {
         //todo
+        return null;
+    }
+
+    /**
+     * @return ArrayList<ArrayList<String>> dei dettagli della merce con un certo stato.
+     */
+    public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine){
+        try {
+            ArrayList<MerceOrdine> merce = new ArrayList<>();
+            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+            ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + statoOrdine + "');");
+            while (rs.next()) {
+                MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
+                        rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
+                StatoOrdine.valueOf(rs.getString("stato")));
+                merce.add(tmp);
+            }
+            for (MerceOrdine m : merce) {
+                dettagli.add(m.getDettagli());
+            }
+            return dettagli;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return null;
     }
 }

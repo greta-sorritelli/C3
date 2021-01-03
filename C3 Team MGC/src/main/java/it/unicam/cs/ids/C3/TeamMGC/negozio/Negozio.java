@@ -116,8 +116,9 @@ public class Negozio {
     }
 
     /**
-     * @param merce
-     * @return
+     * Rimuove la {@link Merce} dall'inventario.
+     * @param merce  La Merce da rimuovere.
+     * @return       {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
      */
     public boolean removeMerce(Merce merce) {
         merce.delete();

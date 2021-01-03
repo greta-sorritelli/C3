@@ -52,15 +52,18 @@ public class Cliente {
         return codiceRitiro;
     }
 
-    public void setCodiceRitiro(String codiceRitiro) {
+    //todo cambiato da void a string vedere se va bene
+    public String setCodiceRitiro(String codiceRitiro) {
         try {
             dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
             this.codiceRitiro = codiceRitiro;
             updateData("UPDATE `sys`.`clienti` SET `codiceRitiro` = '" + codiceRitiro + "', `dataCreazione` = '" + dataCreazioneCodice + "' WHERE (`ID` = '" + this.ID + "');");
+            return codiceRitiro;
         } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
         }
+        return null;
     }
 
     public String getCognome() {

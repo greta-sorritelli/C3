@@ -119,4 +119,10 @@ public class GestoreMagazzini {
     public void selezionaPuntoPrelievo(int ID) {
         //todo
     }
+
+    public PuntoPrelievo ricercaMagazzinoVicino(String indirizzo){
+        //todo
+        return null;
+    }
+
 }

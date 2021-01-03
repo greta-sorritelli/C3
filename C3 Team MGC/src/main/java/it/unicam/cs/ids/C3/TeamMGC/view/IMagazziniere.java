@@ -86,4 +86,8 @@ public class IMagazziniere {
         }
         return false;
     }
+
+    public void avvisaCorriere(){
+        //todo
+    }
 }
