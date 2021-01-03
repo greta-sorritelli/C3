@@ -94,7 +94,7 @@ public class GestoreCorrieri {
     }
 
     /**
-     * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri disponibili.
+     * @return ArrayList<ArrayList<String>> dei dettagli dei corrieri disponibili.
      */
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() {
         try {

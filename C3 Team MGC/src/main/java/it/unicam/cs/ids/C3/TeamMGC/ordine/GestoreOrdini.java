@@ -145,8 +145,9 @@ public class GestoreOrdini {
 
     }
 
-    public void visualizzaMerce() {
+    public ArrayList<ArrayList<String>> visualizzaMerce() {
         //todo arraylist di arraylist
+        return null;
     }
 
     public MerceOrdine getMerceOrdine(int ID) {

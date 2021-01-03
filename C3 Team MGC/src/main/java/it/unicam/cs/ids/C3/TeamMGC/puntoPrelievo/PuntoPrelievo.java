@@ -61,6 +61,10 @@ public class PuntoPrelievo {
         return null;
     }
 
+    public int getID() {
+        return ID;
+    }
+
     public String getIndirizzo() {
         return indirizzo;
     }
