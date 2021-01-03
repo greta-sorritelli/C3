@@ -13,16 +13,15 @@ public class ICorriere {
     }
 
     public void ricercaMagazzinoVicino(){
-        //todo vedere su sd "consegnare la merce al punto di prelievo"
-        // se ritorna un magazzino
+       //todo
     }
 
     public void confermaConsegna(int IDMerce){
-        //todo controllare su sd
+        //todo
     }
 
     public void modificaDisponibilita(){
-        //todo vedere se è boolean per ritornare lo stato
+        //todo
     }
 
     public void selezionaDisponibilita(boolean statoAttuale){

@@ -111,8 +111,13 @@ public class GestoreMagazzini {
        //todo
     }
 
-    //todo vedere se va bene che ritorna un punto prelievo
+    /**
+     *
+     * @param ID
+     * @return
+     */
     public PuntoPrelievo sceltaPuntoPrelievo(int ID) {
+
         return getPuntoPrelievo(ID);
     }
 
