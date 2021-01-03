@@ -29,28 +29,28 @@ class OrdineTest {
     @Test
     void creazioneOrdine() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         assertEquals(1, ordine.getID());
     }
 
     @Test
     void setPuntoPrelievo() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
-        ordine.setPuntoPrelievo(p);
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
+        ordine.setPuntoPrelievo(p.getID());
         PuntoPrelievo p1 = new PuntoPrelievo("via op", "B3");
-        ordine1.setPuntoPrelievo(p1);
-        assertEquals(p, ordine.getPuntoPrelievo());
+        ordine1.setPuntoPrelievo(p1.getID());
+        assertEquals(p.getID(), ordine.getPuntoPrelievo());
     }
 
     @Test
     void setStato() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
         assertNotEquals(ordine.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
@@ -62,10 +62,10 @@ class OrdineTest {
     @Test
     void getDettagli() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        ordineTest = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        ordineTest = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
         ordine.aggiungiMerce(merce, 2);
         ArrayList<String> ordine1 = new ArrayList<>();
         ordine1.add(String.valueOf(ordine.getID()));
@@ -83,19 +83,19 @@ class OrdineTest {
     void addResidenza() {
         cliente1 = new Cliente("Matteo", "Rondini");
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p);
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
         ordine.addResidenza("Via Giuseppe Garibaldi");
         ordine1.addResidenza("Via Giuseppe Rossi");
         assertEquals(ordine.getResidenza(), "Via Giuseppe Garibaldi");
-        assertNull(ordine1.getPuntoPrelievo());
+        assertEquals(-1, ordine1.getPuntoPrelievo());
 
     }
 
     @Test
     void aggiungiMerce() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, null);
+        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
         ordine.aggiungiMerce(merce, 15);
         assertEquals(merce.getQuantita(), 15);

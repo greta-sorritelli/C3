@@ -128,7 +128,7 @@ public class PuntoPrelievo {
     }
 
     /**
-     * Ritorna l'insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo
+     * Ritorna l' insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo.
      *
      * @param IDCliente id del cliente
      */
@@ -136,14 +136,14 @@ public class PuntoPrelievo {
         ArrayList<Ordine> lista = new ArrayList<>();
         try {
             ResultSet rs = executeQuery("SELECT * from ordini\n" +
-                    "WHERE IDCliente = " + IDCliente + " AND puntoPrelievo = \"" + this.nome + "\";");
+                    "WHERE IDCliente = " + IDCliente + " AND IDPuntoPrelievo = \"" + this.ID + "\";");
             while (rs.next()) {
-                int id = rs.getInt("ID");
+                int ID = rs.getInt("ID");
                 String nomeCliente = rs.getString("nomeCliente");
                 String cognomeCliente = rs.getString("cognomeCliente");
                 double totalePrezzo = rs.getDouble("totalePrezzo");
                 StatoOrdine stato = StatoOrdine.valueOf(rs.getString("stato"));
-                lista.add(new Ordine(id, IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, this));
+                lista.add(new Ordine(ID, IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, this.ID));
             }
         } catch (SQLException exception) {
             //todo

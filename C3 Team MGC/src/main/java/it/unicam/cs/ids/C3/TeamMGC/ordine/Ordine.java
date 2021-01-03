@@ -33,15 +33,15 @@ public class Ordine {
     //Todo forse levare
 //    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) {
 //        try {
-//            if (IDPuntoPrelievo != null) {
-//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
+//            if (IDPuntoPrelievo != -1) {
+//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`IDPuntoPrelievo`,`residenza`) " +
 //                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
 //                        "'" + IDPuntoPrelievo + "', \"null\");");
 //                this.IDPuntoPrelievo = IDPuntoPrelievo;
 //            } else {
-//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
-//                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "', \"null\" , \"null\");");
-//                this.IDPuntoPrelievo = null;
+//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`IDPuntoPrelievo`,`residenza`) " +
+//                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "', -1, \"null\");");
+//                this.IDPuntoPrelievo = -1;
 //            }
 //            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
 //            rs.next();

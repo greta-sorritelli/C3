@@ -38,15 +38,21 @@ class PuntoPrelievoTest {
         assertTrue(puntoPrelievo.getOrdini(1).isEmpty());
         ArrayList<Ordine> lista1 = new ArrayList<>();
         ArrayList<Ordine> lista2 = new ArrayList<>();
-        Ordine ordine1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO, puntoPrelievo);
+
+        Ordine ordine1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
         lista1.add(ordine1);
-        Ordine ordineTest1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO, puntoPrelievo);
+
+        Ordine ordineTest1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO)
+        ordineTest1.setPuntoPrelievo(puntoPrelievo.getID());
+
         assertEquals(puntoPrelievo.getOrdini(1).get(0), lista1.get(0));
         assertEquals(puntoPrelievo.getOrdini(1), lista1);
-        Ordine ordine2 = new Ordine(2, 1, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo);
+
+        Ordine ordine2 = new Ordine(2, 1, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
         lista2.add(ordine2);
         assertNotEquals(puntoPrelievo.getOrdini(2), lista1);
-        Ordine ordineTest2 = new Ordine(2, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo);
+
+        Ordine ordineTest2 = new Ordine(2, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
         assertEquals(puntoPrelievo.getOrdini(2), lista2);
     }
 
@@ -57,10 +63,10 @@ class PuntoPrelievoTest {
         Cliente cliente1 = new Cliente("Mario", "Rossi");
         Cliente cliente2 = new Cliente("Mario", "Verdi");
 
-        Ordine ordineTest1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo);
-        Ordine ordineTest2 = new Ordine(2, 2, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo);
-        Ordine ordine1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo);
-        Ordine ordine2 = new Ordine(2, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo);
+        Ordine ordineTest1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
+        Ordine ordineTest2 = new Ordine(2, 2, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
+        Ordine ordine1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
+        Ordine ordine2 = new Ordine(2, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
 
         MerceOrdine merce1_1 = new MerceOrdine(1, 1, 10, "matita", 2, StatoOrdine.IN_DEPOSITO);
         MerceOrdine merce2_1 = new MerceOrdine(2, 1, 20, "gomma", 1, StatoOrdine.RITIRATO);
@@ -92,10 +98,10 @@ class PuntoPrelievoTest {
     void getMerceTotale() {
         ArrayList<MerceOrdine> listaMerciOrdine1 = new ArrayList<>();
         ArrayList<MerceOrdine> listaMerciOrdine2 = new ArrayList<>();
-        Ordine ordineTest1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo);
-        Ordine ordineTest2 = new Ordine(2, 1, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo);
-        Ordine ordine1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo);
-        Ordine ordine2 = new Ordine(1, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo);
+        Ordine ordineTest1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
+        Ordine ordineTest2 = new Ordine(2, 1, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
+        Ordine ordine1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
+        Ordine ordine2 = new Ordine(1, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
 
         MerceOrdine merce1_1 = new MerceOrdine(1, 1, 10, "matita", 2, StatoOrdine.IN_DEPOSITO);
         MerceOrdine merce2_1 = new MerceOrdine(2, 1, 20, "gomma", 1, StatoOrdine.RITIRATO);

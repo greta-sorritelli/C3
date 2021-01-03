@@ -24,7 +24,6 @@ public class ICommesso {
     GestoreOrdini gestoreOrdini;
 
     /**
-     *
      * @param IDOrdine
      * @param indirizzo
      */
@@ -60,7 +59,7 @@ public class ICommesso {
      * @return
      */
     public ArrayList<String> getDettagliMagazziniDisponibili() {
-     //todo
+        //todo
         return null;
     }
 
@@ -92,7 +91,7 @@ public class ICommesso {
         //todo
     }
 
-    public void sceltaPuntoPrelievo(int ID){
+    public void sceltaPuntoPrelievo(int ID) {
         //todo
     }
 
@@ -100,7 +99,7 @@ public class ICommesso {
         //todo
     }
 
-    public void selezionaPuntoPrelievo(int IDOrdine){
+    public void selezionaPuntoPrelievo(int IDOrdine) {
         //todo
     }
 
@@ -119,10 +118,11 @@ public class ICommesso {
      * @param magazzino
      */
     //todo IDOrdine
+    //todo controllare se il magazzino va passato come oggetto o solo tramite il suo ID
     public void setPuntoPrelievo(Ordine ordine, PuntoPrelievo magazzino) {
         try {
-            ordine.setPuntoPrelievo(magazzino);
-            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + ordine.getID() + "');");
+            ordine.setPuntoPrelievo(magazzino.getID());
+            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getID() + "' WHERE (`ID` = '" + ordine.getID() + "');");
         } catch (SQLException exception) {
             //TODO
             exception.printStackTrace();
@@ -145,16 +145,14 @@ public class ICommesso {
     }
 
     /**
-     *
      * @param ordine
      */
     //todo IDOrdine
-    public void terminaOrdine(Ordine ordine){
+    public void terminaOrdine(Ordine ordine) {
         gestoreOrdini.terminaOrdine(ordine);
     }
 
     /**
-     *
      * @param cliente
      * @param ordine
      * @return
