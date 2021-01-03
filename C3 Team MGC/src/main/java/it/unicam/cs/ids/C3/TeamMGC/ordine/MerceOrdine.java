@@ -64,9 +64,13 @@ public class MerceOrdine {
         }
     }
 
-    public ArrayList<String> getDettagli(){
+    public ArrayList<String> getDettagli() {
         //todo
         return null;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     public int getIDOrdine() {

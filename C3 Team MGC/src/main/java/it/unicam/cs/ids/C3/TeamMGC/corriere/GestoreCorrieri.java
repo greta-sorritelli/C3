@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class GestoreCorrieri {
-
     ArrayList<Corriere> corrieri = new ArrayList<>();
 
     /**

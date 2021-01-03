@@ -1,8 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,46 +16,46 @@ public class Ordine {
     private String cognomeCliente;
     private double totalePrezzo;
     private StatoOrdine stato;
-    private PuntoPrelievo puntoPrelievo = null;
+    private int IDPuntoPrelievo = -1;
     private String residenza = null;
     private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
-    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
+    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) {
         this.ID = ID;
         this.IDCliente = IDCliente;
         this.nomeCliente = nomeCliente;
         this.cognomeCliente = cognomeCliente;
         this.totalePrezzo = totalePrezzo;
         this.stato = stato;
-        this.puntoPrelievo = puntoPrelievo;
+        this.IDPuntoPrelievo = IDPuntoPrelievo;
     }
 
     //Todo forse levare
-    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, PuntoPrelievo puntoPrelievo) {
-        try {
-            if (puntoPrelievo != null) {
-                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
-                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
-                        "'" + puntoPrelievo.getNome() + "', \"null\");");
-                this.puntoPrelievo = puntoPrelievo;
-            } else {
-                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
-                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "', \"null\" , \"null\");");
-                this.puntoPrelievo = null;
-            }
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
-            rs.next();
-            ID = rs.getInt("ID");
-            this.IDCliente = IDCliente;
-            this.nomeCliente = nomeCliente;
-            this.cognomeCliente = cognomeCliente;
-            this.totalePrezzo = totalePrezzo;
-            this.residenza = null;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-    }
+//    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) {
+//        try {
+//            if (IDPuntoPrelievo != null) {
+//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
+//                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
+//                        "'" + IDPuntoPrelievo + "', \"null\");");
+//                this.IDPuntoPrelievo = IDPuntoPrelievo;
+//            } else {
+//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`puntoPrelievo`,`residenza`) " +
+//                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "', \"null\" , \"null\");");
+//                this.IDPuntoPrelievo = null;
+//            }
+//            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
+//            rs.next();
+//            ID = rs.getInt("ID");
+//            this.IDCliente = IDCliente;
+//            this.nomeCliente = nomeCliente;
+//            this.cognomeCliente = cognomeCliente;
+//            this.totalePrezzo = totalePrezzo;
+//            this.residenza = null;
+//        } catch (SQLException exception) {
+//            //todo
+//            exception.printStackTrace();
+//        }
+//    }
 
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente) {
         try {
@@ -85,7 +82,7 @@ public class Ordine {
         try {
             updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` =  \"null\" WHERE (`ID` = '" + this.ID + "');");
             updateData("UPDATE `sys`.`ordini` SET `residenza` = '" + indirizzo + "' WHERE (`ID` = '" + this.ID + "');");
-            puntoPrelievo = null;
+            IDPuntoPrelievo = -1;
             residenza = indirizzo;
         } catch (SQLException exception) {
             //TODO
@@ -94,7 +91,7 @@ public class Ordine {
     }
 
     /**
-     * Aggiunge la {@link Merce} all'{@link Ordine} del cliente.
+     * Aggiunge la {@link MerceOrdine} all'{@link Ordine} del cliente.
      *
      * @param merce    Merce da aggiungere
      * @param quantita Quantita della merce da aggiungere
@@ -109,6 +106,15 @@ public class Ordine {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    /**
+     * Aggiunge la {@link MerceOrdine} all'{@link Ordine}, prendendo i dati dal Database.
+     *
+     * @param merce Merce da aggiungere
+     */
+    public void addMerce(MerceOrdine merce) {
+        merci.add(merce);
     }
 
     @Override
@@ -137,7 +143,7 @@ public class Ordine {
         ordini.add(String.valueOf(getTotalePrezzo()));
         ordini.add(getStato().toString());
 
-        if (puntoPrelievo != null)
+        if (IDPuntoPrelievo != -1)
             ordini.add(String.valueOf(getPuntoPrelievo()));
         else
             ordini.add(String.valueOf(getResidenza()));
@@ -162,14 +168,14 @@ public class Ordine {
         return nomeCliente;
     }
 
-    public PuntoPrelievo getPuntoPrelievo() {
-        return puntoPrelievo;
+    public int getPuntoPrelievo() {
+        return IDPuntoPrelievo;
     }
 
-    public void setPuntoPrelievo(PuntoPrelievo magazzino) {
+    public void setPuntoPrelievo(int IDPuntoPrelievo) {
         try {
-            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + magazzino.getNome() + "' WHERE (`ID` = '" + this.ID + "');");
-            this.puntoPrelievo = magazzino;
+            updateData("UPDATE sys.ordini` SET IDPuntoPrelievo = '" + IDPuntoPrelievo + "' WHERE (`ID` = '" + this.ID + "');");
+            this.IDPuntoPrelievo = IDPuntoPrelievo;
         } catch (SQLException exception) {
             //TODO
             exception.printStackTrace();
