@@ -53,6 +53,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param IDCliente
      * @param IDOrdine
      */
+    //todo test
     private void creazioneCodice(int IDCliente, int IDOrdine) {
         try {
             updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
@@ -76,9 +77,24 @@ public class GestoreClienti implements Gestore<Cliente> {
         return tmp;
     }
 
+    /**
+     *
+     */
+    //todo test
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() {
-        //todo
+        try {
+            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+            ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
+            while (rs.next())
+                addCliente(rs);
+            for (Cliente cliente : clienti)
+                dettagli.add(cliente.getDettagli());
+            return dettagli;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
         return null;
     }
 
@@ -105,12 +121,29 @@ public class GestoreClienti implements Gestore<Cliente> {
         return null;
     }
 
+    /**
+     * @return ArrayList<Cliente> dei clienti.
+     */
     @Override
+    //todo test
     public ArrayList<Cliente> getItems() {
-        //todo
+        try {
+            ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
+            while (rs.next())
+                addCliente(rs);
+            return new ArrayList<>(clienti);
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
         return null;
     }
 
+    /**
+     * @param nome
+     * @param cognome
+     * @return
+     */
     //todo controllare
     public ArrayList<String> inserisciDati(String nome, String cognome) {
         Cliente cliente = new Cliente(nome, cognome);

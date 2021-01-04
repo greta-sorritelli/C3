@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -98,8 +97,11 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         return null;
     }
 
-    @Override
+    /**
+     * @return ArrayList<ArrayList<String>> dei dettagli dei corrieri.
+     */
     //todo test
+    @Override
     public ArrayList<ArrayList<String>> getDettagliItems() {
         try {
             ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -141,7 +143,9 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         return null;
     }
 
-    //todo test
+    /**
+     * @return ArrayList<Corriere> dei corrieri.
+     */
     @Override
     public ArrayList<Corriere> getItems() {
         try {
@@ -156,6 +160,13 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         return null;
     }
 
+    /**
+     *
+     * @param nome
+     * @param cognome
+     * @param capienza
+     * @return
+     */
     //todo controllare
     public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) {
         Corriere corriere = new Corriere(nome, cognome, true, capienza);
