@@ -52,8 +52,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * @return ArrayList<ArrayList < String>> dei dettagli dei magazzini disponibili.
      */
     @Override
-    public ArrayList<ArrayList<String>> getDettagliItems() {
-        try {
+    public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
             ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
             ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
             while (rs.next())
@@ -61,28 +60,17 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
             for (PuntoPrelievo magazzino : magazzini)
                 dettagli.add(magazzino.getDettagli());
             return dettagli;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
     }
 
     /**
      * @return l'elenco dei Magazzini Disponibili
      */
     @Override
-    public ArrayList<PuntoPrelievo> getItems() {
-        try {
+    public ArrayList<PuntoPrelievo> getItems() throws SQLException {
             ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
             while (rs.next())
                 addMagazzino(rs);
             return new ArrayList<>(magazzini);
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
     }
 
     /**
@@ -92,18 +80,12 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * @return Il Punto di prelievo desiderato
      */
     @Override
-    public PuntoPrelievo getItem(int ID) {
-        try {
+    public PuntoPrelievo getItem(int ID) throws SQLException {
             ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo where ID='" + ID + "' ;");
             if (rs.next())
                 return addMagazzino(rs);
             else
-                //todo eccezione
-                throw new IllegalArgumentException();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+                throw new IllegalArgumentException("ID non valido.");
     }
 
     public void mandaAlert(PuntoPrelievo magazzino) {
@@ -114,7 +96,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * @param ID
      * @return
      */
-    public ArrayList<String> sceltaPuntoPrelievo(int ID) {
+    public ArrayList<String> sceltaPuntoPrelievo(int ID) throws SQLException {
 
         return getItem(ID).getDettagli();
     }

@@ -6,6 +6,7 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ICommesso {
@@ -26,7 +27,7 @@ public class ICommesso {
     /**
      * @return ArrayList<String> dei dettagli dei magazzini.
      */
-    public ArrayList<String> getDettagliItems() {
+    public ArrayList<String> getDettagliItems() throws SQLException {
         gestoreMagazzini.getDettagliItems();
         //todo
         return null;

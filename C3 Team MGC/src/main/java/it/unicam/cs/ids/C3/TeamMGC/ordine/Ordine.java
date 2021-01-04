@@ -31,8 +31,7 @@ public class Ordine {
     }
 
     //Todo forse levare
-//    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) {
-//        try {
+//    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) throws SQLException {
 //            if (IDPuntoPrelievo != -1) {
 //                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`IDPuntoPrelievo`,`residenza`) " +
 //                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
@@ -51,14 +50,9 @@ public class Ordine {
 //            this.cognomeCliente = cognomeCliente;
 //            this.totalePrezzo = totalePrezzo;
 //            this.residenza = null;
-//        } catch (SQLException exception) {
-//            //todo
-//            exception.printStackTrace();
-//        }
 //    }
 
-    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente) {
-        try {
+    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente) throws SQLException {
             updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`) " +
                     "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
@@ -67,10 +61,7 @@ public class Ordine {
             this.IDCliente = IDCliente;
             this.nomeCliente = nomeCliente;
             this.cognomeCliente = cognomeCliente;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
+
     }
 
     /**
@@ -78,16 +69,11 @@ public class Ordine {
      *
      * @param indirizzo Indirizzo residenza del cliente
      */
-    public void addResidenza(String indirizzo) {
-        try {
+    public void addResidenza(String indirizzo) throws SQLException {
             updateData("UPDATE `sys`.`ordini` SET `IDPuntoPrelievo` = 0 WHERE (`ID` = '" + this.ID + "');");
             updateData("UPDATE `sys`.`ordini` SET `residenza` = '" + indirizzo + "' WHERE (`ID` = '" + this.ID + "');");
             IDPuntoPrelievo = -1;
             residenza = indirizzo;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
     }
 
     /**
@@ -97,15 +83,11 @@ public class Ordine {
      * @param quantita Quantita della merce da aggiungere
      */
     //todo
-    public void aggiungiMerce(MerceOrdine merce, int quantita) {
-        try {
+    public void aggiungiMerce(MerceOrdine merce, int quantita) throws SQLException {
             merce.setQuantita(quantita);
             merci.add(merce);
             this.totalePrezzo += (merce.getPrezzo() * quantita);
             updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
     }
 
     /**
@@ -172,14 +154,9 @@ public class Ordine {
         return IDPuntoPrelievo;
     }
 
-    public void setPuntoPrelievo(int IDPuntoPrelievo) {
-        try {
+    public void setPuntoPrelievo(int IDPuntoPrelievo) throws SQLException {
             updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + IDPuntoPrelievo + " WHERE ID = " + this.ID + ";");
             this.IDPuntoPrelievo = IDPuntoPrelievo;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
     }
 
     public String getResidenza() {
@@ -190,14 +167,10 @@ public class Ordine {
         return stato;
     }
 
-    public void setStato(StatoOrdine statoOrdine) {
-        try {
+    public void setStato(StatoOrdine statoOrdine) throws SQLException {
             updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
             this.stato = statoOrdine;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
+
     }
 
     public double getTotalePrezzo() {

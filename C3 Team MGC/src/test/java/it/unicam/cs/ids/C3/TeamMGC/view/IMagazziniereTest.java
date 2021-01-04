@@ -13,13 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class IMagazziniereTest {
 
-    static PuntoPrelievo puntoPrelievo = new PuntoPrelievo("Castelraimondo", "A1");
+    static PuntoPrelievo puntoPrelievo;
 
 
     @BeforeAll
     static void clearDB() throws SQLException {
         updateData("delete from sys.clienti;");
         updateData("alter table clienti AUTO_INCREMENT = 1;");
+        puntoPrelievo = new PuntoPrelievo("Castelraimondo", "A1");
     }
 
     @Test

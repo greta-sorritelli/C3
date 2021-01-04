@@ -36,7 +36,7 @@ class PuntoPrelievoTest {
 //    }
 
     @Test
-    void getOrdini() {
+    void getOrdini() throws SQLException {
         assertTrue(puntoPrelievo.getOrdini(1).isEmpty());
         ArrayList<Ordine> lista1 = new ArrayList<>();
         ArrayList<Ordine> lista2 = new ArrayList<>();
@@ -62,7 +62,7 @@ class PuntoPrelievoTest {
     }
 
     @Test
-    void getMerceMagazzino() {
+    void getMerceMagazzino() throws SQLException {
         ArrayList<MerceOrdine> listaMerciOrdine1 = new ArrayList<>();
         ArrayList<MerceOrdine> listaMerciOrdine2 = new ArrayList<>();
         Cliente cliente1 = new Cliente("Mario", "Rossi");
@@ -100,7 +100,7 @@ class PuntoPrelievoTest {
     }
 
     @Test
-    void getMerceTotale() {
+    void getMerceTotale() throws SQLException {
         ArrayList<MerceOrdine> listaMerciOrdine1 = new ArrayList<>();
         ArrayList<MerceOrdine> listaMerciOrdine2 = new ArrayList<>();
         Ordine ordineTest1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
@@ -137,7 +137,7 @@ class PuntoPrelievoTest {
     }
 
     @Test
-    void getDettagli() {
+    void getDettagli() throws SQLException {
         ArrayList<String> prova = new ArrayList<>();
         prova.add("1");
         prova.add("Stazione");
@@ -154,7 +154,7 @@ class PuntoPrelievoTest {
     }
 
     @Test
-    void getDettagliMerceMagazzino() {
+    void getDettagliMerceMagazzino() throws SQLException {
         Ordine ordine = new Ordine(1, "Mario", "Giallo");
         MerceOrdine merce1 = new MerceOrdine(1, null, StatoOrdine.IN_DEPOSITO, 1);
         ordine.aggiungiMerce(merce1, 1);

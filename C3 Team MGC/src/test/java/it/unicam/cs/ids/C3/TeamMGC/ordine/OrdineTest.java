@@ -27,14 +27,14 @@ class OrdineTest {
     }
 
     @Test
-    void creazioneOrdine() {
+    void creazioneOrdine() throws SQLException {
         cliente1 = new Cliente("Matteo", "Rondini");
         Ordine ordine = new Ordine(1, "Matteo", "Rondini");
         assertEquals(1, ordine.getID());
     }
 
     @Test
-    void setPuntoPrelievo() {
+    void setPuntoPrelievo() throws SQLException {
         cliente1 = new Cliente("Matteo", "Rondini");
         Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
@@ -46,7 +46,7 @@ class OrdineTest {
     }
 
     @Test
-    void setStato() {
+    void setStato() throws SQLException {
         cliente1 = new Cliente("Matteo", "Rondini");
         Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
@@ -60,7 +60,7 @@ class OrdineTest {
     }
 
     @Test
-    void getDettagli() {
+    void getDettagli() throws SQLException {
         cliente1 = new Cliente("Matteo", "Rondini");
         ordineTest = new Ordine(1, "Matteo", "Rondini");
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
@@ -80,7 +80,7 @@ class OrdineTest {
     }
 
     @Test
-    void addResidenza() {
+    void addResidenza() throws SQLException {
         cliente1 = new Cliente("Matteo", "Rondini");
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
         Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
@@ -93,7 +93,7 @@ class OrdineTest {
     }
 
     @Test
-    void aggiungiMerce() {
+    void aggiungiMerce() throws SQLException {
         cliente1 = new Cliente("Matteo", "Rondini");
         Ordine ordine = new Ordine(1, "Matteo", "Rondini");
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);

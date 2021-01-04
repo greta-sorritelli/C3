@@ -21,7 +21,7 @@ class GestoreMagazziniTest {
     }
 
     @Test
-    void getDettagliMagazziniDisponibili() {
+    void getDettagliMagazziniDisponibili() throws SQLException {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         ArrayList<ArrayList<String>> test = gestoreMagazzini.getDettagliItems();
         assertEquals(test.get(0).get(0),"1");
@@ -37,7 +37,7 @@ class GestoreMagazziniTest {
     }
 
     @Test
-    void getMagazziniDisponibili() {
+    void getMagazziniDisponibili() throws SQLException {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         ArrayList<PuntoPrelievo> test = gestoreMagazzini.getItems();
         assertEquals(test.get(0).getNome(),"B1");
@@ -46,7 +46,7 @@ class GestoreMagazziniTest {
     }
 
     @Test
-    void getPuntoPrelievo() {
+    void getPuntoPrelievo() throws SQLException {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         assertEquals("B1", gestoreMagazzini.getItem(1).getNome());
         assertEquals("via Giuseppe", gestoreMagazzini.getItem(2).getIndirizzo());
@@ -54,7 +54,7 @@ class GestoreMagazziniTest {
     }
 
     @Test
-    void sceltaPuntoPrelievo() {
+    void sceltaPuntoPrelievo() throws SQLException {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         assertEquals("B1", gestoreMagazzini.sceltaPuntoPrelievo(1).get(1));
         assertEquals("via Giuseppe", gestoreMagazzini.sceltaPuntoPrelievo(2).get(2));

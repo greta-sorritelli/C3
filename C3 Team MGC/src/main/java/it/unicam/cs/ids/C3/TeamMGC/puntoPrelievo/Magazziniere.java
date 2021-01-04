@@ -19,8 +19,7 @@ public class Magazziniere {
         this.cognome = cognome;
     }
 
-    public Magazziniere(PuntoPrelievo puntoPrelievo, String nome, String cognome) {
-        try {
+    public Magazziniere(PuntoPrelievo puntoPrelievo, String nome, String cognome) throws SQLException {
             updateData("INSERT INTO `sys`.`magazzinieri` (`nome`,`cognome`,`puntoPrelievo`) \n" +
                     "VALUES ('" + nome + "' , '" + cognome + "', '" + puntoPrelievo.getNome() + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from magazzinieri;");
@@ -29,19 +28,15 @@ public class Magazziniere {
             this.nome = nome;
             this.cognome = cognome;
             this.puntoPrelievo = puntoPrelievo;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
     }
 
     public int getID() {
         return ID;
     }
 
-    //todo
-    public void mandaAlert() {
 
+    public void mandaAlert() {
+     //todo
     }
 
 }
