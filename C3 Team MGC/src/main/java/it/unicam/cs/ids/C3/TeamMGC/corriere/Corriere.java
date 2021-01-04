@@ -55,7 +55,7 @@ public class Corriere {
      * @return ArrayList dei dettagli
      */
     public ArrayList<String> getDettagli() throws SQLException {
-        update(executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';"));
+        update();
         ArrayList<String> corriere = new ArrayList<>();
         corriere.add(nome);
         corriere.add(cognome);
@@ -86,7 +86,8 @@ public class Corriere {
         throw new UnsupportedOperationException();
     }
 
-    private void update(ResultSet rs) throws SQLException {
+    public void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';");
         if (rs.next()) {
             this.nome = rs.getString("nome");
             this.cognome = rs.getString("cognome");

@@ -80,12 +80,8 @@ public class Merce {
      *
      * @return ArrayList<String> dei dettagli.
      */
-    public ArrayList<String> getDettagli() {
-        try {
-            update(executeQuery("select * from sys.inventario where ID= '" + this.ID + "';"));
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public ArrayList<String> getDettagli() throws SQLException {
+        update();
         ArrayList<String> toReturn = new ArrayList<>();
         toReturn.add(String.valueOf(getID()));
         toReturn.add(String.valueOf(getIDNegozio()));
@@ -129,7 +125,8 @@ public class Merce {
         }
     }
 
-    private void update(ResultSet rs) throws SQLException {
+    public void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.inventario where ID= '" + this.ID + "';");
         if (rs.next()) {
             this.prezzo = rs.getDouble("prezzo");
             this.descrizione = rs.getString("descrizione");
