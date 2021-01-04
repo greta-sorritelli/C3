@@ -68,11 +68,7 @@ public class Merce {
      * @return ArrayList<String> dei dettagli.
      */
     public ArrayList<String> getDettagli() throws SQLException {
-<<<<<<< Updated upstream
         update();
-=======
-        update(executeQuery("select * from sys.inventario where ID= '" + this.ID + "';"));
->>>>>>> Stashed changes
         ArrayList<String> toReturn = new ArrayList<>();
         toReturn.add(String.valueOf(getID()));
         toReturn.add(String.valueOf(getIDNegozio()));
