@@ -23,7 +23,7 @@ class GestoreMagazziniTest {
     @Test
     void getDettagliMagazziniDisponibili() {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
-        ArrayList<ArrayList<String>> test = gestoreMagazzini.getDettagliMagazziniDisponibili();
+        ArrayList<ArrayList<String>> test = gestoreMagazzini.getDettagliItems();
         assertEquals(test.get(0).get(0),"B1");
         assertEquals(test.get(0).get(1), "via Giacinto");
         assertEquals(test.get(1).get(0),"B2");
@@ -36,7 +36,7 @@ class GestoreMagazziniTest {
     @Test
     void getMagazziniDisponibili() {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
-        ArrayList<PuntoPrelievo> test = gestoreMagazzini.getMagazziniDisponibili();
+        ArrayList<PuntoPrelievo> test = gestoreMagazzini.getItems();
         assertEquals(test.get(0).getNome(),"B1");
         assertEquals(test.get(1).getIndirizzo(),"via Giuseppe");
         assertEquals(test.get(2).getNome(),"B3");
@@ -45,9 +45,9 @@ class GestoreMagazziniTest {
     @Test
     void getPuntoPrelievo() {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
-        assertEquals("B1", gestoreMagazzini.getPuntoPrelievo(1).getNome());
-        assertEquals("via Giuseppe", gestoreMagazzini.getPuntoPrelievo(2).getIndirizzo());
-        assertEquals("via Paolo", gestoreMagazzini.getPuntoPrelievo(3).getIndirizzo());
+        assertEquals("B1", gestoreMagazzini.getItem(1).getNome());
+        assertEquals("via Giuseppe", gestoreMagazzini.getItem(2).getIndirizzo());
+        assertEquals("via Paolo", gestoreMagazzini.getItem(3).getIndirizzo());
     }
 
     @Test

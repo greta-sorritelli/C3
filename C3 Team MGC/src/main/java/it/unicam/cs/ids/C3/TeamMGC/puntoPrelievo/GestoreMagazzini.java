@@ -1,12 +1,14 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
+import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
-public class GestoreMagazzini {
+public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
 
     ArrayList<PuntoPrelievo> magazzini = new ArrayList<>();
 
@@ -45,25 +47,23 @@ public class GestoreMagazzini {
             return false;
     }
 
+
     /**
      * @return ArrayList<ArrayList < String>> dei dettagli dei magazzini disponibili.
      */
-    public ArrayList<ArrayList<String>> getDettagliMagazziniDisponibili() {
+    @Override
+    public ArrayList<ArrayList<String>> getDettagliItems() {
         try {
-            ArrayList<PuntoPrelievo> magazziniDisponibili = new ArrayList<>();
             ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
             ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
-            while (rs.next()) {
-                PuntoPrelievo tmp = new PuntoPrelievo(rs.getInt("ID"), rs.getString("indirizzo"),
-                        rs.getString("nome"));
-                magazziniDisponibili.add(tmp);
-            }
-            for (PuntoPrelievo magazzino : magazziniDisponibili) {
+            while (rs.next())
+                addMagazzino(rs);
+            for (PuntoPrelievo magazzino : magazzini)
                 dettagli.add(magazzino.getDettagli());
-            }
             return dettagli;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
         }
         return null;
     }
@@ -71,15 +71,13 @@ public class GestoreMagazzini {
     /**
      * @return l'elenco dei Magazzini Disponibili
      */
-    public ArrayList<PuntoPrelievo> getMagazziniDisponibili() {
+    @Override
+    public ArrayList<PuntoPrelievo> getItems() {
         try {
-            ArrayList<PuntoPrelievo> puntoPrel = new ArrayList<>();
             ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
-            while (rs.next()) {
-                PuntoPrelievo tmp = new PuntoPrelievo(rs.getInt("ID"), rs.getString("indirizzo"), rs.getString("nome"));
-                puntoPrel.add(tmp);
-            }
-            return puntoPrel;
+            while (rs.next())
+                addMagazzino(rs);
+            return new ArrayList<>(magazzini);
         } catch (SQLException exception) {
             //todo
             exception.printStackTrace();
@@ -93,7 +91,8 @@ public class GestoreMagazzini {
      * @param ID Codice Identificativo del Punto di prelievo
      * @return Il Punto di prelievo desiderato
      */
-    public PuntoPrelievo getPuntoPrelievo(int ID) {
+    @Override
+    public PuntoPrelievo getItem(int ID) {
         try {
             ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo where ID='" + ID + "' ;");
             if (rs.next())
@@ -108,24 +107,23 @@ public class GestoreMagazzini {
     }
 
     public void mandaAlert(PuntoPrelievo magazzino) {
-       //todo
+        //todo
     }
 
     /**
-     *
      * @param ID
      * @return
      */
     public PuntoPrelievo sceltaPuntoPrelievo(int ID) {
 
-        return getPuntoPrelievo(ID);
+        return getItem(ID);
     }
 
     public void selezionaPuntoPrelievo(int ID) {
         //todo
     }
 
-    public PuntoPrelievo ricercaMagazzinoVicino(String indirizzo){
+    public PuntoPrelievo ricercaMagazzinoVicino(String indirizzo) {
         //todo
         return null;
     }

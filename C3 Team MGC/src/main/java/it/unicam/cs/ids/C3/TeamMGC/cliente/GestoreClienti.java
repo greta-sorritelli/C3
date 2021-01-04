@@ -12,25 +12,6 @@ public class GestoreClienti implements Gestore<Cliente> {
 
     private final ArrayList<Cliente> clienti = new ArrayList<>();
 
-    //todo
-    public String generaCodiceRitiro() {
-
-        return null;
-    }
-
-    /**
-     * Aggiunge un {@link Cliente} alla lista di clienti.
-     *
-     * @param cliente Cliente da aggiungere
-     * @return {@code true} se il Cliente viene inserito correttamente, {@code false} altrimenti
-     */
-    private boolean addClienteToList(Cliente cliente) {
-        if (!clienti.contains(cliente))
-            return clienti.add(cliente);
-        else
-            return false;
-    }
-
     /**
      * Controlla se il {@link Cliente} che si vuole creare e' gia' presente nella lista dei clienti. Se non e' presente
      * viene creato e aggiunto alla lista.
@@ -49,13 +30,39 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
+     * Aggiunge un {@link Cliente} alla lista di clienti.
+     *
+     * @param cliente Cliente da aggiungere
+     * @return {@code true} se il Cliente viene inserito correttamente, {@code false} altrimenti
+     */
+    private boolean addClienteToList(Cliente cliente) {
+        if (!clienti.contains(cliente))
+            return clienti.add(cliente);
+        else
+            return false;
+    }
+
+    //todo
+    public String generaCodiceRitiro() {
+
+        return null;
+    }
+
+    @Override
+    public ArrayList<ArrayList<String>> getDettagliItems() {
+        //todo
+        return null;
+    }
+
+    /**
      * Ritorna il {@link Cliente} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Cliente
      * @return Il Cliente desiderato
      */
     //todo test
-    public Cliente getItem(int ID){
+    @Override
+    public Cliente getItem(int ID) {
         try {
             ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
             if (rs.next())
@@ -67,6 +74,12 @@ public class GestoreClienti implements Gestore<Cliente> {
             //todo
             exception.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Cliente> getItems() {
+        //todo
         return null;
     }
 }

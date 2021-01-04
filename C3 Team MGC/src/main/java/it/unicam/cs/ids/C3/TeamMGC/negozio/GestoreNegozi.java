@@ -1,4 +1,22 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
-public class GestoreNegozi {
+import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+
+import java.util.ArrayList;
+
+public class GestoreNegozi implements Gestore<Negozio> {
+    @Override
+    public Negozio getItem(int ID) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Negozio> getItems() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<ArrayList<String>> getDettagliItems() {
+        return null;
+    }
 }

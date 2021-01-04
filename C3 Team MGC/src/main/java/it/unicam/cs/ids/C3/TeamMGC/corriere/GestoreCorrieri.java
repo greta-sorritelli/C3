@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,26 +44,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * Ritorna il {@link Corriere} collegato all' {@code ID}.
-     *
-     * @param ID Codice Identificativo del Corriere
-     * @return Il Corriere desiderato
-     */
-    public Corriere getItem(int ID) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
-            if (rs.next())
-                return addCorriere(rs);
-            else
-                //todo eccezione
-                throw new IllegalArgumentException();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
      * @return l'elenco dei Corrieri Disponibili
      */
     //TODO controllare se va bene il test
@@ -95,7 +76,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * @return ArrayList<ArrayList<String>> dei dettagli dei corrieri disponibili.
+     * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri disponibili.
      */
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() {
         try {
@@ -107,15 +88,78 @@ public class GestoreCorrieri implements Gestore<Corriere> {
                         rs.getString("cognome"), true, rs.getInt("capienza"));
                 corrieriDisponibili.add(tmp);
             }
-            for (Corriere corriere : corrieriDisponibili) {
+            for (Corriere corriere : corrieriDisponibili)
                 dettagli.add(corriere.getDettagli());
-            }
             return dettagli;
         } catch (SQLException exception) {
             //todo eccezione
             exception.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliItems() {
+        try {
+            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
+            while (rs.next())
+                addCorriere(rs);
+            for (Corriere corrieri : corrieri)
+                dettagli.add(corrieri.getDettagli());
+            return dettagli;
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean getDisponibilita(int IDCorriere) {
+        return getItem(IDCorriere).getDisponibilita();
+    }
+
+    /**
+     * Ritorna il {@link Corriere} collegato all' {@code ID}.
+     *
+     * @param ID Codice Identificativo del Corriere
+     * @return Il Corriere desiderato
+     */
+    @Override
+    public Corriere getItem(int ID) {
+        try {
+            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
+            if (rs.next())
+                return addCorriere(rs);
+            else
+                //todo eccezione
+                throw new IllegalArgumentException();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    //todo test
+    @Override
+    public ArrayList<Corriere> getItems() {
+        try {
+            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
+            while (rs.next())
+                addCorriere(rs);
+            return new ArrayList<>(corrieri);
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    //todo controllare
+    public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) {
+        Corriere corriere = new Corriere(nome, cognome, true, capienza);
+        return corriere.getDettagli();
     }
 
     /**
@@ -136,15 +180,5 @@ public class GestoreCorrieri implements Gestore<Corriere> {
 
     public void setDisponibilita(int IDCorriere, boolean disponibilita) {
         getItem(IDCorriere).setDisponibilita(disponibilita);
-    }
-
-    public boolean getDisponibilita(int IDCorriere){
-        return getItem(IDCorriere).getDisponibilita();
-    }
-
-    //todo controllare
-    public ArrayList<String> inserisciDati(String nome, String cognome, int capienza){
-        Corriere corriere = new Corriere(nome,cognome,true,capienza);
-        return corriere.getDettagli();
     }
 }
