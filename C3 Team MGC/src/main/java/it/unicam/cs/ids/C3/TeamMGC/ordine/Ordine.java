@@ -17,7 +17,7 @@ public class Ordine {
     private double totalePrezzo;
     private StatoOrdine stato;
     private int IDPuntoPrelievo = -1;
-    private String residenza = null;
+    private String residenza;
     private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
     public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) {

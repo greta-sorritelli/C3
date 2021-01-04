@@ -91,4 +91,19 @@ class GestoreOrdiniTest {
         assertSame(StatoOrdine.PAGATO, ordine.getStato());
 
     }
+
+    @Test
+    void addResidenza() {
+        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
+        GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+        Cliente cliente = new Cliente("Maria", "Giuseppa");
+        Ordine ordine = gestoreOrdini.registraOrdine(cliente.getID(), "Maria", "Giuseppa");
+        ordine.setStato(StatoOrdine.PAGATO);
+        assertNull(ordine.getResidenza());
+        gestoreOrdini.addResidenza(ordine.getID(), "via Roma, 8");
+        assertEquals(ordine.getResidenza(), "via Roma, 8");
+        gestoreOrdini.addResidenza(ordine.getID(), "via Colombo, 9");
+        assertNotEquals(ordine.getResidenza(), "via Roma, 8");
+        assertEquals(ordine.getResidenza(), "via Colombo, 9");
+    }
 }
