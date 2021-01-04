@@ -66,6 +66,11 @@ public class Corriere {
      * @return ArrayList dei dettagli
      */
     public ArrayList<String> getDettagli() {
+        try {
+            update(executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';"));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
         ArrayList<String> corriere = new ArrayList<>();
         corriere.add(nome);
         corriere.add(cognome);
@@ -99,6 +104,15 @@ public class Corriere {
     public void mandaAlert() {
         // TODO - implement Corriere.mandaAlert
         throw new UnsupportedOperationException();
+    }
+
+    private void update(ResultSet rs) throws SQLException {
+        if (rs.next()) {
+            this.nome = rs.getString("nome");
+            this.cognome = rs.getString("cognome");
+            this.disponibilita = rs.getBoolean("stato");
+            this.capienza = rs.getInt("capienza");
+        }
     }
 
 
