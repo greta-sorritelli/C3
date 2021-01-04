@@ -22,38 +22,27 @@ public class Corriere {
         this.capienza = capienza;
     }
 
-    public Corriere(String nome, String cognome, boolean disponibilita, int capienza) {
-        try {
-            updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('" + nome + "', '" + cognome +
-                    "', '" + disponibilita + "', '" + capienza + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from corrieri;");
-            rs.next();
-            ID = rs.getInt("ID");
-            this.nome = nome;
-            this.cognome = cognome;
-            this.disponibilita = disponibilita;
-            this.capienza = capienza;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
+    public Corriere(String nome, String cognome, boolean disponibilita, int capienza) throws SQLException {
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('" + nome + "', '" + cognome +
+                "', '" + disponibilita + "', '" + capienza + "');");
+        ResultSet rs = executeQuery("SELECT MAX(ID) as ID from corrieri;");
+        rs.next();
+        ID = rs.getInt("ID");
+        this.nome = nome;
+        this.cognome = cognome;
+        this.disponibilita = disponibilita;
+        this.capienza = capienza;
     }
 
     public int getCapienza() {
         return capienza;
     }
 
-    public void setCapienza(int capienza) {
-        try {
-            if (capienza < 0)
-                //todo eccezione
-                throw new IllegalArgumentException();
-            updateData("UPDATE sys.corrieri SET capienza = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
-            this.capienza = capienza;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
+    public void setCapienza(int capienza) throws SQLException {
+        if (capienza < 0)
+            throw new IllegalArgumentException("Capienza non valida.");
+        updateData("UPDATE sys.corrieri SET capienza = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
+        this.capienza = capienza;
     }
 
     public String getCognome() {
@@ -65,12 +54,8 @@ public class Corriere {
      *
      * @return ArrayList dei dettagli
      */
-    public ArrayList<String> getDettagli() {
-        try {
-            update(executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';"));
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public ArrayList<String> getDettagli() throws SQLException {
+        update(executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';"));
         ArrayList<String> corriere = new ArrayList<>();
         corriere.add(nome);
         corriere.add(cognome);
@@ -83,14 +68,9 @@ public class Corriere {
         return disponibilita;
     }
 
-    public void setDisponibilita(boolean disponibilita) {
-        try {
+    public void setDisponibilita(boolean disponibilita) throws SQLException {
             updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
             this.disponibilita = disponibilita;
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
     }
 
     public int getID() {
@@ -114,6 +94,5 @@ public class Corriere {
             this.capienza = rs.getInt("capienza");
         }
     }
-
-
+    
 }
