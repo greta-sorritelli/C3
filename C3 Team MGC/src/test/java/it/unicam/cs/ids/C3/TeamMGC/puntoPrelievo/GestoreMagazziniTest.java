@@ -24,12 +24,15 @@ class GestoreMagazziniTest {
     void getDettagliMagazziniDisponibili() {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         ArrayList<ArrayList<String>> test = gestoreMagazzini.getDettagliMagazziniDisponibili();
-        assertEquals(test.get(0).get(0),"B1");
-        assertEquals(test.get(0).get(1), "via Giacinto");
-        assertEquals(test.get(1).get(0),"B2");
-        assertEquals(test.get(1).get(1), "via Giuseppe");
-        assertEquals(test.get(2).get(0),"B3");
-        assertEquals(test.get(2).get(1), "via Paolo");
+        assertEquals(test.get(0).get(0),"1");
+        assertEquals(test.get(0).get(1), "B1");
+        assertEquals(test.get(0).get(2), "via Giacinto");
+        assertEquals(test.get(1).get(0),"2");
+        assertEquals(test.get(1).get(1),"B2");
+        assertEquals(test.get(1).get(2), "via Giuseppe");
+        assertEquals(test.get(2).get(0),"3");
+        assertEquals(test.get(2).get(1),"B3");
+        assertEquals(test.get(2).get(2), "via Paolo");
 
     }
 
