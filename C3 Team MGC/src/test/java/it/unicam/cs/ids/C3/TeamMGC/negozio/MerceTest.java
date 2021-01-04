@@ -9,8 +9,7 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MerceTest {
     static Merce merceTest;
@@ -37,12 +36,23 @@ class MerceTest {
     }
 
     @Test
-    void getDettagli() {
+    void getDettagli() throws SQLException {
         Merce merce = new Merce(1, 6.5, "test getDettagli", 2);
+        int IDTest = merce.getID();
         ArrayList<String> toControl = new ArrayList<>();
-        toControl.add("3");
+        toControl.add(String.valueOf(IDTest));
         toControl.add("1");
         toControl.add("6.5");
+        toControl.add("test getDettagli");
+        toControl.add("2");
+        assertEquals(toControl, merce.getDettagli());
+
+        updateData("UPDATE sys.inventario SET prezzo = '25' WHERE (ID = '" + IDTest + "');");
+        assertNotEquals(toControl, merce.getDettagli());
+        toControl.clear();
+        toControl.add(String.valueOf(IDTest));
+        toControl.add("1");
+        toControl.add("25.0");
         toControl.add("test getDettagli");
         toControl.add("2");
         assertEquals(toControl, merce.getDettagli());
