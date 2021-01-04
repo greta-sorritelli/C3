@@ -42,7 +42,6 @@ public class GestoreOrdini {
      * @param IDOrdine
      * @param indirizzo
      */
-   //todo test
     public void addResidenza(int IDOrdine, String indirizzo) {
        getOrdine(IDOrdine).addResidenza(indirizzo);
     }

@@ -55,11 +55,11 @@ public class Cliente {
     }
 
     /**
-     *
      * @return
      */
     //todo test
     public ArrayList<String> getDettagli() {
+        update();
         ArrayList<String> cliente = new ArrayList<>();
         cliente.add(String.valueOf(getID()));
         cliente.add(getNome());
@@ -72,8 +72,19 @@ public class Cliente {
     /**
      *
      */
-    public void update(){
-        //todo
+    public void update() {
+        try {
+            ResultSet rs = executeQuery("select * from sys.clienti where ID= '" + this.ID + "';");
+            if (rs.next()) {
+                this.nome = rs.getString("nome");
+                this.cognome = rs.getString("cognome");
+                this.codiceRitiro = rs.getString("codiceRitiro");
+                this.dataCreazioneCodice = rs.getString("dataCreazione");
+            }
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
     }
 
     public String setCodiceRitiro(String codiceRitiro) {

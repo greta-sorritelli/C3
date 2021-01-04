@@ -65,7 +65,6 @@ public class PuntoPrelievo {
      * @return          ArrayList<ArrayList<String>> dei dettagli della merce presente nel magazzino
      *                  che fa parte dell'ordine
      */
-    //todo test
     public ArrayList<ArrayList<String>> getDettagliMerceMagazzino(int IDOrdine) {
         try {
             ArrayList<MerceOrdine> merceOrdine = new ArrayList<>();
