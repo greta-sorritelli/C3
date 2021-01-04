@@ -19,7 +19,7 @@ public class ICommesso {
      * @param IDOrdine
      * @param indirizzo
      */
-    public void addResidenza(int IDOrdine, String indirizzo) {
+    public void addResidenza(int IDOrdine, String indirizzo) throws SQLException {
         gestoreOrdini.addResidenza(IDOrdine,indirizzo);
     }
 
