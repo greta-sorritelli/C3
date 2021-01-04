@@ -25,21 +25,16 @@ public class Merce {
      * @param descrizione
      * @param quantita
      */
-    public Merce(int IDNegozio, double prezzo, String descrizione, int quantita) {
-        try {
-            updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) " +
-                    "VALUES ('" + IDNegozio + "', '" + prezzo + "', '" + descrizione + "', '" + quantita + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from inventario;");
-            rs.next();
-            ID = rs.getInt("ID");
-            this.IDNegozio = IDNegozio;
-            this.prezzo = prezzo;
-            this.descrizione = descrizione;
-            this.quantita = quantita;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
+    public Merce(int IDNegozio, double prezzo, String descrizione, int quantita) throws SQLException {
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) " +
+                "VALUES ('" + IDNegozio + "', '" + prezzo + "', '" + descrizione + "', '" + quantita + "');");
+        ResultSet rs = executeQuery("SELECT MAX(ID) as ID from inventario;");
+        rs.next();
+        ID = rs.getInt("ID");
+        this.IDNegozio = IDNegozio;
+        this.prezzo = prezzo;
+        this.descrizione = descrizione;
+        this.quantita = quantita;
     }
 
     /**
@@ -54,25 +49,17 @@ public class Merce {
         this.quantita = quantita;
     }
 
-    public void delete() {
-        try {
-            updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void delete() throws SQLException {
+        updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
     }
 
     public String getDescrizione() {
         return descrizione;
     }
 
-    public void setDescrizione(String descrizione) {
-        try {
-            updateData("UPDATE sys.inventario SET descrizione = '" + descrizione + "' WHERE (ID = '" + getID() + "');");
-            this.descrizione = descrizione;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void setDescrizione(String descrizione) throws SQLException {
+        updateData("UPDATE sys.inventario SET descrizione = '" + descrizione + "' WHERE (ID = '" + getID() + "');");
+        this.descrizione = descrizione;
     }
 
     /**
@@ -81,7 +68,11 @@ public class Merce {
      * @return ArrayList<String> dei dettagli.
      */
     public ArrayList<String> getDettagli() throws SQLException {
+<<<<<<< Updated upstream
         update();
+=======
+        update(executeQuery("select * from sys.inventario where ID= '" + this.ID + "';"));
+>>>>>>> Stashed changes
         ArrayList<String> toReturn = new ArrayList<>();
         toReturn.add(String.valueOf(getID()));
         toReturn.add(String.valueOf(getIDNegozio()));
@@ -103,26 +94,18 @@ public class Merce {
         return prezzo;
     }
 
-    public void setPrezzo(double prezzo) {
-        try {
-            updateData("UPDATE sys.inventario SET prezzo = '" + prezzo + "' WHERE (ID = '" + getID() + "');");
-            this.prezzo = prezzo;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void setPrezzo(double prezzo) throws SQLException {
+        updateData("UPDATE sys.inventario SET prezzo = '" + prezzo + "' WHERE (ID = '" + getID() + "');");
+        this.prezzo = prezzo;
     }
 
     public int getQuantita() {
         return quantita;
     }
 
-    public void setQuantita(int quantita) {
-        try {
-            updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");
-            this.quantita = quantita;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void setQuantita(int quantita) throws SQLException{
+        updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");
+        this.quantita = quantita;
     }
 
     public void update() throws SQLException {
