@@ -49,10 +49,10 @@ public class Cliente {
     }
 
     public String getCodiceRitiro() {
+
         return codiceRitiro;
     }
 
-    //todo cambiato da void a string vedere se va bene
     public String setCodiceRitiro(String codiceRitiro) {
         try {
             dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
