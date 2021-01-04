@@ -80,7 +80,7 @@ public class Ordine {
      */
     public void addResidenza(String indirizzo) {
         try {
-            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` =  \"null\" WHERE (`ID` = '" + this.ID + "');");
+            updateData("UPDATE `sys`.`ordini` SET `IDPuntoPrelievo` = 0 WHERE (`ID` = '" + this.ID + "');");
             updateData("UPDATE `sys`.`ordini` SET `residenza` = '" + indirizzo + "' WHERE (`ID` = '" + this.ID + "');");
             IDPuntoPrelievo = -1;
             residenza = indirizzo;
@@ -174,7 +174,7 @@ public class Ordine {
 
     public void setPuntoPrelievo(int IDPuntoPrelievo) {
         try {
-            updateData("UPDATE sys.ordini` SET IDPuntoPrelievo = '" + IDPuntoPrelievo + "' WHERE (`ID` = '" + this.ID + "');");
+            updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + IDPuntoPrelievo + " WHERE ID = " + this.ID + ";");
             this.IDPuntoPrelievo = IDPuntoPrelievo;
         } catch (SQLException exception) {
             //TODO

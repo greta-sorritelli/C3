@@ -29,7 +29,7 @@ class OrdineTest {
     @Test
     void creazioneOrdine() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
+        Ordine ordine = new Ordine(1, "Matteo", "Rondini");
         assertEquals(1, ordine.getID());
     }
 
@@ -38,7 +38,7 @@ class OrdineTest {
         cliente1 = new Cliente("Matteo", "Rondini");
         Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
         ordine.setPuntoPrelievo(p.getID());
         PuntoPrelievo p1 = new PuntoPrelievo("via op", "B3");
         ordine1.setPuntoPrelievo(p1.getID());
@@ -50,7 +50,7 @@ class OrdineTest {
         cliente1 = new Cliente("Matteo", "Rondini");
         Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
         assertNotEquals(ordine.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
@@ -62,7 +62,7 @@ class OrdineTest {
     @Test
     void getDettagli() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        ordineTest = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
+        ordineTest = new Ordine(1, "Matteo", "Rondini");
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
         Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
@@ -84,7 +84,7 @@ class OrdineTest {
         cliente1 = new Cliente("Matteo", "Rondini");
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
         Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
         ordine.addResidenza("Via Giuseppe Garibaldi");
         ordine1.addResidenza("Via Giuseppe Rossi");
         assertEquals(ordine.getResidenza(), "Via Giuseppe Garibaldi");
@@ -95,7 +95,7 @@ class OrdineTest {
     @Test
     void aggiungiMerce() {
         cliente1 = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
+        Ordine ordine = new Ordine(1, "Matteo", "Rondini");
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
         ordine.aggiungiMerce(merce, 15);
         assertEquals(merce.getQuantita(), 15);

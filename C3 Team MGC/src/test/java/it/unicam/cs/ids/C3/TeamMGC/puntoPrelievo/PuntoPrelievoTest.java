@@ -42,17 +42,20 @@ class PuntoPrelievoTest {
         Ordine ordine1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
         lista1.add(ordine1);
 
-        Ordine ordineTest1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO)
+        Ordine ordineTest1 = new Ordine(1, "Mario", "Rossi");
         ordineTest1.setPuntoPrelievo(puntoPrelievo.getID());
+        ordineTest1.setStato(StatoOrdine.RITIRATO);
 
         assertEquals(puntoPrelievo.getOrdini(1).get(0), lista1.get(0));
         assertEquals(puntoPrelievo.getOrdini(1), lista1);
 
-        Ordine ordine2 = new Ordine(2, 1, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
+        Ordine ordine2 = new Ordine(2, 2, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
         lista2.add(ordine2);
         assertNotEquals(puntoPrelievo.getOrdini(2), lista1);
 
-        Ordine ordineTest2 = new Ordine(2, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
+        Ordine ordineTest2 = new Ordine(2, "Mario", "Verdi");
+        ordineTest2.setPuntoPrelievo(puntoPrelievo.getID());
+        ordineTest2.setStato(StatoOrdine.RITIRATO);
         assertEquals(puntoPrelievo.getOrdini(2), lista2);
     }
 
@@ -65,8 +68,8 @@ class PuntoPrelievoTest {
 
         Ordine ordineTest1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
         Ordine ordineTest2 = new Ordine(2, 2, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
-        Ordine ordine1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
-        Ordine ordine2 = new Ordine(2, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
+        Ordine ordine1 = new Ordine(1, "Mario", "Rossi");
+        Ordine ordine2 = new Ordine(2, "Mario", "Verdi");
 
         MerceOrdine merce1_1 = new MerceOrdine(1, 1, 10, "matita", 2, StatoOrdine.IN_DEPOSITO);
         MerceOrdine merce2_1 = new MerceOrdine(2, 1, 20, "gomma", 1, StatoOrdine.RITIRATO);
@@ -100,8 +103,8 @@ class PuntoPrelievoTest {
         ArrayList<MerceOrdine> listaMerciOrdine2 = new ArrayList<>();
         Ordine ordineTest1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
         Ordine ordineTest2 = new Ordine(2, 1, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
-        Ordine ordine1 = new Ordine(1, "Mario", "Rossi", 100, StatoOrdine.IN_DEPOSITO, puntoPrelievo.getID());
-        Ordine ordine2 = new Ordine(1, "Mario", "Verdi", 100, StatoOrdine.AFFIDATO_AL_CORRIERE, puntoPrelievo.getID());
+        Ordine ordine1 = new Ordine(1, "Mario", "Rossi");
+        Ordine ordine2 = new Ordine(1, "Mario", "Verdi");
 
         MerceOrdine merce1_1 = new MerceOrdine(1, 1, 10, "matita", 2, StatoOrdine.IN_DEPOSITO);
         MerceOrdine merce2_1 = new MerceOrdine(2, 1, 20, "gomma", 1, StatoOrdine.RITIRATO);
