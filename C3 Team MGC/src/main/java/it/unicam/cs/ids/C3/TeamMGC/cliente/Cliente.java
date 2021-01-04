@@ -69,6 +69,13 @@ public class Cliente {
         return cliente;
     }
 
+    /**
+     *
+     */
+    public void update(){
+        //todo
+    }
+
     public String setCodiceRitiro(String codiceRitiro) {
         try {
             dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));

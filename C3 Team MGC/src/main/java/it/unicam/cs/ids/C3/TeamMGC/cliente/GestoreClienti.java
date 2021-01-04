@@ -122,7 +122,6 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param IDOrdine
      * @return
      */
-    //todo test
     public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) {
         try {
             ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
@@ -148,14 +147,20 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param codiceRitiro
      * @return
      */
+    //todo test
     public boolean verificaCodice(int IDCliente, String codiceRitiro) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.codici_ritiro where codice = '" + codiceRitiro +
-                    "' and IDCliente = '" + IDCliente + "';");
-            return rs.next();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return false;
+      Cliente cliente = getItem(IDCliente);
+      cliente.update();
+      return verificaCodice(codiceRitiro,cliente.getCodiceRitiro());
+    }
+
+    /**
+     *
+     * @param codiceRitiroComunicato
+     * @param codiceRitiroDB
+     * @return
+     */
+    private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB){
+        return codiceRitiroComunicato.equals(codiceRitiroDB);
     }
 }
