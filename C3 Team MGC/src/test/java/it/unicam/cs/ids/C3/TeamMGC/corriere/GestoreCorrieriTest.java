@@ -25,16 +25,16 @@ class GestoreCorrieriTest {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         gestoreCorrieri.setDisponibilita(1,false);
         gestoreCorrieri.setDisponibilita(3,true);
-        assertFalse(gestoreCorrieri.getCorriere(1).getDisponibilita());
-        assertTrue(gestoreCorrieri.getCorriere(3).getDisponibilita());
+        assertFalse(gestoreCorrieri.getItem(1).getDisponibilita());
+        assertTrue(gestoreCorrieri.getItem(3).getDisponibilita());
     }
 
     @Test
     void getCorriere() {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
-        assertEquals(52, gestoreCorrieri.getCorriere(1).getCapienza());
-        assertEquals("Matteo", gestoreCorrieri.getCorriere(2).getNome());
-        assertEquals("true", String.valueOf(gestoreCorrieri.getCorriere(3).getDisponibilita()));
+        assertEquals(52, gestoreCorrieri.getItem(1).getCapienza());
+        assertEquals("Matteo", gestoreCorrieri.getItem(2).getNome());
+        assertEquals("true", String.valueOf(gestoreCorrieri.getItem(3).getDisponibilita()));
 
     }
 
@@ -79,7 +79,7 @@ class GestoreCorrieriTest {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         gestoreCorrieri.setCapienza(1, 20);
         gestoreCorrieri.setCapienza(2, 10);
-        assertEquals(20, gestoreCorrieri.getCorriere(1).getCapienza());
-        assertEquals(10, gestoreCorrieri.getCorriere(2).getCapienza());
+        assertEquals(20, gestoreCorrieri.getItem(1).getCapienza());
+        assertEquals(10, gestoreCorrieri.getItem(2).getCapienza());
     }
 }

@@ -1,12 +1,14 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
-public class GestoreCorrieri {
+public class GestoreCorrieri implements Gestore<Corriere> {
     ArrayList<Corriere> corrieri = new ArrayList<>();
 
     /**
@@ -46,7 +48,7 @@ public class GestoreCorrieri {
      * @param ID Codice Identificativo del Corriere
      * @return Il Corriere desiderato
      */
-    public Corriere getCorriere(int ID) {
+    public Corriere getItem(int ID) {
         try {
             ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
             if (rs.next())
@@ -124,20 +126,20 @@ public class GestoreCorrieri {
      */
     public ArrayList<String> selezionaCorriere(int ID) {
 
-        return getCorriere(ID).getDettagli();
+        return getItem(ID).getDettagli();
     }
 
     public void setCapienza(int IDCorriere, int capienza) {
 
-        getCorriere(IDCorriere).setCapienza(capienza);
+        getItem(IDCorriere).setCapienza(capienza);
     }
 
     public void setDisponibilita(int IDCorriere, boolean disponibilita) {
-        getCorriere(IDCorriere).setDisponibilita(disponibilita);
+        getItem(IDCorriere).setDisponibilita(disponibilita);
     }
 
     public boolean getDisponibilita(int IDCorriere){
-        return getCorriere(IDCorriere).getDisponibilita();
+        return getItem(IDCorriere).getDisponibilita();
     }
 
     //todo controllare
