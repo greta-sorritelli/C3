@@ -65,9 +65,15 @@ public class MerceOrdine {
     }
 
     public ArrayList<String> getDettagli() {
-        //todo
-        return null;
-    }
+        ArrayList<String> toReturn = new ArrayList<>();
+        toReturn.add(String.valueOf(getID()));
+        toReturn.add(String.valueOf(getIDOrdine()));
+        toReturn.add(String.valueOf(getPrezzo()));
+        toReturn.add(getDescrizione());
+        toReturn.add(String.valueOf(getQuantita()));
+        toReturn.add(String.valueOf(getStato()));
+        return toReturn;
+}
 
     public int getID() {
         return ID;

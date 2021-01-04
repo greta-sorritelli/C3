@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PuntoPrelievoTest {
 
     static PuntoPrelievo puntoPrelievo;
+    static Negozio negozioTest;
 
     @BeforeEach
     void prepareDB() throws SQLException {
@@ -147,5 +149,20 @@ class PuntoPrelievoTest {
         prova2.add("Matelica");
         assertEquals(prova2, punto2.getDettagli());
         assertNotEquals(prova2, puntoPrelievo.getDettagli());
+    }
+
+    @Test
+    void getDettagliMerceMagazzino() {
+        Ordine ordine = new Ordine(1, "Mario", "Giallo");
+        MerceOrdine merce1 = new MerceOrdine(1, null, StatoOrdine.IN_DEPOSITO, 1);
+        ordine.aggiungiMerce(merce1, 1);
+        ordine.setPuntoPrelievo(puntoPrelievo.getID());
+        ArrayList<ArrayList<String>> test = puntoPrelievo.getDettagliMerceMagazzino(1);
+        assertEquals(test.get(0).get(0), String.valueOf(merce1.getID()));
+        assertEquals(test.get(0).get(1), String.valueOf(ordine.getID()));
+        assertEquals(test.get(0).get(2), String.valueOf(merce1.getPrezzo()));
+        assertEquals(test.get(0).get(3), String.valueOf(merce1.getDescrizione()));
+        assertEquals(test.get(0).get(4), String.valueOf(merce1.getQuantita()));
+        assertEquals(test.get(0).get(5), String.valueOf(merce1.getStato()));
     }
 }
