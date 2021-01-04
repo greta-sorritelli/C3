@@ -28,7 +28,7 @@ class GestoreOrdiniTest {
     }
 
     @Test
-    void registraOrdine() {
+    void registraOrdine() throws SQLException {
         Negozio negozio = new Negozio("ABC", null, null, null, null, null);
         GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
         Cliente cliente = new Cliente("Maria", "Giuseppa");
@@ -44,7 +44,7 @@ class GestoreOrdiniTest {
     }
 
     @Test
-    void registraMerce() {
+    void registraMerce() throws SQLException {
         Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         Merce merce = new Merce(negozio.getIDNegozio(), 52, "gomma", 10);
         Merce merce1 = new Merce(negozio.getIDNegozio(), 10, "matita", 20);
@@ -77,7 +77,7 @@ class GestoreOrdiniTest {
     }
 
     @Test
-    void terminaOrdine() {
+    void terminaOrdine() throws SQLException {
         Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         Merce merce = new Merce(1, 52, "gomma", 10);
         Merce merce1 = new Merce(1, 10, "matita", 20);
@@ -93,7 +93,7 @@ class GestoreOrdiniTest {
     }
 
     @Test
-    void addResidenza() {
+    void addResidenza() throws SQLException {
         Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
         Cliente cliente = new Cliente("Maria", "Giuseppa");

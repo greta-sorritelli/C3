@@ -42,8 +42,8 @@ public class GestoreOrdini {
      * @param IDOrdine
      * @param indirizzo
      */
-    public void addResidenza(int IDOrdine, String indirizzo) {
-       getOrdine(IDOrdine).addResidenza(indirizzo);
+    public void addResidenza(int IDOrdine, String indirizzo) throws SQLException {
+        getOrdine(IDOrdine).addResidenza(indirizzo);
     }
 
     /**
@@ -54,20 +54,13 @@ public class GestoreOrdini {
      * @param cognome   Cognome del cliente
      * @throws IllegalArgumentException Se il cliente non è presente nel database
      */
-    private void controllaCliente(int IDCliente, String nome, String cognome) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID = '" + IDCliente + "' and nome = '" + nome + "' and cognome = '" + cognome + "';");
-            if (!rs.next())
-                //todo eccezione
-                throw new IllegalArgumentException();
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
+    private void controllaCliente(int IDCliente, String nome, String cognome) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID = '" + IDCliente + "' and nome = '" + nome + "' and cognome = '" + cognome + "';");
+        if (!rs.next())
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     /**
-     *
      * @param rs
      * @param ordine
      * @return
@@ -86,17 +79,11 @@ public class GestoreOrdini {
      * @return ArrayList<ArrayList < String>> dei dettagli della merce con un certo stato.
      */
     //todo test
-    public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) {
-        try {
-            ArrayList<MerceOrdine> merce = new ArrayList<>();
-            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + statoOrdine + "');");
-            return getArrayLists(merce, dettagli, rs);
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
+        ArrayList<MerceOrdine> merce = new ArrayList<>();
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + statoOrdine + "');");
+        return getArrayLists(merce, dettagli, rs);
     }
 
     /**
@@ -104,27 +91,21 @@ public class GestoreOrdini {
      * @return
      */
     //todo
-    public ArrayList<ArrayList<String>> getDettagliMerceTotale(int IDOrdine) {
-        try {
-            ArrayList<MerceOrdine> merce = new ArrayList<>();
-            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`IDOrdine` =  '" + IDOrdine + "');");
-            return getArrayLists(merce, dettagli, rs);
-        } catch (SQLException exception) {
-        //todo
-        exception.printStackTrace();
+    public ArrayList<ArrayList<String>> getDettagliMerceTotale(int IDOrdine) throws SQLException {
+        ArrayList<MerceOrdine> merce = new ArrayList<>();
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`IDOrdine` =  '" + IDOrdine + "');");
+        return getArrayLists(merce, dettagli, rs);
     }
-        return null;
-}
 
-   //todo rename
+    //todo rename
     private ArrayList<ArrayList<String>> getArrayLists(ArrayList<MerceOrdine> merce, ArrayList<ArrayList<String>> dettagli, ResultSet rs) throws SQLException {
         while (rs.next()) {
-        MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
-                rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
-                StatoOrdine.valueOf(rs.getString("stato")));
-        merce.add(tmp);
-    }
+            MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
+                    rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
+                    StatoOrdine.valueOf(rs.getString("stato")));
+            merce.add(tmp);
+        }
         for (MerceOrdine m : merce) {
             dettagli.add(m.getDettagli());
         }
@@ -136,50 +117,34 @@ public class GestoreOrdini {
      * @return
      */
     //todo test
-    public ArrayList<String> getDettagliOrdine(int IDCliente) {
-        try {
-            ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "';");
-            if (rs.next())
-               return getOrdine(rs.getInt("ID")).getDettagli();
-            } catch (SQLException exception) {
-                //todo
-                exception.printStackTrace();
-            }
-            return null;
-        }
+    public ArrayList<String> getDettagliOrdine(int IDCliente) throws SQLException {
+        ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "';");
+        if (rs.next())
+            return getOrdine(rs.getInt("ID")).getDettagli();
+        return null;
+    }
 
     //todo fare test
-    public MerceOrdine getMerceOrdine(int ID) {
-        try {
-            ResultSet rs = executeQuery("SELECT * from merci where ID ='" + ID + "';");
-            if (rs.next()) {
-                Ordine ordine = getOrdine(rs.getInt("IDOrdine"));
-                for (MerceOrdine merceOrdine : ordine.getMerci())
-                    if (merceOrdine.getID() == ID)
-                        return merceOrdine;
-                    else
-                        return creaMerceFromDB(rs, ordine);
-            }
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
+    public MerceOrdine getMerceOrdine(int ID) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * from merci where ID ='" + ID + "';");
+        if (rs.next()) {
+            Ordine ordine = getOrdine(rs.getInt("IDOrdine"));
+            for (MerceOrdine merceOrdine : ordine.getMerci())
+                if (merceOrdine.getID() == ID)
+                    return merceOrdine;
+                else
+                    return creaMerceFromDB(rs, ordine);
         }
         return null;
     }
 
     //todo test
-    public Ordine getOrdine(int ID) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.ordini where ID='" + ID + "' ;");
-            if (rs.next())
-                return addOrdine(rs);
-            else
-                //todo eccezione
-                throw new IllegalArgumentException();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+    public Ordine getOrdine(int ID) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.ordini where ID='" + ID + "' ;");
+        if (rs.next())
+            return addOrdine(rs);
+        else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     /**
@@ -187,9 +152,9 @@ public class GestoreOrdini {
      *
      * @param IDMerce  ID della merce
      * @param quantita Quantita della merce
-     * @param IDOrdine   Ordine in cui registrare la merce
+     * @param IDOrdine Ordine in cui registrare la merce
      */
-    public void registraMerce(int IDMerce, int quantita, int IDOrdine) {
+    public void registraMerce(int IDMerce, int quantita, int IDOrdine) throws SQLException {
         Merce merce = negozio.getMerce(IDMerce);
         if (merce.getQuantita() == 0 || merce.getQuantita() < quantita)
             throw new IllegalArgumentException();
@@ -205,9 +170,9 @@ public class GestoreOrdini {
      * @param IDCliente ID del cliente a cui appartiene l'ordine
      * @param nome      Nome del cliente a cui appartiene l'ordine
      * @param cognome   Cognome del cliente a cui appartiene l'ordine
-     * @return          L'ordine registrato
+     * @return L'ordine registrato
      */
-    public Ordine registraOrdine(int IDCliente, String nome, String cognome) {
+    public Ordine registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
         controllaCliente(IDCliente, nome, cognome);
         Ordine ordine = new Ordine(IDCliente, nome, cognome);
         addOrdineToList(ordine);
@@ -215,23 +180,18 @@ public class GestoreOrdini {
     }
 
     //todo test
-    public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) {
-        try {
-            getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
-            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + IDPuntoPrelievo + "' WHERE (`ID` = '" + IDOrdine + "');");
-        } catch (SQLException exception) {
-            //TODO
-            exception.printStackTrace();
-        }
+    public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
+        getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
+        updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + IDPuntoPrelievo + "' WHERE (`ID` = '" + IDOrdine + "');");
     }
 
     //todo test
-    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) {
+    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
     }
 
     //todo test
-    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) {
+    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
     }
 
@@ -241,7 +201,7 @@ public class GestoreOrdini {
      * @param IDOrdine Ordine da controllare
      */
     //todo
-    public void terminaOrdine(int IDOrdine) {
+    public void terminaOrdine(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
         for (MerceOrdine m : getOrdine(IDOrdine).getMerci()) {
             if (m.getStato() == StatoOrdine.PAGATO)
@@ -250,8 +210,7 @@ public class GestoreOrdini {
         if (mercePagata.equals(getOrdine(IDOrdine).getMerci()))
             getOrdine(IDOrdine).setStato(StatoOrdine.PAGATO);
         else
-            //todo eccezione
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Merce non pagata.");
     }
 
     public ArrayList<ArrayList<String>> visualizzaMerce(int capienza) {

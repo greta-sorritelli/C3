@@ -24,7 +24,7 @@ public class IMagazziniereTest {
     }
 
     @Test
-    void cercaClienteTest() {
+    void cercaClienteTest() throws SQLException {
         Cliente cliente = new Cliente("Mario", "Rossi");
         IMagazziniere m = new IMagazziniere();
         assertEquals(cliente, m.cercaCliente(1));

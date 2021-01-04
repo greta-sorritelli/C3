@@ -95,5 +95,5 @@ public class Corriere {
             this.capienza = rs.getInt("capienza");
         }
     }
-    
+
 }

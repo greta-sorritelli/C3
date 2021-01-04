@@ -49,19 +49,13 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     *
      * @param IDCliente
      * @param IDOrdine
      */
     //todo test
-    private void creazioneCodice(int IDCliente, int IDOrdine) {
-        try {
-            updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
-                    "VALUES ('" + getItem(IDCliente).getCodiceRitiro() + "', '" + IDCliente + "', '" + IDOrdine + "', '" + getItem(IDCliente).getDataCreazioneCodice() + "');");
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
+    private void creazioneCodice(int IDCliente, int IDOrdine) throws SQLException {
+        updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
+                "VALUES ('" + getItem(IDCliente).getCodiceRitiro() + "', '" + IDCliente + "', '" + IDOrdine + "', '" + getItem(IDCliente).getDataCreazioneCodice() + "');");
     }
 
     /**
@@ -82,20 +76,14 @@ public class GestoreClienti implements Gestore<Cliente> {
      */
     //todo test
     @Override
-    public ArrayList<ArrayList<String>> getDettagliItems() {
-        try {
-            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
-            while (rs.next())
-                addCliente(rs);
-            for (Cliente cliente : clienti)
-                dettagli.add(cliente.getDettagli());
-            return dettagli;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
+        while (rs.next())
+            addCliente(rs);
+        for (Cliente cliente : clienti)
+            dettagli.add(cliente.getDettagli());
+        return dettagli;
     }
 
     /**
@@ -106,19 +94,12 @@ public class GestoreClienti implements Gestore<Cliente> {
      */
     //todo test
     @Override
-    public Cliente getItem(int ID) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
-            if (rs.next())
-                return addCliente(rs);
-            else
-                //todo eccezione
-                throw new IllegalArgumentException();
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public Cliente getItem(int ID) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
+        if (rs.next())
+            return addCliente(rs);
+        else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     /**
@@ -126,17 +107,11 @@ public class GestoreClienti implements Gestore<Cliente> {
      */
     @Override
     //todo test
-    public ArrayList<Cliente> getItems() {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
-            while (rs.next())
-                addCliente(rs);
-            return new ArrayList<>(clienti);
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public ArrayList<Cliente> getItems() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
+        while (rs.next())
+            addCliente(rs);
+        return new ArrayList<>(clienti);
     }
 
     /**
@@ -145,7 +120,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @return
      */
     //todo controllare
-    public ArrayList<String> inserisciDati(String nome, String cognome) {
+    public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
         Cliente cliente = new Cliente(nome, cognome);
         return cliente.getDettagli();
     }
@@ -155,22 +130,17 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param IDOrdine
      * @return
      */
-    public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) {
-        try {
-            ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
-            if (rs.next()) {
-                String date = rs.getString("dataCreazione");
-                String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
-                if (Objects.isNull(date) || !date.equals(dataOdierna)) {
-                    getItem(IDCliente).setCodiceRitiro(generaCodiceRitiro());
-                    creazioneCodice(IDCliente, IDOrdine);
-                    return getItem(IDCliente).getCodiceRitiro();
-                }
+    public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) throws SQLException {
+        ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
+        if (rs.next()) {
+            String date = rs.getString("dataCreazione");
+            String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
+            if (Objects.isNull(date) || !date.equals(dataOdierna)) {
+                getItem(IDCliente).setCodiceRitiro(generaCodiceRitiro());
+                creazioneCodice(IDCliente, IDOrdine);
                 return getItem(IDCliente).getCodiceRitiro();
             }
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
+            return getItem(IDCliente).getCodiceRitiro();
         }
         return getItem(IDCliente).getCodiceRitiro();
     }
@@ -181,19 +151,18 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @return
      */
     //todo test
-    public boolean verificaCodice(int IDCliente, String codiceRitiro) {
-      Cliente cliente = getItem(IDCliente);
-      cliente.update();
-      return verificaCodice(codiceRitiro,cliente.getCodiceRitiro());
+    public boolean verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
+        Cliente cliente = getItem(IDCliente);
+        cliente.update();
+        return verificaCodice(codiceRitiro, cliente.getCodiceRitiro());
     }
 
     /**
-     *
      * @param codiceRitiroComunicato
      * @param codiceRitiroDB
      * @return
      */
-    private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB){
+    private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB) {
         return codiceRitiroComunicato.equals(codiceRitiroDB);
     }
 }

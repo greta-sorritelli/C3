@@ -81,7 +81,7 @@ public class IMagazziniere {
      * @return
      */
     //todo test
-    public void verificaCodice(int IDCliente, String codiceRitiro) {
+    public void verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
       gestoreClienti.verificaCodice(IDCliente,codiceRitiro);
     }
 

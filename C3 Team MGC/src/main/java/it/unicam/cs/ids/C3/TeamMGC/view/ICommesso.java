@@ -39,7 +39,7 @@ public class ICommesso {
      * @param IDOrdine   Ordine in cui registrare la merce
      */
     //todo IDOrdine
-    public void registraMerce(int ID, int quantita, int IDOrdine) {
+    public void registraMerce(int ID, int quantita, int IDOrdine) throws SQLException {
         gestoreOrdini.registraMerce(ID, quantita, IDOrdine);
     }
 
@@ -48,7 +48,7 @@ public class ICommesso {
      * @param Nome      Nome del Cliente
      * @param Cognome   Cognome del Cliente
      */
-    void registraOrdine(int IDCliente, String Nome, String Cognome) {
+    void registraOrdine(int IDCliente, String Nome, String Cognome) throws SQLException {
         gestoreOrdini.registraOrdine(IDCliente, Nome, Cognome);
     }
 
@@ -87,7 +87,7 @@ public class ICommesso {
      * @param IDPuntoPrelievo
      */
     //todo test
-    public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) {
+    public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
         gestoreOrdini.setPuntoPrelievo(IDOrdine,IDPuntoPrelievo);
     }
 
@@ -96,7 +96,7 @@ public class ICommesso {
      * @param statoOrdine
      */
     //todo test
-    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) {
+    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         gestoreOrdini.setStatoOrdine(IDOrdine,statoOrdine);
     }
 
@@ -104,7 +104,7 @@ public class ICommesso {
      * @param IDOrdine
      */
     //todo test
-    public void terminaOrdine(int IDOrdine) {
+    public void terminaOrdine(int IDOrdine) throws SQLException {
         gestoreOrdini.terminaOrdine(IDOrdine);
     }
 
@@ -115,7 +115,7 @@ public class ICommesso {
      * @return
      */
     //todo test
-    public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) {
+    public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) throws SQLException {
         return gestoreClienti.verificaEsistenzaCodice(IDCliente,IDOrdine);
     }
 

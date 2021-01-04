@@ -17,28 +17,23 @@ public class Negozio {
     private String telefono;
     private final ArrayList<Merce> inventario = new ArrayList<>();
 
-    public Negozio(String nome, String categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) {
-        try {
-            updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) " +
-                    "VALUES ('" + nome + "', '" + categoria + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
-                    indirizzo + "', '" + telefono + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from negozi;");
-            rs.next();
-            IDNegozio = rs.getInt("ID");
-            this.nome = nome;
-            this.categoria = categoria;
-            this.orarioApertura = orarioApertura;
-            this.orarioChiusura = orarioChiusura;
-            this.indirizzo = indirizzo;
-            this.telefono = telefono;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    public Negozio(String nome, String categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) throws SQLException {
+        updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) " +
+                "VALUES ('" + nome + "', '" + categoria + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
+                indirizzo + "', '" + telefono + "');");
+        ResultSet rs = executeQuery("SELECT MAX(ID) as ID from negozi;");
+        rs.next();
+        IDNegozio = rs.getInt("ID");
+        this.nome = nome;
+        this.categoria = categoria;
+        this.orarioApertura = orarioApertura;
+        this.orarioChiusura = orarioChiusura;
+        this.indirizzo = indirizzo;
+        this.telefono = telefono;
     }
 
     //todo
     public Negozio(int IDNegozio) {
-
         this.IDNegozio = IDNegozio;
     }
 
@@ -82,19 +77,13 @@ public class Negozio {
      * @param ID Codice Identificativo della Merce
      * @return la Merce desiderata
      */
-    public Merce getMerce(int ID) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
-                    this.IDNegozio + "' ;");
-            if (rs.next())
-                return addMerceInventario(rs);
-            else
-                //todo eccezione
-                throw new IllegalArgumentException();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+    public Merce getMerce(int ID) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
+                this.IDNegozio + "' ;");
+        if (rs.next())
+            return addMerceInventario(rs);
+        else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     /**
@@ -102,25 +91,20 @@ public class Negozio {
      *
      * @return l'elenco della Merce del Negozio
      */
-    public ArrayList<Merce> getMerceDisponibile() {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + IDNegozio + "';");
-            while (rs.next())
-                addMerceInventario(rs);
-            return inventario;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public ArrayList<Merce> getMerceDisponibile() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + IDNegozio + "';");
+        while (rs.next())
+            addMerceInventario(rs);
+        return inventario;
     }
 
     /**
      * Rimuove la {@link Merce} dall'inventario.
-     * @param merce  La Merce da rimuovere.
-     * @return       {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
+     *
+     * @param merce La Merce da rimuovere.
+     * @return {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
      */
-    public boolean removeMerce(Merce merce) {
+    public boolean removeMerce(Merce merce) throws SQLException {
         merce.delete();
         return inventario.remove(merce);
     }

@@ -21,13 +21,18 @@ class ClienteTest {
     }
 
     @Test
-    void creazioneCliente() {
+    void creazioneCliente() throws SQLException {
         Cliente cliente = new Cliente("Mario", "Rossi");
         assertEquals(1, cliente.getID());
     }
 
     @Test
-    void setCodiceRitiro() {
+    void getDettagli() {
+
+    }
+
+    @Test
+    void setCodiceRitiro() throws SQLException {
         Cliente cliente = new Cliente("Matteo", "Rondini");
         String data = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
         assertNull(cliente.getDataCreazioneCodice());

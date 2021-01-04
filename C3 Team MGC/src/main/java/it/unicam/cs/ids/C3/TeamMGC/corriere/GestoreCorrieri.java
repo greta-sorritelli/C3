@@ -46,79 +46,61 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @return l'elenco dei Corrieri Disponibili
      */
     //TODO controllare se va bene il test
-    public ArrayList<Corriere> getCorrieriDisponibili() {
-        try {
-            ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
-            if (rs.next())
-                do {
-                    Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
-                            rs.getString("cognome"), true, rs.getInt("capienza"));
-                    corrieriDisponibili.add(tmp);
-                } while (rs.next());
-
-            else {
-                ResultSet rs1 = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
-                while (!rs1.next())
-                    rs1 = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
-
+    public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
+        ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
+        if (rs.next())
+            do {
                 Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
                         rs.getString("cognome"), true, rs.getInt("capienza"));
                 corrieriDisponibili.add(tmp);
-            }
-            return corrieriDisponibili;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
+            } while (rs.next());
+
+        else {
+            ResultSet rs1 = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
+            while (!rs1.next())
+                rs1 = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
+
+            Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
+                    rs.getString("cognome"), true, rs.getInt("capienza"));
+            corrieriDisponibili.add(tmp);
         }
-        return null;
+        return corrieriDisponibili;
     }
 
     /**
      * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri disponibili.
      */
-    public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() {
-        try {
-            ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
-            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
-            while (rs.next()) {
-                Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
-                        rs.getString("cognome"), true, rs.getInt("capienza"));
-                corrieriDisponibili.add(tmp);
-            }
-            for (Corriere corriere : corrieriDisponibili)
-                dettagli.add(corriere.getDettagli());
-            return dettagli;
-        } catch (SQLException exception) {
-            //todo eccezione
-            exception.printStackTrace();
+    public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() throws SQLException {
+        ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
+        while (rs.next()) {
+            Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
+                    rs.getString("cognome"), true, rs.getInt("capienza"));
+            corrieriDisponibili.add(tmp);
         }
-        return null;
+        for (Corriere corriere : corrieriDisponibili)
+            dettagli.add(corriere.getDettagli());
+        return dettagli;
     }
 
     /**
-     * @return ArrayList<ArrayList<String>> dei dettagli dei corrieri.
+     * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri.
      */
     //todo test
     @Override
-    public ArrayList<ArrayList<String>> getDettagliItems() {
-        try {
-            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
-            while (rs.next())
-                addCorriere(rs);
-            for (Corriere corrieri : corrieri)
-                dettagli.add(corrieri.getDettagli());
-            return dettagli;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
+        while (rs.next())
+            addCorriere(rs);
+        for (Corriere corrieri : corrieri)
+            dettagli.add(corrieri.getDettagli());
+        return dettagli;
     }
 
-    public boolean getDisponibilita(int IDCorriere) {
+    public boolean getDisponibilita(int IDCorriere) throws SQLException {
         return getItem(IDCorriere).getDisponibilita();
     }
 
@@ -129,46 +111,33 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @return Il Corriere desiderato
      */
     @Override
-    public Corriere getItem(int ID) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
-            if (rs.next())
-                return addCorriere(rs);
-            else
-                //todo eccezione
-                throw new IllegalArgumentException();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+    public Corriere getItem(int ID) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
+        if (rs.next())
+            return addCorriere(rs);
+        else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     /**
      * @return ArrayList<Corriere> dei corrieri.
      */
     @Override
-    public ArrayList<Corriere> getItems() {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
-            while (rs.next())
-                addCorriere(rs);
-            return new ArrayList<>(corrieri);
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public ArrayList<Corriere> getItems() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
+        while (rs.next())
+            addCorriere(rs);
+        return new ArrayList<>(corrieri);
     }
 
     /**
-     *
      * @param nome
      * @param cognome
      * @param capienza
      * @return
      */
     //todo controllare
-    public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) {
+    public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) throws SQLException {
         Corriere corriere = new Corriere(nome, cognome, true, capienza);
         return corriere.getDettagli();
     }
@@ -179,17 +148,15 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @param ID Codice Identificativo del Corriere
      * @return Le informazioni del Corriere
      */
-    public ArrayList<String> selezionaCorriere(int ID) {
-
+    public ArrayList<String> selezionaCorriere(int ID) throws SQLException {
         return getItem(ID).getDettagli();
     }
 
-    public void setCapienza(int IDCorriere, int capienza) {
-
+    public void setCapienza(int IDCorriere, int capienza) throws SQLException {
         getItem(IDCorriere).setCapienza(capienza);
     }
 
-    public void setDisponibilita(int IDCorriere, boolean disponibilita) {
+    public void setDisponibilita(int IDCorriere, boolean disponibilita) throws SQLException {
         getItem(IDCorriere).setDisponibilita(disponibilita);
     }
 }

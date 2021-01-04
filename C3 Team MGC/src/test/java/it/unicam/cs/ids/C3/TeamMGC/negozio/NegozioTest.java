@@ -21,7 +21,7 @@ class NegozioTest {
     }
 
     @Test
-    void getMerce() {
+    void getMerce() throws SQLException {
         Negozio negozio = new Negozio(1);
         Merce merce1 = negozio.getMerce(1);
         Merce merce2 = negozio.getMerce(1);
@@ -33,7 +33,7 @@ class NegozioTest {
     }
 
     @Test
-    void getMerceDisponibile() {
+    void getMerceDisponibile() throws SQLException {
         Negozio negozio = new Negozio(1);
         ArrayList<Merce> inventario = negozio.getMerceDisponibile();
         assertEquals(1, inventario.get(0).getID());

@@ -16,21 +16,16 @@ public class MerceOrdine {
     private int quantita = 0;
     private StatoOrdine stato;
 
-    public MerceOrdine(double prezzo, String descrizione, StatoOrdine stato, int IDOrdine) {
-        try {
-            updateData("INSERT INTO sys.merci (prezzo, descrizione, stato, IDOrdine) " +
-                    "VALUES ('" + prezzo + "', '" + descrizione + "', '" + stato + "', '" + IDOrdine + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from merci;");
-            rs.next();
-            ID = rs.getInt("ID");
-            this.IDOrdine = IDOrdine;
-            this.prezzo = prezzo;
-            this.descrizione = descrizione;
-            this.stato = stato;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
+    public MerceOrdine(double prezzo, String descrizione, StatoOrdine stato, int IDOrdine) throws SQLException {
+        updateData("INSERT INTO sys.merci (prezzo, descrizione, stato, IDOrdine) " +
+                "VALUES ('" + prezzo + "', '" + descrizione + "', '" + stato + "', '" + IDOrdine + "');");
+        ResultSet rs = executeQuery("SELECT MAX(ID) as ID from merci;");
+        rs.next();
+        ID = rs.getInt("ID");
+        this.IDOrdine = IDOrdine;
+        this.prezzo = prezzo;
+        this.descrizione = descrizione;
+        this.stato = stato;
     }
 
     public MerceOrdine(int ID, int IDOrdine, double prezzo, String descrizione, int quantita, StatoOrdine stato) {
@@ -55,13 +50,9 @@ public class MerceOrdine {
         return descrizione;
     }
 
-    public void setDescrizione(String descrizione) {
-        try {
-            updateData("UPDATE sys.merci SET descrizione = '" + descrizione + "' WHERE (ID = '" + ID + "');");
-            this.descrizione = descrizione;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void setDescrizione(String descrizione) throws SQLException {
+        updateData("UPDATE sys.merci SET descrizione = '" + descrizione + "' WHERE (ID = '" + ID + "');");
+        this.descrizione = descrizione;
     }
 
     public ArrayList<String> getDettagli() {
@@ -73,7 +64,7 @@ public class MerceOrdine {
         toReturn.add(String.valueOf(getQuantita()));
         toReturn.add(String.valueOf(getStato()));
         return toReturn;
-}
+    }
 
     public int getID() {
         return ID;
@@ -87,39 +78,27 @@ public class MerceOrdine {
         return prezzo;
     }
 
-    public void setPrezzo(double prezzo) {
-        try {
-            updateData("UPDATE sys.merci SET prezzo = '" + prezzo + "' WHERE (ID = '" + ID + "');");
-            this.prezzo = prezzo;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void setPrezzo(double prezzo) throws SQLException {
+        updateData("UPDATE sys.merci SET prezzo = '" + prezzo + "' WHERE (ID = '" + ID + "');");
+        this.prezzo = prezzo;
     }
 
     public int getQuantita() {
         return quantita;
     }
 
-    public void setQuantita(int quantita) {
-        try {
-            updateData("UPDATE sys.merci SET quantita = '" + quantita + "' WHERE (ID = '" + ID + "');");
-            this.quantita = quantita;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void setQuantita(int quantita) throws SQLException {
+        updateData("UPDATE sys.merci SET quantita = '" + quantita + "' WHERE (ID = '" + ID + "');");
+        this.quantita = quantita;
     }
 
     public StatoOrdine getStato() {
         return stato;
     }
 
-    public void setStato(StatoOrdine stato) {
-        try {
-            updateData("UPDATE sys.merci SET stato = '" + stato + "' WHERE (ID = '" + ID + "');");
-            this.stato = stato;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public void setStato(StatoOrdine stato) throws SQLException {
+        updateData("UPDATE sys.merci SET stato = '" + stato + "' WHERE (ID = '" + ID + "');");
+        this.stato = stato;
     }
 
     @Override

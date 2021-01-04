@@ -53,14 +53,14 @@ public class Ordine {
 //    }
 
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente) throws SQLException {
-            updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`) " +
-                    "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
-            rs.next();
-            ID = rs.getInt("ID");
-            this.IDCliente = IDCliente;
-            this.nomeCliente = nomeCliente;
-            this.cognomeCliente = cognomeCliente;
+        updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`) " +
+                "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "');");
+        ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
+        rs.next();
+        ID = rs.getInt("ID");
+        this.IDCliente = IDCliente;
+        this.nomeCliente = nomeCliente;
+        this.cognomeCliente = cognomeCliente;
 
     }
 
@@ -70,10 +70,10 @@ public class Ordine {
      * @param indirizzo Indirizzo residenza del cliente
      */
     public void addResidenza(String indirizzo) throws SQLException {
-            updateData("UPDATE `sys`.`ordini` SET `IDPuntoPrelievo` = 0 WHERE (`ID` = '" + this.ID + "');");
-            updateData("UPDATE `sys`.`ordini` SET `residenza` = '" + indirizzo + "' WHERE (`ID` = '" + this.ID + "');");
-            IDPuntoPrelievo = -1;
-            residenza = indirizzo;
+        updateData("UPDATE `sys`.`ordini` SET `IDPuntoPrelievo` = 0 WHERE (`ID` = '" + this.ID + "');");
+        updateData("UPDATE `sys`.`ordini` SET `residenza` = '" + indirizzo + "' WHERE (`ID` = '" + this.ID + "');");
+        IDPuntoPrelievo = -1;
+        residenza = indirizzo;
     }
 
     /**
@@ -84,10 +84,10 @@ public class Ordine {
      */
     //todo
     public void aggiungiMerce(MerceOrdine merce, int quantita) throws SQLException {
-            merce.setQuantita(quantita);
-            merci.add(merce);
-            this.totalePrezzo += (merce.getPrezzo() * quantita);
-            updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
+        merce.setQuantita(quantita);
+        merci.add(merce);
+        this.totalePrezzo += (merce.getPrezzo() * quantita);
+        updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
     }
 
     /**
@@ -155,8 +155,8 @@ public class Ordine {
     }
 
     public void setPuntoPrelievo(int IDPuntoPrelievo) throws SQLException {
-            updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + IDPuntoPrelievo + " WHERE ID = " + this.ID + ";");
-            this.IDPuntoPrelievo = IDPuntoPrelievo;
+        updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + IDPuntoPrelievo + " WHERE ID = " + this.ID + ";");
+        this.IDPuntoPrelievo = IDPuntoPrelievo;
     }
 
     public String getResidenza() {
@@ -168,8 +168,8 @@ public class Ordine {
     }
 
     public void setStato(StatoOrdine statoOrdine) throws SQLException {
-            updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
-            this.stato = statoOrdine;
+        updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
+        this.stato = statoOrdine;
 
     }
 

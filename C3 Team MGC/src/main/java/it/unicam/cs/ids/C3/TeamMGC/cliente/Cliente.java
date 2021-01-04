@@ -27,18 +27,13 @@ public class Cliente {
         this.dataCreazioneCodice = dataCreazioneCodice;
     }
 
-    public Cliente(String nome, String cognome) {
-        try {
-            updateData("INSERT INTO `sys`.`clienti` (`nome`, `cognome`) VALUES ('" + nome + "', '" + cognome + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from clienti;");
-            rs.next();
-            ID = rs.getInt("ID");
-            this.nome = nome;
-            this.cognome = cognome;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
+    public Cliente(String nome, String cognome) throws SQLException {
+        updateData("INSERT INTO `sys`.`clienti` (`nome`, `cognome`) VALUES ('" + nome + "', '" + cognome + "');");
+        ResultSet rs = executeQuery("SELECT MAX(ID) as ID from clienti;");
+        rs.next();
+        ID = rs.getInt("ID");
+        this.nome = nome;
+        this.cognome = cognome;
     }
 
     @Override
@@ -58,7 +53,7 @@ public class Cliente {
      * @return
      */
     //todo test
-    public ArrayList<String> getDettagli() {
+    public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> cliente = new ArrayList<>();
         cliente.add(String.valueOf(getID()));
@@ -72,32 +67,22 @@ public class Cliente {
     /**
      *
      */
-    public void update() {
-        try {
-            ResultSet rs = executeQuery("select * from sys.clienti where ID= '" + this.ID + "';");
-            if (rs.next()) {
-                this.nome = rs.getString("nome");
-                this.cognome = rs.getString("cognome");
-                this.codiceRitiro = rs.getString("codiceRitiro");
-                this.dataCreazioneCodice = rs.getString("dataCreazione");
-            }
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
+    //todo test
+    public void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.clienti where ID= '" + this.ID + "';");
+        if (rs.next()) {
+            this.nome = rs.getString("nome");
+            this.cognome = rs.getString("cognome");
+            this.codiceRitiro = rs.getString("codiceRitiro");
+            this.dataCreazioneCodice = rs.getString("dataCreazione");
         }
     }
 
-    public String setCodiceRitiro(String codiceRitiro) {
-        try {
-            dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
-            this.codiceRitiro = codiceRitiro;
-            updateData("UPDATE `sys`.`clienti` SET `codiceRitiro` = '" + codiceRitiro + "', `dataCreazione` = '" + dataCreazioneCodice + "' WHERE (`ID` = '" + this.ID + "');");
-            return codiceRitiro;
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
-        }
-        return null;
+    public String setCodiceRitiro(String codiceRitiro) throws SQLException {
+        dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
+        this.codiceRitiro = codiceRitiro;
+        updateData("UPDATE `sys`.`clienti` SET `codiceRitiro` = '" + codiceRitiro + "', `dataCreazione` = '" + dataCreazioneCodice + "' WHERE (`ID` = '" + this.ID + "');");
+        return codiceRitiro;
     }
 
     public String getCognome() {

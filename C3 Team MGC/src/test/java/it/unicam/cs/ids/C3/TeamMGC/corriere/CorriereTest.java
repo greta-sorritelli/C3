@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +17,7 @@ class CorriereTest {
     }
 
     @BeforeAll
-    static void creazioneCorriere() {
+    static void creazioneCorriere() throws SQLException {
         Corriere corriere = new Corriere("Clarissa", "Albanese", true, 30);
         assertEquals(1, corriere.getID());
         assertEquals("Clarissa", corriere.getNome());
@@ -49,7 +48,7 @@ class CorriereTest {
     }
 
     @Test
-    void setCapienza() {
+    void setCapienza() throws SQLException {
         Corriere corriereTest = new Corriere("Matteo", "Rondini", true, 30);
         assertEquals(30, corriereTest.getCapienza());
         corriereTest.setCapienza(52);
@@ -57,7 +56,7 @@ class CorriereTest {
     }
 
     @Test
-    void setStato() {
+    void setStato() throws SQLException {
         Corriere corriereTest = new Corriere("Greta", "Sorritelli", true, 30);
         assertTrue(corriereTest.getDisponibilita());
         corriereTest.setDisponibilita(false);
