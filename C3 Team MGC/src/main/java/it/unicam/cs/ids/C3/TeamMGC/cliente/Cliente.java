@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
@@ -51,6 +52,21 @@ public class Cliente {
     public String getCodiceRitiro() {
 
         return codiceRitiro;
+    }
+
+    /**
+     *
+     * @return
+     */
+    //todo test
+    public ArrayList<String> getDettagli() {
+        ArrayList<String> cliente = new ArrayList<>();
+        cliente.add(String.valueOf(getID()));
+        cliente.add(getNome());
+        cliente.add(getCognome());
+        cliente.add(String.valueOf(getCodiceRitiro()));
+        cliente.add(getDataCreazioneCodice());
+        return cliente;
     }
 
     public String setCodiceRitiro(String codiceRitiro) {

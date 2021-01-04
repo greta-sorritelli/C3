@@ -114,9 +114,9 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * @param ID
      * @return
      */
-    public PuntoPrelievo sceltaPuntoPrelievo(int ID) {
+    public ArrayList<String> sceltaPuntoPrelievo(int ID) {
 
-        return getItem(ID);
+        return getItem(ID).getDettagli();
     }
 
     public void selezionaPuntoPrelievo(int ID) {

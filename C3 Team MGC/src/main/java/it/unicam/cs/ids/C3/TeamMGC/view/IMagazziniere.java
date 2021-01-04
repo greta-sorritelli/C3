@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
 import java.sql.ResultSet;
@@ -10,6 +11,9 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 public class IMagazziniere {
+
+    private GestoreClienti gestoreClienti = new GestoreClienti();
+
     //todo essendo un' interfaccia forse il cerca cliente non deve creare un Cliente come oggetto ma deve
     //todo semplicemente visualizzare nella view le informazioni.
     public Cliente cercaCliente(int IDCliente) {
@@ -76,15 +80,9 @@ public class IMagazziniere {
      * @param codiceRitiro
      * @return
      */
-    public boolean verificaCodice(int IDCliente, String codiceRitiro) {
-        try {
-            ResultSet rs = executeQuery("SELECT * FROM sys.codici_ritiro where codice = '" + codiceRitiro +
-                    "' and IDCliente = '" + IDCliente + "';");
-            return rs.next();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return false;
+    //todo test
+    public void verificaCodice(int IDCliente, String codiceRitiro) {
+      gestoreClienti.verificaCodice(IDCliente,codiceRitiro);
     }
 
     public void avvisaCorriere(){

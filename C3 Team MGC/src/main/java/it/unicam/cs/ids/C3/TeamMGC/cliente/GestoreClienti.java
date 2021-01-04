@@ -4,9 +4,15 @@ import it.unicam.cs.ids.C3.TeamMGC.Gestore;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Random;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class GestoreClienti implements Gestore<Cliente> {
 
@@ -24,7 +30,7 @@ public class GestoreClienti implements Gestore<Cliente> {
             if (cliente.getID() == rs.getInt("ID"))
                 return cliente;
         Cliente toReturn = new Cliente(rs.getInt("ID"), rs.getString("nome"),
-                rs.getString("cognome"), rs.getString("codiceRitiro"), rs.getString("dataCreazioneCodice"));
+                rs.getString("cognome"), rs.getString("codiceRitiro"), rs.getString("dataCreazione"));
         addClienteToList(toReturn);
         return toReturn;
     }
@@ -42,10 +48,32 @@ public class GestoreClienti implements Gestore<Cliente> {
             return false;
     }
 
-    //todo
-    public String generaCodiceRitiro() {
+    /**
+     *
+     * @param IDCliente
+     * @param IDOrdine
+     */
+    private void creazioneCodice(int IDCliente, int IDOrdine) {
+        try {
+            updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
+                    "VALUES ('" + getItem(IDCliente).getCodiceRitiro() + "', '" + IDCliente + "', '" + IDOrdine + "', '" + getItem(IDCliente).getDataCreazioneCodice() + "');");
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+    }
 
-        return null;
+    /**
+     * Genera il nuovo {@code Codice di Ritiro} del {@link Cliente}.
+     *
+     * @return il Codice generato
+     */
+    private String generaCodiceRitiro() {
+        Random rand = new Random();
+        String tmp = "";
+        for (int i = 0; i < 12; i++)
+            tmp = tmp.concat(String.valueOf(rand.nextInt(10)));
+        return tmp;
     }
 
     @Override
@@ -81,5 +109,53 @@ public class GestoreClienti implements Gestore<Cliente> {
     public ArrayList<Cliente> getItems() {
         //todo
         return null;
+    }
+
+    //todo controllare
+    public ArrayList<String> inserisciDati(String nome, String cognome) {
+        Cliente cliente = new Cliente(nome, cognome);
+        return cliente.getDettagli();
+    }
+
+    /**
+     * @param IDCliente
+     * @param IDOrdine
+     * @return
+     */
+    //todo test
+    public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) {
+        try {
+            ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
+            if (rs.next()) {
+                String date = rs.getString("dataCreazione");
+                String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
+                if (Objects.isNull(date) || !date.equals(dataOdierna)) {
+                    getItem(IDCliente).setCodiceRitiro(generaCodiceRitiro());
+                    creazioneCodice(IDCliente, IDOrdine);
+                    return getItem(IDCliente).getCodiceRitiro();
+                }
+                return getItem(IDCliente).getCodiceRitiro();
+            }
+        } catch (SQLException exception) {
+            //todo
+            exception.printStackTrace();
+        }
+        return getItem(IDCliente).getCodiceRitiro();
+    }
+
+    /**
+     * @param IDCliente
+     * @param codiceRitiro
+     * @return
+     */
+    public boolean verificaCodice(int IDCliente, String codiceRitiro) {
+        try {
+            ResultSet rs = executeQuery("SELECT * FROM sys.codici_ritiro where codice = '" + codiceRitiro +
+                    "' and IDCliente = '" + IDCliente + "';");
+            return rs.next();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return false;
     }
 }

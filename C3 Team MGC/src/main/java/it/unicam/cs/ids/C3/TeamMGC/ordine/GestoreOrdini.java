@@ -3,13 +3,13 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class GestoreOrdini {
     private final Negozio negozio;
@@ -42,7 +42,7 @@ public class GestoreOrdini {
      * @param IDOrdine
      * @param indirizzo
      */
-   //todo test e controllo residenza se già c'è
+   //todo test
     public void addResidenza(int IDOrdine, String indirizzo) {
        getOrdine(IDOrdine).addResidenza(indirizzo);
     }
@@ -67,6 +67,13 @@ public class GestoreOrdini {
         }
     }
 
+    /**
+     *
+     * @param rs
+     * @param ordine
+     * @return
+     * @throws SQLException
+     */
     //todo test
     private MerceOrdine creaMerceFromDB(ResultSet rs, Ordine ordine) throws SQLException {
         MerceOrdine toReturn = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
@@ -181,38 +188,42 @@ public class GestoreOrdini {
      *
      * @param IDMerce  ID della merce
      * @param quantita Quantita della merce
-     * @param ordine   Ordine in cui registrare la merce
+     * @param IDOrdine   Ordine in cui registrare la merce
      */
-    public void registraMerce(int IDMerce, int quantita, Ordine ordine) {
+    public void registraMerce(int IDMerce, int quantita, int IDOrdine) {
         Merce merce = negozio.getMerce(IDMerce);
         if (merce.getQuantita() == 0 || merce.getQuantita() < quantita)
             throw new IllegalArgumentException();
 
         merce.setQuantita(merce.getQuantita() - quantita);
-        MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO, ordine.getID());
-        ordine.aggiungiMerce(merceOrdine, quantita);
+        MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO, IDOrdine);
+        getOrdine(IDOrdine).aggiungiMerce(merceOrdine, quantita);
     }
 
     /**
-     * Registra l'{@link Ordine} con i dati del {@link Cliente} e cambia il suo {@code stato} in "PAGATO.
+     * Registra l'{@link Ordine} con i dati del {@link Cliente} e cambia il suo {@code stato} in "PAGATO".
      *
      * @param IDCliente ID del cliente a cui appartiene l'ordine
      * @param nome      Nome del cliente a cui appartiene l'ordine
      * @param cognome   Cognome del cliente a cui appartiene l'ordine
-     * @return L'ordine registrato
+     * @return          L'ordine registrato
      */
     public Ordine registraOrdine(int IDCliente, String nome, String cognome) {
         controllaCliente(IDCliente, nome, cognome);
-        return new Ordine(IDCliente, nome, cognome);
+        Ordine ordine = new Ordine(IDCliente, nome, cognome);
+        addOrdineToList(ordine);
+        return ordine;
     }
 
-    /**
-     * @param IDOrdine
-     * @param magazzino
-     */
-    //todo
-    public void setPuntoPrelievo(int IDOrdine, PuntoPrelievo magazzino) {
-
+    //todo test
+    public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) {
+        try {
+            getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
+            updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + IDPuntoPrelievo + "' WHERE (`ID` = '" + IDOrdine + "');");
+        } catch (SQLException exception) {
+            //TODO
+            exception.printStackTrace();
+        }
     }
 
     //todo test
@@ -228,17 +239,17 @@ public class GestoreOrdini {
     /**
      * Imposta lo stato dell'{@link Ordine} come pagato se tutta la {@link MerceOrdine} in esso è pagata.
      *
-     * @param ordine Ordine da controllare
+     * @param IDOrdine Ordine da controllare
      */
     //todo
-    public void terminaOrdine(Ordine ordine) {
+    public void terminaOrdine(int IDOrdine) {
         ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
-        for (MerceOrdine m : ordine.getMerci()) {
+        for (MerceOrdine m : getOrdine(IDOrdine).getMerci()) {
             if (m.getStato() == StatoOrdine.PAGATO)
                 mercePagata.add(m);
         }
-        if (mercePagata.equals(ordine.getMerci()))
-            ordine.setStato(StatoOrdine.PAGATO);
+        if (mercePagata.equals(getOrdine(IDOrdine).getMerci()))
+            getOrdine(IDOrdine).setStato(StatoOrdine.PAGATO);
         else
             //todo eccezione
             throw new IllegalArgumentException();

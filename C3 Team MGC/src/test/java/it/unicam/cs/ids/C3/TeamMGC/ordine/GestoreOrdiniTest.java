@@ -63,16 +63,16 @@ class GestoreOrdiniTest {
         Ordine ordine = gestoreOrdini.registraOrdine(cliente.getID(), "Maria", "Giuseppa");
         Ordine ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), "Giuseppe", "Rossi");
 
-        gestoreOrdini.registraMerce(merce.getID(), 10, ordine);
-        gestoreOrdini.registraMerce(merce2.getID(), 4, ordine1);
+        gestoreOrdini.registraMerce(merce.getID(), 10, ordine.getID());
+        gestoreOrdini.registraMerce(merce2.getID(), 4, ordine1.getID());
 
         assertEquals(520, ordine.getTotalePrezzo());
         assertTrue(negozio.getMerceDisponibile().contains(merce));
         assertEquals(ordine.getID(), ordine.getMerci().get(0).getIDOrdine());
         assertEquals(80, ordine1.getTotalePrezzo());
         assertEquals(ordine1.getID(), ordine1.getMerci().get(0).getIDOrdine());
-        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(3, 6, ordine1));
-        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(4, 2, ordine1));
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(3, 6, ordine1.getID()));
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(4, 2, ordine1.getID()));
 
     }
 
@@ -85,9 +85,9 @@ class GestoreOrdiniTest {
         GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
         Ordine ordine = gestoreOrdini.registraOrdine(cliente.getID(), "Maria", "Giuseppa");
 
-        gestoreOrdini.registraMerce(merce.getID(), 5, ordine);
-        gestoreOrdini.registraMerce(merce1.getID(), 10, ordine);
-        gestoreOrdini.terminaOrdine(ordine);
+        gestoreOrdini.registraMerce(merce.getID(), 5, ordine.getID());
+        gestoreOrdini.registraMerce(merce1.getID(), 10, ordine.getID());
+        gestoreOrdini.terminaOrdine(ordine.getID());
         assertSame(StatoOrdine.PAGATO, ordine.getStato());
 
     }

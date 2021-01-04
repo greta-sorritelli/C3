@@ -56,9 +56,9 @@ class GestoreMagazziniTest {
     @Test
     void sceltaPuntoPrelievo() {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
-        assertEquals("B1", gestoreMagazzini.sceltaPuntoPrelievo(1).getNome());
-        assertEquals("via Giuseppe", gestoreMagazzini.sceltaPuntoPrelievo(2).getIndirizzo());
-        assertEquals("via Paolo", gestoreMagazzini.sceltaPuntoPrelievo(3).getIndirizzo());
+        assertEquals("B1", gestoreMagazzini.sceltaPuntoPrelievo(1).get(1));
+        assertEquals("via Giuseppe", gestoreMagazzini.sceltaPuntoPrelievo(2).get(2));
+        assertEquals("via Paolo", gestoreMagazzini.sceltaPuntoPrelievo(3).get(2));
     }
 
 }
