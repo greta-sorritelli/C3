@@ -109,8 +109,9 @@ public class GestoreCorrieri {
                 dettagli.add(corriere.getDettagli());
             }
             return dettagli;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException exception) {
+            //todo eccezione
+            exception.printStackTrace();
         }
         return null;
     }
@@ -139,8 +140,9 @@ public class GestoreCorrieri {
         return getCorriere(IDCorriere).getDisponibilita();
     }
 
-    //todo controllare su SD(registrazione sulla piattaforma) se ritorna corriere o dettagli
-    public Corriere inserisciDati(String nome, String cognome, int capienza){
-        return  new Corriere(nome,cognome,true,capienza);
+    //todo controllare
+    public ArrayList<String> inserisciDati(String nome, String cognome, int capienza){
+        Corriere corriere = new Corriere(nome,cognome,true,capienza);
+        return corriere.getDettagli();
     }
 }

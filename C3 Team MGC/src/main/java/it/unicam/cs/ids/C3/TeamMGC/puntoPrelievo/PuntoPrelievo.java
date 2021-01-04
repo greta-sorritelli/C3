@@ -56,8 +56,32 @@ public class PuntoPrelievo {
         return dettagli;
     }
 
-    //todo
-    public ArrayList<String> getDettagliMerceMagazzino(int IDOrdine) {
+    /**
+     * @param IDOrdine  ID dell'ordine
+     * @return          ArrayList<ArrayList<String>> dei dettagli della merce presente nel magazzino
+     *                  che fa parte dell'ordine
+     */
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliMerceMagazzino(int IDOrdine) {
+        try {
+            ArrayList<MerceOrdine> merceOrdine = new ArrayList<>();
+            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+            ResultSet rs = executeQuery("SELECT * from merci\n" + "where IDOrdine = " + IDOrdine + " and stato = " +
+                    "'" + StatoOrdine.IN_DEPOSITO.toString() + "';");
+            while (rs.next()) {
+                MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
+                        rs.getDouble("prezzo"), rs.getString("descrizione"),
+                        rs.getInt("quantita"), StatoOrdine.valueOf(rs.getString("stato")));
+                merceOrdine.add(tmp);
+            }
+            for (MerceOrdine m : merceOrdine) {
+                dettagli.add(m.getDettagli());
+            }
+            return dettagli;
+        } catch (SQLException exception) {
+            //todo eccezione
+            exception.printStackTrace();
+        }
         return null;
     }
 
@@ -80,13 +104,10 @@ public class PuntoPrelievo {
             ResultSet rs = executeQuery("SELECT * from merci\n" +
                     "where IDOrdine = " + IDOrdine + " and stato = '" + StatoOrdine.IN_DEPOSITO.toString() + "';");
             while (rs.next()) {
-                int id = rs.getInt("ID");
-                int idOrdine = rs.getInt("IDOrdine");
-                double prezzo = rs.getDouble("prezzo");
-                String descrizione = rs.getString("descrizione");
-                int quantita = rs.getInt("quantita");
-                StatoOrdine stato = StatoOrdine.valueOf(rs.getString("stato"));
-                lista.add(new MerceOrdine(id, idOrdine, prezzo, descrizione, quantita, stato));
+                MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"),rs.getInt("IDOrdine"),
+                        rs.getDouble("prezzo"),rs.getString("descrizione"),rs.getInt("quantita"),
+                        StatoOrdine.valueOf(rs.getString("stato")));
+                lista.add(merceOrdine);
             }
             return lista;
         } catch (SQLException exception) {
@@ -104,16 +125,12 @@ public class PuntoPrelievo {
     public ArrayList<MerceOrdine> getMerceTotale(int IDOrdine) {
         ArrayList<MerceOrdine> lista = new ArrayList<>();
         try {
-            ResultSet rs = executeQuery("SELECT * from merci\n" +
-                    "where IDOrdine = " + IDOrdine + ";");
+            ResultSet rs = executeQuery("SELECT * from merci\n" + "where IDOrdine = " + IDOrdine + ";");
             while (rs.next()) {
-                int id = rs.getInt("ID");
-                int idOrdine = rs.getInt("IDOrdine");
-                double prezzo = rs.getDouble("prezzo");
-                String descrizione = rs.getString("descrizione");
-                int quantita = rs.getInt("quantita");
-                StatoOrdine stato = StatoOrdine.valueOf(rs.getString("stato"));
-                lista.add(new MerceOrdine(id, idOrdine, prezzo, descrizione, quantita, stato));
+                MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"),rs.getInt("IDOrdine"),
+                        rs.getDouble("prezzo"),rs.getString("descrizione"),rs.getInt("quantita"),
+                        StatoOrdine.valueOf(rs.getString("stato")));
+                lista.add(merceOrdine);
             }
             return lista;
         } catch (SQLException exception) {
@@ -138,12 +155,9 @@ public class PuntoPrelievo {
             ResultSet rs = executeQuery("SELECT * from ordini\n" +
                     "WHERE IDCliente = " + IDCliente + " AND IDPuntoPrelievo = \"" + this.ID + "\";");
             while (rs.next()) {
-                int ID = rs.getInt("ID");
-                String nomeCliente = rs.getString("nomeCliente");
-                String cognomeCliente = rs.getString("cognomeCliente");
-                double totalePrezzo = rs.getDouble("totalePrezzo");
-                StatoOrdine stato = StatoOrdine.valueOf(rs.getString("stato"));
-                lista.add(new Ordine(ID, IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, this.ID));
+                Ordine ordine = new Ordine(rs.getInt("ID"),IDCliente, rs.getString("nomeCliente"),rs.getString("cognomeCliente"),
+                        rs.getDouble("totalePrezzo"),StatoOrdine.valueOf(rs.getString("stato")), this.ID);
+                lista.add(ordine);
             }
         } catch (SQLException exception) {
             //todo
