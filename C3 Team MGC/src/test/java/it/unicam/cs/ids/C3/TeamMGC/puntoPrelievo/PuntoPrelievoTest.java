@@ -139,12 +139,14 @@ class PuntoPrelievoTest {
     @Test
     void getDettagli() {
         ArrayList<String> prova = new ArrayList<>();
+        prova.add("1");
         prova.add("Stazione");
         prova.add("Castelraimondo");
         assertEquals(prova, puntoPrelievo.getDettagli());
         PuntoPrelievo punto2 = new PuntoPrelievo("Matelica", "Giardini");
         assertNotEquals(prova, punto2.getDettagli());
         ArrayList<String> prova2 = new ArrayList<>();
+        prova2.add(String.valueOf(punto2.getID()));
         prova2.add("Giardini");
         prova2.add("Matelica");
         assertEquals(prova2, punto2.getDettagli());
