@@ -19,7 +19,7 @@ import java.sql.SQLException;
 public class IAddettoMagazzino {
 
     //todo
-    private Negozio negozio;
+    private Negozio negozio = new Negozio(1);
 
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
@@ -55,7 +55,7 @@ public class IAddettoMagazzino {
     @FXML
     private void assegnaMerceCorriere() {
         openWindow("/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere(gestoreCorrieri,
-                gestoreMagazzini,gestoreOrdini));
+                gestoreMagazzini, gestoreOrdini));
     }
 
 //    public void assegnaMerceCorriere() {
@@ -79,7 +79,7 @@ public class IAddettoMagazzino {
     }
 
     public void confermaAssegnazioneMerce(int IDCorriere, int IDMerce, int capienza) throws SQLException {
-        gestoreCorrieri.setCapienza(IDCorriere,capienza);
+        gestoreCorrieri.setCapienza(IDCorriere, capienza);
         gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.AFFIDATO_AL_CORRIERE);
     }
 }

@@ -1,6 +1,10 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -17,6 +21,12 @@ public class JavaFXC3 extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/Home.fxml"));
 
+        stage.setTitle("C3 Home");
+//        Image ico = new Image("/JBudget_Icon.png");
+//        stage.getIcons().add(ico);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
