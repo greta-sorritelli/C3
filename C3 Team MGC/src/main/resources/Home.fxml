@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXC3Controller">
    <children>
       <Button layoutX="133.0" layoutY="175.0" mnemonicParsing="false" onAction="#visualizzaHomeAddetto" text="Addetto Magazzino">
@@ -12,8 +11,11 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="125.0" layoutY="222.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="407.0" layoutY="188.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="401.0" layoutY="222.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="133.0" layoutY="216.0" mnemonicParsing="false" onAction="#visualizzaHomeCommesso" prefHeight="31.0" prefWidth="150.0" text="Commesso">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button layoutX="417.0" layoutY="178.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="417.0" layoutY="219.0" mnemonicParsing="false" text="Button" />
    </children>
 </Pane>

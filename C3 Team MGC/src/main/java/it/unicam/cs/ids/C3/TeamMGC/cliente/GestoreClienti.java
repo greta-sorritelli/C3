@@ -54,6 +54,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      */
     //todo test
     private void creazioneCodice(int IDCliente, int IDOrdine) throws SQLException {
+        getItem(IDCliente).setCodiceRitiro(generaCodiceRitiro());
         updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
                 "VALUES ('" + getItem(IDCliente).getCodiceRitiro() + "', '" + IDCliente + "', '" + IDOrdine + "', '" + getItem(IDCliente).getDataCreazioneCodice() + "');");
     }
@@ -136,7 +137,6 @@ public class GestoreClienti implements Gestore<Cliente> {
             String date = rs.getString("dataCreazione");
             String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
             if (Objects.isNull(date) || !date.equals(dataOdierna)) {
-                getItem(IDCliente).setCodiceRitiro(generaCodiceRitiro());
                 creazioneCodice(IDCliente, IDOrdine);
                 return getItem(IDCliente).getCodiceRitiro();
             }

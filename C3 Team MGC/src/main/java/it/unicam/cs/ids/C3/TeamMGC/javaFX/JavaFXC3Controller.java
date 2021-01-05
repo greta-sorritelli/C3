@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.view.IAddettoMagazzino;
+import it.unicam.cs.ids.C3.TeamMGC.view.ICommesso;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,5 +40,10 @@ public class JavaFXC3Controller {
     public void visualizzaHomeAddetto(){
         openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto Magazzino", new IAddettoMagazzino());
     }
+
+    public void visualizzaHomeCommesso(){
+        openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso());
+    }
+
 
 }

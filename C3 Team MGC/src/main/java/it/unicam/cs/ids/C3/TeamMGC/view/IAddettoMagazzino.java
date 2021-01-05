@@ -4,7 +4,6 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXAssegnaMerceCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class IAddettoMagazzino {
 
@@ -58,24 +56,5 @@ public class IAddettoMagazzino {
                 gestoreMagazzini, gestoreOrdini));
     }
 
-    public void selezionaCorriere(int ID) throws SQLException {
-        gestoreCorrieri.selezionaCorriere(ID);
-    }
 
-    public void getDettagliMagazziniDisponibili() throws SQLException {
-        gestoreMagazzini.getDettagliItems();
-    }
-
-    public void sceltaPuntoPrelievo(int ID) throws SQLException {
-        gestoreMagazzini.sceltaPuntoPrelievo(ID);
-    }
-
-    public void visualizzaMerce(int capienza) throws SQLException {
-        gestoreOrdini.visualizzaMerce(capienza);
-    }
-
-    public void confermaAssegnazioneMerce(int IDCorriere, int IDMerce, int capienza) throws SQLException {
-        gestoreCorrieri.setCapienza(IDCorriere, capienza);
-        gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.AFFIDATO_AL_CORRIERE);
-    }
 }
