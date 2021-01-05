@@ -16,6 +16,31 @@ class OrdineTest {
     static Ordine ordineTest;
     static Cliente cliente1;
 
+    @Test
+    void addResidenza() throws SQLException {
+        cliente1 = new Cliente("Matteo", "Rondini");
+        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
+        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
+        ordine.addResidenza("Via Giuseppe Garibaldi");
+        ordine1.addResidenza("Via Giuseppe Rossi");
+        assertEquals(ordine.getResidenza(), "Via Giuseppe Garibaldi");
+        assertEquals(-1, ordine1.getPuntoPrelievo());
+
+    }
+
+    @Test
+    void aggiungiMerce() throws SQLException {
+        cliente1 = new Cliente("Matteo", "Rondini");
+        Ordine ordine = new Ordine(1, "Matteo", "Rondini");
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
+        ordine.aggiungiMerce(merce, 15);
+        assertEquals(merce.getQuantita(), 15);
+        assertTrue(ordine.getMerci().contains(merce));
+        assertEquals(merce.getIDOrdine(), 1);
+
+    }
+
     @BeforeEach
     void clearDB() throws SQLException {
         updateData("delete from sys.ordini;");
@@ -31,6 +56,29 @@ class OrdineTest {
         cliente1 = new Cliente("Matteo", "Rondini");
         Ordine ordine = new Ordine(1, "Matteo", "Rondini");
         assertEquals(1, ordine.getID());
+    }
+
+    @Test
+    void getDettagli() throws SQLException {
+        cliente1 = new Cliente("Matteo", "Rondini");
+        ordineTest = new Ordine(1, "Matteo", "Rondini");
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, 1);
+        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
+        Ordine ordine = new Ordine(cliente1.getID(), "Matteo", "Rondini");
+        ordine.aggiungiMerce(merce, 2);
+        ordine.setStato(StatoOrdine.PAGATO);
+        ordine.setPuntoPrelievo(p.getID());
+
+        ArrayList<String> ordine1 = new ArrayList<>();
+        ordine1.add(String.valueOf(ordine.getID()));
+        ordine1.add(String.valueOf(ordine.getIDCliente()));
+        ordine1.add("Matteo");
+        ordine1.add("Rondini");
+        ordine1.add("24.0");
+        ordine1.add(StatoOrdine.PAGATO.toString());
+        ordine1.add(String.valueOf(p.getID()));
+        ordine1.add(ordine.getMerci().toString());
+        assertEquals(ordine1, ordine.getDettagli());
     }
 
     @Test
@@ -56,50 +104,6 @@ class OrdineTest {
         assertNotEquals(ordine.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
         ordine1.setStato(StatoOrdine.AFFIDATO_AL_CORRIERE);
         assertEquals(ordine1.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-
-    }
-
-    @Test
-    void getDettagli() throws SQLException {
-        cliente1 = new Cliente("Matteo", "Rondini");
-        ordineTest = new Ordine(1, "Matteo", "Rondini");
-        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
-        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.PAGATO, p.getID());
-        ordine.aggiungiMerce(merce, 2);
-        ArrayList<String> ordine1 = new ArrayList<>();
-        ordine1.add(String.valueOf(ordine.getID()));
-        ordine1.add(String.valueOf(ordine.getIDCliente()));
-        ordine1.add(ordine.getNomeCliente());
-        ordine1.add(ordine.getCognomeCliente());
-        ordine1.add(String.valueOf(ordine.getTotalePrezzo()));
-        ordine1.add(ordine.getStato().toString());
-        ordine1.add(ordine.getMerci().toString());
-        assertEquals(ordine1, ordine.getDettagli());
-    }
-
-    @Test
-    void addResidenza() throws SQLException {
-        cliente1 = new Cliente("Matteo", "Rondini");
-        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
-        ordine.addResidenza("Via Giuseppe Garibaldi");
-        ordine1.addResidenza("Via Giuseppe Rossi");
-        assertEquals(ordine.getResidenza(), "Via Giuseppe Garibaldi");
-        assertEquals(-1, ordine1.getPuntoPrelievo());
-
-    }
-
-    @Test
-    void aggiungiMerce() throws SQLException {
-        cliente1 = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, "Matteo", "Rondini");
-        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
-        ordine.aggiungiMerce(merce, 15);
-        assertEquals(merce.getQuantita(), 15);
-        assertTrue(ordine.getMerci().contains(merce));
-        assertEquals(merce.getIDOrdine(), 1);
 
     }
 

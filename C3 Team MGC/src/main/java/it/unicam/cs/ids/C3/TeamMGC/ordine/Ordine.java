@@ -174,7 +174,6 @@ public class Ordine {
     public void setStato(StatoOrdine statoOrdine) throws SQLException {
         updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
         this.stato = statoOrdine;
-
     }
 
     public double getTotalePrezzo() {
