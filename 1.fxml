@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+  <tabs>
+    <Tab text="Corrieri">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
+                     <columns>
+                        <TableColumn fx:id="IDCorriere" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="NomeCorriere" prefWidth="133.0" text="Nome" />
+                        <TableColumn fx:id="CognomeCorriere" prefWidth="151.0" text="Cognome" />
+                        <TableColumn fx:id="Capienza" prefWidth="155.0" text="Capienza" />
+                     </columns>
+                  </TableView>
+                  <Button layoutX="507.0" layoutY="315.0" mnemonicParsing="false" text="Next&gt;&gt;" AnchorPane.leftAnchor="507.0" AnchorPane.topAnchor="315.0" />
+                  <Button layoutX="442.0" layoutY="315.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="442.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="315.0" />
+                  <Label layoutX="43.0" layoutY="26.0" text="Seleziona Corriere" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="386.0" AnchorPane.topAnchor="26.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab disable="true" text="Punti di prelievo">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0">
+                    <columns>
+                      <TableColumn fx:id="IDMagazzino" prefWidth="45.0" text="ID" />
+                      <TableColumn fx:id="NomeMagazzino" prefWidth="212.0" text="Nome" />
+                        <TableColumn fx:id="IndirizzoMagazzino" prefWidth="257.0" text="Indirizzo" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="43.0" layoutY="33.0" text="Seleziona Punto di prelievo" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="26.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="513.0" layoutY="316.0" mnemonicParsing="false" text="Next&gt;&gt;" AnchorPane.leftAnchor="507.0" AnchorPane.topAnchor="315.0" />
+                  <Button layoutX="450.0" layoutY="316.0" mnemonicParsing="false" text="Cancel" AnchorPane.leftAnchor="442.0" AnchorPane.topAnchor="315.0" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab disable="true" text="MerceOrdine">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0">
+                    <columns>
+                      <TableColumn prefWidth="47.0" text="ID" />
+                      <TableColumn prefWidth="62.0" text="IDOrdine" />
+                        <TableColumn text="Prezzo" />
+                        <TableColumn prefWidth="151.0" text="Descrizione" />
+                        <TableColumn prefWidth="70.0" text="Quantita" />
+                        <TableColumn prefWidth="104.0" text="Stato" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="404.0" layoutY="33.0" text="Capienza Corriere:" />
+                  <Label layoutX="43.0" layoutY="39.0" text="Merce da affidare al corriere" AnchorPane.topAnchor="26.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="430.0" layoutY="316.0" mnemonicParsing="false" text="Conferma assegnazione" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="315.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
