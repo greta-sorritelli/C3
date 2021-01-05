@@ -55,7 +55,8 @@ public class MerceOrdine {
         this.descrizione = descrizione;
     }
 
-    public ArrayList<String> getDettagli() {
+    public ArrayList<String> getDettagli() throws SQLException {
+        update();
         ArrayList<String> toReturn = new ArrayList<>();
         toReturn.add(String.valueOf(getID()));
         toReturn.add(String.valueOf(getIDOrdine()));
@@ -116,5 +117,15 @@ public class MerceOrdine {
                 ", quantita=" + quantita +
                 ", stato=" + stato +
                 '}';
+    }
+
+    public void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.merci where ID= '" + this.ID + "';");
+        if (rs.next()) {
+            this.prezzo = rs.getDouble("prezzo");
+            this.descrizione = rs.getString("descrizione");
+            this.quantita = rs.getInt("quantita");
+            this.stato = StatoOrdine.valueOf(rs.getString("stato"));
+        }
     }
 }

@@ -57,6 +57,7 @@ public class Corriere {
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> corriere = new ArrayList<>();
+        corriere.add(String.valueOf(ID));
         corriere.add(nome);
         corriere.add(cognome);
         corriere.add(String.valueOf(getDisponibilita()));
@@ -69,8 +70,8 @@ public class Corriere {
     }
 
     public void setDisponibilita(boolean disponibilita) throws SQLException {
-            updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
-            this.disponibilita = disponibilita;
+        updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
+        this.disponibilita = disponibilita;
     }
 
     public int getID() {

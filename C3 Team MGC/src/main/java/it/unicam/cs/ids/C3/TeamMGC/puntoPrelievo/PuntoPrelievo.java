@@ -47,7 +47,8 @@ public class PuntoPrelievo {
     /**
      * @return ArrayList<String> dei dettagli del punto di prelievo.
      */
-    public ArrayList<String> getDettagli() {
+    public ArrayList<String> getDettagli() throws SQLException {
+        update();
         ArrayList<String> dettagli = new ArrayList<>();
         dettagli.add((String.valueOf(getID())));
         dettagli.add(getNome());
@@ -139,6 +140,14 @@ public class PuntoPrelievo {
             lista.add(ordine);
         }
         return lista;
+    }
+
+    public void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.punti_prelievo where ID= '" + this.ID + "';");
+        if (rs.next()) {
+            this.indirizzo = rs.getString("indirizzo");
+            this.nome = rs.getString("nome");
+        }
     }
 
 }

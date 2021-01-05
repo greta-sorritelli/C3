@@ -45,8 +45,15 @@ public class Cliente {
     }
 
     public String getCodiceRitiro() {
-
         return codiceRitiro;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public String getDataCreazioneCodice() {
+        return dataCreazioneCodice;
     }
 
     /**
@@ -64,6 +71,26 @@ public class Cliente {
         return cliente;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID(), getNome(), getCognome());
+    }
+
+    public String setCodiceRitiro(String codiceRitiro) throws SQLException {
+        dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
+        this.codiceRitiro = codiceRitiro;
+        updateData("UPDATE `sys`.`clienti` SET `codiceRitiro` = '" + codiceRitiro + "', `dataCreazione` = '" + dataCreazioneCodice + "' WHERE (`ID` = '" + this.ID + "');");
+        return codiceRitiro;
+    }
+
     /**
      *
      */
@@ -76,33 +103,5 @@ public class Cliente {
             this.codiceRitiro = rs.getString("codiceRitiro");
             this.dataCreazioneCodice = rs.getString("dataCreazione");
         }
-    }
-
-    public String setCodiceRitiro(String codiceRitiro) throws SQLException {
-        dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
-        this.codiceRitiro = codiceRitiro;
-        updateData("UPDATE `sys`.`clienti` SET `codiceRitiro` = '" + codiceRitiro + "', `dataCreazione` = '" + dataCreazioneCodice + "' WHERE (`ID` = '" + this.ID + "');");
-        return codiceRitiro;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public String getDataCreazioneCodice() {
-        return dataCreazioneCodice;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getID(), getNome(), getCognome());
     }
 }
