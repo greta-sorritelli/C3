@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
@@ -11,6 +10,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class JavaFXAssegnaMerceCorriere {
 
@@ -28,19 +30,19 @@ public class JavaFXAssegnaMerceCorriere {
      * Tabella dei corrieri
      */
     @FXML
-    TableView<Corriere> corriereTable;
+    TableView<ArrayList<String>> corriereTable;
 
     @FXML
-    TableColumn<Corriere,Integer> IDCorriere;
+    TableColumn<ArrayList<String>,String> IDCorriere;
 
     @FXML
-    TableColumn<Corriere,String> NomeCorriere;
+    TableColumn<ArrayList<String>,String> NomeCorriere;
 
     @FXML
-    TableColumn<Corriere,String> CognomeCorriere;
+    TableColumn<ArrayList<String>,String> CognomeCorriere;
 
     @FXML
-    TableColumn<Corriere,Integer> Capienza;
+    TableColumn<ArrayList<String>,String> Capienza;
 
     /**
      * Tabella dei puntiPrelievo
@@ -85,10 +87,10 @@ public class JavaFXAssegnaMerceCorriere {
      *  Collega i campi del Corriere alle colonne della tabella.
      */
     private void setCorriereCellValueFactory() {
-        IDCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getID()));
-        NomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getNome()));
-        CognomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getCognome()));
-        Capienza.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getCapienza()));
+        IDCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(0)));
+        NomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(1)));
+        CognomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(2)));
+        Capienza.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(4)));
     }
 
     /**
@@ -111,6 +113,32 @@ public class JavaFXAssegnaMerceCorriere {
         QuantitaMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getQuantita()));
         StatoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getStato()));
     }
+
+    @FXML
+    public void visualizzaCorrieri(){
+        try {
+            setCorriereCellValueFactory();
+            corriereTable.getItems().clear();
+            corriereTable.getItems().addAll(gestoreCorrieri.getDettagliCorrieriDisponibili());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+//    @FXML
+//    public void visualizzaPuntiPrelievo(){
+//        try {
+//            setPuntoPrelievoCellValueFactory();
+//            magazzinoTable.getItems().addAll(gestoreMagazzini.getDettagliItems());
+//        } catch (SQLException exception) {
+//            exception.printStackTrace();
+//        }
+//    }
+
+
+
+
+
 
 
 

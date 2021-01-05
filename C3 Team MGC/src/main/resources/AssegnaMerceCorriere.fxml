@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXAssegnaMerceCorriere">
   <tabs>
     <Tab text="Corrieri">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#visualizzaCorrieri" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
+                  <TableView fx:id="corriereTable" layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
                      <columns>
                         <TableColumn fx:id="IDCorriere" prefWidth="75.0" text="ID" />
                         <TableColumn fx:id="NomeCorriere" prefWidth="133.0" text="Nome" />
@@ -37,7 +37,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0">
+                  <TableView fx:id="magazzinoTable" layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0">
                     <columns>
                       <TableColumn fx:id="IDMagazzino" prefWidth="45.0" text="ID" />
                       <TableColumn fx:id="NomeMagazzino" prefWidth="212.0" text="Nome" />
@@ -58,14 +58,14 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0">
+                  <TableView fx:id="merceOrdineTable" layoutX="43.0" layoutY="81.0" onMouseMoved="#visualizzaCorrieri" prefHeight="210.0" prefWidth="515.0">
                     <columns>
-                      <TableColumn prefWidth="47.0" text="ID" />
-                      <TableColumn prefWidth="62.0" text="IDOrdine" />
-                        <TableColumn text="Prezzo" />
-                        <TableColumn prefWidth="151.0" text="Descrizione" />
-                        <TableColumn prefWidth="70.0" text="Quantita" />
-                        <TableColumn prefWidth="104.0" text="Stato" />
+                      <TableColumn fx:id="IDMerce" prefWidth="47.0" text="ID" />
+                      <TableColumn fx:id="IDOrdineMerce" prefWidth="62.0" text="IDOrdine" />
+                        <TableColumn fx:id="PrezzoMerce" text="Prezzo" />
+                        <TableColumn fx:id="DescrizioneMerce" prefWidth="151.0" text="Descrizione" />
+                        <TableColumn fx:id="QuantitaMerce" prefWidth="70.0" text="Quantita" />
+                        <TableColumn fx:id="StatoMerce" prefWidth="104.0" text="Stato" />
                     </columns>
                   </TableView>
                   <Label layoutX="404.0" layoutY="33.0" text="Capienza Corriere:" />
