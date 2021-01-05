@@ -49,13 +49,13 @@ public class JavaFXAssegnaMerceCorriere {
     TableView<PuntoPrelievo> magazzinoTable;
 
     @FXML
-    TableColumn<Corriere,Integer> IDMagazzino;
+    TableColumn<PuntoPrelievo,Integer> IDMagazzino;
 
     @FXML
-    TableColumn<Corriere,String> NomeMagazzino;
+    TableColumn<PuntoPrelievo,String> NomeMagazzino;
 
     @FXML
-    TableColumn<Corriere,String> IndirizzoMagazzino;
+    TableColumn<PuntoPrelievo,String> IndirizzoMagazzino;
 
     /**
      * Tabella della merceOrdine
@@ -64,36 +64,53 @@ public class JavaFXAssegnaMerceCorriere {
     TableView<MerceOrdine> merceOrdineTable;
 
     @FXML
-    TableColumn<Corriere,Integer> IDMerce;
+    TableColumn<MerceOrdine,Integer> IDMerce;
 
     @FXML
-    TableColumn<Corriere,Integer> IDOrdineMerce;
+    TableColumn<MerceOrdine,Integer> IDOrdineMerce;
 
     @FXML
-    TableColumn<Corriere,Double> PrezzoMerce;
+    TableColumn<MerceOrdine,Double> PrezzoMerce;
 
     @FXML
-    TableColumn<Corriere,String> DescrizioneMerce;
+    TableColumn<MerceOrdine,String> DescrizioneMerce;
 
     @FXML
-    TableColumn<Corriere,Integer> QuantitaMerce;
+    TableColumn<MerceOrdine,Integer> QuantitaMerce;
 
     @FXML
-    TableColumn<Corriere, StatoOrdine> StatoMerce;
+    TableColumn<MerceOrdine, StatoOrdine> StatoMerce;
 
     /**
-     * This method matches the movement fields with the columns of the table.
+     *  Collega i campi del Corriere alle colonne della tabella.
      */
     private void setCorriereCellValueFactory() {
         IDCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getID()));
         NomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getNome()));
-//        movementDescriptionColumn.setCellValueFactory(movement -> new SimpleObjectProperty<>(movement.getValue().getDescription()));
-//        movementTypeColumn.setCellValueFactory(movement -> new SimpleObjectProperty<>(movement.getValue().type()));
-//        movementAccountColumn.setCellValueFactory(movement -> new SimpleObjectProperty<>(movement.getValue().getAccount().getName()));
-//        movementTagColumn.setCellValueFactory(movement -> new SimpleObjectProperty<>(movement.getValue().tags()));
-//        movementTransactionColumn.setCellValueFactory(movement -> new SimpleObjectProperty<>(movement.getValue().getTransaction()));
+        CognomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getCognome()));
+        Capienza.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().getCapienza()));
     }
 
+    /**
+     *  Collega i campi del PuntoPrelievo alle colonne della tabella.
+     */
+    private void setPuntoPrelievoCellValueFactory() {
+        IDMagazzino.setCellValueFactory(puntoPrelievo -> new SimpleObjectProperty<>(puntoPrelievo.getValue().getID()));
+        NomeMagazzino.setCellValueFactory(puntoPrelievo -> new SimpleObjectProperty<>(puntoPrelievo.getValue().getNome()));
+        IndirizzoMagazzino.setCellValueFactory(puntoPrelievo -> new SimpleObjectProperty<>(puntoPrelievo.getValue().getIndirizzo()));
+    }
+
+    /**
+     *  Collega i campi della MerceOrdine alle colonne della tabella.
+     */
+    private void setMerceOrdineCellValueFactory() {
+        IDMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getID()));
+        IDOrdineMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getIDOrdine()));
+        PrezzoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getPrezzo()));
+        DescrizioneMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getDescrizione()));
+        QuantitaMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getQuantita()));
+        StatoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().getStato()));
+    }
 
 
 
