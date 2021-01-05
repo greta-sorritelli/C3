@@ -65,7 +65,7 @@ class OrdineTest {
         ordineTest = new Ordine(1, "Matteo", "Rondini");
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
         PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
+        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.PAGATO, p.getID());
         ordine.aggiungiMerce(merce, 2);
         ArrayList<String> ordine1 = new ArrayList<>();
         ordine1.add(String.valueOf(ordine.getID()));
@@ -74,7 +74,6 @@ class OrdineTest {
         ordine1.add(ordine.getCognomeCliente());
         ordine1.add(String.valueOf(ordine.getTotalePrezzo()));
         ordine1.add(ordine.getStato().toString());
-        ordine1.add(String.valueOf(ordine.getPuntoPrelievo()));
         ordine1.add(ordine.getMerci().toString());
         assertEquals(ordine1, ordine.getDettagli());
     }

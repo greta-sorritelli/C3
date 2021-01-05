@@ -65,35 +65,35 @@ class GestoreCorrieriTest {
     void getDettagliCorrieri() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliItems();
-        assertEquals(test.get(0).get(0), "Clarissa");
-        assertEquals(test.get(1).get(0), "Matteo");
-        assertEquals(test.get(2).get(0), "Greta");
-        assertEquals(test.get(0).get(3), "52");
-        assertEquals(test.get(1).get(3), "13");
-        assertEquals(test.get(2).get(3), "16");
+        assertEquals(test.get(0).get(1), "Clarissa");
+        assertEquals(test.get(1).get(1), "Matteo");
+        assertEquals(test.get(2).get(1), "Greta");
+        assertEquals(test.get(0).get(4), "52");
+        assertEquals(test.get(1).get(4), "13");
+        assertEquals(test.get(2).get(4), "16");
     }
 
     @Test
     void getDettagliCorrieriDisponibili() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
-        assertEquals(test.get(0).get(0), "Clarissa");
-        assertEquals(test.get(0).get(1), "Albanese");
-        assertEquals(test.get(0).get(2), "true");
-        assertEquals(test.get(0).get(3), "52");
-        assertEquals(test.get(1).get(0), "Greta");
-        assertEquals(test.get(1).get(1), "Sorritelli");
-        assertEquals(test.get(1).get(2), "true");
-        assertEquals(test.get(1).get(3), "16");
+        assertEquals(test.get(0).get(1), "Clarissa");
+        assertEquals(test.get(0).get(2), "Albanese");
+        assertEquals(test.get(0).get(3), "true");
+        assertEquals(test.get(0).get(4), "52");
+        assertEquals(test.get(1).get(1), "Greta");
+        assertEquals(test.get(1).get(2), "Sorritelli");
+        assertEquals(test.get(1).get(3), "true");
+        assertEquals(test.get(1).get(4), "16");
         assertFalse(test.get(1).contains("Matteo"));
     }
 
     @Test
     void selezionaCorriere() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
-        assertEquals("Clarissa", gestoreCorrieri.selezionaCorriere(1).get(0));
-        assertEquals("true", gestoreCorrieri.selezionaCorriere(3).get(2));
-        assertEquals("13", gestoreCorrieri.selezionaCorriere(2).get(3));
+        assertEquals("Clarissa", gestoreCorrieri.selezionaCorriere(1).get(1));
+        assertEquals("true", gestoreCorrieri.selezionaCorriere(3).get(3));
+        assertEquals("13", gestoreCorrieri.selezionaCorriere(2).get(4));
     }
 
     @Test

@@ -25,6 +25,8 @@ class PuntoPrelievoTest {
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         updateData("delete from `sys`.`merci`;");
         updateData("alter table merci AUTO_INCREMENT = 1;");
+        updateData("delete from `sys`.`punti_prelievo`;");
+        updateData("alter table punti_prelievo AUTO_INCREMENT = 1;");
         puntoPrelievo = new PuntoPrelievo(1, "Castelraimondo", "Stazione");
 //        setMagazziniere();
     }

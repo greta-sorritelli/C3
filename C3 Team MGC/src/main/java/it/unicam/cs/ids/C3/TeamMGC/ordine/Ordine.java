@@ -126,7 +126,7 @@ public class Ordine {
         ordini.add(String.valueOf(getTotalePrezzo()));
         ordini.add(getStato().toString());
 
-        if (IDPuntoPrelievo != -1)
+        if (IDPuntoPrelievo != -1 && stato != StatoOrdine.RITIRATO)
             ordini.add(String.valueOf(getPuntoPrelievo()));
         else
             ordini.add(String.valueOf(getResidenza()));
