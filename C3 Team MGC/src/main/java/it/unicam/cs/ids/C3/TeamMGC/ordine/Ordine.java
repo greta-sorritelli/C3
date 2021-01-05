@@ -65,6 +65,15 @@ public class Ordine {
     }
 
     /**
+     * Aggiunge la {@link MerceOrdine} all'{@link Ordine}, prendendo i dati dal Database.
+     *
+     * @param merce Merce da aggiungere
+     */
+    public void addMerce(MerceOrdine merce) {
+        merci.add(merce);
+    }
+
+    /**
      * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine}.
      *
      * @param indirizzo Indirizzo residenza del cliente
@@ -90,15 +99,6 @@ public class Ordine {
         updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
     }
 
-    /**
-     * Aggiunge la {@link MerceOrdine} all'{@link Ordine}, prendendo i dati dal Database.
-     *
-     * @param merce Merce da aggiungere
-     */
-    public void addMerce(MerceOrdine merce) {
-        merci.add(merce);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,7 +116,8 @@ public class Ordine {
      *
      * @return ArrayList dei dettagli
      */
-    public ArrayList<String> getDettagli() {
+    public ArrayList<String> getDettagli() throws SQLException {
+        update();
         ArrayList<String> ordini = new ArrayList<>();
         ordini.add(String.valueOf(getID()));
         ordini.add(String.valueOf(getIDCliente()));
@@ -129,6 +130,9 @@ public class Ordine {
             ordini.add(String.valueOf(getPuntoPrelievo()));
         else
             ordini.add(String.valueOf(getResidenza()));
+
+        for (MerceOrdine merce : merci)
+            merce.update();
 
         ordini.add(String.valueOf(getMerci()));
         return ordini;
@@ -182,6 +186,15 @@ public class Ordine {
         return Objects.hash(ID);
     }
 
-
+    public void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.ordini where ID= '" + this.ID + "';");
+        if (rs.next()) {
+            this.nomeCliente = rs.getString("nomeCliente");
+            this.cognomeCliente = rs.getString("cognomeCliente");
+            this.totalePrezzo = rs.getInt("totalePrezzo");
+            this.stato = StatoOrdine.valueOf(rs.getString("stato"));
+            this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
+            this.residenza = rs.getString("residenza");
+        }
+    }
 }
-
