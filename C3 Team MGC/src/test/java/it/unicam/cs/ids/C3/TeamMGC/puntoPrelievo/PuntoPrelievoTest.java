@@ -19,16 +19,21 @@ class PuntoPrelievoTest {
     static PuntoPrelievo puntoPrelievo;
     static Negozio negozioTest;
 
-    @BeforeEach
-    void prepareDB() throws SQLException {
-        updateData("delete from sys.ordini;");
-        updateData("alter table ordini AUTO_INCREMENT = 1;");
-        updateData("delete from `sys`.`merci`;");
-        updateData("alter table merci AUTO_INCREMENT = 1;");
-        updateData("delete from `sys`.`punti_prelievo`;");
-        updateData("alter table punti_prelievo AUTO_INCREMENT = 1;");
-        puntoPrelievo = new PuntoPrelievo(1, "Castelraimondo", "Stazione");
-//        setMagazziniere();
+    @Test
+    void getDettagli() throws SQLException {
+        ArrayList<String> prova = new ArrayList<>();
+        prova.add("1");
+        prova.add("Stazione");
+        prova.add("Castelraimondo");
+        assertEquals(prova, puntoPrelievo.getDettagli());
+        PuntoPrelievo punto2 = new PuntoPrelievo("Matelica", "Giardini");
+        assertNotEquals(prova, punto2.getDettagli());
+        ArrayList<String> prova2 = new ArrayList<>();
+        prova2.add(String.valueOf(punto2.getID()));
+        prova2.add("Giardini");
+        prova2.add("Matelica");
+        assertEquals(prova2, punto2.getDettagli());
+        assertNotEquals(prova2, puntoPrelievo.getDettagli());
     }
 
 //    @Test
@@ -38,29 +43,18 @@ class PuntoPrelievoTest {
 //    }
 
     @Test
-    void getOrdini() throws SQLException {
-        assertTrue(puntoPrelievo.getOrdini(1).isEmpty());
-        ArrayList<Ordine> lista1 = new ArrayList<>();
-        ArrayList<Ordine> lista2 = new ArrayList<>();
-
-        Ordine ordine1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
-        lista1.add(ordine1);
-
-        Ordine ordineTest1 = new Ordine(1, "Mario", "Rossi");
-        ordineTest1.setPuntoPrelievo(puntoPrelievo.getID());
-        ordineTest1.setStato(StatoOrdine.RITIRATO);
-
-        assertEquals(puntoPrelievo.getOrdini(1).get(0), lista1.get(0));
-        assertEquals(puntoPrelievo.getOrdini(1), lista1);
-
-        Ordine ordine2 = new Ordine(2, 2, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
-        lista2.add(ordine2);
-        assertNotEquals(puntoPrelievo.getOrdini(2), lista1);
-
-        Ordine ordineTest2 = new Ordine(2, "Mario", "Verdi");
-        ordineTest2.setPuntoPrelievo(puntoPrelievo.getID());
-        ordineTest2.setStato(StatoOrdine.RITIRATO);
-        assertEquals(puntoPrelievo.getOrdini(2), lista2);
+    void getDettagliMerceMagazzino() throws SQLException {
+        Ordine ordine = new Ordine(1, "Mario", "Giallo");
+        MerceOrdine merce1 = new MerceOrdine(1, null, StatoOrdine.IN_DEPOSITO, 1);
+        ordine.aggiungiMerce(merce1, 1);
+        ordine.setPuntoPrelievo(puntoPrelievo.getID());
+        ArrayList<ArrayList<String>> test = puntoPrelievo.getDettagliMerceMagazzino(1);
+        assertEquals(test.get(0).get(0), String.valueOf(merce1.getID()));
+        assertEquals(test.get(0).get(1), String.valueOf(ordine.getID()));
+        assertEquals(test.get(0).get(2), String.valueOf(merce1.getPrezzo()));
+        assertEquals(test.get(0).get(3), String.valueOf(merce1.getDescrizione()));
+        assertEquals(test.get(0).get(4), String.valueOf(merce1.getQuantita()));
+        assertEquals(test.get(0).get(5), String.valueOf(merce1.getStato()));
     }
 
     @Test
@@ -139,34 +133,40 @@ class PuntoPrelievoTest {
     }
 
     @Test
-    void getDettagli() throws SQLException {
-        ArrayList<String> prova = new ArrayList<>();
-        prova.add("1");
-        prova.add("Stazione");
-        prova.add("Castelraimondo");
-        assertEquals(prova, puntoPrelievo.getDettagli());
-        PuntoPrelievo punto2 = new PuntoPrelievo("Matelica", "Giardini");
-        assertNotEquals(prova, punto2.getDettagli());
-        ArrayList<String> prova2 = new ArrayList<>();
-        prova2.add(String.valueOf(punto2.getID()));
-        prova2.add("Giardini");
-        prova2.add("Matelica");
-        assertEquals(prova2, punto2.getDettagli());
-        assertNotEquals(prova2, puntoPrelievo.getDettagli());
+    void getOrdini() throws SQLException {
+        assertTrue(puntoPrelievo.getOrdini(1).isEmpty());
+        ArrayList<Ordine> lista1 = new ArrayList<>();
+        ArrayList<Ordine> lista2 = new ArrayList<>();
+
+        Ordine ordine1 = new Ordine(1, 1, "Mario", "Rossi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
+        lista1.add(ordine1);
+
+        Ordine ordineTest1 = new Ordine(1, "Mario", "Rossi");
+        ordineTest1.setPuntoPrelievo(puntoPrelievo.getID());
+        ordineTest1.setStato(StatoOrdine.RITIRATO);
+
+        assertEquals(puntoPrelievo.getOrdini(1).get(0), lista1.get(0));
+        assertEquals(puntoPrelievo.getOrdini(1), lista1);
+
+        Ordine ordine2 = new Ordine(2, 2, "Mario", "Verdi", 100, StatoOrdine.RITIRATO, puntoPrelievo.getID());
+        lista2.add(ordine2);
+        assertNotEquals(puntoPrelievo.getOrdini(2), lista1);
+
+        Ordine ordineTest2 = new Ordine(2, "Mario", "Verdi");
+        ordineTest2.setPuntoPrelievo(puntoPrelievo.getID());
+        ordineTest2.setStato(StatoOrdine.RITIRATO);
+        assertEquals(puntoPrelievo.getOrdini(2), lista2);
     }
 
-    @Test
-    void getDettagliMerceMagazzino() throws SQLException {
-        Ordine ordine = new Ordine(1, "Mario", "Giallo");
-        MerceOrdine merce1 = new MerceOrdine(1, null, StatoOrdine.IN_DEPOSITO, 1);
-        ordine.aggiungiMerce(merce1, 1);
-        ordine.setPuntoPrelievo(puntoPrelievo.getID());
-        ArrayList<ArrayList<String>> test = puntoPrelievo.getDettagliMerceMagazzino(1);
-        assertEquals(test.get(0).get(0), String.valueOf(merce1.getID()));
-        assertEquals(test.get(0).get(1), String.valueOf(ordine.getID()));
-        assertEquals(test.get(0).get(2), String.valueOf(merce1.getPrezzo()));
-        assertEquals(test.get(0).get(3), String.valueOf(merce1.getDescrizione()));
-        assertEquals(test.get(0).get(4), String.valueOf(merce1.getQuantita()));
-        assertEquals(test.get(0).get(5), String.valueOf(merce1.getStato()));
+    @BeforeEach
+    void prepareDB() throws SQLException {
+        updateData("delete from sys.ordini;");
+        updateData("alter table ordini AUTO_INCREMENT = 1;");
+        updateData("delete from `sys`.`merci`;");
+        updateData("alter table merci AUTO_INCREMENT = 1;");
+        updateData("delete from `sys`.`punti_prelievo`;");
+        updateData("alter table punti_prelievo AUTO_INCREMENT = 1;");
+        puntoPrelievo = new PuntoPrelievo("Castelraimondo", "Stazione");
+//        setMagazziniere();
     }
 }
