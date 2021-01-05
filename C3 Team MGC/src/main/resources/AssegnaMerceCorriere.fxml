@@ -25,7 +25,7 @@
                   </TableView>
                   <Button layoutX="507.0" layoutY="315.0" mnemonicParsing="false" text="Next&gt;&gt;" AnchorPane.leftAnchor="507.0" AnchorPane.topAnchor="315.0" />
                   <Button layoutX="442.0" layoutY="315.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="442.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="315.0" />
-                  <Label layoutX="43.0" layoutY="26.0" text="Seleziona Corriere" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="386.0" AnchorPane.topAnchor="26.0">
+                  <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -35,7 +35,7 @@
     </Tab>
     <Tab disable="true" text="Punti di prelievo">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#visualizzaPuntiPrelievo" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <TableView fx:id="magazzinoTable" layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0">
                     <columns>
