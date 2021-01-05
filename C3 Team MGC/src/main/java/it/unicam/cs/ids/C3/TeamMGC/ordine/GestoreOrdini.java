@@ -200,7 +200,6 @@ public class GestoreOrdini {
      *
      * @param IDOrdine Ordine da controllare
      */
-    //todo
     public void terminaOrdine(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
         for (MerceOrdine m : getOrdine(IDOrdine).getMerci()) {
@@ -213,8 +212,16 @@ public class GestoreOrdini {
             throw new IllegalArgumentException("Merce non pagata.");
     }
 
-    public ArrayList<ArrayList<String>> visualizzaMerce(int capienza) {
-        //todo arraylist di arraylist (con stato pagato e che rientra nella capienza)
-        return null;
+    /**
+     * @param capienza Capienza entro la quale deve rientrare la merce
+     * @return         ArrayList<ArrayList<String>> dei dettagli della merce con stato "PAGATO"
+     *                 e che rientra nella capienza del corriere a cui deve essere assegnata.
+     */
+    //todo test
+    public ArrayList<ArrayList<String>> visualizzaMerce(int capienza) throws SQLException {
+        ArrayList<MerceOrdine> merce = new ArrayList<>();
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
+        return getArrayLists(merce, dettagli, rs);
     }
 }

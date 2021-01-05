@@ -42,6 +42,10 @@ public class Corriere {
         if (capienza < 0)
             throw new IllegalArgumentException("Capienza non valida.");
         updateData("UPDATE sys.corrieri SET capienza = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
+        if (capienza == 0) {
+            updateData("UPDATE sys.corrieri SET stato = '" + false + "' WHERE (`ID` = '" + this.ID + "');");
+            this.disponibilita = false;
+        }
         this.capienza = capienza;
     }
 
@@ -69,8 +73,8 @@ public class Corriere {
     }
 
     public void setDisponibilita(boolean disponibilita) throws SQLException {
-            updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
-            this.disponibilita = disponibilita;
+        updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
+        this.disponibilita = disponibilita;
     }
 
     public int getID() {
