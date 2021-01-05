@@ -26,10 +26,10 @@ public class IAddettoMagazzino {
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
 
     /**
-     * This method open a new window.
+     * Apre una nuova finestra
      *
      * @param a Fxml path
-     * @param b Title of window.
+     * @param b Titolo della finestra.
      */
     @FXML
     public void openWindow(String a, String b, Object controller) {
@@ -50,17 +50,13 @@ public class IAddettoMagazzino {
     }
 
     /**
-     * This method open the window for adding account and updates the account table.
+     * Apre la finestra per assegnare la merce al corriere.
      */
     @FXML
     private void assegnaMerceCorriere() {
         openWindow("/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere(gestoreCorrieri,
                 gestoreMagazzini, gestoreOrdini));
     }
-
-//    public void assegnaMerceCorriere() {
-//        //todo
-//    }
 
     public void selezionaCorriere(int ID) throws SQLException {
         gestoreCorrieri.selezionaCorriere(ID);
