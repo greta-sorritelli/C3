@@ -88,7 +88,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     /**
      * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri.
      */
-    //todo test
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
