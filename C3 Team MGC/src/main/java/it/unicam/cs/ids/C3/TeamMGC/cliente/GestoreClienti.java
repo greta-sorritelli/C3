@@ -64,6 +64,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @return il Codice generato
      */
+    //todo test
     private String generaCodiceRitiro() {
         Random rand = new Random();
         String tmp = "";
@@ -73,9 +74,8 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     *
+     *@return ArrayList<ArrayList<String>> dei dettagli dei clienti.
      */
-    //todo test
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -93,7 +93,6 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param ID Codice Identificativo del Cliente
      * @return Il Cliente desiderato
      */
-    //todo test
     @Override
     public Cliente getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
@@ -107,7 +106,6 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @return ArrayList<Cliente> dei clienti.
      */
     @Override
-    //todo test
     public ArrayList<Cliente> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
         while (rs.next())
@@ -120,16 +118,19 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param cognome
      * @return
      */
-    //todo controllare
+    //todo test
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
         Cliente cliente = new Cliente(nome, cognome);
         return cliente.getDettagli();
     }
 
     /**
-     * @param IDCliente
-     * @param IDOrdine
-     * @return
+     * Verifica il codice di ritiro del cliente, cioè controlla se ha già un codice
+     * creato nella data odierna. In caso negativo viene generato un nuovo codice per il cliente.
+     *
+     * @param IDCliente   ID del Cliente a cui appartiene il codice di ritiro
+     * @param IDOrdine    Id dell'ordine del cliente
+     * @return            Il codice di ritiro
      */
     public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) throws SQLException {
         ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
@@ -162,6 +163,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param codiceRitiroDB
      * @return
      */
+    //todo test
     private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB) {
         return codiceRitiroComunicato.equals(codiceRitiroDB);
     }

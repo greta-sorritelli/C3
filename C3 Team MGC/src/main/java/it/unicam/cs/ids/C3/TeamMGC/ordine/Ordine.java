@@ -185,6 +185,10 @@ public class Ordine {
         return Objects.hash(ID);
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.ordini where ID= '" + this.ID + "';");
         if (rs.next()) {

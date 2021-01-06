@@ -140,11 +140,6 @@ public class JavaFXAssegnaMerceCorriere {
     }
 
     //todo
-    public void getDettagliMagazziniDisponibili() throws SQLException {
-        gestoreMagazzini.getDettagliItems();
-    }
-
-    //todo
     public void sceltaPuntoPrelievo(int ID) throws SQLException {
         gestoreMagazzini.sceltaPuntoPrelievo(ID);
     }

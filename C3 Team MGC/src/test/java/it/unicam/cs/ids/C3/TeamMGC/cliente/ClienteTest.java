@@ -28,7 +28,7 @@ class ClienteTest {
 
     @Test
     void getDettagli() {
-
+        //todo
     }
 
     @Test
