@@ -21,49 +21,32 @@ public class Ordine {
     private int IDNegozio;
     private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
-    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo,int IDNegozio) {
-        this.ID = ID;
-        this.IDCliente = IDCliente;
-        this.nomeCliente = nomeCliente;
-        this.cognomeCliente = cognomeCliente;
-        this.totalePrezzo = totalePrezzo;
-        this.stato = stato;
-        this.IDPuntoPrelievo = IDPuntoPrelievo;
-        this.IDNegozio = IDNegozio;
+    public Ordine(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from ordini where ID ='" + ID + "';");
+        if (rs.next()) {
+            this.ID = ID;
+            this.IDCliente = rs.getInt("IDCliente");
+            this.nomeCliente = rs.getString("nomeCliente");
+            this.cognomeCliente = rs.getString("cognomeCliente");
+            this.totalePrezzo = rs.getDouble("totalePrezzo");
+            this.stato = StatoOrdine.valueOf("stato");
+            this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
+            this.residenza = rs.getString("residenza");
+            this.IDNegozio = rs.getInt("IDNegozio");
+        } else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
-    //Todo forse levare
-//    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) throws SQLException {
-//            if (IDPuntoPrelievo != -1) {
-//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`IDPuntoPrelievo`,`residenza`) " +
-//                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "'," +
-//                        "'" + IDPuntoPrelievo + "', \"null\");");
-//                this.IDPuntoPrelievo = IDPuntoPrelievo;
-//            } else {
-//                updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`,`totalePrezzo`,`stato`,`IDPuntoPrelievo`,`residenza`) " +
-//                        "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + totalePrezzo + "', '" + stato + "', -1, \"null\");");
-//                this.IDPuntoPrelievo = -1;
-//            }
-//            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
-//            rs.next();
-//            ID = rs.getInt("ID");
-//            this.IDCliente = IDCliente;
-//            this.nomeCliente = nomeCliente;
-//            this.cognomeCliente = cognomeCliente;
-//            this.totalePrezzo = totalePrezzo;
-//            this.residenza = null;
-//    }
-
-    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente) throws SQLException {
-        updateData("INSERT INTO `sys`.`ordini` (`IDCliente`, `nomeCliente`,`cognomeCliente`) " +
-                "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "');");
+    public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, int IDNegozio) throws SQLException {
+        updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, IDNegozio) " +
+                "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + IDNegozio + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
         rs.next();
         ID = rs.getInt("ID");
         this.IDCliente = IDCliente;
         this.nomeCliente = nomeCliente;
         this.cognomeCliente = cognomeCliente;
-
+        this.IDNegozio = IDNegozio;
     }
 
     /**
@@ -81,8 +64,8 @@ public class Ordine {
      * @param indirizzo Indirizzo residenza del cliente
      */
     public void addResidenza(String indirizzo) throws SQLException {
-        updateData("UPDATE `sys`.`ordini` SET `IDPuntoPrelievo` = 0 WHERE (`ID` = '" + this.ID + "');");
-        updateData("UPDATE `sys`.`ordini` SET `residenza` = '" + indirizzo + "' WHERE (`ID` = '" + this.ID + "');");
+        updateData("UPDATE sys.ordini SET IDPuntoPrelievo = 0 WHERE (ID = '" + this.ID + "');");
+        updateData("UPDATE sys.ordini SET residenza = '" + indirizzo + "' WHERE (ID = '" + this.ID + "');");
         IDPuntoPrelievo = -1;
         residenza = indirizzo;
     }
@@ -98,7 +81,7 @@ public class Ordine {
         merce.setQuantita(quantita);
         merci.add(merce);
         this.totalePrezzo += (merce.getPrezzo() * quantita);
-        updateData("UPDATE `sys`.`ordini` SET `totalePrezzo` = '" + this.totalePrezzo + "' WHERE (`ID` = '" + this.ID + "');");
+        updateData("UPDATE sys.ordini SET totalePrezzo = '" + this.totalePrezzo + "' WHERE (ID = '" + this.ID + "');");
     }
 
     @Override
@@ -174,7 +157,7 @@ public class Ordine {
     }
 
     public void setStato(StatoOrdine statoOrdine) throws SQLException {
-        updateData("UPDATE `sys`.`ordini` SET `stato` = '" + statoOrdine + "' WHERE (`ID` = '" + this.ID + "');");
+        updateData("UPDATE sys.ordini SET stato = '" + statoOrdine + "' WHERE (ID = '" + this.ID + "');");
         this.stato = statoOrdine;
     }
 
@@ -188,7 +171,6 @@ public class Ordine {
     }
 
     /**
-     *
      * @throws SQLException
      */
     public void update() throws SQLException {

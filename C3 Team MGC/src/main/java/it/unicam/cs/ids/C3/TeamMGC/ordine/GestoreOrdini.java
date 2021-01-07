@@ -23,10 +23,7 @@ public class GestoreOrdini {
         for (Ordine ordine : ordini)
             if (ordine.getID() == rs.getInt("ID"))
                 return ordine;
-        Ordine toReturn = new Ordine(rs.getInt("ID"), rs.getInt("IDCliente"),
-                rs.getString("nomeCliente"), rs.getString("cognomeCliente"),
-                rs.getDouble("totalePrezzo"), StatoOrdine.valueOf(rs.getString("stato")),
-                rs.getInt("IDPuntoPrelievo"));
+        Ordine toReturn = new Ordine(rs.getInt("ID"));
         addOrdineToList(toReturn);
         return toReturn;
     }
@@ -214,8 +211,8 @@ public class GestoreOrdini {
 
     /**
      * @param capienza Capienza entro la quale deve rientrare la merce
-     * @return         ArrayList<ArrayList<String>> dei dettagli della merce con stato "PAGATO"
-     *                 e che rientra nella capienza del corriere a cui deve essere assegnata.
+     * @return ArrayList<ArrayList < String>> dei dettagli della merce con stato "PAGATO"
+     * e che rientra nella capienza del corriere a cui deve essere assegnata.
      */
     //todo test
     public ArrayList<ArrayList<String>> visualizzaMerce(int capienza) throws SQLException {
