@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXAssegnaMerceCorriere;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXGestioneInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -56,5 +57,13 @@ public class IAddettoMagazzino {
                 gestoreMagazzini, gestoreOrdini));
     }
 
+    /**
+     * Apre la finestra per la gestione dell'inventario.
+     */
+    @FXML
+    //todo creare fxml
+    private void modificaInventario() {
+        openWindow("/GestioneInventario.fxml", "GestioneInventario", new JavaFXGestioneInventario(negozio));
+    }
 
 }

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class JavaFXConsegnareMerceAlCliente {
 
     private final GestoreOrdini gestoreOrdini;
-
     private final GestoreClienti gestoreClienti;
 
     public JavaFXConsegnareMerceAlCliente(GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti) {
@@ -40,6 +39,11 @@ public class JavaFXConsegnareMerceAlCliente {
     public ArrayList<String> getDettagliMerceTotale(int IDOrdine) {
         //todo
         return null;
+    }
+
+    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine){
+        //todo vedere se è automatico quando tutta la mercce è
+        // ritirata allora l'ordine è ritirato.
     }
 
 

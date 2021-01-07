@@ -1,43 +1,79 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXConsegnareMerceAlPuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ICorriere {
+    //todo
+    private Negozio negozio = new Negozio(1);
 
-    public void consegnaMerce(){
-        //todo
+    private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+    private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
+    private final GestoreCorrieri gestoreCorrieri= new GestoreCorrieri();
+
+    /**
+     * Apre una nuova finestra
+     *
+     * @param a Fxml path
+     * @param b Titolo della finestra.
+     */
+    @FXML
+    public void openWindow(String a, String b, Object controller) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(a));
+            fxmlLoader.setController(controller);
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle(b);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+//            Image icon = new Image("/icon.png");
+//            stage.getIcons().add(icon);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine){
-        //todo
+    /**
+     * Apre la finestra per consegnare la merce al punto di prelievo.
+     */
+    @FXML
+    //todo creare fxml
+    private void consegnaMercePP() {
+        openWindow("/ConsegnaMercePP.fxml", "ConsegnaMercePP", new JavaFXConsegnareMerceAlPuntoPrelievo(gestoreOrdini,
+                gestoreMagazzini, gestoreCorrieri));
     }
 
-    public void ricercaMagazzinoVicino(){
-       //todo
-    }
-
-    public void confermaConsegna(int IDMerce){
-        //todo
-    }
-
-    public void modificaDisponibilita(){
-        //todo
-    }
-
-    public void selezionaDisponibilita(boolean statoAttuale){
-        //todo
-    }
-
-    public void avviaRegistrazione(){
-        //todo
-    }
-
-    public void inserisciDati(String nome, String cognome, int capienza){
-        //todo
-    }
-
-    public void trasportoMerce(){
-        //todo
-    }
+//    public void modificaDisponibilita(){
+//        //todo
+//    }
+//
+//    public void selezionaDisponibilita(boolean statoAttuale){
+//        //todo
+//    }
+//
+//    public void avviaRegistrazione(){
+//        //todo
+//    }
+//
+//    public void inserisciDati(String nome, String cognome, int capienza){
+//        //todo
+//    }
+//
+//    public void trasportoMerce(){
+//        //todo
+//    }
 
 }
