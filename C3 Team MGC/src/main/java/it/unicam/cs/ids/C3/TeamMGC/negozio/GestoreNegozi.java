@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,9 +77,20 @@ public class GestoreNegozi implements Gestore<Negozio> {
         return dettagli;
     }
 
-//    public ArrayList<ArrayList<String>> getDettagliItemsConOrdini() {
-//        ResultSet rs = executeQuery("SELECT IDNegozio FROM sys.ordini where stato = '" + ID + "' ;");
-//    }
+    /**
+     * @return ArrayList<ArrayList<String>> dei dettagli dei negozi con ordini da ritirare.
+     * @throws SQLException
+     */
+    //todo controllare problema Franco e Clarissa
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliItemsConOrdini() throws SQLException {
+        ResultSet rs = executeQuery("SELECT IDNegozio FROM sys.ordini where stato = '" + StatoOrdine.PAGATO + "' ;");
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        while(rs.next())
+            toReturn.add(getItem(rs.getInt("IDNegozio")).getDettagli());
+
+        return toReturn;
+    }
 
     /**
      *
@@ -86,6 +98,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @return
      * @throws SQLException
      */
+    //todo test
     public Negozio selezionaNegozio(int ID) throws SQLException {
         return getItem(ID);
     }
