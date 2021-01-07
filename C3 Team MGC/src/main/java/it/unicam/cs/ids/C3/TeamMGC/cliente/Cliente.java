@@ -16,8 +16,8 @@ public class Cliente {
     private int ID;
     private String nome;
     private String cognome;
-    private String codiceRitiro = null;
-    private String dataCreazioneCodice = null;
+    private String codiceRitiro = "";
+    private String dataCreazioneCodice = "";
 
     public Cliente(int ID, String nome, String cognome, String codiceRitiro, String dataCreazioneCodice) {
         this.ID = ID;
@@ -28,7 +28,7 @@ public class Cliente {
     }
 
     public Cliente(String nome, String cognome) throws SQLException {
-        updateData("INSERT INTO `sys`.`clienti` (`nome`, `cognome`) VALUES ('" + nome + "', '" + cognome + "');");
+        updateData("INSERT INTO sys.clienti (nome, cognome) VALUES ('" + nome + "', '" + cognome + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from clienti;");
         rs.next();
         ID = rs.getInt("ID");
@@ -39,9 +39,9 @@ public class Cliente {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Cliente)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return getID() == cliente.getID() && getNome().equals(cliente.getNome()) && getCognome().equals(cliente.getCognome());
+        return getID() == cliente.getID();
     }
 
     public String getCodiceRitiro() {
@@ -62,13 +62,13 @@ public class Cliente {
     //todo test
     public ArrayList<String> getDettagli() throws SQLException {
         update();
-        ArrayList<String> cliente = new ArrayList<>();
-        cliente.add(String.valueOf(getID()));
-        cliente.add(getNome());
-        cliente.add(getCognome());
-        cliente.add(String.valueOf(getCodiceRitiro()));
-        cliente.add(getDataCreazioneCodice());
-        return cliente;
+        ArrayList<String> toReturn = new ArrayList<>();
+        toReturn.add(String.valueOf(getID()));
+        toReturn.add(getNome());
+        toReturn.add(getCognome());
+        toReturn.add(getCodiceRitiro());
+        toReturn.add(getDataCreazioneCodice());
+        return toReturn;
     }
 
     public int getID() {
@@ -81,27 +81,32 @@ public class Cliente {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getID(), getNome(), getCognome());
+        return Objects.hash(getID());
     }
 
     public String setCodiceRitiro(String codiceRitiro) throws SQLException {
         dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
         this.codiceRitiro = codiceRitiro;
-        updateData("UPDATE `sys`.`clienti` SET `codiceRitiro` = '" + codiceRitiro + "', `dataCreazione` = '" + dataCreazioneCodice + "' WHERE (`ID` = '" + this.ID + "');");
+        updateData("UPDATE sys.clienti SET codiceRitiro = '" + codiceRitiro + "', dataCreazione = '" + dataCreazioneCodice + "' WHERE (ID = '" + this.ID + "');");
         return codiceRitiro;
     }
 
     /**
      *
+     * @throws SQLException
      */
-    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.clienti where ID= '" + this.ID + "';");
         if (rs.next()) {
             this.nome = rs.getString("nome");
             this.cognome = rs.getString("cognome");
-            this.codiceRitiro = rs.getString("codiceRitiro");
-            this.dataCreazioneCodice = rs.getString("dataCreazione");
+            if (Objects.isNull(rs.getString("codiceRitiro"))) {
+                this.codiceRitiro = "";
+                this.dataCreazioneCodice = "";
+            } else {
+                this.codiceRitiro = rs.getString("codiceRitiro");
+                this.dataCreazioneCodice = rs.getString("dataCreazione");
+            }
         }
     }
 }

@@ -29,26 +29,23 @@ class CorriereTest {
     @Test
     void getDettagli() throws SQLException {
         Corriere corriereTest = new Corriere("Mario", "Rossi", true, 30);
-        ArrayList<String> corriere1 = new ArrayList<>();
-        corriere1.add(String.valueOf(corriereTest.getID()));
-        corriere1.add("Mario");
-        corriere1.add("Rossi");
-        corriere1.add("true");
-        corriere1.add("30");
-        assertEquals(corriere1, corriereTest.getDettagli());
+        ArrayList<String> corriereLista = new ArrayList<>();
+        corriereLista.add(String.valueOf(corriereTest.getID()));
+        corriereLista.add("Mario");
+        corriereLista.add("Rossi");
+        corriereLista.add("true");
+        corriereLista.add("30");
+        assertEquals(corriereLista, corriereTest.getDettagli());
 
-        assertNotEquals(corriereTest.getCapienza(), 15);
         corriereTest.setCapienza(15);
         corriereTest.setDisponibilita(false);
-        assertEquals(corriereTest.getCapienza(), 15);
-
-        corriere1.clear();
-        corriere1.add(String.valueOf(corriereTest.getID()));
-        corriere1.add("Mario");
-        corriere1.add("Rossi");
-        corriere1.add("false");
-        corriere1.add("15");
-        assertEquals(corriere1, corriereTest.getDettagli());
+        corriereLista.clear();
+        corriereLista.add(String.valueOf(corriereTest.getID()));
+        corriereLista.add("Mario");
+        corriereLista.add("Rossi");
+        corriereLista.add("false");
+        corriereLista.add("15");
+        assertEquals(corriereLista, corriereTest.getDettagli());
     }
 
     @Test
@@ -57,6 +54,13 @@ class CorriereTest {
         assertEquals(30, corriereTest.getCapienza());
         corriereTest.setCapienza(52);
         assertEquals(52, corriereTest.getCapienza());
+
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> corriereTest.setCapienza(-10));
+        assertEquals("Capienza non valida.", e1.getMessage());
+
+        corriereTest.setCapienza(0);
+        assertEquals(0, corriereTest.getCapienza());
+        assertFalse(corriereTest.getDisponibilita());
     }
 
     @Test
@@ -71,13 +75,10 @@ class CorriereTest {
     void update() throws SQLException {
         Corriere corriereTest = new Corriere("Mario", "Rossi", true, 30);
         int IDTest = corriereTest.getID();
-        ArrayList<String> corriere1 = new ArrayList<>();
-        corriere1.add(String.valueOf(corriereTest.getID()));
-        corriere1.add("Mario");
-        corriere1.add("Rossi");
-        corriere1.add("true");
-        corriere1.add("30");
-        assertEquals(corriere1, corriereTest.getDettagli());
+        assertEquals(corriereTest.getNome(), "Mario");
+        assertEquals(corriereTest.getCognome(), "Rossi");
+        assertTrue(corriereTest.getDisponibilita());
+        assertEquals(corriereTest.getCapienza(), 30);
 
         updateData("UPDATE sys.corrieri SET nome = 'Giovanni' WHERE (ID = '" + IDTest + "');");
         updateData("UPDATE sys.corrieri SET cognome = 'Bazzi' WHERE (ID = '" + IDTest + "');");

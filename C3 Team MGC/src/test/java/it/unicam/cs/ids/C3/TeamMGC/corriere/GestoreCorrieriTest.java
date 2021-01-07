@@ -14,10 +14,10 @@ class GestoreCorrieriTest {
 
     @BeforeAll
     static void preparaDB() throws SQLException {
-        updateData("TRUNCATE `sys`.`corrieri`;");
-        updateData("INSERT INTO `sys`.`corrieri` (`nome`, `cognome`, `stato`, `capienza`) VALUES ('Clarissa', 'Albanese', 'true', '52');");
-        updateData("INSERT INTO `sys`.`corrieri` (`nome`, `cognome`, `stato`, `capienza`) VALUES ('Matteo', 'Rondini','false','13');");
-        updateData("INSERT INTO `sys`.`corrieri` (`nome`,`cognome`,`stato`, `capienza`) VALUES ('Greta', 'Sorritelli','true','16');");
+        updateData("TRUNCATE sys.corrieri;");
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('Clarissa', 'Albanese', 'true', '52');");
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('Matteo', 'Rondini', 'false', '13');");
+        updateData("INSERT INTO sys.corrieri (nome,cognome,stato, capienza) VALUES ('Greta', 'Sorritelli', 'true', '16');");
     }
 
     @AfterAll
@@ -30,11 +30,24 @@ class GestoreCorrieriTest {
     }
 
     @Test
+    void addCorriere() throws SQLException {
+        GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
+        ArrayList<String> dettagli = gestoreCorrieri.inserisciDati("Luigi", "Bianchi", 20);
+
+        assertEquals("Luigi", dettagli.get(1));
+        assertEquals("Bianchi", dettagli.get(2));
+        assertEquals("true", dettagli.get(3));
+        assertEquals("20", dettagli.get(4));
+    }
+
+    @Test
     void getCorriere() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         assertEquals(52, gestoreCorrieri.getItem(1).getCapienza());
         assertEquals("Matteo", gestoreCorrieri.getItem(2).getNome());
         assertEquals("true", String.valueOf(gestoreCorrieri.getItem(3).getDisponibilita()));
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreCorrieri.getItem(1000));
+        assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
@@ -85,7 +98,7 @@ class GestoreCorrieriTest {
         assertEquals(test.get(1).get(2), "Sorritelli");
         assertEquals(test.get(1).get(3), "true");
         assertEquals(test.get(1).get(4), "16");
-        assertFalse(test.get(1).contains("Matteo"));
+        assertEquals(2, test.size());
     }
 
     @Test
@@ -103,5 +116,9 @@ class GestoreCorrieriTest {
         gestoreCorrieri.setCapienza(2, 10);
         assertEquals(20, gestoreCorrieri.getItem(1).getCapienza());
         assertEquals(10, gestoreCorrieri.getItem(2).getCapienza());
+
+        gestoreCorrieri.setCapienza(1, 0);
+        assertEquals(0, gestoreCorrieri.getItem(1).getCapienza());
+        assertFalse(gestoreCorrieri.getDisponibilita(1));
     }
 }

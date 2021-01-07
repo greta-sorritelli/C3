@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -28,9 +29,8 @@ class MerceTest {
     @Test
     void delete() throws SQLException {
         Merce toDelete = new Merce(1, 15, "test delete", 10);
-        toDelete.delete();
         int tmpID = toDelete.getID();
-
+        toDelete.delete();
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = '" + tmpID + "';");
         assertFalse(rs.next());
     }
@@ -67,7 +67,6 @@ class MerceTest {
         ResultSet rs = executeQuery("SELECT descrizione FROM sys.inventario where ID = 1;");
         if (rs.next())
             assertEquals("test setDescrizione", rs.getString("descrizione"));
-
     }
 
     @Test
@@ -90,5 +89,23 @@ class MerceTest {
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = 1;");
         if (rs.next())
             assertEquals(100, rs.getInt("quantita"));
+    }
+
+    @Test
+    void update() throws SQLException {
+        Merce merceTest = new Merce(1, 6.5, "test update", 2);
+        int IDTest = merceTest.getID();
+        assertEquals(6.5, merceTest.getPrezzo());
+        assertEquals("test update", merceTest.getDescrizione());
+        assertEquals(2, merceTest.getQuantita());
+
+        updateData("UPDATE sys.inventario SET prezzo = '12.0' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.inventario SET descrizione = 'test update 2.0' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.inventario SET quantita = '6' WHERE (ID = '" + IDTest + "');");
+
+        merceTest.update();
+        assertEquals(12.0, merceTest.getPrezzo());
+        assertEquals("test update 2.0", merceTest.getDescrizione());
+        assertEquals(6, merceTest.getQuantita());
     }
 }
