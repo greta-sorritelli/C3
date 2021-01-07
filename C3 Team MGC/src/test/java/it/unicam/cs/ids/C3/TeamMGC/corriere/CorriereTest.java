@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +26,8 @@ class CorriereTest {
         assertEquals("Albanese", corriere.getCognome());
         assertTrue(corriere.getDisponibilita());
         assertEquals(30, corriere.getCapienza());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Corriere(1000));
+        assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
@@ -69,6 +73,15 @@ class CorriereTest {
         assertTrue(corriereTest.getDisponibilita());
         corriereTest.setDisponibilita(false);
         assertFalse(corriereTest.getDisponibilita());
+    }
+
+    @Test
+    void testEquals() throws SQLException {
+        Corriere corriere = new Corriere("Fry", "Philip", true, 14);
+        Corriere corriereCopia = new Corriere(corriere.getID());
+        Corriere corriere2 = new Corriere("Leela", "Turanga", true, 29);
+        assertEquals(corriere, corriereCopia);
+        assertNotEquals(corriere, corriere2);
     }
 
     @Test

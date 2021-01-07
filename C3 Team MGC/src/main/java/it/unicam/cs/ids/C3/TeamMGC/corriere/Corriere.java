@@ -1,8 +1,11 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
@@ -14,12 +17,22 @@ public class Corriere {
     private boolean disponibilita;
     private int capienza;
 
-    public Corriere(int ID, String nome, String cognome, boolean disponibilita, int capienza) {
-        this.ID = ID;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.disponibilita = disponibilita;
-        this.capienza = capienza;
+    /**
+     * Costruttore per importare i dati dal DB.
+     *
+     * @param ID ID del Corriere
+     * @throws SQLException
+     */
+    public Corriere(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from corrieri where ID ='" + ID + "';");
+        if (rs.next()) {
+            this.ID = ID;
+            this.nome = rs.getString("nome");
+            this.cognome = rs.getString("cognome");
+            this.disponibilita = rs.getBoolean("stato");
+            this.capienza = rs.getInt("capienza");
+        } else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     public Corriere(String nome, String cognome, boolean disponibilita, int capienza) throws SQLException {
@@ -32,6 +45,14 @@ public class Corriere {
         this.cognome = cognome;
         this.disponibilita = disponibilita;
         this.capienza = capienza;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Corriere corriere = (Corriere) o;
+        return getID() == corriere.getID();
     }
 
     public int getCapienza() {
@@ -84,6 +105,11 @@ public class Corriere {
 
     public String getNome() {
         return nome;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID());
     }
 
     public void mandaAlert() {

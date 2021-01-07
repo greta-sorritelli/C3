@@ -23,9 +23,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         for (Corriere corriere : corrieri)
             if (corriere.getID() == rs.getInt("ID"))
                 return corriere;
-        Corriere toReturn = new Corriere(rs.getInt("ID"), rs.getString("nome"),
-                rs.getString("cognome"), rs.getBoolean("stato"),
-                rs.getInt("capienza"));
+        Corriere toReturn = new Corriere(rs.getInt("ID"));
         addCorriereToList(toReturn);
         return toReturn;
     }
@@ -47,13 +45,13 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @return l'elenco dei Corrieri Disponibili
      */
     //TODO controllare test
+    //todo modificare query con solo ID
     public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
         if (rs.next())
             do {
-                Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
-                        rs.getString("cognome"), true, rs.getInt("capienza"));
+                Corriere tmp = new Corriere(rs.getInt("ID"));
                 corrieriDisponibili.add(tmp);
             } while (rs.next());
 
@@ -68,13 +66,13 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri disponibili.
      */
     //todo test
+    //todo modificare query con solo ID
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
         while (rs.next()) {
-            Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
-                    rs.getString("cognome"), true, rs.getInt("capienza"));
+            Corriere tmp = new Corriere(rs.getInt("ID"));
             corrieriDisponibili.add(tmp);
         }
         if (corrieriDisponibili.isEmpty())
@@ -158,7 +156,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         getItem(IDCorriere).setDisponibilita(disponibilita);
     }
 
-    public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi){
+    public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) {
         //todo manda alert al corriere con i negozi in cui prelevare merce
     }
 }

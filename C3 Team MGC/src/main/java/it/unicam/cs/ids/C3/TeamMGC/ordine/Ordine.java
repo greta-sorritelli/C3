@@ -9,7 +9,6 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Ordine {
-
     private int ID;
     private int IDCliente;
     private String nomeCliente;
@@ -21,6 +20,12 @@ public class Ordine {
     private int IDNegozio;
     private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
+    /**
+     * Costruttore per importare i dati dal DB.
+     *
+     * @param ID ID dell' Ordine
+     * @throws SQLException
+     */
     public Ordine(int ID) throws SQLException {
         ResultSet rs = executeQuery("select * from ordini where ID ='" + ID + "';");
         if (rs.next()) {

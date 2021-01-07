@@ -17,13 +17,13 @@ class GestoreOrdiniTest {
     void clearDB() throws SQLException {
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
-        updateData("delete from `sys`.`merci`;");
+        updateData("delete from sys.merci;");
         updateData("alter table merci AUTO_INCREMENT = 1;");
         updateData("delete from sys.inventario;");
         updateData("alter table inventario AUTO_INCREMENT = 1;");
-        updateData("delete from `sys`.`clienti`;");
+        updateData("delete from sys.clienti;");
         updateData("alter table clienti AUTO_INCREMENT = 1;");
-        updateData("delete from `sys`.`negozi`;");
+        updateData("delete from sys.negozi;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
     }
 
@@ -99,7 +99,7 @@ class GestoreOrdiniTest {
         Cliente cliente = new Cliente("Maria", "Giuseppa");
         Ordine ordine = gestoreOrdini.registraOrdine(cliente.getID(), "Maria", "Giuseppa");
         ordine.setStato(StatoOrdine.PAGATO);
-        assertNull(ordine.getResidenza());
+        assertEquals("", ordine.getResidenza());
         gestoreOrdini.addResidenza(ordine.getID(), "via Roma, 8");
         assertEquals(ordine.getResidenza(), "via Roma, 8");
         gestoreOrdini.addResidenza(ordine.getID(), "via Colombo, 9");

@@ -65,7 +65,7 @@ class GestoreCorrieriTest {
     @Test
     void getCorrieriDisponibili() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
-        Corriere corriere = new Corriere(2, "Matteo", "Rondini", false, 13);
+        Corriere corriere = new Corriere("Matteo", "Rondini", false, 13);
         ArrayList<Corriere> test = gestoreCorrieri.getCorrieriDisponibili();
         assertEquals(1, test.get(0).getID());
         assertEquals(3, test.get(1).getID());
