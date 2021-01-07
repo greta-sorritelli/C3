@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class GestoreOrdini {
     private final Negozio negozio;
@@ -114,12 +113,23 @@ public class GestoreOrdini {
      * @return
      */
     //todo test
-    public ArrayList<String> getDettagliOrdine(int IDCliente) throws SQLException {
+    public ArrayList<String> getDettagliOrdineCliente(int IDCliente) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "';");
         if (rs.next())
             return getOrdine(rs.getInt("ID")).getDettagli();
         return null;
     }
+
+    /**
+     *
+     * @param IDOrdine
+     * @return
+     * @throws SQLException
+     */
+    //todo test
+    public ArrayList<String> getDettagliOrdine(int IDOrdine) throws SQLException {
+        return getOrdine(IDOrdine).getDettagli();
+}
 
     //todo fare test
     public MerceOrdine getMerceOrdine(int ID) throws SQLException {
@@ -179,7 +189,6 @@ public class GestoreOrdini {
     //todo test
     public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
-        updateData("UPDATE `sys`.`ordini` SET `puntoPrelievo` = '" + IDPuntoPrelievo + "' WHERE (`ID` = '" + IDOrdine + "');");
     }
 
     //todo test

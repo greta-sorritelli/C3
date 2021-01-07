@@ -1,7 +1,11 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXComunicareCodiceRitiro;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXRicezionePagamento;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXSelezionaCorriere;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXSelezionaPuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -13,7 +17,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class ICommesso {
     //todo
@@ -22,7 +25,7 @@ public class ICommesso {
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
     private final GestoreClienti gestoreClienti = new GestoreClienti();
-
+    private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
 
     /**
      * Apre una nuova finestra
@@ -47,52 +50,31 @@ public class ICommesso {
             e.printStackTrace();
         }
     }
-    //todo
-    public void comunicaCodiceRitiro() throws SQLException {
+
+    //todo da finire
+    public void comunicaCodiceRitiro() {
         openWindow("/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro(gestoreClienti));
     }
 
-//    /**
-//     * @param IDOrdine
-//     * @param indirizzo
-//     */
-//    public void addResidenza(int IDOrdine, String indirizzo) throws SQLException {
-//        gestoreOrdini.addResidenza(IDOrdine,indirizzo);
-//    }
-//
-//    /**
-//     * @return ArrayList<String> dei dettagli dei magazzini.
-//     */
-//    public ArrayList<String> getDettagliItems() throws SQLException {
-//        gestoreMagazzini.getDettagliItems();
-//        //todo
-//        return null;
-//    }
-//
+    //todo creare fxml
+    public void ricezionePagamento() {
+        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(gestoreOrdini));
+    }
 
-//
+    //todo creare fxml
+    public void sceltaCorriere() {
+        openWindow("/SceltaCorriere.fxml", "SceltaCorriere", new JavaFXSelezionaCorriere(gestoreCorrieri));
+    }
 
-//
-//    public void riceviPagamento() {
-//        //todo
-//    }
-//
-//    public void sceltaCorriere() {
-//        //todo
-//    }
-//
-//    public void sceltaPuntoPrelievo(int ID) {
-//        //todo
-//    }
-//
+    //todo creare fxml
+    public void selezionaPuntoPrelievo() {
+        openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(gestoreOrdini,gestoreMagazzini));
+    }
+
 //    public void selezionaCorriere(int ID) {
 //        //todo
 //    }
-//
-//    public void selezionaPuntoPrelievo(int IDOrdine) {
-//        //todo
-//    }
-//
+
 //    /**
 //     * Imposta il negozio collegato all' interfaccia.
 //     *
@@ -102,28 +84,5 @@ public class ICommesso {
 //
 //        this.negozio = negozio;
 //    }
-//
-//    /**
-//     * @param IDOrdine
-//     * @param IDPuntoPrelievo
-//     */
-//    //todo test
-//    public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
-//        gestoreOrdini.setPuntoPrelievo(IDOrdine,IDPuntoPrelievo);
-//    }
-//
-//    /**
-//     * @param IDOrdine
-//     * @param statoOrdine
-//     */
-//    //todo test
-//    public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
-//        gestoreOrdini.setStatoOrdine(IDOrdine,statoOrdine);
-//    }
-//
-
-
-
-
 
 }

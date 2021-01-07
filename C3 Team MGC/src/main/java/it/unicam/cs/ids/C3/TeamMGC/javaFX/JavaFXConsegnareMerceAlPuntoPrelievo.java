@@ -33,9 +33,9 @@ public class JavaFXConsegnareMerceAlPuntoPrelievo {
     }
 
     // todo reference Trasportare la merce
-    public void trasportoMerce(){
-        //usare getDettagliMerce con stato affidato al corriere
-    }
+//    public void trasportoMerce(){
+//        //usare getDettagliMerce con stato affidato al corriere
+//    }
 
     public void confermaConsegna(int IDMerce){
         //todo

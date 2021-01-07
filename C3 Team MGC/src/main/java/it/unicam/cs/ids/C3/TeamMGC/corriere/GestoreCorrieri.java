@@ -159,4 +159,8 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) {
         //todo manda alert al corriere con i negozi in cui prelevare merce
     }
+
+    public void mandaAlert(int IDCorriere,String residenza){
+        //todo manda alert quando il commesso seleziona un corriere per andare alla residenza
+    }
 }

@@ -42,7 +42,7 @@ public class JavaFXConsegnareMerceAlCliente {
     }
 
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine){
-        //todo vedere se è automatico quando tutta la mercce è
+        //todo vedere se è automatico quando tutta la merce è
         // ritirata allora l'ordine è ritirato.
     }
 

@@ -4,6 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXConsegnareMerceAlPuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXModicareDisponibilita;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXRegistrazionePiattaforma;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXTrasportareMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -76,8 +77,13 @@ public class ICorriere {
         openWindow("/RegistrazionePiattaforma.fxml", "RegistrazionePiattaforma", new JavaFXRegistrazionePiattaforma(gestoreCorrieri));
     }
 
-//    public void trasportoMerce(){
-//        //todo
-//    }
+    /**
+     * Apre la finestra registrarsi sulla piattaforma.
+     */
+    @FXML
+    //todo creare fxml
+    public void trasportoMerce(){
+        openWindow("/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(gestoreOrdini));
+    }
 
 }

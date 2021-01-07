@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -112,9 +112,12 @@ public class Corriere {
         return Objects.hash(getID());
     }
 
-    public void mandaAlert() {
-        // TODO - implement Corriere.mandaAlert
-        throw new UnsupportedOperationException();
+    public void mandaAlert(String residenza) {
+        // TODO alert per andare alla residenza, mandato dal corriere
+    }
+
+    public void mandaAlert(ArrayList<Negozio> negozi) {
+        // TODO alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
     }
 
     public void update() throws SQLException {
