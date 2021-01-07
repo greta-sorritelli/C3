@@ -45,7 +45,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     /**
      * @return l'elenco dei Corrieri Disponibili
      */
-    //TODO controllare se va bene il test
+    //TODO controllare test
     public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
@@ -57,13 +57,8 @@ public class GestoreCorrieri implements Gestore<Corriere> {
             } while (rs.next());
 
         else {
-            ResultSet rs1 = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
-            while (!rs1.next())
-                rs1 = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
-
-            Corriere tmp = new Corriere(rs.getInt("ID"), rs.getString("nome"),
-                    rs.getString("cognome"), true, rs.getInt("capienza"));
-            corrieriDisponibili.add(tmp);
+            //todo eccezione
+            throw new IllegalArgumentException("Corrieri dispobili non presenti.");
         }
         return corrieriDisponibili;
     }
@@ -71,6 +66,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     /**
      * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri disponibili.
      */
+    //todo test
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -80,6 +76,9 @@ public class GestoreCorrieri implements Gestore<Corriere> {
                     rs.getString("cognome"), true, rs.getInt("capienza"));
             corrieriDisponibili.add(tmp);
         }
+        if (corrieriDisponibili.isEmpty())
+            //todo eccezione
+            throw new IllegalArgumentException("Corrieri disponibili non presenti.");
         for (Corriere corriere : corrieriDisponibili)
             dettagli.add(corriere.getDettagli());
         return dettagli;

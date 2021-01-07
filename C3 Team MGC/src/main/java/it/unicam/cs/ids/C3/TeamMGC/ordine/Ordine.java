@@ -18,9 +18,10 @@ public class Ordine {
     private StatoOrdine stato;
     private int IDPuntoPrelievo = -1;
     private String residenza;
+    private int IDNegozio;
     private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
-    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo) {
+    public Ordine(int ID, int IDCliente, String nomeCliente, String cognomeCliente, double totalePrezzo, StatoOrdine stato, int IDPuntoPrelievo,int IDNegozio) {
         this.ID = ID;
         this.IDCliente = IDCliente;
         this.nomeCliente = nomeCliente;
@@ -28,6 +29,7 @@ public class Ordine {
         this.totalePrezzo = totalePrezzo;
         this.stato = stato;
         this.IDPuntoPrelievo = IDPuntoPrelievo;
+        this.IDNegozio = IDNegozio;
     }
 
     //Todo forse levare
