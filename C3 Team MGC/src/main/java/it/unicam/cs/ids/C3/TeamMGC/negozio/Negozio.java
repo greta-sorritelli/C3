@@ -71,6 +71,11 @@ public class Negozio {
         return IDNegozio;
     }
 
+    public ArrayList<String> getDettagli(){
+        //todo
+        return null;
+    }
+
     /**
      * Ritorna la {@link Merce} collegata all' {@code ID}.
      *
