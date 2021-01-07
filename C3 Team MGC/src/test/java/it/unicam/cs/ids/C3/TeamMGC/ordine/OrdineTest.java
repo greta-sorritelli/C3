@@ -13,8 +13,6 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrdineTest {
-
-    static Ordine ordineTest;
     static Cliente cliente;
     static Negozio negozio;
 
@@ -29,91 +27,72 @@ class OrdineTest {
         updateData("delete from sys.negozi;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         cliente = new Cliente("Matteo", "Rondini");
-        negozio = new Negozio("", "", "09:00-16:00", "", "Via dei Test", "12345");
+        negozio = new Negozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
     }
 
     @Test
     void addResidenza() throws SQLException {
-        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
         Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
         assertEquals("", ordine.getResidenza());
-        
-
-
-//        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, p.getID());
-//        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
-//        ordine.addResidenza("Via Giuseppe Garibaldi");
-//        ordine1.addResidenza("Via Giuseppe Rossi");
-//        assertEquals(ordine.getResidenza(), "Via Giuseppe Garibaldi");
-//        assertEquals(-1, ordine1.getPuntoPrelievo());
+        ordine.addResidenza("Piazza degli Assert");
+        assertEquals("Piazza degli Assert", ordine.getResidenza());
     }
 
     @Test
     void aggiungiMerce() throws SQLException {
-        cliente = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, "Matteo", "Rondini");
-        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, 1);
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, ordine.getID());
         ordine.aggiungiMerce(merce, 15);
         assertEquals(merce.getQuantita(), 15);
         assertTrue(ordine.getMerci().contains(merce));
         assertEquals(merce.getIDOrdine(), 1);
-
     }
 
     @Test
     void creazioneOrdine() throws SQLException {
-        cliente = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, "Matteo", "Rondini");
-        assertEquals(1, ordine.getID());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        assertEquals(cliente.getID(), ordine.getIDCliente());
+        assertEquals(cliente.getNome(), ordine.getNomeCliente());
+        assertEquals(cliente.getCognome(), ordine.getCognomeCliente());
+        assertEquals(negozio.getIDNegozio(), ordine.getIDNegozio());
     }
 
     @Test
     void getDettagli() throws SQLException {
-        cliente = new Cliente("Matteo", "Rondini");
-        ordineTest = new Ordine(1, "Matteo", "Rondini");
-        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, 1);
-        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine = new Ordine(cliente.getID(), "Matteo", "Rondini");
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
+        PuntoPrelievo p = new PuntoPrelievo("Via dei Casi d'Uso", "SD 1");
         ordine.aggiungiMerce(merce, 2);
         ordine.setStato(StatoOrdine.PAGATO);
         ordine.setPuntoPrelievo(p.getID());
 
-        ArrayList<String> ordine1 = new ArrayList<>();
-        ordine1.add(String.valueOf(ordine.getID()));
-        ordine1.add(String.valueOf(ordine.getIDCliente()));
-        ordine1.add("Matteo");
-        ordine1.add("Rondini");
-        ordine1.add("24.0");
-        ordine1.add(StatoOrdine.PAGATO.toString());
-        ordine1.add(String.valueOf(p.getID()));
-        ordine1.add(ordine.getMerci().toString());
-        assertEquals(ordine1, ordine.getDettagli());
+        ArrayList<String> ordineLista = new ArrayList<>();
+        ordineLista.add(String.valueOf(ordine.getID()));
+        ordineLista.add(String.valueOf(cliente.getID()));
+        ordineLista.add("Matteo");
+        ordineLista.add("Rondini");
+        ordineLista.add("24.0");
+        ordineLista.add(StatoOrdine.PAGATO.toString());
+        ordineLista.add(String.valueOf(p.getID()));
+        ordineLista.add(ordine.getMerci().toString());
+        assertEquals(ordineLista, ordine.getDettagli());
     }
 
     @Test
     void setPuntoPrelievo() throws SQLException {
-        cliente = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
-        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        PuntoPrelievo p = new PuntoPrelievo("Piazza Roma", "MAG 5");
+        assertEquals(-1, ordine.getPuntoPrelievo());
         ordine.setPuntoPrelievo(p.getID());
-        PuntoPrelievo p1 = new PuntoPrelievo("via op", "B3");
-        ordine1.setPuntoPrelievo(p1.getID());
         assertEquals(p.getID(), ordine.getPuntoPrelievo());
     }
 
     @Test
     void setStato() throws SQLException {
-        cliente = new Cliente("Matteo", "Rondini");
-        Ordine ordine = new Ordine(1, 1, "Matteo", "Rondini", 52, StatoOrdine.RITIRATO, -1);
-        PuntoPrelievo p = new PuntoPrelievo("via ciao", "B2");
-        Ordine ordine1 = new Ordine(1, "Matteo", "Rondini");
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        assertNull(ordine.getStato());
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
-        assertNotEquals(ordine.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-        ordine1.setStato(StatoOrdine.AFFIDATO_AL_CORRIERE);
-        assertEquals(ordine1.getStato(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-
     }
 
 }
