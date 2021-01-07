@@ -28,8 +28,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
         for (PuntoPrelievo magazzino : magazzini)
             if (magazzino.getID() == rs.getInt("ID"))
                 return magazzino;
-        PuntoPrelievo toReturn = new PuntoPrelievo(rs.getInt("ID"), rs.getString("indirizzo"),
-                rs.getString("nome"));
+        PuntoPrelievo toReturn = new PuntoPrelievo(rs.getInt("ID"));
         addMagazzinoToList(toReturn);
         return toReturn;
     }

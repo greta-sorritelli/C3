@@ -7,23 +7,34 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class PuntoPrelievo {
     private int ID = 0;
-    private String indirizzo = null;
-    private String nome = null;
+    private String indirizzo = "";
+    private String nome = "";
 
-    public PuntoPrelievo(int ID, String indirizzo, String nome) {
-        this.ID = ID;
-        this.indirizzo = indirizzo;
-        this.nome = nome;
+    /**
+     * Costruttore per importare i dati dal DB.
+     *
+     * @param ID ID del PuntoPrelievo
+     * @throws SQLException
+     */
+    public PuntoPrelievo(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from punti_prelievo where ID ='" + ID + "';");
+        if (rs.next()) {
+            this.ID = ID;
+            this.indirizzo = rs.getString("indirizzo");
+            this.nome = rs.getString("nome");
+        } else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     public PuntoPrelievo(String indirizzo, String nome) throws SQLException {
-        updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`,`indirizzo`) \n" +
+        updateData("INSERT INTO sys.punti_prelievo (nome,indirizzo) \n" +
                 "VALUES ('" + nome + "' , '" + indirizzo + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from punti_prelievo;");
         rs.next();
@@ -32,17 +43,13 @@ public class PuntoPrelievo {
         this.indirizzo = indirizzo;
     }
 
-//    public void setMagazziniere(IMagazziniere magazziniere) {
-//        try {
-//            updateData("UPDATE `sys`.`punti_prelievo` SET `magazziniere` = '" + magazziniere.getID() + "' WHERE (`ID` = '" + this.ID + "');");
-//            this.magazziniere = magazziniere;
-//        } catch (SQLException exception) {
-//            //TODO
-//            exception.printStackTrace();
-//        }
-//        this.magazziniere = magazziniere;
-//
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PuntoPrelievo that = (PuntoPrelievo) o;
+        return getID() == that.getID();
+    }
 
     /**
      * @return ArrayList<String> dei dettagli del punto di prelievo.
@@ -55,6 +62,18 @@ public class PuntoPrelievo {
         dettagli.add(getIndirizzo());
         return dettagli;
     }
+
+//    public void setMagazziniere(IMagazziniere magazziniere) {
+//        try {
+//            updateData("UPDATE sys.punti_prelievo SET magazziniere = '" + magazziniere.getID() + "' WHERE (ID = '" + this.ID + "');");
+//            this.magazziniere = magazziniere;
+//        } catch (SQLException exception) {
+//            //TODO
+//            exception.printStackTrace();
+//        }
+//        this.magazziniere = magazziniere;
+//
+//    }
 
     /**
      * @param IDOrdine ID dell'ordine
@@ -111,7 +130,7 @@ public class PuntoPrelievo {
      */
     public ArrayList<MerceOrdine> getMerceTotale(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> lista = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * from merci\n" + "where IDOrdine = " + IDOrdine + ";");
+        ResultSet rs = executeQuery("SELECT * from merci where IDOrdine = " + IDOrdine + ";");
         while (rs.next()) {
             MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
                     rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
@@ -139,6 +158,11 @@ public class PuntoPrelievo {
             lista.add(ordine);
         }
         return lista;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID());
     }
 
     public void update() throws SQLException {

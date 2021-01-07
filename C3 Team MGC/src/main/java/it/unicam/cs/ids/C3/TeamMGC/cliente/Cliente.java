@@ -19,12 +19,22 @@ public class Cliente {
     private String codiceRitiro = "";
     private String dataCreazioneCodice = "";
 
-    public Cliente(int ID, String nome, String cognome, String codiceRitiro, String dataCreazioneCodice) {
-        this.ID = ID;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.codiceRitiro = codiceRitiro;
-        this.dataCreazioneCodice = dataCreazioneCodice;
+    /**
+     * Costruttore per importare i dati dal DB.
+     *
+     * @param ID ID del Cliente
+     * @throws SQLException
+     */
+    public Cliente(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from clienti where ID ='" + ID + "';");
+        if (rs.next()) {
+            this.ID = ID;
+            this.nome = rs.getString("nome");
+            this.cognome = rs.getString("cognome");
+            this.codiceRitiro = rs.getString("codiceRitiro");
+            this.dataCreazioneCodice = rs.getString("dataCreazione");
+        } else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     public Cliente(String nome, String cognome) throws SQLException {
@@ -92,7 +102,6 @@ public class Cliente {
     }
 
     /**
-     *
      * @throws SQLException
      */
     public void update() throws SQLException {

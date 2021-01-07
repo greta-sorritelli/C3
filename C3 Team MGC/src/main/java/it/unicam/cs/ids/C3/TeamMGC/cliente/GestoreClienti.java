@@ -29,8 +29,7 @@ public class GestoreClienti implements Gestore<Cliente> {
         for (Cliente cliente : clienti)
             if (cliente.getID() == rs.getInt("ID"))
                 return cliente;
-        Cliente toReturn = new Cliente(rs.getInt("ID"), rs.getString("nome"),
-                rs.getString("cognome"), rs.getString("codiceRitiro"), rs.getString("dataCreazione"));
+        Cliente toReturn = new Cliente(rs.getInt("ID"));
         addClienteToList(toReturn);
         return toReturn;
     }
@@ -74,7 +73,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     *@return ArrayList<ArrayList<String>> dei dettagli dei clienti.
+     * @return ArrayList<ArrayList < String>> dei dettagli dei clienti.
      */
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
@@ -128,9 +127,9 @@ public class GestoreClienti implements Gestore<Cliente> {
      * Verifica il codice di ritiro del cliente, cioè controlla se ha già un codice
      * creato nella data odierna. In caso negativo viene generato un nuovo codice per il cliente.
      *
-     * @param IDCliente   ID del Cliente a cui appartiene il codice di ritiro
-     * @param IDOrdine    Id dell'ordine del cliente
-     * @return            Il codice di ritiro
+     * @param IDCliente ID del Cliente a cui appartiene il codice di ritiro
+     * @param IDOrdine  Id dell'ordine del cliente
+     * @return Il codice di ritiro
      */
     public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) throws SQLException {
         ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");

@@ -14,7 +14,7 @@ public class Ordine {
     private String nomeCliente;
     private String cognomeCliente;
     private double totalePrezzo;
-    private StatoOrdine stato;
+    private StatoOrdine stato = StatoOrdine.DA_PAGARE;
     private int IDPuntoPrelievo = -1;
     private String residenza = "";
     private int IDNegozio;
@@ -43,8 +43,8 @@ public class Ordine {
     }
 
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, int IDNegozio) throws SQLException {
-        updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, IDNegozio) " +
-                "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + IDNegozio + "');");
+        updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, stato, IDNegozio) " +
+                "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + "DA_PAGARE', '" + IDNegozio + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from ordini;");
         rs.next();
         ID = rs.getInt("ID");
@@ -70,7 +70,7 @@ public class Ordine {
      * @param indirizzo Indirizzo residenza del cliente
      */
     public void addResidenza(String indirizzo) throws SQLException {
-        updateData("UPDATE sys.ordini SET IDPuntoPrelievo = 0 WHERE (ID = '" + this.ID + "');");
+        updateData("UPDATE sys.ordini SET IDPuntoPrelievo = -1 WHERE (ID = '" + this.ID + "');");
         updateData("UPDATE sys.ordini SET residenza = '" + indirizzo + "' WHERE (ID = '" + this.ID + "');");
         IDPuntoPrelievo = -1;
         residenza = indirizzo;
@@ -189,7 +189,8 @@ public class Ordine {
             this.nomeCliente = rs.getString("nomeCliente");
             this.cognomeCliente = rs.getString("cognomeCliente");
             this.totalePrezzo = rs.getInt("totalePrezzo");
-            this.stato = StatoOrdine.valueOf(rs.getString("stato"));
+            if (!rs.getString("stato").isEmpty())
+                this.stato = StatoOrdine.valueOf(rs.getString("stato"));
             this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
             this.residenza = rs.getString("residenza");
         }

@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ClienteTest {
 
@@ -24,7 +26,12 @@ class ClienteTest {
     @Test
     void creazioneCliente() throws SQLException {
         Cliente cliente = new Cliente("Mario", "Rossi");
-        assertEquals(1, cliente.getID());
+        assertEquals("Mario", cliente.getNome());
+        assertEquals("Rossi", cliente.getCognome());
+        assertEquals("", cliente.getCodiceRitiro());
+        assertEquals("", cliente.getDataCreazioneCodice());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Cliente(1000));
+        assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
@@ -57,6 +64,15 @@ class ClienteTest {
         cliente.setCodiceRitiro("85963214");
         assertEquals("85963214", cliente.getCodiceRitiro());
         assertEquals(data, cliente.getDataCreazioneCodice());
+    }
+
+    @Test
+    void testEquals() throws SQLException {
+        Cliente cliente = new Cliente("Carole", "Stanley");
+        Cliente clienteCopia = new Cliente(cliente.getID());
+        Cliente cliente2 = new Cliente("Tuesday", "Simmons");
+        assertEquals(cliente, clienteCopia);
+        assertNotEquals(cliente, cliente2);
     }
 
     @Test
