@@ -2,6 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXConsegnareMerceAlPuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXModicareDisponibilita;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXRegistrazionePiattaforma;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -56,22 +58,24 @@ public class ICorriere {
                 gestoreMagazzini, gestoreCorrieri));
     }
 
-//    public void modificaDisponibilita(){
-//        //todo
-//    }
-//
-//    public void selezionaDisponibilita(boolean statoAttuale){
-//        //todo
-//    }
-//
-//    public void avviaRegistrazione(){
-//        //todo
-//    }
-//
-//    public void inserisciDati(String nome, String cognome, int capienza){
-//        //todo
-//    }
-//
+    /**
+     * Apre la finestra per modificare lo stato di disponibilita del corriere.
+     */
+    @FXML
+    //todo creare fxml
+    public void modificaDisponibilita(){
+        openWindow("/ModificareDisponibilita.fxml", "ModificareDisponibilita", new JavaFXModicareDisponibilita(gestoreCorrieri));
+    }
+
+    /**
+     * Apre la finestra registrarsi sulla piattaforma.
+     */
+    @FXML
+    //todo creare fxml
+    public void avviaRegistrazione(){
+        openWindow("/RegistrazionePiattaforma.fxml", "RegistrazionePiattaforma", new JavaFXRegistrazionePiattaforma(gestoreCorrieri));
+    }
+
 //    public void trasportoMerce(){
 //        //todo
 //    }

@@ -79,14 +79,7 @@ public class ICommesso {
 //        gestoreOrdini.registraMerce(ID, quantita, IDOrdine);
 //    }
 //
-//    /**
-//     * @param IDCliente ID del Cliente
-//     * @param Nome      Nome del Cliente
-//     * @param Cognome   Cognome del Cliente
-//     */
-//    void registraOrdine(int IDCliente, String Nome, String Cognome) throws SQLException {
-//        gestoreOrdini.registraOrdine(IDCliente, Nome, Cognome);
-//    }
+
 //
 //    public void riceviPagamento() {
 //        //todo

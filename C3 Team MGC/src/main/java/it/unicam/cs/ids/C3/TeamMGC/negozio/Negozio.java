@@ -2,13 +2,14 @@ package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
+    //todo ID
     private int IDNegozio;
     private String nome;
     private String categoria;
@@ -148,12 +149,12 @@ public class Negozio {
     /**
      * Rimuove la {@link Merce} dall'inventario.
      *
-     * @param merce La Merce da rimuovere.
+     * @param IDMerce ID della Merce da rimuovere.
      * @return {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
      */
-    public boolean removeMerce(Merce merce) throws SQLException {
-        merce.delete();
-        return inventario.remove(merce);
+    public boolean removeMerce(int IDMerce) throws SQLException {
+        getMerce(IDMerce).delete();
+        return inventario.remove(getMerce(IDMerce));
     }
 
     /**
@@ -171,6 +172,42 @@ public class Negozio {
             this.indirizzo = rs.getString("indirizzo");
             this.telefono = rs.getString("telefono");
         }
+    }
+
+    /**
+     *
+     * @param prezzo
+     * @param descrizione
+     * @param quantita
+     * @return
+     * @throws SQLException
+     */
+    //todo test
+    public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione,int quantita) throws SQLException {
+        Merce merce = new Merce(this.IDNegozio,prezzo,descrizione,quantita);
+        return merce.getDettagli();
+    }
+
+    /**
+     *
+     * @param IDMerce
+     * @return
+     * @throws SQLException
+     */
+    //todo test
+    public ArrayList<String> selezionaMerce(int IDMerce) throws SQLException {
+        return getMerce(IDMerce).getDettagli();
+    }
+
+    /**
+     *
+     * @param IDMerce
+     * @param quantita
+     * @throws SQLException
+     */
+    //todo test
+    public void setQuantita(int IDMerce, int quantita) throws SQLException {
+        getMerce(IDMerce).setQuantita(quantita);
     }
 
 }

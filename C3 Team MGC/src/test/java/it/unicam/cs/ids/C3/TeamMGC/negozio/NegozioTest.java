@@ -50,7 +50,7 @@ class NegozioTest {
     void removeMerce() throws SQLException {
         Negozio negozio = new Negozio(1);
         Merce toDelete = new Merce(1, 15, "test delete", 10);
-        negozio.removeMerce(toDelete);
+        negozio.removeMerce(toDelete.getID());
         assertFalse(negozio.getMerceDisponibile().contains(toDelete));
     }
 }

@@ -169,11 +169,11 @@ public class GestoreOrdini {
      * @param cognome   Cognome del cliente a cui appartiene l'ordine
      * @return L'ordine registrato
      */
-    public Ordine registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
+    public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
         controllaCliente(IDCliente, nome, cognome);
         Ordine ordine = new Ordine(IDCliente, nome, cognome, negozio.getIDNegozio());
         addOrdineToList(ordine);
-        return ordine;
+        return ordine.getDettagli();
     }
 
     //todo test
