@@ -12,7 +12,13 @@ public class GestoreNegozi implements Gestore<Negozio> {
 
     ArrayList<Negozio> negozi = new ArrayList<>();
 
+    /**
+     * @param ID
+     * @return
+     * @throws SQLException
+     */
     @Override
+    //todo test
     public Negozio getItem(int ID) throws SQLException {
         //todo
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi where ID='" + ID + "' ;");
@@ -22,7 +28,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
             throw new IllegalArgumentException("ID non valido.");
     }
 
-//todo controllare costruttore negozio
+    //todo controllare costruttore negozio
     private Negozio addNegozio(ResultSet rs) throws SQLException {
         for (Negozio negozio : negozi)
             if (negozio.getIDNegozio() == rs.getInt("ID"))
@@ -39,7 +45,13 @@ public class GestoreNegozi implements Gestore<Negozio> {
             return false;
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     @Override
+    //todo test
     public ArrayList<Negozio> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
         while (rs.next())
@@ -47,7 +59,13 @@ public class GestoreNegozi implements Gestore<Negozio> {
         return new ArrayList<>(negozi);
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     @Override
+    //todo test
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
@@ -56,5 +74,19 @@ public class GestoreNegozi implements Gestore<Negozio> {
         for (Negozio negozio : negozi)
             dettagli.add(negozio.getDettagli());
         return dettagli;
+    }
+
+//    public ArrayList<ArrayList<String>> getDettagliItemsConOrdini() {
+//        ResultSet rs = executeQuery("SELECT IDNegozio FROM sys.ordini where stato = '" + ID + "' ;");
+//    }
+
+    /**
+     *
+     * @param ID
+     * @return
+     * @throws SQLException
+     */
+    public Negozio selezionaNegozio(int ID) throws SQLException {
+        return getItem(ID);
     }
 }
