@@ -71,10 +71,6 @@ public class ICommesso {
         openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(gestoreOrdini,gestoreMagazzini));
     }
 
-//    public void selezionaCorriere(int ID) {
-//        //todo
-//    }
-
 //    /**
 //     * Imposta il negozio collegato all' interfaccia.
 //     *

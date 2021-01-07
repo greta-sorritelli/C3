@@ -44,11 +44,6 @@ public class IMagazziniere {
 //            return null;
 //        }
 //    }
-//
-//    public void mandaAlert() {
-//        // TODO - implement Magazziniere.mandaAlert
-//        throw new UnsupportedOperationException();
-//    }
 
     /**
      * Apre una nuova finestra

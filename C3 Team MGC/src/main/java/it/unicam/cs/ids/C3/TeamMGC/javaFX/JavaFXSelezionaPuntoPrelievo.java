@@ -1,6 +1,4 @@
-<<<<<<< Updated upstream
-package it.unicam.cs.ids.C3.TeamMGC.javaFX;public class JavaFXSelezionaPuntoPrelievo {
-=======
+
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
@@ -25,7 +23,7 @@ public class JavaFXSelezionaPuntoPrelievo {
     }
 
     //todo se sceglie una residenza
-    public void addResidenza(int IDOrdine, String indirizzo) throws SQLException {
+    public void addResidenza(int IDOrdine, String indirizzo) throws  SQLException {
         gestoreOrdini.addResidenza(IDOrdine,indirizzo);
     }
 
@@ -52,5 +50,4 @@ public class JavaFXSelezionaPuntoPrelievo {
         gestoreOrdini.setStatoOrdine(IDOrdine, statoOrdine);
     }
 
->>>>>>> Stashed changes
 }

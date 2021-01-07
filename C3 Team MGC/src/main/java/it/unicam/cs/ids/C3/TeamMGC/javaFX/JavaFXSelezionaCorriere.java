@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
-package it.unicam.cs.ids.C3.TeamMGC.javaFX;public class JavaFXSelezionaCorriere {
-}
-=======
+
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
@@ -19,14 +16,13 @@ public class JavaFXSelezionaCorriere {
         //todo
     }
 
-    public void selezionaCorriere(int ID){
+    public void selezionaCorriere(int ID) {
         // todo
     }
 
-    public void mandaAlert(int IDCorriere, String residenza){
+    public void mandaAlert(int IDCorriere, String residenza) {
         //todo
     }
 
-
 }
->>>>>>> Stashed changes
+
