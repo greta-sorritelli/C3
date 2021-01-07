@@ -8,6 +8,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 public class Negozio {
+    private final ArrayList<Merce> inventario = new ArrayList<>();
     private int IDNegozio;
     private String nome;
     private String categoria;
@@ -15,7 +16,6 @@ public class Negozio {
     private String orarioChiusura;
     private String indirizzo;
     private String telefono;
-    private final ArrayList<Merce> inventario = new ArrayList<>();
 
     public Negozio(String nome, String categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) throws SQLException {
         updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) " +
@@ -67,13 +67,39 @@ public class Negozio {
         return toReturn;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @return ArrayList<String> dei dettagli del negozio.
+     */
+    //todo test
+    public ArrayList<String> getDettagli() throws SQLException {
+        update();
+        ArrayList<String> toReturn = new ArrayList<>();
+        toReturn.add(String.valueOf(getIDNegozio()));
+        toReturn.add(getNome());
+        toReturn.add(getCategoria());
+        toReturn.add(getOrarioApertura());
+        toReturn.add(getOrarioChiusura());
+        toReturn.add(getIndirizzo());
+        toReturn.add(getTelefono());
+        toReturn.add(String.valueOf(getInventario()));
+        return toReturn;
+
+    }
+
     public int getIDNegozio() {
         return IDNegozio;
     }
 
-    public ArrayList<String> getDettagli(){
-        //todo
-        return null;
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public ArrayList<Merce> getInventario() {
+        return inventario;
     }
 
     /**
@@ -103,6 +129,22 @@ public class Negozio {
         return inventario;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getOrarioApertura() {
+        return orarioApertura;
+    }
+
+    public String getOrarioChiusura() {
+        return orarioChiusura;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
     /**
      * Rimuove la {@link Merce} dall'inventario.
      *
@@ -112,6 +154,23 @@ public class Negozio {
     public boolean removeMerce(Merce merce) throws SQLException {
         merce.delete();
         return inventario.remove(merce);
+    }
+
+    /**
+     *
+     * @throws SQLException
+     */
+    //todo test
+    private void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.IDNegozio + "';");
+        if (rs.next()) {
+            this.nome = rs.getString("nome");
+            this.categoria = rs.getString("categoria");
+            this.orarioApertura = rs.getString("orarioApertura");
+            this.orarioChiusura = rs.getString("orarioChiusura");
+            this.indirizzo = rs.getString("indirizzo");
+            this.telefono = rs.getString("telefono");
+        }
     }
 
 }

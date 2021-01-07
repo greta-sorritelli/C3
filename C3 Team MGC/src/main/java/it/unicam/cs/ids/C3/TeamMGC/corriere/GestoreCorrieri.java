@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -155,5 +156,9 @@ public class GestoreCorrieri implements Gestore<Corriere> {
 
     public void setDisponibilita(int IDCorriere, boolean disponibilita) throws SQLException {
         getItem(IDCorriere).setDisponibilita(disponibilita);
+    }
+
+    public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi){
+        //todo manda alert al corriere con i negozi in cui prelevare merce
     }
 }
