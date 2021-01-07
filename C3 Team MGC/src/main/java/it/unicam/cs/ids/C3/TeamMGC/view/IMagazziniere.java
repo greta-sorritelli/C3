@@ -3,6 +3,8 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +15,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class IMagazziniere {
-
+    Negozio negozio;
     private GestoreClienti gestoreClienti = new GestoreClienti();
     private final GestoreNegozi gestoreNegozi = new GestoreNegozi();
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
+    private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
 
 //    //todo essendo un' interfaccia forse il cerca cliente non deve creare un Cliente come oggetto ma deve
 //    //todo semplicemente visualizzare nella view le informazioni.
@@ -38,57 +41,16 @@ public class IMagazziniere {
 //        }
 //    }
 //
-//    /**
-//     * @param IDOrdine
-//     * @return
-//     */
-//    public ArrayList<String> getDettagliMerceMagazzino(int IDOrdine) {
-//        //todo
-//        return null;
-//    }
-//
-//    /**
-//     * @param IDOrdine
-//     * @return
-//     */
-//    public ArrayList<String> getDettagliMerceTotale(int IDOrdine) {
-//        //todo
-//        return null;
-//    }
-//
-//    /**
-//     * @param IDCliente
-//     * @return
-//     */
-//    public ArrayList<String> getDettagliOrdine(int IDCliente) {
-//        //todo
-//        return null;
-//    }
+
+
 //
 //    public void mandaAlert() {
 //        // TODO - implement Magazziniere.mandaAlert
 //        throw new UnsupportedOperationException();
 //    }
 //
-//    /**
-//     *
-//     * @param IDMerce
-//     * @param statoOrdine
-//     */
-//    //todo
-//    public void setStato(int IDMerce, StatoOrdine statoOrdine){
-//    }
-//
-//    /**
-//     * @param IDCliente
-//     * @param codiceRitiro
-//     * @return
-//     */
-//    //todo test
-//    public void verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
-//      gestoreClienti.verificaCodice(IDCliente,codiceRitiro);
-//    }
 
+//
     /**
      * Apre una nuova finestra
      *
@@ -117,6 +79,11 @@ public class IMagazziniere {
     //todo creare fxml
 //    public void avvisaCorriere(){
 //        openWindow("/ComunicareConCorriere.fxml", "ComunicareConCorriere", new JavaFXComunicareConCorriere(gestoreCorrieri,gestoreNegozi));
-//
 //    }
+
+//    //todo creare fxml
+//    public void consegnaMerce(){
+//        openWindow("/ConsegnareMerceAlCliente.fxml", "ConsegnareMerceAlCliente", new JavaFXConsegnareMerceAlCliente(gestoreOrdini,gestoreClienti));
+//    }
+
 }
