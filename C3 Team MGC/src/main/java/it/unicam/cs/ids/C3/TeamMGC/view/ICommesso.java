@@ -69,15 +69,7 @@ public class ICommesso {
 //        return null;
 //    }
 //
-//    /**
-//     * @param ID       Descrizione della merce
-//     * @param quantita Quantita della merce
-//     * @param IDOrdine   Ordine in cui registrare la merce
-//     */
-//    //todo IDOrdine
-//    public void registraMerce(int ID, int quantita, int IDOrdine) throws SQLException {
-//        gestoreOrdini.registraMerce(ID, quantita, IDOrdine);
-//    }
+
 //
 
 //
@@ -129,13 +121,7 @@ public class ICommesso {
 //        gestoreOrdini.setStatoOrdine(IDOrdine,statoOrdine);
 //    }
 //
-//    /**
-//     * @param IDOrdine
-//     */
-//    //todo test
-//    public void terminaOrdine(int IDOrdine) throws SQLException {
-//        gestoreOrdini.terminaOrdine(IDOrdine);
-//    }
+
 
 
 

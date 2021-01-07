@@ -16,4 +16,14 @@ public class JavaFXRicezionePagamento {
     public void registraOrdine(int IDCliente, String Nome, String Cognome) throws SQLException {
         gestoreOrdini.registraOrdine(IDCliente, Nome, Cognome);
     }
+
+    //todo
+    public void registraMerce(int IDMerce, int quantita, int IDOrdine) throws SQLException {
+        gestoreOrdini.registraMerce(IDMerce, quantita, IDOrdine);
+    }
+
+    //todo
+    public void terminaOrdine(int IDOrdine) throws SQLException {
+        gestoreOrdini.terminaOrdine(IDOrdine);
+    }
 }

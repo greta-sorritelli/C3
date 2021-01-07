@@ -197,7 +197,7 @@ public class GestoreOrdini {
      *
      * @param IDOrdine Ordine da controllare
      */
-    public void terminaOrdine(int IDOrdine) throws SQLException {
+    public ArrayList<String> terminaOrdine(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
         for (MerceOrdine m : getOrdine(IDOrdine).getMerci()) {
             if (m.getStato() == StatoOrdine.PAGATO)
@@ -207,6 +207,8 @@ public class GestoreOrdini {
             getOrdine(IDOrdine).setStato(StatoOrdine.PAGATO);
         else
             throw new IllegalArgumentException("Merce non pagata.");
+
+        return getOrdine(IDOrdine).getDettagli();
     }
 
     /**
