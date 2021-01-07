@@ -171,7 +171,7 @@ public class GestoreOrdini {
      */
     public Ordine registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
         controllaCliente(IDCliente, nome, cognome);
-        Ordine ordine = new Ordine(IDCliente, nome, cognome);
+        Ordine ordine = new Ordine(IDCliente, nome, cognome, negozio.getIDNegozio());
         addOrdineToList(ordine);
         return ordine;
     }

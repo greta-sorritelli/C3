@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MerceOrdineTest {
     static MerceOrdine merceOrdineTest;
     static Ordine ordineTest;
+    static Negozio negozioTest;
 
     @BeforeAll
     static void clearDB() throws SQLException {
@@ -20,7 +22,8 @@ class MerceOrdineTest {
         updateData("alter table merci AUTO_INCREMENT = 1;");
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
-        ordineTest = new Ordine(1, "Marco", "Papera");
+        negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        ordineTest = new Ordine(1, "Marco", "Papera", negozioTest.getIDNegozio());
         merceOrdineTest = new MerceOrdine(10, "test allSet", StatoOrdine.PAGATO, 1);
     }
 

@@ -131,6 +131,10 @@ public class Ordine {
         return IDCliente;
     }
 
+    public int getIDNegozio() {
+        return IDNegozio;
+    }
+
     public ArrayList<MerceOrdine> getMerci() {
         return merci;
     }

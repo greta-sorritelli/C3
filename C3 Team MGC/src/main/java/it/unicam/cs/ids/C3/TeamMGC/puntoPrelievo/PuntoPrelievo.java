@@ -135,8 +135,7 @@ public class PuntoPrelievo {
         ResultSet rs = executeQuery("SELECT * from ordini\n" +
                 "WHERE IDCliente = " + IDCliente + " AND IDPuntoPrelievo = \"" + this.ID + "\";");
         while (rs.next()) {
-            Ordine ordine = new Ordine(rs.getInt("ID"), IDCliente, rs.getString("nomeCliente"), rs.getString("cognomeCliente"),
-                    rs.getDouble("totalePrezzo"), StatoOrdine.valueOf(rs.getString("stato")), this.ID);
+            Ordine ordine = new Ordine(rs.getInt("ID"));
             lista.add(ordine);
         }
         return lista;
