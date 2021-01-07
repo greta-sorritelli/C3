@@ -43,9 +43,8 @@ class OrdineTest {
         Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, ordine.getID());
         ordine.aggiungiMerce(merce, 15);
-        assertEquals(merce.getQuantita(), 15);
+        assertEquals(15, merce.getQuantita());
         assertTrue(ordine.getMerci().contains(merce));
-        assertEquals(merce.getIDOrdine(), 1);
     }
 
     @Test
@@ -55,13 +54,15 @@ class OrdineTest {
         assertEquals(cliente.getNome(), ordine.getNomeCliente());
         assertEquals(cliente.getCognome(), ordine.getCognomeCliente());
         assertEquals(negozio.getIDNegozio(), ordine.getIDNegozio());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Ordine(1000));
+        assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
     void getDettagli() throws SQLException {
         Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
-        PuntoPrelievo p = new PuntoPrelievo("Via dei Casi d'Uso", "SD 1");
+        PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
         ordine.aggiungiMerce(merce, 2);
         ordine.setStato(StatoOrdine.PAGATO);
         ordine.setPuntoPrelievo(p.getID());
@@ -93,6 +94,16 @@ class OrdineTest {
         assertNull(ordine.getStato());
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
+    }
+
+    @Test
+    void testEquals() throws SQLException {
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        ordine.setStato(StatoOrdine.PAGATO);
+        Ordine ordineCopia = new Ordine(ordine.getID());
+        Ordine ordine2 = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        assertEquals(ordine, ordineCopia);
+        assertNotEquals(ordine, ordine2);
     }
 
 }

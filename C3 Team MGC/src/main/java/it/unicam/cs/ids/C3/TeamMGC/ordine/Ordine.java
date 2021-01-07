@@ -17,7 +17,7 @@ public class Ordine {
     private double totalePrezzo;
     private StatoOrdine stato;
     private int IDPuntoPrelievo = -1;
-    private String residenza;
+    private String residenza = "";
     private int IDNegozio;
     private ArrayList<MerceOrdine> merci = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class Ordine {
             this.nomeCliente = rs.getString("nomeCliente");
             this.cognomeCliente = rs.getString("cognomeCliente");
             this.totalePrezzo = rs.getDouble("totalePrezzo");
-            this.stato = StatoOrdine.valueOf("stato");
+            this.stato = StatoOrdine.valueOf(rs.getString("stato"));
             this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
             this.residenza = rs.getString("residenza");
             this.IDNegozio = rs.getInt("IDNegozio");
@@ -54,6 +54,7 @@ public class Ordine {
      *
      * @param merce Merce da aggiungere
      */
+    //todo rivedere il commento
     public void addMerce(MerceOrdine merce) {
         merci.add(merce);
     }
