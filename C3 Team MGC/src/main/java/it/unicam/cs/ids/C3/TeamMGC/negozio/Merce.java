@@ -51,6 +51,11 @@ public class Merce {
 
     public void delete() throws SQLException {
         updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
+        this.ID = -1;
+        this.IDNegozio = -1;
+        this.prezzo = -1;
+        this.descrizione = "";
+        this.quantita = -1;
     }
 
     public String getDescrizione() {
@@ -99,7 +104,7 @@ public class Merce {
         return quantita;
     }
 
-    public void setQuantita(int quantita) throws SQLException{
+    public void setQuantita(int quantita) throws SQLException {
         updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");
         this.quantita = quantita;
     }

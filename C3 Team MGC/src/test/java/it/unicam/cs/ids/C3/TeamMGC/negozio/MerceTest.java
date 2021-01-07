@@ -31,8 +31,13 @@ class MerceTest {
         Merce toDelete = new Merce(1, 15, "test delete", 10);
         int tmpID = toDelete.getID();
         toDelete.delete();
-        ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = '" + tmpID + "';");
+        ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID = '" + tmpID + "';");
         assertFalse(rs.next());
+        assertEquals(-1, toDelete.getID());
+        assertEquals(-1, toDelete.getIDNegozio());
+        assertEquals(-1, toDelete.getPrezzo());
+        assertEquals("", toDelete.getDescrizione());
+        assertEquals(-1, toDelete.getQuantita());
     }
 
     @Test
