@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -10,8 +10,9 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 import static org.junit.jupiter.api.Assertions.*;
 
 class NegozioTest {
-    @BeforeAll
-    static void preparaDB() throws SQLException {
+
+    @BeforeEach
+    void preparaDB() throws SQLException {
         updateData("delete from sys.inventario;");
         updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '10', 'test Negozio', '10');");

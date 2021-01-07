@@ -103,13 +103,15 @@ class GestoreOrdiniTest {
         Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
         Cliente cliente = new Cliente("Maria", "Giuseppa");
-        ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), "Maria", "Giuseppa");
-
-        assertEquals("-1", ordine.get(6));
-        gestoreOrdini.addResidenza(Integer.parseInt(ordine.get(0)), "via Roma, 8");
-        assertEquals(ordine.get(6), "via Roma, 8");
-        gestoreOrdini.addResidenza(Integer.parseInt(ordine.get(0)), "via Colombo, 9");
-        assertNotEquals(ordine.get(6), "via Roma, 8");
-        assertEquals(ordine.get(6), "via Colombo, 9");
+        ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome());
+        Ordine ordine1 = gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0)));
+        assertEquals(ordine.size(), 8);
+        gestoreOrdini.addResidenza(ordine1.getID(), "via Roma, 8");
+        assertEquals(ordine1.getResidenza(), "via Roma, 8");
+        gestoreOrdini.addResidenza(ordine1.getID(), "via Colombo, 9");
+        ArrayList<String> ordineNew = ordine1.getDettagli();
+        assertNotEquals(ordine, ordineNew);
+        assertNotEquals(ordineNew.get(6), "via Roma, 8");
+        assertEquals(ordineNew.get(6), "via Colombo, 9");
     }
 }

@@ -91,7 +91,7 @@ class OrdineTest {
     @Test
     void setStato() throws SQLException {
         Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
-        assertNull(ordine.getStato());
+        assertEquals(StatoOrdine.DA_PAGARE, ordine.getStato());
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
     }

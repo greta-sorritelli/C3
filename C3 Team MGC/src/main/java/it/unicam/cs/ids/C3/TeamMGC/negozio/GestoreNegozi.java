@@ -47,7 +47,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     *
      * @return
      * @throws SQLException
      */
@@ -61,7 +60,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     *
      * @return
      * @throws SQLException
      */
@@ -78,7 +76,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * @return ArrayList<ArrayList<String>> dei dettagli dei negozi con ordini da ritirare.
+     * @return ArrayList<ArrayList < String>> dei dettagli dei negozi con ordini da ritirare.
      * @throws SQLException
      */
     //todo controllare problema Franco e Clarissa
@@ -86,14 +84,12 @@ public class GestoreNegozi implements Gestore<Negozio> {
     public ArrayList<ArrayList<String>> getDettagliItemsConOrdini() throws SQLException {
         ResultSet rs = executeQuery("SELECT IDNegozio FROM sys.ordini where stato = '" + StatoOrdine.PAGATO + "' ;");
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        while(rs.next())
+        while (rs.next())
             toReturn.add(getItem(rs.getInt("IDNegozio")).getDettagli());
-
         return toReturn;
     }
 
     /**
-     *
      * @param ID
      * @return
      * @throws SQLException

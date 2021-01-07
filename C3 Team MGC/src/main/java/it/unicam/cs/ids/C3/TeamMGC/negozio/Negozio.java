@@ -152,13 +152,12 @@ public class Negozio {
      * @param IDMerce ID della Merce da rimuovere.
      * @return {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
      */
-    public boolean removeMerce(int IDMerce) throws SQLException {
+    public void removeMerce(int IDMerce) throws SQLException {
+        inventario.remove(getMerce(IDMerce));
         getMerce(IDMerce).delete();
-        return inventario.remove(getMerce(IDMerce));
     }
 
     /**
-     *
      * @throws SQLException
      */
     //todo test
@@ -175,7 +174,6 @@ public class Negozio {
     }
 
     /**
-     *
      * @param prezzo
      * @param descrizione
      * @param quantita
@@ -183,13 +181,12 @@ public class Negozio {
      * @throws SQLException
      */
     //todo test
-    public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione,int quantita) throws SQLException {
-        Merce merce = new Merce(this.IDNegozio,prezzo,descrizione,quantita);
+    public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
+        Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
         return merce.getDettagli();
     }
 
     /**
-     *
      * @param IDMerce
      * @return
      * @throws SQLException
@@ -200,7 +197,6 @@ public class Negozio {
     }
 
     /**
-     *
      * @param IDMerce
      * @param quantita
      * @throws SQLException
