@@ -57,6 +57,16 @@ class GestoreClientiTest {
     }
 
     @Test
+    void inserisciDati() throws SQLException {
+        GestoreClienti gestoreClienti = new GestoreClienti();
+        ArrayList<String> test = gestoreClienti.inserisciDati("Sabrina","Spellman");
+        assertTrue(gestoreClienti.getItems().contains(gestoreClienti.getItem(Integer.parseInt(test.get(0)))));
+        assertEquals("Sabrina",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getNome());
+        assertEquals("Spellman",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getCognome());
+
+    }
+
+    @Test
     void verificaEsistenzaCodiceTest() throws SQLException {
         GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");

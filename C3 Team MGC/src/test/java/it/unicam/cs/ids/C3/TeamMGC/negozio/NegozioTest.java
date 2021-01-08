@@ -13,6 +13,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NegozioTest {
 
+    @Test
+    void inserisciNuovaMerce() throws SQLException {
+        Negozio negozio = new Negozio(1);
+        ArrayList<String> test = negozio.inserisciNuovaMerce(10,"jeans",5);
+        assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(Integer.parseInt(test.get(0)))));
+        assertEquals(10,negozio.getMerce(Integer.parseInt(test.get(0))).getPrezzo());
+        assertEquals("jeans",negozio.getMerce(Integer.parseInt(test.get(0))).getDescrizione());
+        assertEquals(5,negozio.getMerce(Integer.parseInt(test.get(0))).getQuantita());
+    }
+
     @BeforeEach
     void preparaDB() throws SQLException {
         updateData("delete from sys.inventario;");

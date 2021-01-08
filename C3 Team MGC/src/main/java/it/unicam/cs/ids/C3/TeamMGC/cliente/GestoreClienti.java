@@ -117,7 +117,6 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param cognome
      * @return
      */
-    //todo test
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
         Cliente cliente = new Cliente(nome, cognome);
         addClienteToList(cliente);

@@ -1,7 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -150,14 +148,12 @@ public class Negozio {
 
     /**
      * todo
-     *
      * @param prezzo
      * @param descrizione
      * @param quantita
      * @return
      * @throws SQLException
      */
-    //todo test
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
         Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
         addMerceToList(merce);

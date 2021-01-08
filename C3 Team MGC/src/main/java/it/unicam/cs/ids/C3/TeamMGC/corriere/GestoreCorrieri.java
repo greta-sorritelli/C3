@@ -134,7 +134,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @param capienza
      * @return
      */
-    //todo test
     public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) throws SQLException {
         Corriere corriere = new Corriere(nome, cognome, true, capienza);
         addCorriereToList(corriere);

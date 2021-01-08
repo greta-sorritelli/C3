@@ -41,6 +41,16 @@ class GestoreCorrieriTest {
     }
 
     @Test
+    void inserisciDati() throws SQLException {
+        GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
+        ArrayList<String> test = gestoreCorrieri.inserisciDati("Giuseppe","Bianchi",100);
+        assertTrue(gestoreCorrieri.getItems().contains(gestoreCorrieri.getItem(Integer.parseInt(test.get(0)))));
+        assertEquals("Giuseppe",gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getNome());
+        assertEquals("Bianchi",gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getCognome());
+        assertEquals(100,gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getCapienza());
+    }
+
+    @Test
     void getCorriere() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         assertEquals(52, gestoreCorrieri.getItem(1).getCapienza());
