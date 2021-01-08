@@ -3,9 +3,11 @@ package it.unicam.cs.ids.C3.TeamMGC.negozio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,5 +55,18 @@ class NegozioTest {
         Merce toDelete = new Merce(1, 15, "test delete", 10);
         negozio.removeMerce(toDelete.getID());
         assertFalse(negozio.getMerceDisponibile().contains(toDelete));
+    }
+
+    @Test
+    void setQuantita() throws SQLException {
+        Negozio negozio = new Negozio(1);
+        Merce merce = negozio.getMerce(1);
+        assertEquals(10, merce.getQuantita());
+        merce.setQuantita(100);
+        assertEquals(100, merce.getQuantita());
+
+        ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = 1;");
+        if (rs.next())
+            assertEquals(100, rs.getInt("quantita"));
     }
 }

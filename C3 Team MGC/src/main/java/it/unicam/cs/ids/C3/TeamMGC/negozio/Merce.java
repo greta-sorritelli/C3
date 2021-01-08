@@ -49,6 +49,10 @@ public class Merce {
         this.quantita = quantita;
     }
 
+    /**
+     * todo
+     * @throws SQLException
+     */
     public void delete() throws SQLException {
         updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
         this.ID = -1;
@@ -68,8 +72,6 @@ public class Merce {
     }
 
     /**
-     * //todo
-     *
      * @return ArrayList<String> dei dettagli.
      */
     public ArrayList<String> getDettagli() throws SQLException {
@@ -109,6 +111,10 @@ public class Merce {
         this.quantita = quantita;
     }
 
+    /**
+     * todo
+     * @throws SQLException
+     */
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.inventario where ID= '" + this.ID + "';");
         if (rs.next()) {

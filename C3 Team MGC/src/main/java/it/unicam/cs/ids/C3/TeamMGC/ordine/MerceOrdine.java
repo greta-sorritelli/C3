@@ -55,6 +55,11 @@ public class MerceOrdine {
         this.descrizione = descrizione;
     }
 
+    /**
+     * @return ArrayList<String> dei dettagli della merce
+     * @throws SQLException
+     */
+    //todo test
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -119,6 +124,11 @@ public class MerceOrdine {
                 '}';
     }
 
+    /**
+     * todo
+     * @throws SQLException
+     */
+    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.merci where ID= '" + this.ID + "';");
         if (rs.next()) {

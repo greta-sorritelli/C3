@@ -1,7 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -68,7 +66,7 @@ class CorriereTest {
     }
 
     @Test
-    void setStato() throws SQLException {
+    void setDisponibilita() throws SQLException {
         Corriere corriereTest = new Corriere("Greta", "Sorritelli", true, 30);
         assertTrue(corriereTest.getDisponibilita());
         corriereTest.setDisponibilita(false);

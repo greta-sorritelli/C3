@@ -112,14 +112,26 @@ public class Corriere {
         return Objects.hash(getID());
     }
 
+    /**
+     * todo
+     * @param residenza
+     */
     public void mandaAlert(String residenza) {
-        // TODO alert per andare alla residenza, mandato dal corriere
+        // todo alert per andare alla residenza, mandato dal commesso
     }
 
+    /**
+     * todo
+     * @param negozi
+     */
     public void mandaAlert(ArrayList<Negozio> negozi) {
-        // TODO alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
+        // todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
     }
 
+    /**
+     * todo
+     * @throws SQLException
+     */
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';");
         if (rs.next()) {

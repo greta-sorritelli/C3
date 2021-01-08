@@ -165,6 +165,11 @@ public class PuntoPrelievo {
         return Objects.hash(getID());
     }
 
+    /**
+     * todo
+     * @throws SQLException
+     */
+    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.punti_prelievo where ID= '" + this.ID + "';");
         if (rs.next()) {

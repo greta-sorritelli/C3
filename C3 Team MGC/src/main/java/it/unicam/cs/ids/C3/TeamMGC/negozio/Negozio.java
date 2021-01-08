@@ -147,33 +147,7 @@ public class Negozio {
     }
 
     /**
-     * Rimuove la {@link Merce} dall'inventario.
-     *
-     * @param IDMerce ID della Merce da rimuovere.
-     * @return {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
-     */
-    public void removeMerce(int IDMerce) throws SQLException {
-        inventario.remove(getMerce(IDMerce));
-        getMerce(IDMerce).delete();
-    }
-
-    /**
-     * @throws SQLException
-     */
-    //todo test
-    private void update() throws SQLException {
-        ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.IDNegozio + "';");
-        if (rs.next()) {
-            this.nome = rs.getString("nome");
-            this.categoria = rs.getString("categoria");
-            this.orarioApertura = rs.getString("orarioApertura");
-            this.orarioChiusura = rs.getString("orarioChiusura");
-            this.indirizzo = rs.getString("indirizzo");
-            this.telefono = rs.getString("telefono");
-        }
-    }
-
-    /**
+     * todo
      * @param prezzo
      * @param descrizione
      * @param quantita
@@ -187,6 +161,18 @@ public class Negozio {
     }
 
     /**
+     * Rimuove la {@link Merce} dall'inventario.
+     *
+     * @param IDMerce ID della Merce da rimuovere.
+     * @return {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
+     */
+    public void removeMerce(int IDMerce) throws SQLException {
+        inventario.remove(getMerce(IDMerce));
+        getMerce(IDMerce).delete();
+    }
+
+    /**
+     * todo
      * @param IDMerce
      * @return
      * @throws SQLException
@@ -196,14 +182,25 @@ public class Negozio {
         return getMerce(IDMerce).getDettagli();
     }
 
+    public void setQuantita(int IDMerce, int quantita) throws SQLException {
+        getMerce(IDMerce).setQuantita(quantita);
+    }
+
     /**
-     * @param IDMerce
-     * @param quantita
+     * todo
      * @throws SQLException
      */
     //todo test
-    public void setQuantita(int IDMerce, int quantita) throws SQLException {
-        getMerce(IDMerce).setQuantita(quantita);
+    private void update() throws SQLException {
+        ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.IDNegozio + "';");
+        if (rs.next()) {
+            this.nome = rs.getString("nome");
+            this.categoria = rs.getString("categoria");
+            this.orarioApertura = rs.getString("orarioApertura");
+            this.orarioChiusura = rs.getString("orarioChiusura");
+            this.indirizzo = rs.getString("indirizzo");
+            this.telefono = rs.getString("telefono");
+        }
     }
 
 }

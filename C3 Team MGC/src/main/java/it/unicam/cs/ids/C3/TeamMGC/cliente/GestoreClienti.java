@@ -48,10 +48,10 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
+     * todo
      * @param IDCliente
      * @param IDOrdine
      */
-    //todo test
     private void creazioneCodice(int IDCliente, int IDOrdine) throws SQLException {
         getItem(IDCliente).setCodiceRitiro(generaCodiceRitiro());
         updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
@@ -63,7 +63,6 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @return il Codice generato
      */
-    //todo test
     private String generaCodiceRitiro() {
         Random rand = new Random();
         String tmp = "";
@@ -113,11 +112,13 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
+     * todo
      * @param nome
      * @param cognome
      * @return
      */
     //todo test
+    //todo controllare se aggiungere alla lista di clienti
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
         Cliente cliente = new Cliente(nome, cognome);
         return cliente.getDettagli();
@@ -146,6 +147,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
+     * todo
      * @param IDCliente
      * @param codiceRitiro
      * @return
@@ -158,11 +160,13 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * @param codiceRitiroComunicato
-     * @param codiceRitiroDB
+     * Verifica che il codice di ritiro comunicato dal cliente sia uguale
+     * a quello presente nel database.
+     *
+     * @param codiceRitiroComunicato  Codice comunicato dal cliente
+     * @param codiceRitiroDB          Codice presente nel DB
      * @return
      */
-    //todo test
     private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB) {
         return codiceRitiroComunicato.equals(codiceRitiroDB);
     }

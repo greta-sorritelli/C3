@@ -59,7 +59,7 @@ public class Ordine {
      *
      * @param merce Merce da aggiungere
      */
-    //todo rivedere il commento
+    //todo rivedere il commento e test
     public void addMerce(MerceOrdine merce) {
         merci.add(merce);
     }
@@ -103,9 +103,7 @@ public class Ordine {
     }
 
     /**
-     * Ritorna un arraylist con i dettagli dell'{@link Ordine} in stringa.
-     *
-     * @return ArrayList dei dettagli
+     * @return ArrayList dei dettagli dell'ordine
      */
     public ArrayList<String> getDettagli() throws SQLException {
         update();
@@ -181,8 +179,10 @@ public class Ordine {
     }
 
     /**
+     * todo
      * @throws SQLException
      */
+    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.ordini where ID= '" + this.ID + "';");
         if (rs.next()) {

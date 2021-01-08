@@ -87,12 +87,16 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
             return new ArrayList<>(magazzini);
     }
 
+    /**
+     * todo
+     * @param magazzino
+     */
     public void mandaAlert(PuntoPrelievo magazzino) {
         //todo alert al magazziniere
     }
 
     /**
-     *
+     * todo
      * @param indirizzo
      * @return
      * @throws SQLException
@@ -108,11 +112,11 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
     }
 
     /**
+     * todo
      * @param ID
      * @return
      */
     public ArrayList<String> sceltaPuntoPrelievo(int ID) throws SQLException {
-
         return getItem(ID).getDettagli();
     }
 
