@@ -118,9 +118,9 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @return
      */
     //todo test
-    //todo controllare se aggiungere alla lista di clienti
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
         Cliente cliente = new Cliente(nome, cognome);
+        addClienteToList(cliente);
         return cliente.getDettagli();
     }
 

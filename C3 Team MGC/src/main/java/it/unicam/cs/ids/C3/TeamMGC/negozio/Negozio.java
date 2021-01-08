@@ -154,7 +154,7 @@ public class Negozio {
      * @return
      * @throws SQLException
      */
-    //todo test
+    //todo test e controllare se va aggiunto alla lista
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
         Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
         return merce.getDettagli();
