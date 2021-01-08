@@ -19,6 +19,7 @@ public class Magazziniere {
         this.cognome = cognome;
     }
 
+    //todo test creazione
     public Magazziniere(PuntoPrelievo puntoPrelievo, String nome, String cognome) throws SQLException {
             updateData("INSERT INTO `sys`.`magazzinieri` (`nome`,`cognome`,`puntoPrelievo`) \n" +
                     "VALUES ('" + nome + "' , '" + cognome + "', '" + puntoPrelievo.getNome() + "');");

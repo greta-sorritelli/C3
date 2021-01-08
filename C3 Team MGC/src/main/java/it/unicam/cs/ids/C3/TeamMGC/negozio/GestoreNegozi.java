@@ -14,9 +14,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
     ArrayList<Negozio> negozi = new ArrayList<>();
 
     /**
-     * @param ID
-     * @return
-     * @throws SQLException
+     * Ritorna il {@link Negozio} collegato all' {@code ID}.
+     *
+     * @param ID Codice Identificativo del Negozio
+     * @return Il Negozio desiderato
      */
     @Override
     //todo test
@@ -29,6 +30,13 @@ public class GestoreNegozi implements Gestore<Negozio> {
             throw new IllegalArgumentException("ID non valido.");
     }
 
+    /**
+     * Controlla se il {@link Negozio} che si vuole creare e' gia' presente nella lista dei negozi. Se non e' presente
+     * viene creato e aggiunto alla lista.
+     *
+     * @return Il negozio
+     * @throws SQLException
+     */
     //todo controllare costruttore negozio
     private Negozio addNegozio(ResultSet rs) throws SQLException {
         for (Negozio negozio : negozi)
@@ -39,6 +47,12 @@ public class GestoreNegozi implements Gestore<Negozio> {
         return toReturn;
     }
 
+    /**
+     * Aggiunge un {@link Negozio} alla lista dei negozi.
+     *
+     * @param  negozio Negozio da aggiungere
+     * @return {@code true} se il Negozio viene inserito correttamente, {@code false} altrimenti
+     */
     private boolean addNegozioToList(Negozio negozio) {
         if (!negozi.contains(negozio))
             return negozi.add(negozio);
@@ -47,7 +61,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * @return
+     * @return ArrayList<Negozio> dei negozi.
      * @throws SQLException
      */
     @Override
@@ -60,11 +74,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * @return
+     * @return ArrayList<ArrayList<String>> dei dettagli dei negozi.
      * @throws SQLException
      */
     @Override
-    //todo test
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
@@ -90,11 +103,12 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
+     * todo
      * @param ID
      * @return
      * @throws SQLException
      */
-    //todo test
+    //todo test e vedere se ritorna dettagli
     public Negozio selezionaNegozio(int ID) throws SQLException {
         return getItem(ID);
     }

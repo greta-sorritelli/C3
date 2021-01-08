@@ -128,13 +128,16 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
+     * todo
      * @param nome
      * @param cognome
      * @param capienza
      * @return
      */
+    //todo test
     public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) throws SQLException {
         Corriere corriere = new Corriere(nome, cognome, true, capienza);
+        addCorriereToList(corriere);
         return corriere.getDettagli();
     }
 
@@ -156,10 +159,20 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         getItem(IDCorriere).setDisponibilita(disponibilita);
     }
 
+    /**
+     * todo
+     * @param IDCorriere
+     * @param negozi
+     */
     public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) {
         //todo manda alert al corriere con i negozi in cui prelevare merce
     }
 
+    /**
+     * todo
+     * @param IDCorriere
+     * @param residenza
+     */
     public void mandaAlert(int IDCorriere,String residenza){
         //todo manda alert quando il commesso seleziona un corriere per andare alla residenza
     }

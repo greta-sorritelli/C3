@@ -86,9 +86,4 @@ class GestoreNegoziTest {
         ordine1.setStato(StatoOrdine.IN_DEPOSITO);
         assertEquals(0, gestoreNegozi.getDettagliItemsConOrdini().size());
     }
-
-    //todo
-    @Test
-    void selezionaNegozio() {
-    }
 }

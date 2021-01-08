@@ -18,6 +18,13 @@ public class GestoreOrdini {
         this.negozio = negozio;
     }
 
+    /**
+     * Controlla se l' {@link Ordine} che si vuole creare e' gia' presente nella lista degli ordini. Se non e' presente
+     * viene creato e aggiunto alla lista.
+     *
+     * @return L'ordine
+     * @throws SQLException
+     */
     private Ordine addOrdine(ResultSet rs) throws SQLException {
         for (Ordine ordine : ordini)
             if (ordine.getID() == rs.getInt("ID"))
@@ -27,6 +34,12 @@ public class GestoreOrdini {
         return toReturn;
     }
 
+    /**
+     * Aggiunge un {@link Ordine} alla lista di ordini.
+     *
+     * @param ordine Ordine da aggiungere
+     * @return {@code true} se l'Ordine viene inserito correttamente, {@code false} altrimenti
+     */
     private boolean addOrdineToList(Ordine ordine) {
         if (!ordini.contains(ordine))
             return ordini.add(ordine);
@@ -35,6 +48,7 @@ public class GestoreOrdini {
     }
 
     /**
+     * todo
      * @param IDOrdine
      * @param indirizzo
      */
@@ -57,12 +71,13 @@ public class GestoreOrdini {
     }
 
     /**
+     * todo
+     *
      * @param rs
      * @param ordine
      * @return
      * @throws SQLException
      */
-    //todo test
     private MerceOrdine creaMerceFromDB(ResultSet rs, Ordine ordine) throws SQLException {
         MerceOrdine toReturn = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
                 rs.getDouble("prezzo"), rs.getString("descrizione"),
@@ -83,10 +98,10 @@ public class GestoreOrdini {
     }
 
     /**
-     * @param IDOrdine
-     * @return
+     * @param IDOrdine Id dell'ordine a cui appartiene la merce
+     * @return ArrayList<ArrayList < String>> dei dettagli di tutta la merce di un ordine
      */
-    //todo
+    //todo test
     public ArrayList<ArrayList<String>> getDettagliMerceTotale(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> merce = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -109,8 +124,8 @@ public class GestoreOrdini {
     }
 
     /**
-     * @param IDCliente
-     * @return
+     * @param IDCliente Id del cliente a cui appartiene l'ordine
+     * @return ArrayList<String> dei dettagli dell'ordine
      */
     //todo test
     public ArrayList<String> getDettagliOrdineCliente(int IDCliente) throws SQLException {
@@ -121,6 +136,7 @@ public class GestoreOrdini {
     }
 
     /**
+     * todo
      *
      * @param IDOrdine
      * @return
@@ -129,8 +145,15 @@ public class GestoreOrdini {
     //todo test
     public ArrayList<String> getDettagliOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getDettagli();
-}
+    }
 
+    /**
+     * Ritorna la {@link MerceOrdine} collegata all' {@code ID}.
+     *
+     * @param ID Codice Identificativo della merce
+     * @return La merce desiderata
+     * @throws SQLException
+     */
     //todo fare test
     public MerceOrdine getMerceOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * from merci where ID ='" + ID + "';");
@@ -145,6 +168,13 @@ public class GestoreOrdini {
         return null;
     }
 
+    /**
+     * Ritorna l' {@link Ordine} collegato all' {@code ID}.
+     *
+     * @param ID Codice Identificativo dell'Ordine
+     * @return L'ordine desiderato
+     * @throws SQLException
+     */
     //todo test
     public Ordine getOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.ordini where ID='" + ID + "' ;");
@@ -186,17 +216,14 @@ public class GestoreOrdini {
         return ordine.getDettagli();
     }
 
-    //todo test
     public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
 
-    //todo test
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
     }
 
-    //todo test
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
     }

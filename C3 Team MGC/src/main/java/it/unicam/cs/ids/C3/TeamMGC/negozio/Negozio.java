@@ -147,6 +147,20 @@ public class Negozio {
     }
 
     /**
+     * todo
+     * @param prezzo
+     * @param descrizione
+     * @param quantita
+     * @return
+     * @throws SQLException
+     */
+    //todo test e controllare se va aggiunto alla lista
+    public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
+        Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
+        return merce.getDettagli();
+    }
+
+    /**
      * Rimuove la {@link Merce} dall'inventario.
      *
      * @param IDMerce ID della Merce da rimuovere.
@@ -158,6 +172,22 @@ public class Negozio {
     }
 
     /**
+     * todo
+     * @param IDMerce
+     * @return
+     * @throws SQLException
+     */
+    //todo test
+    public ArrayList<String> selezionaMerce(int IDMerce) throws SQLException {
+        return getMerce(IDMerce).getDettagli();
+    }
+
+    public void setQuantita(int IDMerce, int quantita) throws SQLException {
+        getMerce(IDMerce).setQuantita(quantita);
+    }
+
+    /**
+     * todo
      * @throws SQLException
      */
     //todo test
@@ -171,39 +201,6 @@ public class Negozio {
             this.indirizzo = rs.getString("indirizzo");
             this.telefono = rs.getString("telefono");
         }
-    }
-
-    /**
-     * @param prezzo
-     * @param descrizione
-     * @param quantita
-     * @return
-     * @throws SQLException
-     */
-    //todo test
-    public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
-        Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
-        return merce.getDettagli();
-    }
-
-    /**
-     * @param IDMerce
-     * @return
-     * @throws SQLException
-     */
-    //todo test
-    public ArrayList<String> selezionaMerce(int IDMerce) throws SQLException {
-        return getMerce(IDMerce).getDettagli();
-    }
-
-    /**
-     * @param IDMerce
-     * @param quantita
-     * @throws SQLException
-     */
-    //todo test
-    public void setQuantita(int IDMerce, int quantita) throws SQLException {
-        getMerce(IDMerce).setQuantita(quantita);
     }
 
 }

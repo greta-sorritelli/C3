@@ -67,9 +67,8 @@ public class Cliente {
     }
 
     /**
-     * @return
+     * @return ArrayList<String> dei dettagli del cliente.
      */
-    //todo test
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -102,6 +101,7 @@ public class Cliente {
     }
 
     /**
+     * todo
      * @throws SQLException
      */
     public void update() throws SQLException {
