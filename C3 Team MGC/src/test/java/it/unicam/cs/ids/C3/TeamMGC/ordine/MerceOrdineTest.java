@@ -1,11 +1,14 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
@@ -23,8 +26,35 @@ class MerceOrdineTest {
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        ordineTest = new Ordine(1, "Marco", "Papera", negozioTest.getIDNegozio());
-        merceOrdineTest = new MerceOrdine(10, "test allSet", StatoOrdine.PAGATO, 1);
+        Cliente cliente = new Cliente("Marco", "Papera");
+        ordineTest = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozioTest.getIDNegozio());
+        merceOrdineTest = new MerceOrdine(10, "test allSet", StatoOrdine.PAGATO, ordineTest.getID());
+    }
+
+    @Test
+    void getDettagli() throws SQLException {
+        MerceOrdine merceTest = new MerceOrdine(26, "Test Dettagli", StatoOrdine.DA_PAGARE, ordineTest.getID());
+        ArrayList<String> dettagli = new ArrayList<>();
+        dettagli.add(String.valueOf(merceTest.getID()));
+        dettagli.add(String.valueOf(ordineTest.getID()));
+        dettagli.add("26.0");
+        dettagli.add("Test Dettagli");
+        dettagli.add("0");
+        dettagli.add(StatoOrdine.DA_PAGARE.toString());
+        assertEquals(dettagli, merceTest.getDettagli());
+
+        ordineTest.aggiungiMerce(merceTest, 15);
+        merceTest.setPrezzo(42.0);
+        merceTest.setStato(StatoOrdine.PAGATO);
+
+        dettagli.clear();
+        dettagli.add(String.valueOf(merceTest.getID()));
+        dettagli.add(String.valueOf(ordineTest.getID()));
+        dettagli.add("42.0");
+        dettagli.add("Test Dettagli");
+        dettagli.add("15");
+        dettagli.add(StatoOrdine.PAGATO.toString());
+        assertEquals(dettagli, merceTest.getDettagli());
     }
 
     @Test
@@ -69,5 +99,9 @@ class MerceOrdineTest {
         ResultSet rs = executeQuery("SELECT stato FROM sys.merci where ID = 1;");
         if (rs.next())
             assertEquals("AFFIDATO_AL_CORRIERE", rs.getString("stato"));
+    }
+
+    @Test
+    void update() {
     }
 }
