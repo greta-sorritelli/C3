@@ -107,13 +107,11 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * @return
      * @throws SQLException
      */
-    //todo test
     public PuntoPrelievo ricercaMagazzino(String indirizzo) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.punti_prelievo where indirizzo='" + indirizzo + "' ;");
         if (rs.next())
             return getItem(rs.getInt("ID"));
         else
-            //todo eccezione
             throw new IllegalArgumentException("Magazzino non trovato.");
     }
 
