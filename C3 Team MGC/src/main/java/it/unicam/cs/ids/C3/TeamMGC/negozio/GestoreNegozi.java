@@ -14,28 +14,11 @@ public class GestoreNegozi implements Gestore<Negozio> {
     ArrayList<Negozio> negozi = new ArrayList<>();
 
     /**
-     * Ritorna il {@link Negozio} collegato all' {@code ID}.
-     *
-     * @param ID Codice Identificativo del Negozio
-     * @return Il Negozio desiderato
-     */
-    @Override
-    //todo test
-    public Negozio getItem(int ID) throws SQLException {
-        //todo
-        ResultSet rs = executeQuery("SELECT * FROM sys.negozi where ID='" + ID + "' ;");
-        if (rs.next())
-            return addNegozio(rs);
-        else
-            throw new IllegalArgumentException("ID non valido.");
-    }
-
-    /**
      * Controlla se il {@link Negozio} che si vuole creare e' gia' presente nella lista dei negozi. Se non e' presente
      * viene creato e aggiunto alla lista.
      *
      * @return Il negozio
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo controllare costruttore negozio
     private Negozio addNegozio(ResultSet rs) throws SQLException {
@@ -50,7 +33,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
     /**
      * Aggiunge un {@link Negozio} alla lista dei negozi.
      *
-     * @param  negozio Negozio da aggiungere
+     * @param negozio Negozio da aggiungere
      * @return {@code true} se il Negozio viene inserito correttamente, {@code false} altrimenti
      */
     private boolean addNegozioToList(Negozio negozio) {
@@ -61,21 +44,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * @return ArrayList<Negozio> dei negozi.
-     * @throws SQLException
-     */
-    @Override
-    //todo test
-    public ArrayList<Negozio> getItems() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
-        while (rs.next())
-            addNegozio(rs);
-        return new ArrayList<>(negozi);
-    }
-
-    /**
-     * @return ArrayList<ArrayList<String>> dei dettagli dei negozi.
-     * @throws SQLException
+     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} presenti nel DB.
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli dei Negozi.
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
@@ -89,8 +61,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * @return ArrayList<ArrayList < String>> dei dettagli dei negozi con ordini da ritirare.
-     * @throws SQLException
+     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} on ordini da ritirare presenti nel DB.
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli dei Negozi on ordini da ritirare.
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo controllare problema Franco e Clarissa
     //todo test
@@ -103,7 +77,41 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
+     * Ritorna il {@link Negozio} collegato all' {@code ID}.
+     *
+     * @param ID Codice Identificativo del Negozio
+     * @return Il Negozio desiderato
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
+    //todo test
+    public Negozio getItem(int ID) throws SQLException {
+        //todo
+        ResultSet rs = executeQuery("SELECT * FROM sys.negozi where ID='" + ID + "' ;");
+        if (rs.next())
+            return addNegozio(rs);
+        else
+            throw new IllegalArgumentException("ID non valido.");
+    }
+
+    /**
+     * Ritorna la lista dei {@link Negozio Negozi} presenti nel DB.
+     *
+     * @return ArrayList<Negozi> dei Negozi.
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
+    //todo test
+    public ArrayList<Negozio> getItems() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
+        while (rs.next())
+            addNegozio(rs);
+        return new ArrayList<>(negozi);
+    }
+
+    /**
      * todo
+     *
      * @param ID
      * @return
      * @throws SQLException

@@ -17,7 +17,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * viene creato e aggiunto alla lista.
      *
      * @return Il corriere
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     private Corriere addCorriere(ResultSet rs) throws SQLException {
         for (Corriere corriere : corrieri)
@@ -42,13 +42,15 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * @return l'elenco dei Corrieri Disponibili
+     * Ritorna la lista dei {@link Corriere Corrieri} {@code disponibili} presenti nel DB.
+     *
+     * @return ArrayList<Cliente> dei Corrieri disponibili.
+     * @throws SQLException Errore causato da una query SQL
      */
     //TODO controllare test
-    //todo modificare query con solo ID
     public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
+        ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri WHERE (stato = 'true' );");
         if (rs.next())
             do {
                 Corriere tmp = new Corriere(rs.getInt("ID"));
@@ -63,14 +65,16 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri disponibili.
+     * Ritorna la lista dei dettagli dei {@link Corriere Corrieri} {@code disponibili} presenti nel DB.
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli dei Corrieri disponibili.
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
-    //todo modificare query con solo ID
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri WHERE (`stato` = 'true' );");
+        ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri WHERE (stato = 'true' );");
         while (rs.next()) {
             Corriere tmp = new Corriere(rs.getInt("ID"));
             corrieriDisponibili.add(tmp);
@@ -84,7 +88,10 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * @return ArrayList<ArrayList < String>> dei dettagli dei corrieri.
+     * Ritorna la lista dei dettagli dei {@link Corriere Corrieri} presenti nel DB.
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli dei Corrieri.
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
@@ -106,6 +113,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      *
      * @param ID Codice Identificativo del Corriere
      * @return Il Corriere desiderato
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public Corriere getItem(int ID) throws SQLException {
@@ -117,7 +125,10 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * @return ArrayList<Corriere> dei corrieri.
+     * Ritorna la lista dei {@link Corriere Corrieri} presenti nel DB.
+     *
+     * @return ArrayList<Cliente> dei Corrieri.
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public ArrayList<Corriere> getItems() throws SQLException {
@@ -129,10 +140,12 @@ public class GestoreCorrieri implements Gestore<Corriere> {
 
     /**
      * todo
+     *
      * @param nome
      * @param cognome
      * @param capienza
      * @return
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) throws SQLException {
         Corriere corriere = new Corriere(nome, cognome, true, capienza);
@@ -145,6 +158,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      *
      * @param ID Codice Identificativo del Corriere
      * @return Le informazioni del Corriere
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> selezionaCorriere(int ID) throws SQLException {
         return getItem(ID).getDettagli();
@@ -160,6 +174,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
 
     /**
      * todo
+     *
      * @param IDCorriere
      * @param negozi
      */
@@ -169,10 +184,11 @@ public class GestoreCorrieri implements Gestore<Corriere> {
 
     /**
      * todo
+     *
      * @param IDCorriere
      * @param residenza
      */
-    public void mandaAlert(int IDCorriere,String residenza){
+    public void mandaAlert(int IDCorriere, String residenza) {
         //todo manda alert quando il commesso seleziona un corriere per andare alla residenza
     }
 }

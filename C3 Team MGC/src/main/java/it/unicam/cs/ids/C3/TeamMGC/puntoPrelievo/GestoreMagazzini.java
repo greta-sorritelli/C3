@@ -48,47 +48,54 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
 
 
     /**
-     * @return ArrayList<ArrayList < String>> dei dettagli dei magazzini disponibili.
+     * Ritorna la lista dei dettagli dei {@link PuntoPrelievo Magazzini} presenti nel DB.
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli dei Magazzini.
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
-            ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-            ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
-            while (rs.next())
-                addMagazzino(rs);
-            for (PuntoPrelievo magazzino : magazzini)
-                dettagli.add(magazzino.getDettagli());
-            return dettagli;
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
+        while (rs.next())
+            addMagazzino(rs);
+        for (PuntoPrelievo magazzino : magazzini)
+            dettagli.add(magazzino.getDettagli());
+        return dettagli;
     }
 
     /**
-     * Ritorna il {@link PuntoPrelievo} collegato all' {@code ID}.
+     * Ritorna il {@link PuntoPrelievo Magazzino} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Punto di prelievo
      * @return Il Punto di prelievo desiderato
      */
     @Override
     public PuntoPrelievo getItem(int ID) throws SQLException {
-            ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo where ID='" + ID + "' ;");
-            if (rs.next())
-                return addMagazzino(rs);
-            else
-                throw new IllegalArgumentException("ID non valido.");
+        ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo where ID='" + ID + "' ;");
+        if (rs.next())
+            return addMagazzino(rs);
+        else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     /**
-     * @return l'elenco dei Magazzini Disponibili
+     * Ritorna la lista dei {@link PuntoPrelievo Magazzini} presenti nel DB.
+     *
+     * @return ArrayList<PuntoPrelievo> dei Magazzini.
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public ArrayList<PuntoPrelievo> getItems() throws SQLException {
-            ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
-            while (rs.next())
-                addMagazzino(rs);
-            return new ArrayList<>(magazzini);
+        ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
+        while (rs.next())
+            addMagazzino(rs);
+        return new ArrayList<>(magazzini);
     }
 
     /**
      * todo
+     *
      * @param magazzino
      */
     public void mandaAlert(PuntoPrelievo magazzino) {
@@ -97,6 +104,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
 
     /**
      * todo
+     *
      * @param indirizzo
      * @return
      * @throws SQLException
@@ -104,7 +112,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
     //todo test
     public PuntoPrelievo ricercaMagazzino(String indirizzo) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.punti_prelievo where indirizzo='" + indirizzo + "' ;");
-        if(rs.next())
+        if (rs.next())
             return getItem(rs.getInt("ID"));
         else
             //todo eccezione
@@ -113,6 +121,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
 
     /**
      * todo
+     *
      * @param ID
      * @return
      */

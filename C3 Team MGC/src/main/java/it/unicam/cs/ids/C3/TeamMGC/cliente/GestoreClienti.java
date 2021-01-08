@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * viene creato e aggiunto alla lista.
      *
      * @return Il Cliente
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     private Cliente addCliente(ResultSet rs) throws SQLException {
         for (Cliente cliente : clienti)
@@ -48,13 +49,15 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * todo
-     * @param IDCliente
-     * @param IDOrdine
+     * Crea il nuovo {@code Codice di Ritiro} e lo associa all' {@link Ordine} ed al {@link Cliente} .
+     *
+     * @param IDCliente Codice Identificativo del Cliente
+     * @param IDOrdine  Codice Identificativo dell' Ordine
+     * @throws SQLException Errore causato da una query SQL
      */
     private void creazioneCodice(int IDCliente, int IDOrdine) throws SQLException {
         getItem(IDCliente).setCodiceRitiro(generaCodiceRitiro());
-        updateData("INSERT INTO `sys`.`codici_ritiro` (`codice`,`IDCliente`,`IDOrdine`,`dataCreazione`) \n" +
+        updateData("INSERT INTO sys.codici_ritiro (codice, IDCliente, IDOrdine, dataCreazione) \n" +
                 "VALUES ('" + getItem(IDCliente).getCodiceRitiro() + "', '" + IDCliente + "', '" + IDOrdine + "', '" + getItem(IDCliente).getDataCreazioneCodice() + "');");
     }
 
@@ -72,7 +75,10 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * @return ArrayList<ArrayList < String>> dei dettagli dei clienti.
+     * Ritorna la lista dei dettagli dei {@link Cliente Clienti} presenti nel DB.
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli dei Clienti.
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
@@ -90,6 +96,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @param ID Codice Identificativo del Cliente
      * @return Il Cliente desiderato
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public Cliente getItem(int ID) throws SQLException {
@@ -101,7 +108,10 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * @return ArrayList<Cliente> dei clienti.
+     * Ritorna la lista dei {@link Cliente Clienti} presenti nel DB.
+     *
+     * @return ArrayList<Cliente> dei Clienti.
+     * @throws SQLException Errore causato da una query SQL
      */
     @Override
     public ArrayList<Cliente> getItems() throws SQLException {
@@ -113,9 +123,11 @@ public class GestoreClienti implements Gestore<Cliente> {
 
     /**
      * todo
+     *
      * @param nome
      * @param cognome
      * @return
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
         Cliente cliente = new Cliente(nome, cognome);
@@ -128,8 +140,9 @@ public class GestoreClienti implements Gestore<Cliente> {
      * creato nella data odierna. In caso negativo viene generato un nuovo codice per il cliente.
      *
      * @param IDCliente ID del Cliente a cui appartiene il codice di ritiro
-     * @param IDOrdine  Id dell'ordine del cliente
+     * @param IDOrdine  ID dell' Ordine del cliente
      * @return Il codice di ritiro
+     * @throws SQLException Errore causato da una query SQL
      */
     public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) throws SQLException {
         ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
@@ -147,11 +160,12 @@ public class GestoreClienti implements Gestore<Cliente> {
 
     /**
      * todo
-     * @param IDCliente
+     *
+     * @param IDCliente    Codice Identificativo del Cliente
      * @param codiceRitiro
      * @return
+     * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public boolean verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
         Cliente cliente = getItem(IDCliente);
         cliente.update();
@@ -162,8 +176,8 @@ public class GestoreClienti implements Gestore<Cliente> {
      * Verifica che il codice di ritiro comunicato dal cliente sia uguale
      * a quello presente nel database.
      *
-     * @param codiceRitiroComunicato  Codice comunicato dal cliente
-     * @param codiceRitiroDB          Codice presente nel DB
+     * @param codiceRitiroComunicato Codice comunicato dal cliente
+     * @param codiceRitiroDB         Codice presente nel DB
      * @return
      */
     private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB) {
