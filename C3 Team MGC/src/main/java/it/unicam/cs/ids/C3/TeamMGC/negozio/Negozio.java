@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,19 +41,6 @@ public class Negozio {
     }
 
     /**
-     * Aggiunge la {@link Merce} al {@link Negozio}.
-     *
-     * @param merce Merce da aggiungere
-     * @return {@code true} se la Merce viene inserita correttamente, {@code false} altrimenti
-     */
-    public boolean addMerce(Merce merce) {
-        if (!inventario.contains(merce))
-            return inventario.add(merce);
-        else
-            return false;
-    }
-
-    /**
      * Controlla se la {@link Merce} che si vuole creare e' gia' presente nell' Inventario. Se non e' presente
      * viene creata e aggiunta all' Inventario del {@link Negozio}.
      *
@@ -64,8 +53,21 @@ public class Negozio {
         Merce toReturn = new Merce(rs.getInt("ID"), rs.getInt("IDNegozio"),
                 rs.getDouble("prezzo"), rs.getString("descrizione"),
                 rs.getInt("quantita"));
-        addMerce(toReturn);
+        addMerceToList(toReturn);
         return toReturn;
+    }
+
+    /**
+     * Aggiunge un {@link Merce} all' inventario.
+     *
+     * @param merce Merce da aggiungere
+     * @return {@code true} se la Merce viene inserita correttamente, {@code false} altrimenti
+     */
+    private boolean addMerceToList(Merce merce) {
+        if (!inventario.contains(merce))
+            return inventario.add(merce);
+        else
+            return false;
     }
 
     public String getCategoria() {
@@ -148,15 +150,17 @@ public class Negozio {
 
     /**
      * todo
+     *
      * @param prezzo
      * @param descrizione
      * @param quantita
      * @return
      * @throws SQLException
      */
-    //todo test e controllare se va aggiunto alla lista
+    //todo test
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
         Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
+        addMerceToList(merce);
         return merce.getDettagli();
     }
 
@@ -173,6 +177,7 @@ public class Negozio {
 
     /**
      * todo
+     *
      * @param IDMerce
      * @return
      * @throws SQLException
@@ -188,6 +193,7 @@ public class Negozio {
 
     /**
      * todo
+     *
      * @throws SQLException
      */
     //todo test

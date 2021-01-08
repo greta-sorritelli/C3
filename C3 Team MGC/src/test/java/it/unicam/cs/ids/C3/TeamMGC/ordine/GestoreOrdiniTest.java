@@ -49,18 +49,19 @@ class GestoreOrdiniTest {
     @Test
     void registraMerce() throws SQLException {
         Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
-        Merce merce = new Merce(negozio.getIDNegozio(), 52, "gomma", 10);
-        Merce merce1 = new Merce(negozio.getIDNegozio(), 10, "matita", 20);
-        Merce merce2 = new Merce(negozio.getIDNegozio(), 20, "pennello", 5);
-        Merce merce3 = new Merce(negozio.getIDNegozio(), 15, "maglietta", 0);
+
+        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(52, "gomma", 10);
+        ArrayList<String> merceDettagli2 = negozio.inserisciNuovaMerce(10, "matita", 20);
+        ArrayList<String> merceDettagli3 = negozio.inserisciNuovaMerce(20, "pennello", 5);
+        ArrayList<String> merceDettagli4 = negozio.inserisciNuovaMerce(15, "maglietta", 0);
+
+        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
+        int IDMerce2 = Integer.parseInt(merceDettagli2.get(0));
+        int IDMerce3 = Integer.parseInt(merceDettagli3.get(0));
+        int IDMerce4 = Integer.parseInt(merceDettagli4.get(0));
 
         Cliente cliente1 = new Cliente("Maria", "Giuseppa");
         Cliente cliente2 = new Cliente("Giuseppe", "Rossi");
-
-        negozio.addMerce(merce);
-        negozio.addMerce(merce1);
-        negozio.addMerce(merce2);
-        negozio.addMerce(merce3);
 
         GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
         ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
@@ -69,21 +70,21 @@ class GestoreOrdiniTest {
         int ID1 = Integer.parseInt(ordine1.get(0));
         int ID2 = Integer.parseInt(ordine2.get(0));
 
-        gestoreOrdini.registraMerce(merce.getID(), 10, Integer.parseInt(ordine1.get(0)));
-        gestoreOrdini.registraMerce(merce1.getID(), 4, Integer.parseInt(ordine2.get(0)));
+        gestoreOrdini.registraMerce(IDMerce1, 10, Integer.parseInt(ordine1.get(0)));
+        gestoreOrdini.registraMerce(IDMerce2, 4, Integer.parseInt(ordine2.get(0)));
 
         ordine1 = gestoreOrdini.getOrdine(ID1).getDettagli();
         ordine2 = gestoreOrdini.getOrdine(ID2).getDettagli();
 
         assertEquals(520.0, Double.parseDouble(ordine1.get(4)));
-        assertTrue(negozio.getMerceDisponibile().contains(merce));
+        assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(IDMerce1)));
         assertEquals("[MerceOrdine{ID=1, IDOrdine=1, prezzo=52.0, descrizione='gomma', quantita=10, stato=PAGATO}]", ordine1.get(7));
 
         assertEquals(40.0, Double.parseDouble(ordine2.get(4)));
-        assertTrue(negozio.getMerceDisponibile().contains(merce1));
+        assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(IDMerce2)));
 
-        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(merce2.getID(), 6, ID1));
-        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(merce3.getID(), 2, ID2));
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(IDMerce3, 6, ID1));
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(IDMerce4, 2, ID2));
     }
 
     @Test
@@ -109,7 +110,7 @@ class GestoreOrdiniTest {
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome());
         PuntoPrelievo puntoPrelievo = new PuntoPrelievo("Roma", "Magazzino Centrale Lazio");
         assertEquals(-1, gestoreOrdini.getOrdine(1).getPuntoPrelievo());
-        gestoreOrdini.setPuntoPrelievo(Integer.parseInt(ordine.get(0)),1);
+        gestoreOrdini.setPuntoPrelievo(Integer.parseInt(ordine.get(0)), 1);
         assertEquals(1, gestoreOrdini.getOrdine(1).getPuntoPrelievo());
 
     }
@@ -120,11 +121,10 @@ class GestoreOrdiniTest {
         GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
         Cliente cliente = new Cliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome());
-        Merce merce = new Merce(negozio.getIDNegozio(), 52, "gomma", 10);
-        negozio.addMerce(merce);
-        gestoreOrdini.registraMerce(1,10,Integer.parseInt(ordine.get(0)));
+        negozio.inserisciNuovaMerce(52, "gomma", 10);
+        gestoreOrdini.registraMerce(1, 10, Integer.parseInt(ordine.get(0)));
         assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getMerceOrdine(1).getStato());
-        gestoreOrdini.setStatoMerce(1,StatoOrdine.AFFIDATO_AL_CORRIERE);
+        gestoreOrdini.setStatoMerce(1, StatoOrdine.AFFIDATO_AL_CORRIERE);
         assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE, gestoreOrdini.getMerceOrdine(1).getStato());
     }
 
@@ -135,7 +135,7 @@ class GestoreOrdiniTest {
         Cliente cliente = new Cliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome());
         assertEquals(StatoOrdine.DA_PAGARE, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
-        gestoreOrdini.setStatoOrdine(Integer.parseInt(ordine.get(0)),StatoOrdine.IN_DEPOSITO);
+        gestoreOrdini.setStatoOrdine(Integer.parseInt(ordine.get(0)), StatoOrdine.IN_DEPOSITO);
         assertEquals(StatoOrdine.IN_DEPOSITO, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
     }
 
