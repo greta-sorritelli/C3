@@ -21,7 +21,7 @@ public class Corriere {
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID del Corriere
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     public Corriere(int ID) throws SQLException {
         ResultSet rs = executeQuery("select * from corrieri where ID ='" + ID + "';");
@@ -114,6 +114,7 @@ public class Corriere {
 
     /**
      * todo
+     *
      * @param residenza
      */
     public void mandaAlert(String residenza) {
@@ -122,6 +123,7 @@ public class Corriere {
 
     /**
      * todo
+     *
      * @param negozi
      */
     public void mandaAlert(ArrayList<Negozio> negozi) {
@@ -129,8 +131,9 @@ public class Corriere {
     }
 
     /**
-     * todo
-     * @throws SQLException
+     * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';");

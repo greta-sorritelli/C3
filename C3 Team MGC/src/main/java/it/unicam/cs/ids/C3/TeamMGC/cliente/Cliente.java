@@ -23,7 +23,7 @@ public class Cliente {
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID del Cliente
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     public Cliente(int ID) throws SQLException {
         ResultSet rs = executeQuery("select * from clienti where ID ='" + ID + "';");
@@ -67,6 +67,8 @@ public class Cliente {
     }
 
     /**
+     * todo
+     *
      * @return ArrayList<String> dei dettagli del cliente.
      */
     public ArrayList<String> getDettagli() throws SQLException {
@@ -101,8 +103,9 @@ public class Cliente {
     }
 
     /**
-     * todo
-     * @throws SQLException
+     * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.clienti where ID= '" + this.ID + "';");

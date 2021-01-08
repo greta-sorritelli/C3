@@ -57,7 +57,7 @@ public class MerceOrdine {
 
     /**
      * @return ArrayList<String> dei dettagli della merce
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public ArrayList<String> getDettagli() throws SQLException {
@@ -125,8 +125,9 @@ public class MerceOrdine {
     }
 
     /**
-     * todo
-     * @throws SQLException
+     * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public void update() throws SQLException {

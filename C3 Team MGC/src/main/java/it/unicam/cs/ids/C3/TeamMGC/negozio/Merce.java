@@ -24,6 +24,7 @@ public class Merce {
      * @param prezzo
      * @param descrizione
      * @param quantita
+     * @throws SQLException Errore causato da una query SQL
      */
     public Merce(int IDNegozio, double prezzo, String descrizione, int quantita) throws SQLException {
         updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) " +
@@ -51,7 +52,8 @@ public class Merce {
 
     /**
      * todo
-     * @throws SQLException
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void delete() throws SQLException {
         updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
@@ -72,7 +74,10 @@ public class Merce {
     }
 
     /**
+     * todo
+     *
      * @return ArrayList<String> dei dettagli.
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> getDettagli() throws SQLException {
         update();
@@ -112,8 +117,9 @@ public class Merce {
     }
 
     /**
-     * todo
-     * @throws SQLException
+     * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.inventario where ID= '" + this.ID + "';");

@@ -21,7 +21,7 @@ public class PuntoPrelievo {
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID del PuntoPrelievo
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     public PuntoPrelievo(int ID) throws SQLException {
         ResultSet rs = executeQuery("select * from punti_prelievo where ID ='" + ID + "';");
@@ -53,6 +53,7 @@ public class PuntoPrelievo {
 
     /**
      * @return ArrayList<String> dei dettagli del punto di prelievo.
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> getDettagli() throws SQLException {
         update();
@@ -76,9 +77,12 @@ public class PuntoPrelievo {
 //    }
 
     /**
+     * todo
+     *
      * @param IDOrdine ID dell'ordine
      * @return ArrayList<ArrayList < String>> dei dettagli della merce presente nel magazzino
-     * che fa parte dell'ordine
+     * che fa parte dell' ordine
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<ArrayList<String>> getDettagliMerceMagazzino(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> merceOrdine = new ArrayList<>();
@@ -108,7 +112,8 @@ public class PuntoPrelievo {
     /**
      * Ritorna la lista di tutte le merci appartenenti a tale ordine e presenti nel punto di prelievo
      *
-     * @param IDOrdine id dell'ordine
+     * @param IDOrdine id dell' ordine
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<MerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> lista = new ArrayList<>();
@@ -126,7 +131,8 @@ public class PuntoPrelievo {
     /**
      * Ritorna la lista di tutte le merci appartenenti a tale ordine
      *
-     * @param IDOrdine id dell'ordine
+     * @param IDOrdine id dell' ordine
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<MerceOrdine> getMerceTotale(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> lista = new ArrayList<>();
@@ -148,6 +154,7 @@ public class PuntoPrelievo {
      * Ritorna l' insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo.
      *
      * @param IDCliente id del cliente
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<Ordine> getOrdini(int IDCliente) throws SQLException {
         ArrayList<Ordine> lista = new ArrayList<>();
@@ -166,8 +173,9 @@ public class PuntoPrelievo {
     }
 
     /**
-     * todo
-     * @throws SQLException
+     * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public void update() throws SQLException {

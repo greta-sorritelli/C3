@@ -24,7 +24,7 @@ public class Ordine {
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID dell' Ordine
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     public Ordine(int ID) throws SQLException {
         ResultSet rs = executeQuery("select * from ordini where ID ='" + ID + "';");
@@ -68,6 +68,7 @@ public class Ordine {
      * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine}.
      *
      * @param indirizzo Indirizzo residenza del cliente
+     * @throws SQLException Errore causato da una query SQL
      */
     public void addResidenza(String indirizzo) throws SQLException {
         updateData("UPDATE sys.ordini SET IDPuntoPrelievo = -1 WHERE (ID = '" + this.ID + "');");
@@ -81,6 +82,7 @@ public class Ordine {
      *
      * @param merce    Merce da aggiungere
      * @param quantita Quantita della merce da aggiungere
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo
     public void aggiungiMerce(MerceOrdine merce, int quantita) throws SQLException {
@@ -103,7 +105,10 @@ public class Ordine {
     }
 
     /**
+     * todo
+     *
      * @return ArrayList dei dettagli dell'ordine
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> getDettagli() throws SQLException {
         update();
@@ -179,8 +184,9 @@ public class Ordine {
     }
 
     /**
-     * todo
-     * @throws SQLException
+     * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public void update() throws SQLException {
