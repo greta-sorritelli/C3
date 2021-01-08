@@ -10,57 +10,33 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class JavaFXC3Controller {
+public class JavaFXC3Controller implements JavaFXController {
 
-    /**
-     * This method open a new window.
-     *
-     * @param a Fxml path
-     * @param b Title of window.
-     */
-    @FXML
-    public void openWindow(String a, String b, Object controller) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(a));
-            fxmlLoader.setController(controller);
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle(b);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-//            Image icon = new Image("/icon.png");
-//            stage.getIcons().add(icon);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void visualizzaHomeAddetto(){
+    public void visualizzaHomeAddetto() {
         openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto Magazzino", new IAddettoMagazzino());
     }
 
-    public void visualizzaHomeCommesso(){
+    public void visualizzaHomeCommesso() {
         openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso());
     }
 
     //todo fxml
-    public void visualizzaHomeMagazziniere(){
+    public void visualizzaHomeMagazziniere() {
         openWindow("/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere());
     }
 
     //todo fxml
-    public void visualizzaHomeCorriere(){
+    public void visualizzaHomeCorriere() {
         openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere());
     }
 
     //todo fxml
-    public void visualizzaHomeCliente(){
+    public void visualizzaHomeCliente() {
         openWindow("/HomeCliente.fxml", "Home Cliente", new ICliente());
     }
 
     //todo fxml
-    public void visualizzaHomeCommerciante(){
+    public void visualizzaHomeCommerciante() {
         openWindow("/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante());
     }
 
