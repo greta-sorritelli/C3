@@ -14,22 +14,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class NegozioTest {
 
     @Test
-    void inserisciNuovaMerce() throws SQLException {
-        Negozio negozio = new Negozio(1);
-        ArrayList<String> test = negozio.inserisciNuovaMerce(10,"jeans",5);
-        assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(Integer.parseInt(test.get(0)))));
-        assertEquals(10,negozio.getMerce(Integer.parseInt(test.get(0))).getPrezzo());
-        assertEquals("jeans",negozio.getMerce(Integer.parseInt(test.get(0))).getDescrizione());
-        assertEquals(5,negozio.getMerce(Integer.parseInt(test.get(0))).getQuantita());
-    }
-
-    @BeforeEach
-    void preparaDB() throws SQLException {
-        updateData("delete from sys.inventario;");
-        updateData("alter table inventario AUTO_INCREMENT = 1;");
-        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '10', 'test Negozio', '10');");
-        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '5', 'test Negozio', '1');");
-        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '50', 'test Negozio', '20');");
+    void getDettagli() throws SQLException {
+        Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
+        ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma",10);
+        ArrayList<String> test = new ArrayList<>();
+        test.add(String.valueOf(negozio.getIDNegozio()));
+        test.add("Negozio di Bici");
+        test.add("Sport");
+        test.add("09:00-16:00");
+        test.add("");
+        test.add("Via dei Test");
+        test.add("12345");
+        test.add("[Merce{ID=" + dettagli.get(0) + ", IDNegozio=" + dettagli.get(1) + ", prezzo=52.0, descrizione='gomma', quantita=10}]");
+        assertEquals(test,negozio.getDettagli());
     }
 
     @Test
@@ -60,11 +57,39 @@ class NegozioTest {
     }
 
     @Test
+    void inserisciNuovaMerce() throws SQLException {
+        Negozio negozio = new Negozio(1);
+        ArrayList<String> test = negozio.inserisciNuovaMerce(10,"jeans",5);
+        assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(Integer.parseInt(test.get(0)))));
+        assertEquals(10,negozio.getMerce(Integer.parseInt(test.get(0))).getPrezzo());
+        assertEquals("jeans",negozio.getMerce(Integer.parseInt(test.get(0))).getDescrizione());
+        assertEquals(5,negozio.getMerce(Integer.parseInt(test.get(0))).getQuantita());
+    }
+
+    @BeforeEach
+    void preparaDB() throws SQLException {
+        updateData("delete from sys.inventario;");
+        updateData("alter table inventario AUTO_INCREMENT = 1;");
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '10', 'test Negozio', '10');");
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '5', 'test Negozio', '1');");
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '50', 'test Negozio', '20');");
+    }
+
+    @Test
     void removeMerce() throws SQLException {
         Negozio negozio = new Negozio(1);
         Merce toDelete = new Merce(1, 15, "test delete", 10);
         negozio.removeMerce(toDelete.getID());
         assertFalse(negozio.getMerceDisponibile().contains(toDelete));
+    }
+
+    @Test
+    void selezionaMerce() throws SQLException {
+        Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
+        ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma",10);
+        assertEquals("52.0", negozio.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(2));
+        assertEquals("gomma", negozio.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(3));
+        assertEquals("10", negozio.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(4));
     }
 
     @Test

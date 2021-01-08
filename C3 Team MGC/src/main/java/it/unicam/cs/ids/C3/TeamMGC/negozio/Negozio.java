@@ -43,6 +43,7 @@ public class Negozio {
      * viene creata e aggiunta all' Inventario del {@link Negozio}.
      *
      * @return la Merce
+     * @throws SQLException   Errore causato da una query SQL
      */
     private Merce addMerceInventario(ResultSet rs) throws SQLException {
         for (Merce merce : inventario)
@@ -73,9 +74,11 @@ public class Negozio {
     }
 
     /**
+     * Ritorna la lista dei dettagli del {@link Negozio } presente nel DB.
+     *
      * @return ArrayList<String> dei dettagli del negozio.
+     * @throws SQLException   Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -108,6 +111,7 @@ public class Negozio {
      *
      * @param ID Codice Identificativo della Merce
      * @return la Merce desiderata
+     * @throws SQLException   Errore causato da una query SQL
      */
     public Merce getMerce(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
@@ -122,6 +126,7 @@ public class Negozio {
      * Ritorna tutta la {@link Merce} all' interno del {@link Negozio}.
      *
      * @return l'elenco della Merce del Negozio
+     * @throws SQLException   Errore causato da una query SQL
      */
     public ArrayList<Merce> getMerceDisponibile() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + IDNegozio + "';");
@@ -147,12 +152,13 @@ public class Negozio {
     }
 
     /**
-     * todo
-     * @param prezzo
-     * @param descrizione
-     * @param quantita
-     * @return
-     * @throws SQLException
+     * Crea e inserisce una nuova {@link Merce} all 'interno dell' inventario.
+     *
+     * @param prezzo          Prezzo della merce da inserire
+     * @param descrizione     Descrizione della merce da inserire
+     * @param quantita        Quantita della merce da inserire
+     * @return                ArrayList<String> dei dettagli della merce creata
+     * @throws SQLException   Errore causato da una query SQL
      */
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
         Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
@@ -163,8 +169,9 @@ public class Negozio {
     /**
      * Rimuove la {@link Merce} dall'inventario.
      *
-     * @param IDMerce ID della Merce da rimuovere.
-     * @return {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
+     * @param IDMerce         ID della Merce da rimuovere.
+     * @return                {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
+     * @throws SQLException   Errore causato da una query SQL
      */
     public void removeMerce(int IDMerce) throws SQLException {
         inventario.remove(getMerce(IDMerce));
@@ -178,7 +185,6 @@ public class Negozio {
      * @return
      * @throws SQLException
      */
-    //todo test
     public ArrayList<String> selezionaMerce(int IDMerce) throws SQLException {
         return getMerce(IDMerce).getDettagli();
     }
@@ -188,12 +194,12 @@ public class Negozio {
     }
 
     /**
-     * todo
+     * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
      *
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
-    private void update() throws SQLException {
+    public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.IDNegozio + "';");
         if (rs.next()) {
             this.nome = rs.getString("nome");

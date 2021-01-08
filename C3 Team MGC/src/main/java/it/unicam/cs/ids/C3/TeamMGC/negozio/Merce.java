@@ -74,11 +74,11 @@ public class Merce {
     }
 
     /**
-     * todo
+     * Ritorna la lista dei dettagli della {@link Merce } presente nel DB.
      *
-     * @return ArrayList<String> dei dettagli.
-     * @throws SQLException Errore causato da una query SQL
-     */
+     * @return                ArrayList<String> dei dettagli della merce.
+     * @throws SQLException   Errore causato da una query SQL
+     **/
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -114,6 +114,17 @@ public class Merce {
     public void setQuantita(int quantita) throws SQLException {
         updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");
         this.quantita = quantita;
+    }
+
+    @Override
+    public String toString() {
+        return "Merce{" +
+                "ID=" + ID +
+                ", IDNegozio=" + IDNegozio +
+                ", prezzo=" + prezzo +
+                ", descrizione='" + descrizione + '\'' +
+                ", quantita=" + quantita +
+                '}';
     }
 
     /**

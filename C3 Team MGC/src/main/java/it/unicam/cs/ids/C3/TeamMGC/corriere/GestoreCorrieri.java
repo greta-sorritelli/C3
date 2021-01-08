@@ -139,12 +139,12 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * todo
+     * Crea e inserisce un nuovo {@link Corriere} nella lista.
      *
-     * @param nome
-     * @param cognome
-     * @param capienza
-     * @return
+     * @param nome          Nome del corriere da inserire
+     * @param cognome       Cognome del corriere da inserire
+     * @param capienza      Capienza del corriere da inserire
+     * @return              ArrayList<String> dei dettagli del corriere creato
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) throws SQLException {
@@ -156,8 +156,8 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     /**
      * Seleziona il {@link Corriere} desiderato.
      *
-     * @param ID Codice Identificativo del Corriere
-     * @return Le informazioni del Corriere
+     * @param ID            Codice Identificativo del Corriere
+     * @return              Le informazioni del Corriere
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> selezionaCorriere(int ID) throws SQLException {

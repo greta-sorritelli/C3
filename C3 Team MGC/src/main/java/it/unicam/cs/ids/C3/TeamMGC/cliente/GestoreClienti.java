@@ -122,11 +122,11 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * todo
+     * Crea e inserisce un nuovo {@link Cliente} nella lista.
      *
-     * @param nome
-     * @param cognome
-     * @return
+     * @param nome          Nome del cliente da inserire
+     * @param cognome       Cognome del cliente da inserire
+     * @return              ArrayList<String> dei dettagli del cliente creato
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
