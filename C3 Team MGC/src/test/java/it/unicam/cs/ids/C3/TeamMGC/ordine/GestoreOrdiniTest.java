@@ -98,6 +98,7 @@ class GestoreOrdiniTest {
         assertEquals("Maria", ordineDettagli.get(2));
         assertEquals("Giuseppa", ordineDettagli.get(3));
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraOrdine(1000, "Matteo", "Rondini"));
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.getOrdine(1000));
     }
 
     //todo CAMBIARE INFORMAZIONI DEGLI OGGETTI
@@ -126,6 +127,7 @@ class GestoreOrdiniTest {
         assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getMerceOrdine(1).getStato());
         gestoreOrdini.setStatoMerce(1, StatoOrdine.AFFIDATO_AL_CORRIERE);
         assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE, gestoreOrdini.getMerceOrdine(1).getStato());
+
     }
 
     @Test
@@ -152,5 +154,9 @@ class GestoreOrdiniTest {
         gestoreOrdini.registraMerce(merce1.getID(), 10, Integer.parseInt(ordine.get(0)));
         ordine = gestoreOrdini.terminaOrdine(Integer.parseInt(ordine.get(0)));
         assertSame(StatoOrdine.PAGATO.toString(), ordine.get(5));
+        gestoreOrdini.getMerceOrdine(merce.getID()).setStato(StatoOrdine.DA_PAGARE);
+        gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getMerci().get(0).setStato(StatoOrdine.DA_PAGARE);
+        int idOrdine = Integer.parseInt(ordine.get(0));
+        assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.terminaOrdine(idOrdine));
     }
 }

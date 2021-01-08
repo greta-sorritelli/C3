@@ -57,7 +57,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
 
         else {
             //todo eccezione
-            throw new IllegalArgumentException("Corrieri dispobili non presenti.");
+            throw new IllegalArgumentException("Corrieri disponibili non presenti.");
         }
         return corrieriDisponibili;
     }
