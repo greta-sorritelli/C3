@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GestoreMagazziniTest {
 
@@ -18,6 +19,15 @@ class GestoreMagazziniTest {
         updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`, `indirizzo`) VALUES ('B1', 'via Giacinto');");
         updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`, `indirizzo`) VALUES ('B2', 'via Giuseppe');");
         updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`, `indirizzo`) VALUES ('B3', 'via Paolo');");
+    }
+
+    @Test
+    void ricercaMagazzino() throws SQLException {
+        GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
+        PuntoPrelievo punto = gestoreMagazzini.ricercaMagazzino("via Giacinto");
+        assertEquals(punto.getID(), 1);
+        assertEquals(punto.getNome(), gestoreMagazzini.getItem(1).getNome());
+        assertThrows(IllegalArgumentException.class, () -> gestoreMagazzini.ricercaMagazzino("Polo Nord"));
     }
 
     @Test
@@ -51,11 +61,17 @@ class GestoreMagazziniTest {
         assertEquals("B1", gestoreMagazzini.getItem(1).getNome());
         assertEquals("via Giuseppe", gestoreMagazzini.getItem(2).getIndirizzo());
         assertEquals("via Paolo", gestoreMagazzini.getItem(3).getIndirizzo());
+        assertThrows(IllegalArgumentException.class, () -> gestoreMagazzini.getItem(1000));
     }
 
     @Test
     void sceltaPuntoPrelievo() throws SQLException {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
+        ArrayList<String> prova = new ArrayList<>();
+        prova.add("1");
+        prova.add("B1");
+        prova.add("via Giacinto");
+        assertEquals(prova, gestoreMagazzini.sceltaPuntoPrelievo(1));
         assertEquals("B1", gestoreMagazzini.sceltaPuntoPrelievo(1).get(1));
         assertEquals("via Giuseppe", gestoreMagazzini.sceltaPuntoPrelievo(2).get(2));
         assertEquals("via Paolo", gestoreMagazzini.sceltaPuntoPrelievo(3).get(2));
