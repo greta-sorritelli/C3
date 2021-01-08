@@ -40,17 +40,16 @@ public class GestoreOrdini {
      * @param ordine Ordine da aggiungere
      * @return {@code true} se l'Ordine viene inserito correttamente, {@code false} altrimenti
      */
-    private boolean addOrdineToList(Ordine ordine) {
+    private void addOrdineToList(Ordine ordine) {
         if (!ordini.contains(ordine))
-            return ordini.add(ordine);
-        else
-            return false;
+             ordini.add(ordine);
     }
 
     /**
-     * todo
-     * @param IDOrdine
-     * @param indirizzo
+     * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine} preso tramite l' {@code ID}.
+     *
+     * @param IDOrdine    ID dell'ordine a cui aggiungere la residenza
+     * @param indirizzo   Indirizzo della residenza da ggiungere all'ordine
      */
     public void addResidenza(int IDOrdine, String indirizzo) throws SQLException {
         getOrdine(IDOrdine).addResidenza(indirizzo);
@@ -87,7 +86,11 @@ public class GestoreOrdini {
     }
 
     /**
-     * @return ArrayList<ArrayList < String>> dei dettagli della merce con un certo stato.
+     * Ritorna la lista dei dettagli delle {@link MerceOrdine Merci} con un certo stato presenti nel DB.
+     *
+     *  @param statoOrdine   Stato della merce
+     * @return               ArrayList<ArrayList<String>> dei dettagli della merce.
+     * @throws SQLException  Errore causato da una query SQL
      */
     //todo test
     public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
@@ -98,10 +101,14 @@ public class GestoreOrdini {
     }
 
     /**
-     * @param IDOrdine Id dell'ordine a cui appartiene la merce
-     * @return ArrayList<ArrayList < String>> dei dettagli di tutta la merce di un ordine
+     * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} di un ordine presenti nel DB.
+     *
+     * @param IDOrdine       Id dell'ordine a cui appartiene la merce
+     * @return               ArrayList<ArrayList<String>> dei dettagli di tutta la merce di un ordine
+     * @throws SQLException  Errore causato da una query SQL
      */
     //todo test
+    //tolto da visual paradigm
     public ArrayList<ArrayList<String>> getDettagliMerceTotale(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> merce = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -109,6 +116,14 @@ public class GestoreOrdini {
         return getArrayLists(merce, dettagli, rs);
     }
 
+    /**
+     *
+     * @param merce
+     * @param dettagli
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     //todo rename
     private ArrayList<ArrayList<String>> getArrayLists(ArrayList<MerceOrdine> merce, ArrayList<ArrayList<String>> dettagli, ResultSet rs) throws SQLException {
         while (rs.next()) {
@@ -124,19 +139,22 @@ public class GestoreOrdini {
     }
 
     /**
-     * @param IDCliente Id del cliente a cui appartiene l'ordine
-     * @return ArrayList<String> dei dettagli dell'ordine
+     * Ritorna la lista dei dettagli degli {@link Ordine Ordini} di un cliente presenti nel DB.
+     *
+     * @param IDCliente      Id del cliente a cui appartiene l'ordine
+     * @return               ArrayList<String> dei dettagli dell'ordine
+     * @throws SQLException  Errore causato da una query SQL
      */
     //todo test
     public ArrayList<String> getDettagliOrdineCliente(int IDCliente) throws SQLException {
-        ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "';");
+        ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "';");
         if (rs.next())
             return getOrdine(rs.getInt("ID")).getDettagli();
         return null;
     }
 
     /**
-     * todo
+     * Ritorna la lista dei dettagli dell' {@link Ordine } preso tramite l' {@code ID}.
      *
      * @param IDOrdine
      * @return
@@ -220,8 +238,18 @@ public class GestoreOrdini {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
 
+
+    //todo controllare test
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
+        Ordine ordine = getOrdine(getMerceOrdine(IDMerce).getIDOrdine());
+        boolean toControl = true;
+        for ( MerceOrdine m: ordine.getMerci()) {
+            if(m.getStato() != statoOrdine)
+                toControl = false;
+        }
+        if(toControl)
+            ordine.setStato(statoOrdine);
     }
 
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {

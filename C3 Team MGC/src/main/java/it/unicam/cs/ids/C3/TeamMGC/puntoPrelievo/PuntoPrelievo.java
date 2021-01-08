@@ -52,6 +52,7 @@ public class PuntoPrelievo {
     }
 
     /**
+     * todo
      * @return ArrayList<String> dei dettagli del punto di prelievo.
      * @throws SQLException Errore causato da una query SQL
      */
@@ -84,6 +85,7 @@ public class PuntoPrelievo {
      * che fa parte dell' ordine
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo cambiare
     public ArrayList<ArrayList<String>> getDettagliMerceMagazzino(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> merceOrdine = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -115,6 +117,7 @@ public class PuntoPrelievo {
      * @param IDOrdine id dell' ordine
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo cambiare
     public ArrayList<MerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from merci\n" +
@@ -156,10 +159,11 @@ public class PuntoPrelievo {
      * @param IDCliente id del cliente
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo controllare test
     public ArrayList<Ordine> getOrdini(int IDCliente) throws SQLException {
         ArrayList<Ordine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from ordini\n" +
-                "WHERE IDCliente = " + IDCliente + " AND IDPuntoPrelievo = \"" + this.ID + "\";");
+                "WHERE IDCliente = " + IDCliente + " AND IDPuntoPrelievo = '" + this.ID + "' and stato = " + StatoOrdine.IN_DEPOSITO + " ;");
         while (rs.next()) {
             Ordine ordine = new Ordine(rs.getInt("ID"));
             lista.add(ordine);
