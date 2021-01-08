@@ -104,4 +104,33 @@ class NegozioTest {
         if (rs.next())
             assertEquals(100, rs.getInt("quantita"));
     }
+
+    @Test
+    void update() throws SQLException {
+        Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
+        int IDTest = negozio.getIDNegozio();
+        assertEquals("Negozio di Bici", negozio.getNome());
+        assertEquals("Sport", negozio.getCategoria());
+        assertEquals("09:00", negozio.getOrarioApertura());
+        assertEquals("16:00", negozio.getOrarioChiusura());
+        assertEquals("Via dei Test", negozio.getIndirizzo());
+        assertEquals("12345", negozio.getTelefono());
+
+        updateData("UPDATE sys.negozi SET nome = 'Negozio di scarpe' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.negozi SET categoria = 'Scarpe' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.negozi SET orarioApertura = '08:00' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.negozi SET orarioChiusura = '15:00' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.negozi SET indirizzo = 'Via degli assert' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.negozi SET telefono = '338599' WHERE (ID = '" + IDTest + "');");
+
+        negozio.update();
+        assertEquals("Negozio di scarpe", negozio.getNome());
+        assertEquals("Scarpe", negozio.getCategoria());
+        assertEquals("08:00", negozio.getOrarioApertura());
+        assertEquals("15:00", negozio.getOrarioChiusura());
+        assertEquals("Via degli assert", negozio.getIndirizzo());
+        assertEquals("338599", negozio.getTelefono());
+
+
+    }
 }

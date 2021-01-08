@@ -179,11 +179,11 @@ public class Negozio {
     }
 
     /**
-     * todo
+     * Seleziona la {@link Merce} tramite l' {@code ID}.
      *
-     * @param IDMerce
-     * @return
-     * @throws SQLException
+     * @param IDMerce          ID della merce da selezionare
+     * @return                 ArrayList<String> dei dettagli della merce
+     * @throws SQLException    Errore causato da una query SQL
      */
     public ArrayList<String> selezionaMerce(int IDMerce) throws SQLException {
         return getMerce(IDMerce).getDettagli();
@@ -198,7 +198,6 @@ public class Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.IDNegozio + "';");
         if (rs.next()) {
