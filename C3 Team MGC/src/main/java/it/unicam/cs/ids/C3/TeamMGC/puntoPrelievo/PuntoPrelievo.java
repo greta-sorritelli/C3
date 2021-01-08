@@ -12,6 +12,11 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
+/**
+ * Classe per la creazione di un {@link PuntoPrelievo}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class PuntoPrelievo {
     private int ID = 0;
     private String indirizzo = "";
@@ -33,6 +38,11 @@ public class PuntoPrelievo {
             throw new IllegalArgumentException("ID non valido.");
     }
 
+    /**
+     * Costruttore per inserire i dati nel DB
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     public PuntoPrelievo(String indirizzo, String nome) throws SQLException {
         updateData("INSERT INTO sys.punti_prelievo (nome,indirizzo) \n" +
                 "VALUES ('" + nome + "' , '" + indirizzo + "');");
@@ -54,6 +64,7 @@ public class PuntoPrelievo {
     /**
      * todo
      * @return ArrayList<String> dei dettagli del punto di prelievo.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> getDettagli() throws SQLException {
@@ -181,7 +192,6 @@ public class PuntoPrelievo {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.punti_prelievo where ID= '" + this.ID + "';");
         if (rs.next()) {

@@ -10,6 +10,11 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
+/**
+ * Classe per la creazione di un {@link Corriere}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class Corriere {
     private int ID;
     private String nome;
@@ -35,6 +40,11 @@ public class Corriere {
             throw new IllegalArgumentException("ID non valido.");
     }
 
+    /**
+     * Costruttore per inserire i dati nel DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public Corriere(String nome, String cognome, boolean disponibilita, int capienza) throws SQLException {
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('" + nome + "', '" + cognome +
                 "', '" + disponibilita + "', '" + capienza + "');");
@@ -59,6 +69,12 @@ public class Corriere {
         return capienza;
     }
 
+    /**
+     * Imposta una nuova capienza del {@link Corriere}
+     *
+     * @param capienza nuova capienza
+     * @throws SQLException eccezione causata da una query SQL
+     */
     public void setCapienza(int capienza) throws SQLException {
         if (capienza < 0)
             throw new IllegalArgumentException("Capienza non valida.");
@@ -94,6 +110,11 @@ public class Corriere {
         return disponibilita;
     }
 
+    /**
+     * Imposta la nuova disponibilità del {@link Corriere}
+     *
+     * @throws SQLException eccezione causa da una query SQL
+     */
     public void setDisponibilita(boolean disponibilita) throws SQLException {
         updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
         this.disponibilita = disponibilita;

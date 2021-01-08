@@ -15,6 +15,11 @@ import java.util.Random;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
+/**
+ * Classe per la gestione di ogni {@link Cliente}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class GestoreClienti implements Gestore<Cliente> {
 
     private final ArrayList<Cliente> clienti = new ArrayList<>();
@@ -39,13 +44,10 @@ public class GestoreClienti implements Gestore<Cliente> {
      * Aggiunge un {@link Cliente} alla lista di clienti.
      *
      * @param cliente Cliente da aggiungere
-     * @return {@code true} se il Cliente viene inserito correttamente, {@code false} altrimenti
      */
-    private boolean addClienteToList(Cliente cliente) {
+    private void addClienteToList(Cliente cliente) {
         if (!clienti.contains(cliente))
-            return clienti.add(cliente);
-        else
-            return false;
+            clienti.add(cliente);
     }
 
     /**
@@ -159,11 +161,11 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * todo
+     * Verifica se il codice di ritiro è quello associato al {@link Cliente}
      *
      * @param IDCliente    Codice Identificativo del Cliente
-     * @param codiceRitiro
-     * @return
+     * @param codiceRitiro Codice di Ritiro comunicato dal Cliente
+     * @return true se il codice è giusto, false altrimenti
      * @throws SQLException Errore causato da una query SQL
      */
     public boolean verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
@@ -178,7 +180,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @param codiceRitiroComunicato Codice comunicato dal cliente
      * @param codiceRitiroDB         Codice presente nel DB
-     * @return
+     * @return true se il codice è giusto, false altrimenti
      */
     private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB) {
         return codiceRitiroComunicato.equals(codiceRitiroDB);

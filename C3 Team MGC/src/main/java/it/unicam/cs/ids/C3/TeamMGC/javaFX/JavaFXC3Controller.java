@@ -4,6 +4,9 @@ import it.unicam.cs.ids.C3.TeamMGC.view.*;
 
 import java.sql.SQLException;
 
+/**
+ * Classe per la visualizzazione della home e la scelta del profilo
+ */
 public class JavaFXC3Controller implements JavaFXController {
 
     public void visualizzaHomeAddetto() throws SQLException {
@@ -33,6 +36,5 @@ public class JavaFXC3Controller implements JavaFXController {
     public void visualizzaHomeCommerciante() {
         openWindow("/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante());
     }
-
 
 }

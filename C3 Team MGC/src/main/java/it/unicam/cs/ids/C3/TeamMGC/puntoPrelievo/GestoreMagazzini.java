@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
+/**
+ * Classe per la gestione di ogni {@link PuntoPrelievo}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
 
     ArrayList<PuntoPrelievo> magazzini = new ArrayList<>();
@@ -22,7 +27,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * viene creato e aggiunto alla lista.
      *
      * @return Il Punto di prelievo
-     * @throws SQLException
+     * @throws SQLException eccezione causata da una query SQL
      */
     private PuntoPrelievo addMagazzino(ResultSet rs) throws SQLException {
         for (PuntoPrelievo magazzino : magazzini)
@@ -37,7 +42,6 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * Aggiunge un {@link PuntoPrelievo} alla lista di magazzini.
      *
      * @param magazzino Punto di prelievo da aggiungere
-     * @return {@code true} se il Punto di prelievo viene inserito correttamente, {@code false} altrimenti
      */
     private void addMagazzinoToList(PuntoPrelievo magazzino) {
         if (!magazzini.contains(magazzino))

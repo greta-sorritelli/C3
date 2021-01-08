@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
+/**
+ * Classe per la gestione di ogni {@link Corriere}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class GestoreCorrieri implements Gestore<Corriere> {
     ArrayList<Corriere> corrieri = new ArrayList<>();
 
@@ -32,13 +37,10 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * Aggiunge un {@link Corriere} alla lista di corrieri.
      *
      * @param corriere Corriere da aggiungere
-     * @return {@code true} se il Corriere viene inserito correttamente, {@code false} altrimenti
      */
-    private boolean addCorriereToList(Corriere corriere) {
+    private void addCorriereToList(Corriere corriere) {
         if (!corrieri.contains(corriere))
-            return corrieri.add(corriere);
-        else
-            return false;
+            corrieri.add(corriere);
     }
 
     /**

@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -102,6 +101,21 @@ class MerceOrdineTest {
     }
 
     @Test
-    void update() {
+    void update() throws SQLException {
+        MerceOrdine merceOrdine = new MerceOrdine(12, "Upload", StatoOrdine.DA_PAGARE, ordineTest.getID());
+        merceOrdine.setQuantita(1);
+        assertEquals(1, merceOrdine.getQuantita());
+        assertEquals(12, merceOrdine.getPrezzo());
+        assertEquals("Upload", merceOrdine.getDescrizione());
+        assertEquals(StatoOrdine.DA_PAGARE, merceOrdine.getStato());
+        updateData("UPDATE sys.merci SET stato = 'PAGATO' where ID = '" + merceOrdine.getID() + "';");
+        updateData("UPDATE sys.merci SET prezzo = '10' where ID = '" + merceOrdine.getID() + "';");
+        updateData("UPDATE sys.merci SET descrizione = 'Mr Robot' where ID = '" + merceOrdine.getID() + "';");
+        updateData("UPDATE sys.merci SET quantita = '2' where ID = '" + merceOrdine.getID() + "';");
+        merceOrdine.update();
+        assertEquals(2, merceOrdine.getQuantita());
+        assertEquals(10, merceOrdine.getPrezzo());
+        assertEquals("Mr Robot", merceOrdine.getDescrizione());
+        assertEquals(StatoOrdine.PAGATO, merceOrdine.getStato());
     }
 }

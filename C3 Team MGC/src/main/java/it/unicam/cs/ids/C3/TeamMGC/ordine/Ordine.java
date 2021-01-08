@@ -8,6 +8,11 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
+/**
+ * Classe per la creazione di un {@link Ordine}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class Ordine {
     private int ID;
     private int IDCliente;
@@ -42,6 +47,11 @@ public class Ordine {
             throw new IllegalArgumentException("ID non valido.");
     }
 
+    /**
+     * Costruttore per inserire i dati nel DB
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     public Ordine(int IDCliente, String nomeCliente, String cognomeCliente, int IDNegozio) throws SQLException {
         updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, stato, IDNegozio, IDPuntoPrelievo) " +
                 "VALUES ('" + IDCliente + "', '" + nomeCliente + "', '" + cognomeCliente + "', '" + "DA_PAGARE', '" + IDNegozio + "', '" + IDPuntoPrelievo + "');");

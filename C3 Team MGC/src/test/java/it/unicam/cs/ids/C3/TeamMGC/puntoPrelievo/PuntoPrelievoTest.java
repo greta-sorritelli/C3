@@ -53,6 +53,19 @@ class PuntoPrelievoTest {
     }
 
     @Test
+    void update() throws SQLException {
+        PuntoPrelievo puntoPrelievo = new PuntoPrelievo("Love Museum", "Bugs Bunny");
+        assertEquals(puntoPrelievo.getIndirizzo(), "Love Museum");
+        assertEquals(puntoPrelievo.getNome(), "Bugs Bunny");
+        updateData("UPDATE sys.punti_prelievo SET indirizzo = 'Love Court' where ID = '" + puntoPrelievo.getID() + "';");
+        assertEquals(puntoPrelievo.getIndirizzo(), "Love Museum");
+        assertEquals(puntoPrelievo.getNome(), "Bugs Bunny");
+        puntoPrelievo.update();
+        assertEquals(puntoPrelievo.getIndirizzo(), "Love Court");
+        assertEquals(puntoPrelievo.getNome(), "Bugs Bunny");
+    }
+
+    @Test
     void getDettagli() throws SQLException {
         ArrayList<String> dettagliMagazzino1 = new ArrayList<>();
         ArrayList<String> dettagliMagazzino2 = new ArrayList<>();

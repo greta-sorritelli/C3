@@ -59,6 +59,11 @@ class OrdineTest {
     }
 
     @Test
+    void update() {
+        //todo
+    }
+
+    @Test
     void getDettagli() throws SQLException {
         Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());

@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
+/**
+ * Classe per la creazione di un {@link Negozio}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
     //todo ID
@@ -18,6 +23,11 @@ public class Negozio {
     private String indirizzo;
     private String telefono;
 
+    /**
+     * Costruttore per inserire i dati nel DB
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     public Negozio(String nome, String categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) throws SQLException {
         updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) " +
                 "VALUES ('" + nome + "', '" + categoria + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
@@ -33,6 +43,11 @@ public class Negozio {
         this.telefono = telefono;
     }
 
+    /**
+     * Costruttore per importare i dati dal DB
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     public Negozio(int IDNegozio) throws SQLException {
         ResultSet rs = executeQuery("select * from negozi where ID ='" + IDNegozio + "';");
         if (rs.next()) {
@@ -69,7 +84,6 @@ public class Negozio {
      * Aggiunge un {@link Merce} all' inventario.
      *
      * @param merce Merce da aggiungere
-     * @return {@code true} se la Merce viene inserita correttamente, {@code false} altrimenti
      */
     private void addMerceToList(Merce merce) {
         if (!inventario.contains(merce))
@@ -177,7 +191,6 @@ public class Negozio {
      * Rimuove la {@link Merce} dall'inventario.
      *
      * @param IDMerce ID della Merce da rimuovere.
-     * @return {@code true} se la Merce viene rimossa correttamente, {@code false} altrimenti
      * @throws SQLException Errore causato da una query SQL
      */
     public void removeMerce(int IDMerce) throws SQLException {

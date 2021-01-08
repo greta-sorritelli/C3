@@ -11,7 +11,11 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
-
+/**
+ * Classe per la creazione di un {@link Cliente}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class Cliente {
     private int ID;
     private String nome;
@@ -37,6 +41,11 @@ public class Cliente {
             throw new IllegalArgumentException("ID non valido.");
     }
 
+    /**
+     * Costruttore per inserire i dati nel DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public Cliente(String nome, String cognome) throws SQLException {
         updateData("INSERT INTO sys.clienti (nome, cognome) VALUES ('" + nome + "', '" + cognome + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from clienti;");
@@ -67,9 +76,9 @@ public class Cliente {
     }
 
     /**
-     * todo
+     * Ritorna un arraylist con i dettagli del {@link Cliente} in stringa.
      *
-     * @return ArrayList<String> dei dettagli del cliente.
+     * @return ArrayList dei dettagli
      */
     public ArrayList<String> getDettagli() throws SQLException {
         update();
@@ -95,6 +104,11 @@ public class Cliente {
         return Objects.hash(getID());
     }
 
+    /**
+     * Crea un nuovo codice di ritiro e lo associa alla data in cui il {@link Cliente} effettua un acquisto.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public String setCodiceRitiro(String codiceRitiro) throws SQLException {
         dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
         this.codiceRitiro = codiceRitiro;

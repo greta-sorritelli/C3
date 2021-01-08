@@ -8,7 +8,10 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
 /**
- * Rappresenta la Merce all' interno dell' Inventario di un {@link Negozio}.
+ * Classe per rappresentare la Merce all' interno dell' Inventario di un {@link Negozio}.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ *
  */
 public class Merce {
     private int ID;
@@ -20,10 +23,6 @@ public class Merce {
     /**
      * Costruttore per la {@link Merce} all' interno dell' Inventario del Negozio.
      *
-     * @param IDNegozio
-     * @param prezzo
-     * @param descrizione
-     * @param quantita
      * @throws SQLException Errore causato da una query SQL
      */
     public Merce(int IDNegozio, double prezzo, String descrizione, int quantita) throws SQLException {
@@ -51,7 +50,7 @@ public class Merce {
     }
 
     /**
-     * todo
+     * Elimina la merce dal db e aggiorna i dati dell'oggetto
      *
      * @throws SQLException Errore causato da una query SQL
      */

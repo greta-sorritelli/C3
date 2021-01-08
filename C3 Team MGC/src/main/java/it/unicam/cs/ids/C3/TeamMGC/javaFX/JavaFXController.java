@@ -11,10 +11,10 @@ import java.io.IOException;
 public interface JavaFXController {
 
     /**
-     * This method open a new window.
+     * Metodo per aprire una finestra
      *
-     * @param a Fxml path
-     * @param b Title of window.
+     * @param a path del file fxml
+     * @param b titolo della finestra
      */
     default void openWindow(String a, String b, Object controller) {
         try {
@@ -33,6 +33,11 @@ public interface JavaFXController {
         }
     }
 
+    /**
+     * Metodo per la chiusura di una finestra
+     * //todo controllare
+     * @param stage stage da chiudere
+     */
     default void closeWindow(Stage stage) {
         stage.close();
     }

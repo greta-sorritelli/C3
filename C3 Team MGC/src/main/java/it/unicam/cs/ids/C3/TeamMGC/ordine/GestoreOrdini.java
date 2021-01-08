@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
+/**
+ * Classe per la gestione di ogni {@link Ordine}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class GestoreOrdini {
     private final Negozio negozio;
     private final ArrayList<Ordine> ordini = new ArrayList<>();

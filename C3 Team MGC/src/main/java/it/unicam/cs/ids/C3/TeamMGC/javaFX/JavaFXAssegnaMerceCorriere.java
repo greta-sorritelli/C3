@@ -112,6 +112,9 @@ public class JavaFXAssegnaMerceCorriere {
         StatoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(5)));
     }
 
+    /**
+     * Inserisce i dati dei corrieri nella tabella
+     */
     @FXML
     public void visualizzaCorrieri(){
         try {
@@ -123,6 +126,9 @@ public class JavaFXAssegnaMerceCorriere {
         }
     }
 
+    /**
+     * Inserisce i dati dei punti di prelievo nella tabella
+     */
     @FXML
     public void visualizzaPuntiPrelievo(){
         try {

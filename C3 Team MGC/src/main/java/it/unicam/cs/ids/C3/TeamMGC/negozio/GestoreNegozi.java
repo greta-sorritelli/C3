@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
+/**
+ * Classe per la gestione di ogni {@link Negozio}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class GestoreNegozi implements Gestore<Negozio> {
 
     ArrayList<Negozio> negozi = new ArrayList<>();
@@ -34,7 +39,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * Aggiunge un {@link Negozio} alla lista dei negozi.
      *
      * @param negozio Negozio da aggiungere
-     * @return {@code true} se il Negozio viene inserito correttamente, {@code false} altrimenti
      */
     private void addNegozioToList(Negozio negozio) {
         if (!negozi.contains(negozio))
@@ -112,7 +116,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      *
      * @param ID
      * @return
-     * @throws SQLException
+     * @throws SQLException eccezione causata da una query SQL
      */
     //todo test e vedere se ritorna dettagli
     public Negozio selezionaNegozio(int ID) throws SQLException {

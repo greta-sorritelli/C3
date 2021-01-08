@@ -8,6 +8,12 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 
+/**
+ * Classe per la creazione di una {@link it.unicam.cs.ids.C3.TeamMGC.negozio.Merce} all'interno di un {@link Ordine}
+ * L'oggetto diventa di tipo {@link MerceOrdine}
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class MerceOrdine {
     private int ID;
     private int IDOrdine = -1;
@@ -16,6 +22,11 @@ public class MerceOrdine {
     private int quantita = 0;
     private StatoOrdine stato;
 
+    /**
+     * Costruttore per inserire i dati nel DB
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     public MerceOrdine(double prezzo, String descrizione, StatoOrdine stato, int IDOrdine) throws SQLException {
         updateData("INSERT INTO sys.merci (prezzo, descrizione, stato, IDOrdine) " +
                 "VALUES ('" + prezzo + "', '" + descrizione + "', '" + stato + "', '" + IDOrdine + "');");
@@ -28,7 +39,12 @@ public class MerceOrdine {
         this.stato = stato;
     }
 
+    /**
+     * Costruttore per importare i dati dal DB
+     *
+     */
     public MerceOrdine(int ID, int IDOrdine, double prezzo, String descrizione, int quantita, StatoOrdine stato) {
+        //todo rivedere
         this.ID = ID;
         this.IDOrdine = IDOrdine;
         this.prezzo = prezzo;
@@ -57,9 +73,9 @@ public class MerceOrdine {
 
     /**
      * @return ArrayList<String> dei dettagli della merce
+     *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -129,7 +145,6 @@ public class MerceOrdine {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.merci where ID= '" + this.ID + "';");
         if (rs.next()) {
