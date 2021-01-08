@@ -8,13 +8,8 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class IAddettoMagazzino implements JavaFXController {
 
@@ -24,6 +19,9 @@ public class IAddettoMagazzino implements JavaFXController {
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+
+    public IAddettoMagazzino() throws SQLException {
+    }
 
     /**
      * Apre la finestra per assegnare la merce al corriere.

@@ -16,7 +16,7 @@ class NegozioTest {
     @Test
     void getDettagli() throws SQLException {
         Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
-        ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma",10);
+        ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma", 10);
         ArrayList<String> test = new ArrayList<>();
         test.add(String.valueOf(negozio.getIDNegozio()));
         test.add("Negozio di Bici");
@@ -26,7 +26,8 @@ class NegozioTest {
         test.add("Via dei Test");
         test.add("12345");
         test.add("[Merce{ID=" + dettagli.get(0) + ", IDNegozio=" + dettagli.get(1) + ", prezzo=52.0, descrizione='gomma', quantita=10}]");
-        assertEquals(test,negozio.getDettagli());
+        assertEquals(test, negozio.getDettagli());
+        assertThrows(IllegalArgumentException.class, () -> new Negozio(1000));
     }
 
     @Test
@@ -59,11 +60,11 @@ class NegozioTest {
     @Test
     void inserisciNuovaMerce() throws SQLException {
         Negozio negozio = new Negozio(1);
-        ArrayList<String> test = negozio.inserisciNuovaMerce(10,"jeans",5);
+        ArrayList<String> test = negozio.inserisciNuovaMerce(10, "jeans", 5);
         assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(Integer.parseInt(test.get(0)))));
-        assertEquals(10,negozio.getMerce(Integer.parseInt(test.get(0))).getPrezzo());
-        assertEquals("jeans",negozio.getMerce(Integer.parseInt(test.get(0))).getDescrizione());
-        assertEquals(5,negozio.getMerce(Integer.parseInt(test.get(0))).getQuantita());
+        assertEquals(10, negozio.getMerce(Integer.parseInt(test.get(0))).getPrezzo());
+        assertEquals("jeans", negozio.getMerce(Integer.parseInt(test.get(0))).getDescrizione());
+        assertEquals(5, negozio.getMerce(Integer.parseInt(test.get(0))).getQuantita());
     }
 
     @BeforeEach
@@ -86,7 +87,7 @@ class NegozioTest {
     @Test
     void selezionaMerce() throws SQLException {
         Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
-        ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma",10);
+        ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma", 10);
         assertEquals("52.0", negozio.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(2));
         assertEquals("gomma", negozio.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(3));
         assertEquals("10", negozio.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(4));
@@ -99,10 +100,11 @@ class NegozioTest {
         assertEquals(10, merce.getQuantita());
         merce.setQuantita(100);
         assertEquals(100, merce.getQuantita());
-
+        negozio.setQuantita(merce.getID(), 20);
+        assertEquals(20, negozio.getMerce(merce.getID()).getQuantita());
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = 1;");
         if (rs.next())
-            assertEquals(100, rs.getInt("quantita"));
+            assertEquals(20, rs.getInt("quantita"));
     }
 
     @Test

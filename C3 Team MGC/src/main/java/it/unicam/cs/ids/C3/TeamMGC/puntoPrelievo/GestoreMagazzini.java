@@ -39,11 +39,9 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * @param magazzino Punto di prelievo da aggiungere
      * @return {@code true} se il Punto di prelievo viene inserito correttamente, {@code false} altrimenti
      */
-    private boolean addMagazzinoToList(PuntoPrelievo magazzino) {
+    private void addMagazzinoToList(PuntoPrelievo magazzino) {
         if (!magazzini.contains(magazzino))
-            return magazzini.add(magazzino);
-        else
-            return false;
+            magazzini.add(magazzino);
     }
 
 

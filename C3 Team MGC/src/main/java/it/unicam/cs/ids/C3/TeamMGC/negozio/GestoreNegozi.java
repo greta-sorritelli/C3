@@ -36,11 +36,9 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @param negozio Negozio da aggiungere
      * @return {@code true} se il Negozio viene inserito correttamente, {@code false} altrimenti
      */
-    private boolean addNegozioToList(Negozio negozio) {
+    private void addNegozioToList(Negozio negozio) {
         if (!negozi.contains(negozio))
-            return negozi.add(negozio);
-        else
-            return false;
+            negozi.add(negozio);
     }
 
     /**

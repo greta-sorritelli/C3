@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ICorriere {
     //todo
@@ -24,6 +25,9 @@ public class ICorriere {
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
     private final GestoreCorrieri gestoreCorrieri= new GestoreCorrieri();
+
+    public ICorriere() throws SQLException {
+    }
 
     /**
      * Apre una nuova finestra
