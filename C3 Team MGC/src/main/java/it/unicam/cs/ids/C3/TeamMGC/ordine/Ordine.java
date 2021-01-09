@@ -14,16 +14,16 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class Ordine {
-    private int ID;
-    private int IDCliente;
+    private final int ID;
+    private final int IDCliente;
     private String nomeCliente;
     private String cognomeCliente;
     private double totalePrezzo;
     private StatoOrdine stato = StatoOrdine.DA_PAGARE;
     private int IDPuntoPrelievo = -1;
     private String residenza = "";
-    private int IDNegozio;
-    private ArrayList<MerceOrdine> merci = new ArrayList<>();
+    private final int IDNegozio;
+    private final ArrayList<MerceOrdine> merci = new ArrayList<>();
 
     /**
      * Costruttore per importare i dati dal DB.
@@ -117,7 +117,7 @@ public class Ordine {
     /**
      * Ritorna un arraylist con i dettagli dell' {@link Ordine}.
      *
-     * @return ArrayList dei dettagli dell'ordine
+     * @return ArrayList dei dettagli dell' ordine
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> getDettagli() throws SQLException {

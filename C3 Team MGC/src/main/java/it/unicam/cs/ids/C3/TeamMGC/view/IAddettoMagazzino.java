@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class IAddettoMagazzino implements JavaFXController {
 
     //todo
-    private Negozio negozio = new Negozio(1);
+    private final Negozio negozio = new Negozio(1);
 
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
@@ -33,7 +33,7 @@ public class IAddettoMagazzino implements JavaFXController {
     }
 
     /**
-     * Apre la finestra per la gestione dell'inventario.
+     * Apre la finestra per la gestione dell' inventario.
      */
     @FXML
     //todo creare fxml

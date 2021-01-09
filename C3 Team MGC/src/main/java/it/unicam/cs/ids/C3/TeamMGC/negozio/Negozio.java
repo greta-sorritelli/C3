@@ -15,7 +15,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 public class Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
     //todo ID
-    private int IDNegozio;
+    private final int IDNegozio;
     private String nome;
     private String categoria;
     private String orarioApertura;
@@ -131,6 +131,7 @@ public class Negozio {
      * Ritorna la {@link Merce} collegata all' {@code ID}.
      *
      * @param ID Codice Identificativo della Merce
+     *
      * @return la Merce desiderata
      * @throws SQLException Errore causato da una query SQL
      */
@@ -178,6 +179,7 @@ public class Negozio {
      * @param prezzo      Prezzo della merce da inserire
      * @param descrizione Descrizione della merce da inserire
      * @param quantita    Quantita della merce da inserire
+     *
      * @return ArrayList<String> dei dettagli della merce creata
      * @throws SQLException Errore causato da una query SQL
      */
@@ -188,9 +190,10 @@ public class Negozio {
     }
 
     /**
-     * Rimuove la {@link Merce} dall'inventario.
+     * Rimuove la {@link Merce} dall' inventario.
      *
      * @param IDMerce ID della Merce da rimuovere.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public void removeMerce(int IDMerce) throws SQLException {
@@ -202,6 +205,7 @@ public class Negozio {
      * Seleziona la {@link Merce} tramite l' {@code ID}.
      *
      * @param IDMerce ID della merce da selezionare
+     *
      * @return ArrayList<String> dei dettagli della merce
      * @throws SQLException Errore causato da una query SQL
      */

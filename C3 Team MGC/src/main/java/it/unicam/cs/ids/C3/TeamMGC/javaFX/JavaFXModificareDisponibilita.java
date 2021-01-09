@@ -2,11 +2,11 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 
-public class JavaFXModicareDisponibilita {
+public class JavaFXModificareDisponibilita {
 
     private final GestoreCorrieri gestoreCorrieri;
 
-    public JavaFXModicareDisponibilita(GestoreCorrieri gestoreCorrieri) {
+    public JavaFXModificareDisponibilita(GestoreCorrieri gestoreCorrieri) {
         this.gestoreCorrieri = gestoreCorrieri;
     }
 

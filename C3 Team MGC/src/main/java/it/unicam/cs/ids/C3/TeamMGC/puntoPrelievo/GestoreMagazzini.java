@@ -70,6 +70,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * Ritorna il {@link PuntoPrelievo Magazzino} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Punto di prelievo
+     *
      * @return Il Punto di prelievo desiderato
      */
     @Override
@@ -105,11 +106,12 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
     }
 
     /**
-     * todo
+     * Ricerca un {@link PuntoPrelievo Magazzino} tramite il suo indirizzo.
      *
-     * @param indirizzo
-     * @return
-     * @throws SQLException
+     * @param indirizzo Indirizzo del Magazzino da ricercare
+     *
+     * @return il Punto di Prelievo collegato all' indirizzo
+     * @throws SQLException Errore causato da una query SQL
      */
     public PuntoPrelievo ricercaMagazzino(String indirizzo) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.punti_prelievo where indirizzo='" + indirizzo + "' ;");
@@ -123,6 +125,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * todo
      *
      * @param ID
+     *
      * @return
      */
     public ArrayList<String> sceltaPuntoPrelievo(int ID) throws SQLException {

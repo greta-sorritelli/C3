@@ -2,7 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXConsegnareMerceAlPuntoPrelievo;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXModicareDisponibilita;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXModificareDisponibilita;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXRegistrazionePiattaforma;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXTrasportareMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 public class ICorriere {
     //todo
-    private Negozio negozio = new Negozio(1);
+    private final Negozio negozio = new Negozio(1);
 
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
@@ -69,7 +69,7 @@ public class ICorriere {
     @FXML
     //todo creare fxml
     public void modificaDisponibilita(){
-        openWindow("/ModificareDisponibilita.fxml", "ModificareDisponibilita", new JavaFXModicareDisponibilita(gestoreCorrieri));
+        openWindow("/ModificareDisponibilita.fxml", "ModificareDisponibilita", new JavaFXModificareDisponibilita(gestoreCorrieri));
     }
 
     /**

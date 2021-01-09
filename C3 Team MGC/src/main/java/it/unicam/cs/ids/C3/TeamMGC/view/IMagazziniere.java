@@ -20,11 +20,11 @@ import java.sql.SQLException;
 
 public class IMagazziniere {
     //todo
-    private Negozio negozio = new Negozio(1);
+    private final Negozio negozio = new Negozio(1);
     //todo
-    private PuntoPrelievo puntoPrelievo = new PuntoPrelievo(1);
+    private final PuntoPrelievo puntoPrelievo = new PuntoPrelievo(1);
 
-    private GestoreClienti gestoreClienti = new GestoreClienti();
+    private final GestoreClienti gestoreClienti = new GestoreClienti();
     private final GestoreNegozi gestoreNegozi = new GestoreNegozi();
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);

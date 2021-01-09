@@ -17,7 +17,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class Cliente {
-    private int ID;
+    private final int ID;
     private String nome;
     private String cognome;
     private String codiceRitiro = "";

@@ -15,7 +15,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class MerceOrdine {
-    private int ID;
+    private final int ID;
     private int IDOrdine = -1;
     private double prezzo = 0;
     private String descrizione = "";

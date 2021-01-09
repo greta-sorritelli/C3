@@ -5,7 +5,7 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXC3;
 import javafx.application.Application;
 
 /**
- * Classe principale per il launch di un'interfaccia grafica.
+ * Classe principale per il launch di un' interfaccia grafica.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */

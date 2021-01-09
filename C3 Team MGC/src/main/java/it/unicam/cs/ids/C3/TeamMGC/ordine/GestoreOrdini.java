@@ -43,8 +43,6 @@ public class GestoreOrdini {
      * Aggiunge un {@link Ordine} alla lista di ordini.
      *
      * @param ordine Ordine da aggiungere
-     *
-     * @return {@code true} se l'Ordine viene inserito correttamente, {@code false} altrimenti
      */
     private void addOrdineToList(Ordine ordine) {
         if (!ordini.contains(ordine))
@@ -54,8 +52,8 @@ public class GestoreOrdini {
     /**
      * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine} preso tramite l' {@code ID}.
      *
-     * @param IDOrdine  ID dell'ordine a cui aggiungere la residenza
-     * @param indirizzo Indirizzo della residenza da ggiungere all'ordine
+     * @param IDOrdine  ID dell' ordine a cui aggiungere la residenza
+     * @param indirizzo Indirizzo della residenza da aggiungere all' ordine
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -80,12 +78,12 @@ public class GestoreOrdini {
     }
 
     /**
-     * todo
+     * Crea una {@link MerceOrdine} e la aggiunge ad un {@link Ordine}.
      *
-     * @param rs
-     * @param ordine
+     * @param rs     ResultSet contenente la query per creare la Merce
+     * @param ordine Ordine a cui aggiungere la Merce
      *
-     * @return
+     * @return la MerceOrdine creata
      * @throws SQLException Errore causato da una query SQL
      */
     private MerceOrdine creaMerceFromDB(ResultSet rs, Ordine ordine) throws SQLException {
@@ -137,9 +135,9 @@ public class GestoreOrdini {
     /**
      * Ritorna la lista dei dettagli dell' {@link Ordine } preso tramite l' {@code ID}.
      *
-     * @param IDOrdine
+     * @param IDOrdine Codice Identificativo dell' Ordine
      *
-     * @return
+     * @return un ArrayList di String contenente i dettagli dell' Ordine
      * @throws SQLException Errore causato da una query SQL
      */
     //todo test
@@ -150,9 +148,9 @@ public class GestoreOrdini {
     /**
      * Ritorna la lista dei dettagli degli {@link Ordine Ordini} di un cliente presenti nel DB.
      *
-     * @param IDCliente Id del cliente a cui appartiene l'ordine
+     * @param IDCliente Id del cliente a cui appartiene l' ordine
      *
-     * @return ArrayList<String> dei dettagli dell'ordine
+     * @return un ArrayList di String contenente i  dell' ordine
      * @throws SQLException Errore causato da una query SQL
      */
     //todo test e forse levare
@@ -208,7 +206,7 @@ public class GestoreOrdini {
     /**
      * Ritorna l' {@link Ordine} collegato all' {@code ID}.
      *
-     * @param ID Codice Identificativo dell'Ordine
+     * @param ID Codice Identificativo dell' Ordine
      *
      * @return L'ordine desiderato
      * @throws SQLException Errore causato da una query SQL
@@ -244,11 +242,11 @@ public class GestoreOrdini {
     /**
      * Registra l'{@link Ordine} con i dati del {@link Cliente} e cambia il suo {@code stato} in "PAGATO".
      *
-     * @param IDCliente ID del cliente a cui appartiene l'ordine
-     * @param nome      Nome del cliente a cui appartiene l'ordine
-     * @param cognome   Cognome del cliente a cui appartiene l'ordine
+     * @param IDCliente ID del cliente a cui appartiene l' ordine
+     * @param nome      Nome del cliente a cui appartiene l' ordine
+     * @param cognome   Cognome del cliente a cui appartiene l' ordine
      *
-     * @return L'ordine registrato
+     * @return un ArrayList di String contenente i dettagli dell' Ordine creato
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
@@ -284,6 +282,7 @@ public class GestoreOrdini {
      *
      * @param IDOrdine Ordine da controllare
      *
+     * @return un ArrayList di String contenente i dettagli dell' Ordine
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> terminaOrdine(int IDOrdine) throws SQLException {

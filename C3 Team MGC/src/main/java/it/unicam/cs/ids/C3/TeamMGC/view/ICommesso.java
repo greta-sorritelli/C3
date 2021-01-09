@@ -21,7 +21,7 @@ import java.sql.SQLException;
 
 public class ICommesso {
     //todo
-    private Negozio negozio = new Negozio(1);
+    private final Negozio negozio = new Negozio(1);
 
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();

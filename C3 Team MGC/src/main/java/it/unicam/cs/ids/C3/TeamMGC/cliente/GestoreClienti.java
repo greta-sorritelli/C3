@@ -55,6 +55,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @param IDCliente Codice Identificativo del Cliente
      * @param IDOrdine  Codice Identificativo dell' Ordine
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     private void creazioneCodice(int IDCliente, int IDOrdine) throws SQLException {
@@ -97,6 +98,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * Ritorna il {@link Cliente} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Cliente
+     *
      * @return Il Cliente desiderato
      * @throws SQLException Errore causato da una query SQL
      */
@@ -126,9 +128,10 @@ public class GestoreClienti implements Gestore<Cliente> {
     /**
      * Crea e inserisce un nuovo {@link Cliente} nella lista.
      *
-     * @param nome          Nome del cliente da inserire
-     * @param cognome       Cognome del cliente da inserire
-     * @return              ArrayList<String> dei dettagli del cliente creato
+     * @param nome    Nome del cliente da inserire
+     * @param cognome Cognome del cliente da inserire
+     *
+     * @return ArrayList<String> dei dettagli del cliente creato
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
@@ -143,6 +146,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @param IDCliente ID del Cliente a cui appartiene il codice di ritiro
      * @param IDOrdine  ID dell' Ordine del cliente
+     *
      * @return Il codice di ritiro
      * @throws SQLException Errore causato da una query SQL
      */
@@ -165,6 +169,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @param IDCliente    Codice Identificativo del Cliente
      * @param codiceRitiro Codice di Ritiro comunicato dal Cliente
+     *
      * @return true se il codice è giusto, false altrimenti
      * @throws SQLException Errore causato da una query SQL
      */
@@ -180,6 +185,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @param codiceRitiroComunicato Codice comunicato dal cliente
      * @param codiceRitiroDB         Codice presente nel DB
+     *
      * @return true se il codice è giusto, false altrimenti
      */
     private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB) {
