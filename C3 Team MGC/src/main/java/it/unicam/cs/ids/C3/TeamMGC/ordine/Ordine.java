@@ -115,7 +115,7 @@ public class Ordine {
     }
 
     /**
-     * todo
+     * Ritorna un arraylist con i dettagli dell' {@link Ordine}.
      *
      * @return ArrayList dei dettagli dell'ordine
      * @throws SQLException Errore causato da una query SQL
@@ -198,7 +198,6 @@ public class Ordine {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.ordini where ID= '" + this.ID + "';");
         if (rs.next()) {

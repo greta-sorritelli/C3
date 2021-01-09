@@ -76,9 +76,10 @@ public class Cliente {
     }
 
     /**
-     * Ritorna un arraylist con i dettagli del {@link Cliente} in stringa.
+     * Ritorna un arraylist con i dettagli del {@link Cliente}.
      *
      * @return ArrayList dei dettagli
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> getDettagli() throws SQLException {
         update();

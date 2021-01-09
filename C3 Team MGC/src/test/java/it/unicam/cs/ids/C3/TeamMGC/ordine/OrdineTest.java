@@ -59,11 +59,6 @@ class OrdineTest {
     }
 
     @Test
-    void update() {
-        //todo
-    }
-
-    @Test
     void getDettagli() throws SQLException {
         Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
@@ -109,6 +104,39 @@ class OrdineTest {
         Ordine ordine2 = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
         assertEquals(ordine, ordineCopia);
         assertNotEquals(ordine, ordine2);
+    }
+
+    @Test
+    void update() throws SQLException {
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
+        ordine.aggiungiMerce(merce, 15);
+        PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
+        ordine.setPuntoPrelievo(p.getID());
+
+        assertEquals("Matteo", ordine.getNomeCliente());
+        assertEquals("Rondini", ordine.getCognomeCliente());
+        assertEquals(180,ordine.getTotalePrezzo());
+        assertEquals(StatoOrdine.DA_PAGARE,ordine.getStato());
+        assertEquals(p.getID(),ordine.getPuntoPrelievo());
+
+        ordine.aggiungiMerce(merce,10);
+        ordine.setStato(StatoOrdine.PAGATO);
+        PuntoPrelievo p1 = new PuntoPrelievo("Via degli Activity Diagram", "SD 2");
+
+        updateData("UPDATE sys.ordini SET nomeCliente = 'Clarissa' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET cognomeCliente = 'Albanese' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET totalePrezzo = '300' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET stato = 'PAGATO' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + p1.getID() + " where ID = '" + ordine.getID() + "';");
+
+        ordine.update();
+        assertEquals("Clarissa", ordine.getNomeCliente());
+        assertEquals("Albanese", ordine.getCognomeCliente());
+        assertEquals(300,ordine.getTotalePrezzo());
+        assertEquals(StatoOrdine.PAGATO,ordine.getStato());
+        assertEquals(p1.getID(),ordine.getPuntoPrelievo());
+
     }
 
 }
