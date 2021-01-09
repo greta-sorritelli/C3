@@ -97,22 +97,6 @@ public class GestoreOrdini {
     }
 
     /**
-     * Ritorna la lista dei dettagli delle {@link MerceOrdine Merci} con un certo stato presenti nel DB.
-     *
-     * @param statoOrdine Stato della merce
-     *
-     * @return ArrayList<ArrayList < String>> dei dettagli della merce.
-     * @throws SQLException Errore causato da una query SQL
-     */
-    //todo test
-    public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
-        ArrayList<MerceOrdine> merce = new ArrayList<>();
-        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + statoOrdine + "');");
-        return getArrayLists(merce, dettagli, rs);
-    }
-
-    /**
      * @param merce
      * @param dettagli
      * @param rs
@@ -135,19 +119,19 @@ public class GestoreOrdini {
     }
 
     /**
-     * Ritorna la lista dei dettagli degli {@link Ordine Ordini} di un cliente presenti nel DB.
+     * Ritorna la lista dei dettagli delle {@link MerceOrdine Merci} con un certo stato presenti nel DB.
      *
-     * @param IDCliente Id del cliente a cui appartiene l'ordine
+     * @param statoOrdine Stato della merce
      *
-     * @return ArrayList<String> dei dettagli dell'ordine
+     * @return ArrayList<ArrayList < String>> dei dettagli della merce.
      * @throws SQLException Errore causato da una query SQL
      */
     //todo test
-    public ArrayList<String> getDettagliOrdineCliente(int IDCliente) throws SQLException {
-        ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "';");
-        if (rs.next())
-            return getOrdine(rs.getInt("ID")).getDettagli();
-        return null;
+    public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
+        ArrayList<MerceOrdine> merce = new ArrayList<>();
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + statoOrdine + "');");
+        return getArrayLists(merce, dettagli, rs);
     }
 
     /**
@@ -161,6 +145,42 @@ public class GestoreOrdini {
     //todo test
     public ArrayList<String> getDettagliOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getDettagli();
+    }
+
+    /**
+     * Ritorna la lista dei dettagli degli {@link Ordine Ordini} di un cliente presenti nel DB.
+     *
+     * @param IDCliente Id del cliente a cui appartiene l'ordine
+     *
+     * @return ArrayList<String> dei dettagli dell'ordine
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test e forse levare
+    public ArrayList<String> getDettagliOrdineCliente(int IDCliente) throws SQLException {
+        ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "';");
+        if (rs.next())
+            return getOrdine(rs.getInt("ID")).getDettagli();
+        return null;
+    }
+
+    /**
+     * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} di un
+     * insieme di {@link Ordine Ordini} con stato "in deposito".
+     *
+     * @param ordini Insieme di ordini
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli delle merci
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        for (Ordine ordine : ordini) {
+            for (MerceOrdine m : ordine.getMerci())
+                if (m.getStato() == StatoOrdine.IN_DEPOSITO)
+                    toReturn.add(m.getDettagli());
+        }
+        return toReturn;
     }
 
     /**
@@ -242,7 +262,6 @@ public class GestoreOrdini {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
 
-
     //todo controllare test
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
@@ -296,25 +315,5 @@ public class GestoreOrdini {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
         return getArrayLists(merce, dettagli, rs);
-    }
-
-    /**
-     * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} di un
-     * insieme di {@link Ordine Ordini} con stato "in deposito".
-     *
-     * @param ordini Insieme di ordini
-     *
-     * @return ArrayList<ArrayList < String>> dei dettagli delle merci
-     * @throws SQLException Errore causato da una query SQL
-     */
-    //todo test
-    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
-        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        for (Ordine ordine : ordini) {
-            for (MerceOrdine m : ordine.getMerci())
-                if (m.getStato() == StatoOrdine.IN_DEPOSITO)
-                    toReturn.add(m.getDettagli());
-        }
-        return toReturn;
     }
 }

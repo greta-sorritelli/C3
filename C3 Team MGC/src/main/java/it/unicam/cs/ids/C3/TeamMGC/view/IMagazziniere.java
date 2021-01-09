@@ -7,6 +7,7 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXConsegnareMerceAlCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,8 @@ import java.sql.SQLException;
 public class IMagazziniere {
     //todo
     private Negozio negozio = new Negozio(1);
+    //todo
+    private PuntoPrelievo puntoPrelievo = new PuntoPrelievo(1);
 
     private GestoreClienti gestoreClienti = new GestoreClienti();
     private final GestoreNegozi gestoreNegozi = new GestoreNegozi();
@@ -86,7 +89,6 @@ public class IMagazziniere {
      * Apre la finestra per consegnare la merce al cliente.
      */
     @FXML
-//    //todo creare fxml
     public void consegnaMerceCliente(){
         openWindow("/ConsegnareMerceAlCliente.fxml", "ConsegnareMerceAlCliente", new JavaFXConsegnareMerceAlCliente(gestoreOrdini,gestoreClienti));
     }

@@ -15,7 +15,10 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="417.0" layoutY="178.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="417.0" layoutY="219.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="374.0" layoutY="178.0" mnemonicParsing="false" onAction="#visualizzaHomeMagazziniere" text="Magazziniere">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Button layoutX="402.0" layoutY="219.0" mnemonicParsing="false" text="Button" />
    </children>
 </Pane>
