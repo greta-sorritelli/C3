@@ -28,7 +28,7 @@ public class GestoreOrdini {
      * viene creato e aggiunto alla lista.
      *
      * @return L'ordine
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     private Ordine addOrdine(ResultSet rs) throws SQLException {
         for (Ordine ordine : ordini)
@@ -43,18 +43,21 @@ public class GestoreOrdini {
      * Aggiunge un {@link Ordine} alla lista di ordini.
      *
      * @param ordine Ordine da aggiungere
+     *
      * @return {@code true} se l'Ordine viene inserito correttamente, {@code false} altrimenti
      */
     private void addOrdineToList(Ordine ordine) {
         if (!ordini.contains(ordine))
-             ordini.add(ordine);
+            ordini.add(ordine);
     }
 
     /**
      * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine} preso tramite l' {@code ID}.
      *
-     * @param IDOrdine    ID dell'ordine a cui aggiungere la residenza
-     * @param indirizzo   Indirizzo della residenza da ggiungere all'ordine
+     * @param IDOrdine  ID dell'ordine a cui aggiungere la residenza
+     * @param indirizzo Indirizzo della residenza da ggiungere all'ordine
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void addResidenza(int IDOrdine, String indirizzo) throws SQLException {
         getOrdine(IDOrdine).addResidenza(indirizzo);
@@ -66,7 +69,9 @@ public class GestoreOrdini {
      * @param IDCliente ID del cliente
      * @param nome      Nome del cliente
      * @param cognome   Cognome del cliente
+     *
      * @throws IllegalArgumentException Se il cliente non è presente nel database
+     * @throws SQLException             Errore causato da una query SQL
      */
     private void controllaCliente(int IDCliente, String nome, String cognome) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID = '" + IDCliente + "' and nome = '" + nome + "' and cognome = '" + cognome + "';");
@@ -79,8 +84,9 @@ public class GestoreOrdini {
      *
      * @param rs
      * @param ordine
+     *
      * @return
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     private MerceOrdine creaMerceFromDB(ResultSet rs, Ordine ordine) throws SQLException {
         MerceOrdine toReturn = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
@@ -93,9 +99,10 @@ public class GestoreOrdini {
     /**
      * Ritorna la lista dei dettagli delle {@link MerceOrdine Merci} con un certo stato presenti nel DB.
      *
-     *  @param statoOrdine   Stato della merce
-     * @return               ArrayList<ArrayList<String>> dei dettagli della merce.
-     * @throws SQLException  Errore causato da una query SQL
+     * @param statoOrdine Stato della merce
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli della merce.
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
@@ -106,28 +113,12 @@ public class GestoreOrdini {
     }
 
     /**
-     * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} di un ordine presenti nel DB.
-     *
-     * @param IDOrdine       Id dell'ordine a cui appartiene la merce
-     * @return               ArrayList<ArrayList<String>> dei dettagli di tutta la merce di un ordine
-     * @throws SQLException  Errore causato da una query SQL
-     */
-    //todo test
-    //tolto da visual paradigm
-    public ArrayList<ArrayList<String>> getDettagliMerceTotale(int IDOrdine) throws SQLException {
-        ArrayList<MerceOrdine> merce = new ArrayList<>();
-        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`IDOrdine` =  '" + IDOrdine + "');");
-        return getArrayLists(merce, dettagli, rs);
-    }
-
-    /**
-     *
      * @param merce
      * @param dettagli
      * @param rs
+     *
      * @return
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo rename
     private ArrayList<ArrayList<String>> getArrayLists(ArrayList<MerceOrdine> merce, ArrayList<ArrayList<String>> dettagli, ResultSet rs) throws SQLException {
@@ -146,9 +137,10 @@ public class GestoreOrdini {
     /**
      * Ritorna la lista dei dettagli degli {@link Ordine Ordini} di un cliente presenti nel DB.
      *
-     * @param IDCliente      Id del cliente a cui appartiene l'ordine
-     * @return               ArrayList<String> dei dettagli dell'ordine
-     * @throws SQLException  Errore causato da una query SQL
+     * @param IDCliente Id del cliente a cui appartiene l'ordine
+     *
+     * @return ArrayList<String> dei dettagli dell'ordine
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public ArrayList<String> getDettagliOrdineCliente(int IDCliente) throws SQLException {
@@ -162,8 +154,9 @@ public class GestoreOrdini {
      * Ritorna la lista dei dettagli dell' {@link Ordine } preso tramite l' {@code ID}.
      *
      * @param IDOrdine
+     *
      * @return
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public ArrayList<String> getDettagliOrdine(int IDOrdine) throws SQLException {
@@ -174,8 +167,9 @@ public class GestoreOrdini {
      * Ritorna la {@link MerceOrdine} collegata all' {@code ID}.
      *
      * @param ID Codice Identificativo della merce
+     *
      * @return La merce desiderata
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo fare test
     public MerceOrdine getMerceOrdine(int ID) throws SQLException {
@@ -195,8 +189,9 @@ public class GestoreOrdini {
      * Ritorna l' {@link Ordine} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo dell'Ordine
+     *
      * @return L'ordine desiderato
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public Ordine getOrdine(int ID) throws SQLException {
@@ -213,6 +208,8 @@ public class GestoreOrdini {
      * @param IDMerce  ID della merce
      * @param quantita Quantita della merce
      * @param IDOrdine Ordine in cui registrare la merce
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void registraMerce(int IDMerce, int quantita, int IDOrdine) throws SQLException {
         Merce merce = negozio.getMerce(IDMerce);
@@ -230,7 +227,9 @@ public class GestoreOrdini {
      * @param IDCliente ID del cliente a cui appartiene l'ordine
      * @param nome      Nome del cliente a cui appartiene l'ordine
      * @param cognome   Cognome del cliente a cui appartiene l'ordine
+     *
      * @return L'ordine registrato
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
         controllaCliente(IDCliente, nome, cognome);
@@ -249,11 +248,11 @@ public class GestoreOrdini {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
         Ordine ordine = getOrdine(getMerceOrdine(IDMerce).getIDOrdine());
         boolean toControl = true;
-        for ( MerceOrdine m: ordine.getMerci()) {
-            if(m.getStato() != statoOrdine)
+        for (MerceOrdine m : ordine.getMerci()) {
+            if (m.getStato() != statoOrdine)
                 toControl = false;
         }
-        if(toControl)
+        if (toControl)
             ordine.setStato(statoOrdine);
     }
 
@@ -265,6 +264,8 @@ public class GestoreOrdini {
      * Imposta lo stato dell'{@link Ordine} come pagato se tutta la {@link MerceOrdine} in esso è pagata.
      *
      * @param IDOrdine Ordine da controllare
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> terminaOrdine(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
@@ -281,9 +282,13 @@ public class GestoreOrdini {
     }
 
     /**
+     * todo
+     *
      * @param capienza Capienza entro la quale deve rientrare la merce
+     *
      * @return ArrayList<ArrayList < String>> dei dettagli della merce con stato "PAGATO"
      * e che rientra nella capienza del corriere a cui deve essere assegnata.
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public ArrayList<ArrayList<String>> visualizzaMerce(int capienza) throws SQLException {
@@ -291,5 +296,25 @@ public class GestoreOrdini {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
         return getArrayLists(merce, dettagli, rs);
+    }
+
+    /**
+     * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} di un
+     * insieme di {@link Ordine Ordini} con stato "in deposito".
+     *
+     * @param ordini Insieme di ordini
+     *
+     * @return ArrayList<ArrayList < String>> dei dettagli delle merci
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        for (Ordine ordine : ordini) {
+            for (MerceOrdine m : ordine.getMerci())
+                if (m.getStato() == StatoOrdine.IN_DEPOSITO)
+                    toReturn.add(m.getDettagli());
+        }
+        return toReturn;
     }
 }

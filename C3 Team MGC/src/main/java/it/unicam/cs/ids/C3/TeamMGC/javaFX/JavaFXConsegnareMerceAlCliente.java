@@ -26,20 +26,13 @@ public class JavaFXConsegnareMerceAlCliente {
         //todo
         return null;
     }
-
-    public ArrayList<String> getDettagliMerceMagazzino(int IDOrdine) {
-        //todo
-        return null;
-    }
+    
 
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine){
         //todo stato ritirato
     }
 
-    public ArrayList<String> getDettagliMerceTotale(int IDOrdine) {
-        //todo
-        return null;
-    }
+
 
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine){
         //todo vedere se è automatico quando tutta la merce è

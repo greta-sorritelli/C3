@@ -26,6 +26,7 @@ public class PuntoPrelievo {
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID del PuntoPrelievo
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public PuntoPrelievo(int ID) throws SQLException {
@@ -63,8 +64,8 @@ public class PuntoPrelievo {
 
     /**
      * todo
-     * @return ArrayList<String> dei dettagli del punto di prelievo.
      *
+     * @return ArrayList<String> dei dettagli del punto di prelievo.
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> getDettagli() throws SQLException {
@@ -88,32 +89,6 @@ public class PuntoPrelievo {
 //
 //    }
 
-    /**
-     * todo
-     *
-     * @param IDOrdine ID dell'ordine
-     * @return ArrayList<ArrayList < String>> dei dettagli della merce presente nel magazzino
-     * che fa parte dell' ordine
-     * @throws SQLException Errore causato da una query SQL
-     */
-    //todo cambiare
-    public ArrayList<ArrayList<String>> getDettagliMerceMagazzino(int IDOrdine) throws SQLException {
-        ArrayList<MerceOrdine> merceOrdine = new ArrayList<>();
-        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * from merci\n" + "where IDOrdine = " + IDOrdine + " and stato = " +
-                "'" + StatoOrdine.IN_DEPOSITO.toString() + "';");
-        while (rs.next()) {
-            MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
-                    rs.getDouble("prezzo"), rs.getString("descrizione"),
-                    rs.getInt("quantita"), StatoOrdine.valueOf(rs.getString("stato")));
-            merceOrdine.add(tmp);
-        }
-        for (MerceOrdine m : merceOrdine) {
-            dettagli.add(m.getDettagli());
-        }
-        return dettagli;
-    }
-
     public int getID() {
         return ID;
     }
@@ -126,6 +101,7 @@ public class PuntoPrelievo {
      * Ritorna la lista di tutte le merci appartenenti a tale ordine e presenti nel punto di prelievo
      *
      * @param IDOrdine id dell' ordine
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     //todo cambiare
@@ -133,24 +109,6 @@ public class PuntoPrelievo {
         ArrayList<MerceOrdine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from merci\n" +
                 "where IDOrdine = " + IDOrdine + " and stato = '" + StatoOrdine.IN_DEPOSITO.toString() + "';");
-        while (rs.next()) {
-            MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
-                    rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
-                    StatoOrdine.valueOf(rs.getString("stato")));
-            lista.add(merceOrdine);
-        }
-        return lista;
-    }
-
-    /**
-     * Ritorna la lista di tutte le merci appartenenti a tale ordine
-     *
-     * @param IDOrdine id dell' ordine
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<MerceOrdine> getMerceTotale(int IDOrdine) throws SQLException {
-        ArrayList<MerceOrdine> lista = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * from merci where IDOrdine = " + IDOrdine + ";");
         while (rs.next()) {
             MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
                     rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
@@ -168,13 +126,14 @@ public class PuntoPrelievo {
      * Ritorna l' insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo.
      *
      * @param IDCliente id del cliente
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     //todo controllare test
     public ArrayList<Ordine> getOrdini(int IDCliente) throws SQLException {
         ArrayList<Ordine> lista = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * from ordini\n" +
-                "WHERE IDCliente = " + IDCliente + " AND IDPuntoPrelievo = '" + this.ID + "' and stato = " + StatoOrdine.IN_DEPOSITO + " ;");
+        ResultSet rs = executeQuery("SELECT * from ordini\n" + "WHERE IDCliente = " + IDCliente +
+                " AND IDPuntoPrelievo = '" + this.ID + "' and stato = " + StatoOrdine.IN_DEPOSITO + " ;");
         while (rs.next()) {
             Ordine ordine = new Ordine(rs.getInt("ID"));
             lista.add(ordine);

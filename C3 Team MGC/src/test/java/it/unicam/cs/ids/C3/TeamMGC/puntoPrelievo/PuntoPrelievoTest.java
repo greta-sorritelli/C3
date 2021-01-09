@@ -86,23 +86,6 @@ class PuntoPrelievoTest {
     }
 
     @Test
-    void getDettagliMerceMagazzino() throws SQLException {
-        Cliente cliente = new Cliente("Peter", "Parker");
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozioTest.getIDNegozio());
-        MerceOrdine merce = new MerceOrdine(1, "Ragnatele in scatola", StatoOrdine.IN_DEPOSITO, ordine.getID());
-        ordine.aggiungiMerce(merce, 1);
-        ordine.setPuntoPrelievo(puntoPrelievo.getID());
-
-        ArrayList<ArrayList<String>> test = puntoPrelievo.getDettagliMerceMagazzino(ordine.getID());
-        assertEquals(test.get(0).get(0), String.valueOf(merce.getID()));
-        assertEquals(test.get(0).get(1), String.valueOf(ordine.getID()));
-        assertEquals(test.get(0).get(2), String.valueOf(merce.getPrezzo()));
-        assertEquals(test.get(0).get(3), String.valueOf(merce.getDescrizione()));
-        assertEquals(test.get(0).get(4), String.valueOf(merce.getQuantita()));
-        assertEquals(test.get(0).get(5), String.valueOf(merce.getStato()));
-    }
-
-    @Test
     void getMerceMagazzino() throws SQLException {
         ArrayList<MerceOrdine> listaMerciOrdine1 = new ArrayList<>();
         ArrayList<MerceOrdine> listaMerciOrdine2 = new ArrayList<>();
@@ -134,34 +117,6 @@ class PuntoPrelievoTest {
         assertNotEquals(listaMerciOrdine2, puntoPrelievo.getMerceMagazzino(ordine2.getID()));
 
         assertTrue(puntoPrelievo.getMerceMagazzino(ordine2.getID()).isEmpty());
-    }
-
-    @Test
-    void getMerceTotale() throws SQLException {
-        ArrayList<MerceOrdine> listaMerciOrdine1 = new ArrayList<>();
-        ArrayList<MerceOrdine> listaMerciOrdine2 = new ArrayList<>();
-        Cliente cliente1 = new Cliente("Ambrose", "Spellman");
-        Cliente cliente2 = new Cliente("Zelda", "Spellman");
-
-        Ordine ordine1 = new Ordine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome(), negozioTest.getIDNegozio());
-        MerceOrdine merce1_1 = new MerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, ordine1.getID());
-        MerceOrdine merce2_1 = new MerceOrdine(20, "gomma", StatoOrdine.RITIRATO, ordine1.getID());
-
-        Ordine ordine2 = new Ordine(cliente2.getID(), cliente2.getNome(), cliente2.getCognome(), negozioTest.getIDNegozio());
-        MerceOrdine merce1_2 = new MerceOrdine(30, "maglietta", StatoOrdine.IN_TRANSITO, ordine2.getID());
-        MerceOrdine merce2_2 = new MerceOrdine(40, "pantalone", StatoOrdine.AFFIDATO_AL_CORRIERE, ordine2.getID());
-
-        listaMerciOrdine1.add(merce1_1);
-        listaMerciOrdine1.add(merce2_1);
-        ordine1.aggiungiMerce(merce1_1, 2);
-        ordine1.aggiungiMerce(merce2_1, 4);
-        assertEquals(listaMerciOrdine1, puntoPrelievo.getMerceTotale(ordine1.getID()));
-
-        listaMerciOrdine2.add(merce1_2);
-        listaMerciOrdine2.add(merce2_2);
-        ordine2.aggiungiMerce(merce1_2, 2);
-        ordine2.aggiungiMerce(merce2_2, 4);
-        assertEquals(listaMerciOrdine2, puntoPrelievo.getMerceTotale(ordine2.getID()));
     }
 
     @Test
