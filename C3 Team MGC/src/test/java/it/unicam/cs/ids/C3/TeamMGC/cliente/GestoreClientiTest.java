@@ -71,7 +71,7 @@ class GestoreClientiTest {
         GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
         Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        Ordine ordine = new Ordine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)),ordine.getID());
         assertTrue(gestoreClienti.verificaCodice(Integer.parseInt(dettagli.get(0)),codice));
         assertFalse(gestoreClienti.verificaCodice(Integer.parseInt(dettagli.get(0)),"1256"));
@@ -83,7 +83,7 @@ class GestoreClientiTest {
         GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
         Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        Ordine ordine = new Ordine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), ordine.getID());
         Cliente cliente = gestoreClienti.getItem(Integer.parseInt(dettagli.get(0)));
         assertNotEquals("", cliente.getCodiceRitiro());

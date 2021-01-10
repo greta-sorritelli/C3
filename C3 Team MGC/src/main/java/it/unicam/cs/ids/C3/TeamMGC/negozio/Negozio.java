@@ -14,8 +14,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
  */
 public class Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
-    //todo ID
-    private final int IDNegozio;
+    private final int ID;
     private String nome;
     private String categoria;
     private String orarioApertura;
@@ -34,7 +33,7 @@ public class Negozio {
                 indirizzo + "', '" + telefono + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from negozi;");
         rs.next();
-        IDNegozio = rs.getInt("ID");
+        ID = rs.getInt("ID");
         this.nome = nome;
         this.categoria = categoria;
         this.orarioApertura = orarioApertura;
@@ -48,10 +47,10 @@ public class Negozio {
      *
      * @throws SQLException eccezione causata da una query SQL
      */
-    public Negozio(int IDNegozio) throws SQLException {
-        ResultSet rs = executeQuery("select * from negozi where ID ='" + IDNegozio + "';");
+    public Negozio(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from negozi where ID ='" + ID + "';");
         if (rs.next()) {
-            this.IDNegozio = IDNegozio;
+            this.ID = ID;
             this.nome = rs.getString("nome");
             this.categoria = rs.getString("categoria");
             this.orarioApertura = rs.getString("orarioApertura");
@@ -103,7 +102,7 @@ public class Negozio {
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
-        toReturn.add(String.valueOf(getIDNegozio()));
+        toReturn.add(String.valueOf(getID()));
         toReturn.add(getNome());
         toReturn.add(getCategoria());
         toReturn.add(getOrarioApertura());
@@ -115,8 +114,8 @@ public class Negozio {
 
     }
 
-    public int getIDNegozio() {
-        return IDNegozio;
+    public int getID() {
+        return ID;
     }
 
     public String getIndirizzo() {
@@ -137,7 +136,7 @@ public class Negozio {
      */
     public Merce getMerce(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
-                this.IDNegozio + "' ;");
+                this.ID + "' ;");
         if (rs.next())
             return addMerceInventario(rs);
         else
@@ -151,7 +150,7 @@ public class Negozio {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<Merce> getMerceDisponibile() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + IDNegozio + "';");
+        ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
         while (rs.next())
             addMerceInventario(rs);
         return inventario;
@@ -184,7 +183,7 @@ public class Negozio {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
-        Merce merce = new Merce(this.IDNegozio, prezzo, descrizione, quantita);
+        Merce merce = new Merce(this.ID, prezzo, descrizione, quantita);
         addMerceToList(merce);
         return merce.getDettagli();
     }
@@ -223,7 +222,7 @@ public class Negozio {
      * @throws SQLException Errore causato da una query SQL
      */
     public void update() throws SQLException {
-        ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.IDNegozio + "';");
+        ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.ID + "';");
         if (rs.next()) {
             this.nome = rs.getString("nome");
             this.categoria = rs.getString("categoria");

@@ -50,9 +50,9 @@ class GestoreNegoziTest {
     void getItems() throws SQLException {
         GestoreNegozi gestoreNegozi = new GestoreNegozi();
         ArrayList<Negozio> test = gestoreNegozi.getItems();
-        assertEquals(1, test.get(0).getIDNegozio());
-        assertEquals(2, test.get(1).getIDNegozio());
-        assertEquals(3, test.get(2).getIDNegozio());
+        assertEquals(1, test.get(0).getID());
+        assertEquals(2, test.get(1).getID());
+        assertEquals(3, test.get(2).getID());
         assertEquals("Emporio", test.get(0).getNome());
         assertEquals("Burrobirra", test.get(1).getNome());
         assertEquals("Ollivander", test.get(2).getNome());

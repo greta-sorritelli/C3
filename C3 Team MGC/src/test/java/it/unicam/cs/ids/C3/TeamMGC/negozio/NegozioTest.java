@@ -18,7 +18,7 @@ class NegozioTest {
         Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
         ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma", 10);
         ArrayList<String> test = new ArrayList<>();
-        test.add(String.valueOf(negozio.getIDNegozio()));
+        test.add(String.valueOf(negozio.getID()));
         test.add("Negozio di Bici");
         test.add("Sport");
         test.add("09:00-16:00");
@@ -110,7 +110,7 @@ class NegozioTest {
     @Test
     void update() throws SQLException {
         Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
-        int IDTest = negozio.getIDNegozio();
+        int IDTest = negozio.getID();
         assertEquals("Negozio di Bici", negozio.getNome());
         assertEquals("Sport", negozio.getCategoria());
         assertEquals("09:00", negozio.getOrarioApertura());

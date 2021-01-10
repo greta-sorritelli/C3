@@ -26,7 +26,7 @@ class MerceOrdineTest {
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         Cliente cliente = new Cliente("Marco", "Papera");
-        ordineTest = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozioTest.getIDNegozio());
+        ordineTest = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozioTest.getID());
         merceOrdineTest = new MerceOrdine(10, "test allSet", StatoOrdine.PAGATO, ordineTest.getID());
     }
 

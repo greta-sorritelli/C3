@@ -95,6 +95,7 @@ public class GestoreOrdini {
     }
 
     /**
+     * todo
      * @param merce
      * @param dettagli
      * @param rs
@@ -124,7 +125,6 @@ public class GestoreOrdini {
      * @return ArrayList<ArrayList < String>> dei dettagli della merce.
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
         ArrayList<MerceOrdine> merce = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -140,7 +140,6 @@ public class GestoreOrdini {
      * @return un ArrayList di String contenente i dettagli dell' Ordine
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<String> getDettagliOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getDettagli();
     }
@@ -162,8 +161,8 @@ public class GestoreOrdini {
     }
 
     /**
-     * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} di un
-     * insieme di {@link Ordine Ordini} con stato "in deposito".
+     * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} con stato
+     * "in deposito" di un insieme di {@link Ordine Ordini} .
      *
      * @param ordini Insieme di ordini
      *
@@ -211,7 +210,6 @@ public class GestoreOrdini {
      * @return L'ordine desiderato
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public Ordine getOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.ordini where ID='" + ID + "' ;");
         if (rs.next())
@@ -251,7 +249,7 @@ public class GestoreOrdini {
      */
     public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
         controllaCliente(IDCliente, nome, cognome);
-        Ordine ordine = new Ordine(IDCliente, nome, cognome, negozio.getIDNegozio());
+        Ordine ordine = new Ordine(IDCliente, nome, cognome, negozio.getID());
         addOrdineToList(ordine);
         return ordine.getDettagli();
     }
@@ -259,8 +257,7 @@ public class GestoreOrdini {
     public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
-
-    //todo controllare test
+    
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
         Ordine ordine = getOrdine(getMerceOrdine(IDMerce).getIDOrdine());
@@ -300,7 +297,8 @@ public class GestoreOrdini {
     }
 
     /**
-     * todo
+     * Ritorna la lista dei dettagli della {@link MerceOrdine} con stato "pagato"
+     * e che rientra nella {@code capienza} del corriere.
      *
      * @param capienza Capienza entro la quale deve rientrare la merce
      *

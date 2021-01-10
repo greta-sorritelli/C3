@@ -28,7 +28,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
     //todo controllare costruttore negozio
     private Negozio addNegozio(ResultSet rs) throws SQLException {
         for (Negozio negozio : negozi)
-            if (negozio.getIDNegozio() == rs.getInt("ID"))
+            if (negozio.getID() == rs.getInt("ID"))
                 return negozio;
         Negozio toReturn = new Negozio(rs.getInt("ID"));
         addNegozioToList(toReturn);
@@ -69,7 +69,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @throws SQLException Errore causato da una query SQL
      */
     //todo controllare problema Franco e Clarissa
-    //todo test
+    //todo finire test
     public ArrayList<ArrayList<String>> getDettagliItemsConOrdini() throws SQLException {
         ResultSet rs = executeQuery("SELECT IDNegozio FROM sys.ordini where stato = '" + StatoOrdine.PAGATO + "' ;");
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
@@ -86,7 +86,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    //todo test
     public Negozio getItem(int ID) throws SQLException {
         //todo
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi where ID='" + ID + "' ;");
@@ -103,7 +102,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    //todo test
+    //todo controllare test
     public ArrayList<Negozio> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
         while (rs.next())

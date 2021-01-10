@@ -32,7 +32,7 @@ class OrdineTest {
 
     @Test
     void addResidenza() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         assertEquals("", ordine.getResidenza());
         ordine.addResidenza("Piazza degli Assert");
         assertEquals("Piazza degli Assert", ordine.getResidenza());
@@ -40,7 +40,7 @@ class OrdineTest {
 
     @Test
     void aggiungiMerce() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, ordine.getID());
         ordine.aggiungiMerce(merce, 15);
         assertEquals(15, merce.getQuantita());
@@ -49,18 +49,18 @@ class OrdineTest {
 
     @Test
     void creazioneOrdine() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         assertEquals(cliente.getID(), ordine.getIDCliente());
         assertEquals(cliente.getNome(), ordine.getNomeCliente());
         assertEquals(cliente.getCognome(), ordine.getCognomeCliente());
-        assertEquals(negozio.getIDNegozio(), ordine.getIDNegozio());
+        assertEquals(negozio.getID(), ordine.getIDNegozio());
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Ordine(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
     void getDettagli() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
         PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
         ordine.aggiungiMerce(merce, 2);
@@ -81,7 +81,7 @@ class OrdineTest {
 
     @Test
     void setPuntoPrelievo() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         PuntoPrelievo p = new PuntoPrelievo("Piazza Roma", "MAG 5");
         assertEquals(-1, ordine.getPuntoPrelievo());
         ordine.setPuntoPrelievo(p.getID());
@@ -90,7 +90,7 @@ class OrdineTest {
 
     @Test
     void setStato() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         assertEquals(StatoOrdine.DA_PAGARE, ordine.getStato());
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
@@ -98,17 +98,17 @@ class OrdineTest {
 
     @Test
     void testEquals() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         ordine.setStato(StatoOrdine.PAGATO);
         Ordine ordineCopia = new Ordine(ordine.getID());
-        Ordine ordine2 = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine2 = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         assertEquals(ordine, ordineCopia);
         assertNotEquals(ordine, ordine2);
     }
 
     @Test
     void update() throws SQLException {
-        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getIDNegozio());
+        Ordine ordine = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
         MerceOrdine merce = new MerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
         ordine.aggiungiMerce(merce, 15);
         PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");

@@ -92,11 +92,11 @@ class PuntoPrelievoTest {
         Cliente cliente1 = new Cliente("Mario", "Rossi");
         Cliente cliente2 = new Cliente("Mario", "Verdi");
 
-        Ordine ordine1 = new Ordine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome(), negozioTest.getIDNegozio());
+        Ordine ordine1 = new Ordine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome(), negozioTest.getID());
         MerceOrdine merce1_1 = new MerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, ordine1.getID());
         MerceOrdine merce2_1 = new MerceOrdine(20, "gomma", StatoOrdine.RITIRATO, ordine1.getID());
 
-        Ordine ordine2 = new Ordine(cliente2.getID(), cliente2.getNome(), cliente2.getCognome(), negozioTest.getIDNegozio());
+        Ordine ordine2 = new Ordine(cliente2.getID(), cliente2.getNome(), cliente2.getCognome(), negozioTest.getID());
         MerceOrdine merce1_2 = new MerceOrdine(30, "maglietta", StatoOrdine.IN_TRANSITO, ordine2.getID());
         MerceOrdine merce2_2 = new MerceOrdine(40, "pantalone", StatoOrdine.AFFIDATO_AL_CORRIERE, ordine2.getID());
 
@@ -129,7 +129,7 @@ class PuntoPrelievoTest {
         assertTrue(puntoPrelievo.getOrdini(cliente1.getID()).isEmpty());
         assertTrue(puntoPrelievo.getOrdini(cliente2.getID()).isEmpty());
 
-        Ordine ordine1 = new Ordine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome(), negozioTest.getIDNegozio());
+        Ordine ordine1 = new Ordine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome(), negozioTest.getID());
         ordine1.setPuntoPrelievo(puntoPrelievo.getID());
         ordine1.setStato(StatoOrdine.RITIRATO);
         lista1.add(ordine1);
@@ -137,7 +137,7 @@ class PuntoPrelievoTest {
         assertEquals(puntoPrelievo.getOrdini(cliente1.getID()).get(0), lista1.get(0));
         assertEquals(puntoPrelievo.getOrdini(cliente1.getID()), lista1);
 
-        Ordine ordine2 = new Ordine(cliente2.getID(), cliente2.getNome(), cliente2.getCognome(), negozioTest.getIDNegozio());
+        Ordine ordine2 = new Ordine(cliente2.getID(), cliente2.getNome(), cliente2.getCognome(), negozioTest.getID());
         ordine2.setPuntoPrelievo(puntoPrelievo.getID());
         ordine2.setStato(StatoOrdine.RITIRATO);
         lista2.add(ordine2);
