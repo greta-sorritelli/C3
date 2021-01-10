@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab text="Corrieri">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#visualizzaCorrieri" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#visualizzaCorrieri">
                <children>
-                  <TableView fx:id="corriereTable" layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
+                  <TableView fx:id="corriereTable" layoutX="43.0" layoutY="81.0" prefHeight="380.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
                      <columns>
-                        <TableColumn fx:id="IDCorriere" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="NomeCorriere" prefWidth="133.0" text="Nome" />
-                        <TableColumn fx:id="CognomeCorriere" prefWidth="151.0" text="Cognome" />
-                        <TableColumn fx:id="Capienza" prefWidth="155.0" text="Capienza" />
+                        <TableColumn fx:id="IDCorriere" prefWidth="60.0" text="ID" />
+                        <TableColumn fx:id="NomeCorriere" prefWidth="260.0" text="Nome" />
+                        <TableColumn fx:id="CognomeCorriere" prefWidth="260.0" text="Cognome" />
+                        <TableColumn fx:id="Capienza" minWidth="-Infinity" prefWidth="135.20001220703125" text="Capienza" />
                      </columns>
                   </TableView>
-                  <Button layoutX="507.0" layoutY="315.0" mnemonicParsing="false" text="Next&gt;&gt;" AnchorPane.leftAnchor="507.0" AnchorPane.topAnchor="315.0" />
-                  <Button layoutX="442.0" layoutY="315.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="442.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="315.0" />
-                  <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="26.0">
+                  <Button layoutX="700.0" layoutY="505.0" mnemonicParsing="false" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button layoutX="628.0" layoutY="505.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="120.0" />
+                  <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.leftAnchor="42.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

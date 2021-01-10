@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <TextField fx:id="IDCliente" layoutX="136.0" layoutY="82.0" prefHeight="25.0" prefWidth="40.0" />
       <TextField fx:id="codiceRitiro" layoutX="286.0" layoutY="82.0" prefHeight="25.0" prefWidth="175.0" />
-      <Label layoutX="42.0" layoutY="86.0" text="ID del cliente" />
-      <Button layoutX="490.0" layoutY="82.0" mnemonicParsing="false" text="verifica" />
-      <TableView fx:id="merceOrdineTable" layoutX="42.0" layoutY="129.0" prefHeight="212.0" prefWidth="517.0">
+      <Label layoutX="42.0" layoutY="86.0" text="ID del cliente" AnchorPane.leftAnchor="42.0" />
+      <Button defaultButton="true" layoutX="490.0" layoutY="82.0" mnemonicParsing="false" text="Verifica" />
+      <TableView fx:id="merceOrdineTable" layoutX="42.0" layoutY="129.0" prefHeight="369.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
         <columns>
           <TableColumn fx:id="IDMerce" prefWidth="46.0" text="ID" />
           <TableColumn fx:id="IDOrdineMerce" prefWidth="69.0" text="IDOrdine" />
-            <TableColumn fx:id="PrezzoMerce" prefWidth="66.0" text="Prezzo" />
-            <TableColumn fx:id="DescrizioneMerce" prefWidth="177.0" text="Descrizione" />
-            <TableColumn fx:id="QuantitaMerce" prefWidth="55.0" text="Quantita" />
-            <TableColumn fx:id="StatoMerce" prefWidth="103.0" text="Stato" />
+            <TableColumn fx:id="PrezzoMerce" prefWidth="83.20001220703125" text="Prezzo" />
+            <TableColumn fx:id="DescrizioneMerce" prefWidth="236.79998779296875" text="Descrizione" />
+            <TableColumn fx:id="QuantitaMerce" prefWidth="96.79998779296875" text="Quantita" />
+            <TableColumn fx:id="StatoMerce" prefWidth="186.4000244140625" text="Stato" />
         </columns>
       </TableView>
-      <Label layoutX="42.0" layoutY="34.0" text="Consegnare la merce al cliente">
+      <Label layoutX="42.0" layoutY="34.0" text="Consegnare la merce al cliente" AnchorPane.leftAnchor="42.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </Label>
-      <Button layoutX="447.0" layoutY="354.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Consegna" />
-      <TextField fx:id="IDCliente" layoutX="136.0" layoutY="82.0" prefHeight="25.0" prefWidth="40.0" />
+      <Button layoutX="693.0" layoutY="530.0" mnemonicParsing="false" text="Consegna" AnchorPane.rightAnchor="42.0" />
       <Label layoutX="195.0" layoutY="86.0" text="Codice di ritiro" />
+      <Button cancelButton="true" layoutX="630.0" layoutY="530.0" mnemonicParsing="false" text="Cancel" AnchorPane.rightAnchor="120.0" />
    </children>
-</Pane>
+</AnchorPane>
