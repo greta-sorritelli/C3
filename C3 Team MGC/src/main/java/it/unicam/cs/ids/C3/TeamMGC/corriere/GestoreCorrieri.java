@@ -49,7 +49,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @return ArrayList<Cliente> dei Corrieri disponibili.
      * @throws SQLException Errore causato da una query SQL
      */
-    //TODO controllare test
     public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri WHERE (stato = 'true' );");
@@ -72,7 +71,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @return ArrayList<ArrayList < String>> dei dettagli dei Corrieri disponibili.
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();

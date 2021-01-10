@@ -151,6 +151,17 @@ public class Corriere {
         // todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
     }
 
+    @Override
+    public String toString() {
+        return "Corriere{" +
+                "ID=" + ID +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", disponibilita=" + disponibilita +
+                ", capienza=" + capienza +
+                '}';
+    }
+
     /**
      * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
      *
