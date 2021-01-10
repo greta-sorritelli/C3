@@ -55,7 +55,7 @@ class GestoreCorrieriTest {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         assertEquals(52, gestoreCorrieri.getItem(1).getCapienza());
         assertEquals("Matteo", gestoreCorrieri.getItem(2).getNome());
-        assertEquals("true", String.valueOf(gestoreCorrieri.getItem(3).getDisponibilita()));
+        assertEquals("false", String.valueOf(gestoreCorrieri.getItem(3).getDisponibilita()));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreCorrieri.getItem(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
@@ -76,12 +76,24 @@ class GestoreCorrieriTest {
     void getCorrieriDisponibili() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         Corriere corriere = new Corriere("Matteo", "Rondini", false, 13);
+
+        gestoreCorrieri.getItems().get(0).setDisponibilita(true);
+        gestoreCorrieri.getItems().get(2).setDisponibilita(true);
+
         ArrayList<Corriere> test = gestoreCorrieri.getCorrieriDisponibili();
+
         assertEquals(1, test.get(0).getID());
         assertEquals(3, test.get(1).getID());
         assertTrue(test.get(0).getDisponibilita());
         assertTrue(test.get(1).getDisponibilita());
         assertFalse(test.contains(corriere));
+
+        gestoreCorrieri.setDisponibilita(test.get(0).getID(),false);
+        gestoreCorrieri.setDisponibilita(test.get(1).getID(),false);
+        gestoreCorrieri.setDisponibilita(test.get(2).getID(),false);
+
+        Exception e1 = assertThrows(IllegalArgumentException.class, gestoreCorrieri::getCorrieriDisponibili);
+        assertEquals("Corrieri disponibili non presenti.", e1.getMessage());
     }
 
     @Test
@@ -109,13 +121,19 @@ class GestoreCorrieriTest {
         assertEquals(test.get(1).get(3), "true");
         assertEquals(test.get(1).get(4), "16");
         assertEquals(2, test.size());
+
+        gestoreCorrieri.setDisponibilita(Integer.parseInt(test.get(0).get(0)),false);
+        gestoreCorrieri.setDisponibilita(Integer.parseInt(test.get(1).get(0)),false);
+
+        Exception e1 = assertThrows(IllegalArgumentException.class, gestoreCorrieri::getDettagliCorrieriDisponibili);
+        assertEquals("Corrieri disponibili non presenti.", e1.getMessage());
     }
 
     @Test
     void selezionaCorriere() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         assertEquals("Clarissa", gestoreCorrieri.selezionaCorriere(1).get(1));
-        assertEquals("true", gestoreCorrieri.selezionaCorriere(3).get(3));
+        assertEquals("false", gestoreCorrieri.selezionaCorriere(3).get(3));
         assertEquals("13", gestoreCorrieri.selezionaCorriere(2).get(4));
     }
 

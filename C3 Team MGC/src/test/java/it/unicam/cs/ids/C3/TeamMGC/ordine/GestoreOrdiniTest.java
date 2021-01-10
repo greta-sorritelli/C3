@@ -204,7 +204,7 @@ class GestoreOrdiniTest {
         PuntoPrelievo puntoPrelievo = new PuntoPrelievo("Roma", "Magazzino Centrale Lazio");
         assertEquals(-1, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getPuntoPrelievo());
         gestoreOrdini.setPuntoPrelievo(Integer.parseInt(ordine.get(0)), puntoPrelievo.getID());
-        assertEquals(1, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getPuntoPrelievo());
+        assertEquals(puntoPrelievo.getID(), gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getPuntoPrelievo());
 
     }
 

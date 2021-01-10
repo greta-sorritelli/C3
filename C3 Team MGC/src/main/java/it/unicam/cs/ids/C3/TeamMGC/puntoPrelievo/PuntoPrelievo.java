@@ -129,11 +129,10 @@ public class PuntoPrelievo {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo controllare test
     public ArrayList<Ordine> getOrdini(int IDCliente) throws SQLException {
         ArrayList<Ordine> lista = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * from ordini\n" + "WHERE IDCliente = " + IDCliente +
-                " AND IDPuntoPrelievo = '" + this.ID + "' and stato = " + StatoOrdine.IN_DEPOSITO + " ;");
+        ResultSet rs = executeQuery("SELECT * from ordini WHERE IDCliente = '" + IDCliente +
+                "' AND IDPuntoPrelievo = '" + this.ID + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "' ;");
         while (rs.next()) {
             Ordine ordine = new Ordine(rs.getInt("ID"));
             lista.add(ordine);

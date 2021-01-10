@@ -131,7 +131,7 @@ class PuntoPrelievoTest {
 
         Ordine ordine1 = new Ordine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome(), negozioTest.getID());
         ordine1.setPuntoPrelievo(puntoPrelievo.getID());
-        ordine1.setStato(StatoOrdine.RITIRATO);
+        ordine1.setStato(StatoOrdine.IN_DEPOSITO);
         lista1.add(ordine1);
 
         assertEquals(puntoPrelievo.getOrdini(cliente1.getID()).get(0), lista1.get(0));
@@ -139,7 +139,7 @@ class PuntoPrelievoTest {
 
         Ordine ordine2 = new Ordine(cliente2.getID(), cliente2.getNome(), cliente2.getCognome(), negozioTest.getID());
         ordine2.setPuntoPrelievo(puntoPrelievo.getID());
-        ordine2.setStato(StatoOrdine.RITIRATO);
+        ordine2.setStato(StatoOrdine.IN_DEPOSITO);
         lista2.add(ordine2);
 
         assertNotEquals(puntoPrelievo.getOrdini(cliente2.getID()), lista1);
