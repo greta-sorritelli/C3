@@ -48,11 +48,20 @@ public class DataDBTest {
         //Ordini
         updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, IDPuntoPrelievo, IDNegozio) VALUES ('1', 'Mario', 'Rossi', '0', 'IN_DEPOSITO', '1', '1');");
 
-
         //Merci
-
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('1', '60.0', 'Felpa', '2', 'IN_DEPOSITO');");
 
         //Codici di Ritiro
+        updateData("INSERT INTO sys.codici_ritiro (codice, IDCliente, IDOrdine, dataCreazione) VALUES ('101010101010', '1', '1', '2021-01-01');");
+
+        //Inventario
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '60.0', 'Felpa', '10');");
+
+        //Corrieri
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('Luigi', 'Bianchi', 'true', '100');");
+
+        //Magazzinieri
+        updateData("INSERT INTO sys.magazzinieri (IDPuntoPrelievo, nome, cognome) VALUES ('1', 'Silvio', 'Marzocco');");
 
     }
 }

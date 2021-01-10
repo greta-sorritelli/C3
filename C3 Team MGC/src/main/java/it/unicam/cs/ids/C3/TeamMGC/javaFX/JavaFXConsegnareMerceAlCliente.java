@@ -7,10 +7,11 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -45,7 +46,8 @@ public class JavaFXConsegnareMerceAlCliente {
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
 
-    public JavaFXConsegnareMerceAlCliente(GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti) {
+    public JavaFXConsegnareMerceAlCliente(PuntoPrelievo puntoPrelievo, GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti) {
+        this.puntoPrelievo = puntoPrelievo;
         this.gestoreOrdini = gestoreOrdini;
         this.gestoreClienti = gestoreClienti;
     }
@@ -77,8 +79,13 @@ public class JavaFXConsegnareMerceAlCliente {
     }
 
     public void verificaCodice() throws SQLException {
-     if(gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()),codiceRitiro.getText()))
-         getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
+     if(gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()),codiceRitiro.getText())) {
+         ArrayList<String> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
+         setMerceOrdineCellValueFactory();
+         merceOrdineTable.getItems().clear();
+         merceOrdineTable.getItems().addAll(merci);
+     }
+
     }
 
 

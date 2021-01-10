@@ -13,7 +13,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
  */
 public class Magazziniere {
     private int ID = 0;
-    private PuntoPrelievo puntoPrelievo = null;
+    private final int IDPuntoPrelievo;
     private String nome = null;
     private String cognome = null;
 
@@ -21,9 +21,9 @@ public class Magazziniere {
      * Costruttore per importare i dati dal DB
      *
      */
-    public Magazziniere(int ID, PuntoPrelievo puntoPrelievo, String nome, String cognome) {
+    public Magazziniere(int ID, int IDPuntoPrelievo , String nome, String cognome) {
         this.ID = ID;
-        this.puntoPrelievo = puntoPrelievo;
+        this.IDPuntoPrelievo = IDPuntoPrelievo;
         this.nome = nome;
         this.cognome = cognome;
     }
@@ -34,15 +34,15 @@ public class Magazziniere {
      * @throws SQLException eccezione causata una query SQL
      */
     //todo test creazione
-    public Magazziniere(PuntoPrelievo puntoPrelievo, String nome, String cognome) throws SQLException {
+    public Magazziniere(int IDPuntoPrelievo, String nome, String cognome) throws SQLException {
             updateData("INSERT INTO `sys`.`magazzinieri` (`nome`,`cognome`,`puntoPrelievo`) \n" +
-                    "VALUES ('" + nome + "' , '" + cognome + "', '" + puntoPrelievo.getNome() + "');");
+                    "VALUES ('" + nome + "' , '" + cognome + "', '" + IDPuntoPrelievo + "');");
             ResultSet rs = executeQuery("SELECT MAX(ID) as ID from magazzinieri;");
             rs.next();
             this.ID = rs.getInt("ID");
             this.nome = nome;
             this.cognome = cognome;
-            this.puntoPrelievo = puntoPrelievo;
+            this.IDPuntoPrelievo = IDPuntoPrelievo;
     }
 
     public int getID() {

@@ -170,12 +170,12 @@ public class GestoreOrdini {
      * @throws SQLException Errore causato da una query SQL
      */
     //todo test
-    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
-        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+    public ArrayList<String> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
+        ArrayList<String> toReturn = new ArrayList<>();
         for (Ordine ordine : ordini) {
             for (MerceOrdine m : ordine.getMerci())
                 if (m.getStato() == StatoOrdine.IN_DEPOSITO)
-                    toReturn.add(m.getDettagli());
+                    toReturn.addAll(m.getDettagli());
         }
         return toReturn;
     }

@@ -90,7 +90,7 @@ public class IMagazziniere {
      */
     @FXML
     public void consegnaMerceCliente(){
-        openWindow("/ConsegnareMerceAlCliente.fxml", "ConsegnareMerceAlCliente", new JavaFXConsegnareMerceAlCliente(gestoreOrdini,gestoreClienti));
+        openWindow("/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(puntoPrelievo,gestoreOrdini,gestoreClienti));
     }
 
 }
