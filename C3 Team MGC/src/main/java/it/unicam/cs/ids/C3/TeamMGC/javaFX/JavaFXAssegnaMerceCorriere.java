@@ -61,8 +61,6 @@ public class JavaFXAssegnaMerceCorriere {
     @FXML
     TableColumn<ArrayList<String>, String> CognomeCorriere;
 
-    @FXML
-    TableColumn<ArrayList<String>, String> Capienza;
 
     /**
      * Tabella dei puntiPrelievo
@@ -113,7 +111,6 @@ public class JavaFXAssegnaMerceCorriere {
         IDCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(0)));
         NomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(1)));
         CognomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(2)));
-        Capienza.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(4)));
     }
 
     /**
@@ -233,7 +230,6 @@ public class JavaFXAssegnaMerceCorriere {
             setMerceOrdineCellValueFactory();
             merceOrdineTable.getItems().clear();
             merceOrdineTable.getItems().addAll(gestoreOrdini.visualizzaMerce(selectedCorriere.getCapienza()));
-            capienza.setText("Capienza Corriere: " + String.valueOf(selectedCorriere.getCapienza()));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -278,10 +274,6 @@ public class JavaFXAssegnaMerceCorriere {
                 }
             }
         }
-//        accountsTableView.getItems().removeAll(sel);
-//        accountRefresh();
-//        for ()
-//            int id = Integer.parseInt(merceOrdineTable.getSelectionModel().getSelectedItem().get(0));
     }
 
 
