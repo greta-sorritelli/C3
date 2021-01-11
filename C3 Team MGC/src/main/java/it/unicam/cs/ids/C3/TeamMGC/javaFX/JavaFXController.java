@@ -3,12 +3,35 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public interface JavaFXController {
+
+    default void alertWindow(String warningHeader, String warningMessage) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning!");
+        showAlert(alert, warningHeader, warningMessage);
+    }
+
+    /**
+     * Metodo per la chiusura di una finestra
+     * //todo controllare
+     *
+     * @param stage stage da chiudere
+     */
+    default void closeWindow(Stage stage) {
+        stage.close();
+    }
+
+    default void errorWindow(String errorHeader, String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error!");
+        showAlert(alert, errorHeader, errorMessage);
+    }
 
     /**
      * Metodo per aprire una finestra
@@ -33,12 +56,16 @@ public interface JavaFXController {
         }
     }
 
-    /**
-     * Metodo per la chiusura di una finestra
-     * //todo controllare
-     * @param stage stage da chiudere
-     */
-    default void closeWindow(Stage stage) {
-        stage.close();
+    private void showAlert(Alert alert, String header, String message) {
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
+
+    default void successWindow(String successHeader, String successMessage) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success!");
+        showAlert(alert, successHeader, successMessage);
+    }
+
 }
