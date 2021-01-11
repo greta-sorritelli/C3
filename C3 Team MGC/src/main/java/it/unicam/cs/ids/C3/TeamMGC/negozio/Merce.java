@@ -16,9 +16,9 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 public class Merce {
     private int ID;
     private int IDNegozio;
-    private double prezzo = 0;
-    private String descrizione = "";
-    private int quantita = 0;
+    private double prezzo;
+    private String descrizione;
+    private int quantita;
 
     /**
      * Costruttore per la {@link Merce} all' interno dell' Inventario del Negozio.
@@ -38,15 +38,22 @@ public class Merce {
     }
 
     /**
-     * todo
      * Costruttore per importare i dati dal DB.
+     *
+     * @param ID ID della Merce
+     * @throws SQLException Errore causato da una query SQL
      */
-    public Merce(int ID, int IDNegozio, double prezzo, String descrizione, int quantita) {
-        this.ID = ID;
-        this.IDNegozio = IDNegozio;
-        this.prezzo = prezzo;
-        this.descrizione = descrizione;
-        this.quantita = quantita;
+    public Merce(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from inventario where ID ='" + ID + "';");
+        if (rs.next()) {
+            this.ID = ID;
+            this.IDNegozio = rs.getInt("IDNegozio");
+            this.prezzo = rs.getDouble("prezzo");
+            this.descrizione = rs.getString("descrizione");
+            this.quantita = rs.getInt("quantita");
+        } else
+            throw new IllegalArgumentException("ID non valido.");
+
     }
 
     /**

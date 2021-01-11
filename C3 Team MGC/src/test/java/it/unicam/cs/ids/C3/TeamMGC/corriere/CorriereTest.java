@@ -46,21 +46,6 @@ class CorriereTest {
         assertEquals(corriereLista, corriereTest.getDettagli());
     }
 
-//    @Test
-//    void setCapienza() throws SQLException {
-//        Corriere corriereTest = new Corriere("Matteo", "Rondini", true);
-//        assertEquals(30, corriereTest.getCapienza());
-//        corriereTest.setCapienza(52);
-//        assertEquals(52, corriereTest.getCapienza());
-//
-//        Exception e1 = assertThrows(IllegalArgumentException.class, () -> corriereTest.setCapienza(-10));
-//        assertEquals("Capienza non valida.", e1.getMessage());
-//
-//        corriereTest.setCapienza(0);
-//        assertEquals(0, corriereTest.getCapienza());
-//        assertFalse(corriereTest.getDisponibilita());
-//    }
-
     @Test
     void setDisponibilita() throws SQLException {
         Corriere corriereTest = new Corriere("Greta", "Sorritelli", true);

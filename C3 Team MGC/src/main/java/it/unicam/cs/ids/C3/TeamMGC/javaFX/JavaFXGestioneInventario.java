@@ -10,8 +10,6 @@ public class JavaFXGestioneInventario {
         this.negozio = negozio;
     }
 
-    //todo altra finestra per scegliere tra le operazioni da fare
-
 
     public void inserisciNuovaMerce(double prezzo, String descrizione, int quantita) {
         //todo

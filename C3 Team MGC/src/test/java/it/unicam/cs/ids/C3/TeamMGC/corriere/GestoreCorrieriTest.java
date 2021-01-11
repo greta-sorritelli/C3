@@ -93,32 +93,31 @@ class GestoreCorrieriTest {
         assertEquals("Corrieri disponibili non presenti.", e1.getMessage());
     }
 
-    //todo invertire assert
     @Test
     void getDettagliCorrieri() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliItems();
         assertEquals("Clarissa",test.get(0).get(1));
-        assertEquals(test.get(1).get(1), "Matteo");
-        assertEquals(test.get(2).get(1), "Greta");
-        assertEquals(test.get(0).get(2), "Albanese");
-        assertEquals(test.get(1).get(2), "Rondini");
-        assertEquals(test.get(2).get(2), "Sorritelli");
-        assertEquals(test.get(0).get(3), "false");
-        assertEquals(test.get(1).get(3), "false");
-        assertEquals(test.get(2).get(3), "false");
+        assertEquals("Matteo",test.get(1).get(1));
+        assertEquals("Greta",test.get(2).get(1) );
+        assertEquals("Albanese",test.get(0).get(2));
+        assertEquals("Rondini",test.get(1).get(2));
+        assertEquals("Sorritelli",test.get(2).get(2));
+        assertEquals("false",test.get(0).get(3));
+        assertEquals("false",test.get(1).get(3) );
+        assertEquals("false",test.get(2).get(3));
     }
 
     @Test
     void getDettagliCorrieriDisponibili() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
-        assertEquals(test.get(0).get(1), "Clarissa");
-        assertEquals(test.get(0).get(2), "Albanese");
-        assertEquals(test.get(0).get(3), "true");
-        assertEquals(test.get(1).get(1), "Greta");
-        assertEquals(test.get(1).get(2), "Sorritelli");
-        assertEquals(test.get(1).get(3), "true");
+        assertEquals("Clarissa",test.get(0).get(1));
+        assertEquals("Albanese",test.get(0).get(2));
+        assertEquals("true",test.get(0).get(3));
+        assertEquals("Greta",test.get(1).get(1));
+        assertEquals("Sorritelli",test.get(1).get(2));
+        assertEquals("true",test.get(1).get(3));
         assertEquals(2, test.size());
 
         gestoreCorrieri.setDisponibilita(Integer.parseInt(test.get(0).get(0)),false);

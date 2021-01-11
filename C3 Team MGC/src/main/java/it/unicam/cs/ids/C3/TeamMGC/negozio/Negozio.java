@@ -72,9 +72,7 @@ public class Negozio {
         for (Merce merce : inventario)
             if (merce.getID() == rs.getInt("ID"))
                 return merce;
-        Merce toReturn = new Merce(rs.getInt("ID"), rs.getInt("IDNegozio"),
-                rs.getDouble("prezzo"), rs.getString("descrizione"),
-                rs.getInt("quantita"));
+        Merce toReturn = new Merce(rs.getInt("ID"));
         addMerceToList(toReturn);
         return toReturn;
     }
@@ -141,6 +139,20 @@ public class Negozio {
             return addMerceInventario(rs);
         else
             throw new IllegalArgumentException("ID non valido.");
+    }
+
+    /**
+     * todo
+     * @return
+     * @throws SQLException
+     */
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliMerce() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        while (rs.next())
+            toReturn.add(addMerceInventario(rs).getDettagli());
+        return  toReturn;
     }
 
     /**

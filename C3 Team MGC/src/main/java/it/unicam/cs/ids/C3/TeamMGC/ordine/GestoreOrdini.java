@@ -283,7 +283,6 @@ public class GestoreOrdini {
      * @return              Le informazioni della merce
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<String> selezionaMerce(int ID) throws SQLException {
         return getMerceOrdine(ID).getDettagli();
     }
@@ -321,7 +320,6 @@ public class GestoreOrdini {
 //     * e che rientra nella capienza del corriere a cui deve essere assegnata.
 //     * @throws SQLException Errore causato da una query SQL
 //     */
-//    //todo finire test e cambiare quantita
 //    public ArrayList<ArrayList<String>> visualizzaMerce(double capienza) throws SQLException {
 //        ArrayList<MerceOrdine> merce = new ArrayList<>();
 //        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();

@@ -37,7 +37,6 @@ public class IAddettoMagazzino implements JavaFXController {
      * Apre la finestra per la gestione dell' inventario.
      */
     @FXML
-    //todo creare fxml
     private void modificaInventario() {
         openWindow("/GestioneInventario.fxml", "GestioneInventario", new JavaFXGestioneInventario(negozio));
     }

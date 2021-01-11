@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +23,19 @@ class MerceTest {
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         negozioTest = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         merceTest = new Merce(1, 12, "test allSet", 10);
+    }
+
+    @Test
+    void creazioneMerce() throws SQLException {
+        Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
+        Merce merce = new Merce(negozio.getID(), 60, "sciarpa",3);
+
+        assertEquals(negozio.getID(), merce.getIDNegozio());
+        assertEquals(60, merce.getPrezzo());
+        assertEquals("sciarpa", merce.getDescrizione());
+        assertEquals(3, merce.getQuantita());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Merce(1000));
+        assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test

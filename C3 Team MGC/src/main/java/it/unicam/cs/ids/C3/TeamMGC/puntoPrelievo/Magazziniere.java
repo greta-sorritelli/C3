@@ -12,20 +12,26 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class Magazziniere {
-    private int ID = 0;
     private final int IDPuntoPrelievo;
-    private String nome = null;
-    private String cognome = null;
+    private final int ID ;
+    private final String nome ;
+    private final String cognome ;
 
     /**
-     * Costruttore per importare i dati dal DB
+     * Costruttore per importare i dati dal DB.
      *
+     * @param ID ID del Magazziniere
+     * @throws SQLException Errore causato da una query SQL
      */
-    public Magazziniere(int ID, int IDPuntoPrelievo , String nome, String cognome) {
-        this.ID = ID;
-        this.IDPuntoPrelievo = IDPuntoPrelievo;
-        this.nome = nome;
-        this.cognome = cognome;
+    public Magazziniere(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from magazzinieri where ID ='" + ID + "';");
+        if (rs.next()) {
+            this.ID = ID;
+            this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
+            this.nome = rs.getString("nome");
+            this.cognome = rs.getString("cognome");
+        } else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     /**
@@ -33,25 +39,35 @@ public class Magazziniere {
      *
      * @throws SQLException eccezione causata una query SQL
      */
-    //todo test creazione
     public Magazziniere(int IDPuntoPrelievo, String nome, String cognome) throws SQLException {
-            updateData("INSERT INTO `sys`.`magazzinieri` (`nome`,`cognome`,`puntoPrelievo`) \n" +
-                    "VALUES ('" + nome + "' , '" + cognome + "', '" + IDPuntoPrelievo + "');");
-            ResultSet rs = executeQuery("SELECT MAX(ID) as ID from magazzinieri;");
-            rs.next();
-            this.ID = rs.getInt("ID");
-            this.nome = nome;
-            this.cognome = cognome;
-            this.IDPuntoPrelievo = IDPuntoPrelievo;
+        updateData("INSERT INTO `sys`.`magazzinieri` (`IDPuntoPrelievo`,`nome`,`cognome`) \n" +
+                "VALUES ('" + IDPuntoPrelievo + "' , '" + nome + "', '" + cognome + "');");
+        ResultSet rs = executeQuery("SELECT MAX(ID) as ID from magazzinieri;");
+        rs.next();
+        this.ID = rs.getInt("ID");
+        this.nome = nome;
+        this.cognome = cognome;
+        this.IDPuntoPrelievo = IDPuntoPrelievo;
+    }
+
+    public String getCognome() {
+        return cognome;
     }
 
     public int getID() {
         return ID;
     }
 
+    public int getIDPuntoPrelievo() {
+        return IDPuntoPrelievo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 
     public void mandaAlert() {
-     //todo
+        //todo
     }
 
 }
