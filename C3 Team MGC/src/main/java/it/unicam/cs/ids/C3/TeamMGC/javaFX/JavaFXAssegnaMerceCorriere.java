@@ -247,15 +247,19 @@ public class JavaFXAssegnaMerceCorriere {
     }
 
 
+
+
+
+
+
     @FXML
-    public void setSelectedMerce() throws SQLException {
+    public void selezionaMerce() {
+
     }
+
 
     //todo
     public void confermaAssegnazioneMerce() throws SQLException {
-//        gestoreCorrieri.setCapienza(IDCorriere, capienza);
-//        gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.AFFIDATO_AL_CORRIERE);
-
         if (!merceOrdineTable.getSelectionModel().isEmpty()) {
             ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
             for (ArrayList<String> merce : sel) {
@@ -263,17 +267,19 @@ public class JavaFXAssegnaMerceCorriere {
                     int id = Integer.parseInt(merce.get(0));
                     if (gestoreOrdini.getMerceOrdine(id) != null) {
                         this.selectedMerce.add(gestoreOrdini.getMerceOrdine(id));
-                        //todo set stato merce
-//                        gestoreOrdini.setStatoMerce();
+                        gestoreOrdini.setStatoMerce(id, StatoOrdine.AFFIDATO_AL_CORRIERE);
                     }
-                } else {
-                    //todo rivedere
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText("Impossibile proseguire");
-                    alert.setContentText("Selezionare un corriere.");
-                    alert.showAndWait();
                 }
             }
+            //todo mostra messaggio conferma
+            //todo aggiorna tabella
+//            visualizzaMerce();
+        } else {
+            //todo rivedere
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Impossibile proseguire");
+            alert.setContentText("Selezionare la merce da affidare al corriere.");
+            alert.showAndWait();
         }
     }
 

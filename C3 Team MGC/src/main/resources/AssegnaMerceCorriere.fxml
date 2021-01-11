@@ -80,7 +80,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="615.0" layoutY="491.0" mnemonicParsing="false" text="Conferma assegnazione" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button layoutX="615.0" layoutY="491.0" mnemonicParsing="false" onAction="#confermaAssegnazioneMerce" text="Conferma assegnazione" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
                   <Button layoutX="542.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToMagazzini" text="&lt;&lt;Back" />
                </children>
             </AnchorPane>
