@@ -6,16 +6,18 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane fx:id="tab" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab text="Corrieri">
+    <Tab fx:id="corrieri" onSelectionChanged="#visualizzaCorrieri" text="Corrieri">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#visualizzaCorrieri">
+        <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
-                  <TableView fx:id="corriereTable" layoutX="43.0" layoutY="81.0" prefHeight="380.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
+                  <TableView fx:id="corriereTable" layoutX="43.0" layoutY="81.0" prefHeight="380.0" AnchorPane.bottomAnchor="108.60000000000002" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
                      <columns>
                         <TableColumn fx:id="IDCorriere" prefWidth="60.0" text="ID" />
                         <TableColumn fx:id="NomeCorriere" prefWidth="260.0" text="Nome" />
@@ -23,21 +25,26 @@
                         <TableColumn fx:id="Capienza" minWidth="-Infinity" prefWidth="135.20001220703125" text="Capienza" />
                      </columns>
                   </TableView>
-                  <Button layoutX="700.0" layoutY="505.0" mnemonicParsing="false" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
-                  <Button layoutX="628.0" layoutY="505.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="120.0" />
+                  <Button layoutX="700.0" layoutY="505.0" mnemonicParsing="false" onAction="#setSelectCorriere" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button layoutX="636.0" layoutY="504.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="120.0" />
                   <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.leftAnchor="42.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="46.0" fitWidth="52.0" layoutX="715.0" layoutY="18.0" onMouseClicked="#visualizzaCorrieri" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@update.png" />
+                     </image>
+                  </ImageView>
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab disable="true" text="Punti di prelievo">
+    <Tab fx:id="puntiPrelievo" disable="true" onSelectionChanged="#visualizzaPuntiPrelievo" text="Punti di prelievo">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#visualizzaPuntiPrelievo" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="magazzinoTable" layoutX="43.0" layoutY="81.0" prefHeight="210.0" prefWidth="515.0">
+                  <TableView fx:id="magazzinoTable" layoutX="43.0" layoutY="81.0" prefHeight="418.0" prefWidth="515.0" AnchorPane.bottomAnchor="108.60000000000002" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
                     <columns>
                       <TableColumn fx:id="IDMagazzino" prefWidth="45.0" text="ID" />
                       <TableColumn fx:id="NomeMagazzino" prefWidth="212.0" text="Nome" />
@@ -49,16 +56,17 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="513.0" layoutY="316.0" mnemonicParsing="false" text="Next&gt;&gt;" AnchorPane.leftAnchor="507.0" AnchorPane.topAnchor="315.0" />
-                  <Button layoutX="450.0" layoutY="316.0" mnemonicParsing="false" text="Cancel" AnchorPane.leftAnchor="442.0" AnchorPane.topAnchor="315.0" />
+                  <Button layoutX="632.0" layoutY="504.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="120.0" />
+                  <Button layoutX="728.0" layoutY="530.0" mnemonicParsing="false" onAction="#setSelectPuntoPrelievo" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button layoutX="548.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToCorrieri" text="&lt;&lt;Back" AnchorPane.rightAnchor="194.39999999999998" />
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab disable="true" text="MerceOrdine">
+      <Tab fx:id="merceOrdine" disable="true" onSelectionChanged="#visualizzaMerce" text="MerceOrdine">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="merceOrdineTable" layoutX="43.0" layoutY="81.0" onMouseMoved="#visualizzaCorrieri" prefHeight="210.0" prefWidth="515.0">
+                  <TableView fx:id="merceOrdineTable" layoutX="43.0" layoutY="81.0" onMouseMoved="#visualizzaCorrieri" prefHeight="210.0" prefWidth="515.0" AnchorPane.bottomAnchor="108.60000000000002" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
                     <columns>
                       <TableColumn fx:id="IDMerce" prefWidth="47.0" text="ID" />
                       <TableColumn fx:id="IDOrdineMerce" prefWidth="62.0" text="IDOrdine" />
@@ -68,13 +76,14 @@
                         <TableColumn fx:id="StatoMerce" prefWidth="104.0" text="Stato" />
                     </columns>
                   </TableView>
-                  <Label layoutX="404.0" layoutY="33.0" text="Capienza Corriere:" />
                   <Label layoutX="43.0" layoutY="39.0" text="Merce da affidare al corriere" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="430.0" layoutY="316.0" mnemonicParsing="false" text="Conferma assegnazione" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="315.0" />
+                  <Button layoutX="615.0" layoutY="491.0" mnemonicParsing="false" text="Conferma assegnazione" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button layoutX="542.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToMagazzini" text="&lt;&lt;Back" />
+                  <Label fx:id="capienza" alignment="CENTER_RIGHT" layoutX="601.0" layoutY="32.0" prefHeight="18.0" prefWidth="156.0" />
                </children>
             </AnchorPane>
         </content>

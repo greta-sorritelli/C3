@@ -30,6 +30,7 @@ public class IAddettoMagazzino implements JavaFXController {
     private void assegnaMerceCorriere() {
         openWindow("/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere(gestoreCorrieri,
                 gestoreMagazzini, gestoreOrdini));
+
     }
 
     /**
