@@ -20,7 +20,6 @@ public class Corriere {
     private String nome;
     private String cognome;
     private boolean disponibilita;
-    private int capienza;
 
     /**
      * Costruttore per importare i dati dal DB.
@@ -35,7 +34,6 @@ public class Corriere {
             this.nome = rs.getString("nome");
             this.cognome = rs.getString("cognome");
             this.disponibilita = rs.getBoolean("stato");
-            this.capienza = rs.getInt("capienza");
         } else
             throw new IllegalArgumentException("ID non valido.");
     }
@@ -45,16 +43,15 @@ public class Corriere {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public Corriere(String nome, String cognome, boolean disponibilita, int capienza) throws SQLException {
-        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, capienza) VALUES ('" + nome + "', '" + cognome +
-                "', '" + disponibilita + "', '" + capienza + "');");
+    public Corriere(String nome, String cognome, boolean disponibilita) throws SQLException {
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato) VALUES ('" + nome + "', '" + cognome +
+                "', '" + disponibilita + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from corrieri;");
         rs.next();
         ID = rs.getInt("ID");
         this.nome = nome;
         this.cognome = cognome;
         this.disponibilita = disponibilita;
-        this.capienza = capienza;
     }
 
     @Override
@@ -63,27 +60,6 @@ public class Corriere {
         if (o == null || getClass() != o.getClass()) return false;
         Corriere corriere = (Corriere) o;
         return getID() == corriere.getID();
-    }
-
-    public int getCapienza() {
-        return capienza;
-    }
-
-    /**
-     * Imposta una nuova capienza del {@link Corriere}
-     *
-     * @param capienza nuova capienza
-     * @throws SQLException eccezione causata da una query SQL
-     */
-    public void setCapienza(int capienza) throws SQLException {
-        if (capienza < 0)
-            throw new IllegalArgumentException("Capienza non valida.");
-        updateData("UPDATE sys.corrieri SET capienza = '" + capienza + "' WHERE (`ID` = '" + this.ID + "');");
-        if (capienza == 0) {
-            updateData("UPDATE sys.corrieri SET stato = '" + false + "' WHERE (`ID` = '" + this.ID + "');");
-            this.disponibilita = false;
-        }
-        this.capienza = capienza;
     }
 
     public String getCognome() {
@@ -102,7 +78,6 @@ public class Corriere {
         corriere.add(nome);
         corriere.add(cognome);
         corriere.add(String.valueOf(getDisponibilita()));
-        corriere.add(String.valueOf(getCapienza()));
         return corriere;
     }
 
@@ -158,7 +133,6 @@ public class Corriere {
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", disponibilita=" + disponibilita +
-                ", capienza=" + capienza +
                 '}';
     }
 
@@ -173,7 +147,6 @@ public class Corriere {
             this.nome = rs.getString("nome");
             this.cognome = rs.getString("cognome");
             this.disponibilita = rs.getBoolean("stato");
-            this.capienza = rs.getInt("capienza");
         }
     }
 

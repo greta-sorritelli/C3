@@ -143,12 +143,11 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      *
      * @param nome          Nome del corriere da inserire
      * @param cognome       Cognome del corriere da inserire
-     * @param capienza      Capienza del corriere da inserire
      * @return              ArrayList<String> dei dettagli del corriere creato
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> inserisciDati(String nome, String cognome, int capienza) throws SQLException {
-        Corriere corriere = new Corriere(nome, cognome, true, capienza);
+    public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
+        Corriere corriere = new Corriere(nome, cognome, true);
         addCorriereToList(corriere);
         return corriere.getDettagli();
     }
@@ -162,10 +161,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      */
     public ArrayList<String> selezionaCorriere(int ID) throws SQLException {
         return getItem(ID).getDettagli();
-    }
-
-    public void setCapienza(int IDCorriere, int capienza) throws SQLException {
-        getItem(IDCorriere).setCapienza(capienza);
     }
 
     public void setDisponibilita(int IDCorriere, boolean disponibilita) throws SQLException {

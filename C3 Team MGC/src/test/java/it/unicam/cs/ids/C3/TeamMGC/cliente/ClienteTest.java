@@ -1,8 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -277,6 +277,18 @@ public class GestoreOrdini {
     }
 
     /**
+     * Seleziona la {@link MerceOrdine} desiderata.
+     *
+     * @param ID            Codice Identificativo della merce
+     * @return              Le informazioni della merce
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public ArrayList<String> selezionaMerce(int ID) throws SQLException {
+        return getMerceOrdine(ID).getDettagli();
+    }
+
+    /**
      * Imposta lo stato dell'{@link Ordine} come pagato se tutta la {@link MerceOrdine} in esso
      * è pagata e ritorna l' arrayList dei dettagli dell' ordine.
      *
@@ -299,21 +311,21 @@ public class GestoreOrdini {
         return getOrdine(IDOrdine).getDettagli();
     }
 
-    /**
-     * Ritorna la lista dei dettagli della {@link MerceOrdine} con stato "pagato"
-     * e che rientra nella {@code capienza} del corriere.
-     *
-     * @param capienza Capienza entro la quale deve rientrare la merce
-     *
-     * @return ArrayList<ArrayList < String>> dei dettagli della merce con stato "PAGATO"
-     * e che rientra nella capienza del corriere a cui deve essere assegnata.
-     * @throws SQLException Errore causato da una query SQL
-     */
-    //todo finire test e cambiare quantita
-    public ArrayList<ArrayList<String>> visualizzaMerce(int capienza) throws SQLException {
-        ArrayList<MerceOrdine> merce = new ArrayList<>();
-        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
-        return getArrayListDettagliMerce(merce, dettagli, rs);
-    }
+//    /**
+//     * Ritorna la lista dei dettagli della {@link MerceOrdine} con stato "pagato"
+//     * e che rientra nella {@code capienza} del corriere.
+//     *
+//     * @param capienza Capienza entro la quale deve rientrare la merce
+//     *
+//     * @return ArrayList<ArrayList < String>> dei dettagli della merce con stato "PAGATO"
+//     * e che rientra nella capienza del corriere a cui deve essere assegnata.
+//     * @throws SQLException Errore causato da una query SQL
+//     */
+//    //todo finire test e cambiare quantita
+//    public ArrayList<ArrayList<String>> visualizzaMerce(double capienza) throws SQLException {
+//        ArrayList<MerceOrdine> merce = new ArrayList<>();
+//        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+//        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
+//        return getArrayListDettagliMerce(merce, dettagli, rs);
+//    }
 }

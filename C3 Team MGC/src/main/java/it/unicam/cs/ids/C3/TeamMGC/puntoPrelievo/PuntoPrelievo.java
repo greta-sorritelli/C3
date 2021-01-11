@@ -104,7 +104,7 @@ public class PuntoPrelievo {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo cambiare forse levare
+    //todo test
     public ArrayList<MerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException {
         ArrayList<MerceOrdine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from merci\n" +

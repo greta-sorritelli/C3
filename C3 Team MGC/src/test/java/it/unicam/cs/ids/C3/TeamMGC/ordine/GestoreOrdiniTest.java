@@ -301,20 +301,4 @@ class GestoreOrdiniTest {
         int idOrdine = Integer.parseInt(ordine.get(0));
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.terminaOrdine(idOrdine));
     }
-
-    //todo finire test
-    @Test
-    void visualizzaMerce() throws SQLException {
-        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
-        GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
-        Cliente cliente1 = new Cliente("Maria", "Giuseppa");
-        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
-        int ID1 = Integer.parseInt(ordine1.get(0));
-        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(52, "gomma", 10);
-        ArrayList<String> merceDettagli2 = negozio.inserisciNuovaMerce(5, "righello", 10);
-
-        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
-
-        gestoreOrdini.registraMerce(IDMerce1, 5, ID1);
-    }
 }

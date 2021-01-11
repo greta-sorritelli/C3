@@ -4,6 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
@@ -229,7 +230,7 @@ public class JavaFXAssegnaMerceCorriere {
         try {
             setMerceOrdineCellValueFactory();
             merceOrdineTable.getItems().clear();
-            merceOrdineTable.getItems().addAll(gestoreOrdini.visualizzaMerce(selectedCorriere.getCapienza()));
+            merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerce(StatoOrdine.PAGATO));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -262,7 +263,7 @@ public class JavaFXAssegnaMerceCorriere {
                     int id = Integer.parseInt(merce.get(0));
                     if (gestoreOrdini.getMerceOrdine(id) != null) {
                         this.selectedMerce.add(gestoreOrdini.getMerceOrdine(id));
-                        //todo capienza corriere
+                        //todo set stato merce
 //                        gestoreOrdini.setStatoMerce();
                     }
                 } else {
