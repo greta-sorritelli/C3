@@ -95,17 +95,16 @@ public class GestoreOrdini {
     }
 
     /**
-     * todo
+     * Ritorna la lista dei dettagli della {@link MerceOrdine};
      *
-     * @param merce
-     * @param dettagli
-     * @param rs
+     * @param merce    Lista della merceOrdine
+     * @param dettagli Lista dei dettagli
+     * @param rs       ResultSet
      *
-     * @return
+     * @return ArrayList<ArrayList < String>> dei dettagli della merceOrdine
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo rename
-    private ArrayList<ArrayList<String>> getArrayLists(ArrayList<MerceOrdine> merce, ArrayList<ArrayList<String>> dettagli, ResultSet rs) throws SQLException {
+    private ArrayList<ArrayList<String>> getArrayListDettagliMerce(ArrayList<MerceOrdine> merce, ArrayList<ArrayList<String>> dettagli, ResultSet rs) throws SQLException {
         while (rs.next()) {
             MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
                     rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
@@ -130,7 +129,7 @@ public class GestoreOrdini {
         ArrayList<MerceOrdine> merce = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + statoOrdine + "');");
-        return getArrayLists(merce, dettagli, rs);
+        return getArrayListDettagliMerce(merce, dettagli, rs);
     }
 
     /**
@@ -170,7 +169,7 @@ public class GestoreOrdini {
      * @return ArrayList<ArrayList < String>> dei dettagli delle merci
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
+    //todo finire test
     public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         for (Ordine ordine : ordini) {
@@ -189,7 +188,6 @@ public class GestoreOrdini {
      * @return La merce desiderata
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo fare test
     public MerceOrdine getMerceOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * from merci where ID ='" + ID + "';");
         if (rs.next()) {
@@ -199,7 +197,8 @@ public class GestoreOrdini {
                     return merceOrdine;
                 else
                     return creaMerceFromDB(rs, ordine);
-        }
+        } else
+            throw new IllegalArgumentException("ID non valido.");
         return null;
     }
 
@@ -278,7 +277,8 @@ public class GestoreOrdini {
     }
 
     /**
-     * Imposta lo stato dell'{@link Ordine} come pagato se tutta la {@link MerceOrdine} in esso è pagata.
+     * Imposta lo stato dell'{@link Ordine} come pagato se tutta la {@link MerceOrdine} in esso
+     * è pagata e ritorna l' arrayList dei dettagli dell' ordine.
      *
      * @param IDOrdine Ordine da controllare
      *
@@ -309,11 +309,11 @@ public class GestoreOrdini {
      * e che rientra nella capienza del corriere a cui deve essere assegnata.
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
+    //todo finire test e cambiare quantita
     public ArrayList<ArrayList<String>> visualizzaMerce(int capienza) throws SQLException {
         ArrayList<MerceOrdine> merce = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
-        return getArrayLists(merce, dettagli, rs);
+        return getArrayListDettagliMerce(merce, dettagli, rs);
     }
 }

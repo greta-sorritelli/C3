@@ -2,12 +2,10 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 
 public class JavaFXConsegnareMerceAlCliente {
 
-    private PuntoPrelievo puntoPrelievo;
+    private final PuntoPrelievo puntoPrelievo;
     private final GestoreOrdini gestoreOrdini;
     private final GestoreClienti gestoreClienti;
 
@@ -25,8 +23,6 @@ public class JavaFXConsegnareMerceAlCliente {
     TextField IDCliente;
     @FXML
     TextField codiceRitiro;
-    @FXML
-    Button verifica;
 
     /**
      * Tabella della merceOrdine
@@ -52,16 +48,6 @@ public class JavaFXConsegnareMerceAlCliente {
         this.gestoreClienti = gestoreClienti;
     }
 
-    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) {
-        //todo
-        return null;
-    }
-
-    public ArrayList<Ordine> getOrdini(int IDCliente) {
-        //todo
-        return null;
-    }
-
     /**
      * Collega i campi della MerceOrdine alle colonne della tabella.
      */
@@ -80,7 +66,6 @@ public class JavaFXConsegnareMerceAlCliente {
 
     @FXML
     public void verificaCodice() throws SQLException {
-        System.out.println(gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText()));
         if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
             ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
             setMerceOrdineCellValueFactory();

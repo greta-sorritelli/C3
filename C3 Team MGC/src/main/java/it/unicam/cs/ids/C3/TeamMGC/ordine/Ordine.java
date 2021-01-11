@@ -71,8 +71,9 @@ public class Ordine {
      * @param merce Merce da aggiungere
      */
     //todo rivedere il commento e test
-    public void addMerce(MerceOrdine merce) {
+    public void addMerce(MerceOrdine merce) throws SQLException {
         merci.add(merce);
+        update();
     }
 
     /**
