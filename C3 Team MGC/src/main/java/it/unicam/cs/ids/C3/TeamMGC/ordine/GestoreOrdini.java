@@ -96,6 +96,7 @@ public class GestoreOrdini {
 
     /**
      * todo
+     *
      * @param merce
      * @param dettagli
      * @param rs
@@ -170,12 +171,12 @@ public class GestoreOrdini {
      * @throws SQLException Errore causato da una query SQL
      */
     //todo test
-    public ArrayList<String> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
-        ArrayList<String> toReturn = new ArrayList<>();
+    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         for (Ordine ordine : ordini) {
             for (MerceOrdine m : ordine.getMerci())
                 if (m.getStato() == StatoOrdine.IN_DEPOSITO)
-                    toReturn.addAll(m.getDettagli());
+                    toReturn.add(m.getDettagli());
         }
         return toReturn;
     }
@@ -257,14 +258,16 @@ public class GestoreOrdini {
     public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
-    
+
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
         Ordine ordine = getOrdine(getMerceOrdine(IDMerce).getIDOrdine());
         boolean toControl = true;
         for (MerceOrdine m : ordine.getMerci()) {
-            if (m.getStato() != statoOrdine)
+            if (m.getStato() != statoOrdine) {
                 toControl = false;
+                break;
+            }
         }
         if (toControl)
             ordine.setStato(statoOrdine);

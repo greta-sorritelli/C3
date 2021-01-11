@@ -135,6 +135,8 @@ public class PuntoPrelievo {
                 "' AND IDPuntoPrelievo = '" + this.ID + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "' ;");
         while (rs.next()) {
             Ordine ordine = new Ordine(rs.getInt("ID"));
+            for (MerceOrdine merciToAdd : getMerceMagazzino(ordine.getID()))
+                ordine.addMerce(merciToAdd);
             lista.add(ordine);
         }
         return lista;

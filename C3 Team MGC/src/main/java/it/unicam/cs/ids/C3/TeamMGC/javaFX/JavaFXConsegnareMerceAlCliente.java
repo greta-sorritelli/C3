@@ -34,15 +34,15 @@ public class JavaFXConsegnareMerceAlCliente {
     @FXML
     TableView<ArrayList<String>> merceOrdineTable;
     @FXML
-    TableColumn<ArrayList<String>,String> IDMerce;
+    TableColumn<ArrayList<String>, String> IDMerce;
     @FXML
-    TableColumn<ArrayList<String>,String> IDOrdineMerce;
+    TableColumn<ArrayList<String>, String> IDOrdineMerce;
     @FXML
-    TableColumn<ArrayList<String>,String> PrezzoMerce;
+    TableColumn<ArrayList<String>, String> PrezzoMerce;
     @FXML
-    TableColumn<ArrayList<String>,String> DescrizioneMerce;
+    TableColumn<ArrayList<String>, String> DescrizioneMerce;
     @FXML
-    TableColumn<ArrayList<String>,String> QuantitaMerce;
+    TableColumn<ArrayList<String>, String> QuantitaMerce;
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
 
@@ -52,18 +52,18 @@ public class JavaFXConsegnareMerceAlCliente {
         this.gestoreClienti = gestoreClienti;
     }
 
-    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini){
+    public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) {
         //todo
         return null;
     }
 
-    public ArrayList<Ordine> getOrdini(int IDCliente){
+    public ArrayList<Ordine> getOrdini(int IDCliente) {
         //todo
         return null;
     }
 
     /**
-     *  Collega i campi della MerceOrdine alle colonne della tabella.
+     * Collega i campi della MerceOrdine alle colonne della tabella.
      */
     private void setMerceOrdineCellValueFactory() {
         IDMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(0)));
@@ -74,17 +74,21 @@ public class JavaFXConsegnareMerceAlCliente {
         StatoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(5)));
     }
 
-    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine){
+    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) {
         //todo stato ritirato
     }
 
+    @FXML
     public void verificaCodice() throws SQLException {
-     if(gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()),codiceRitiro.getText())) {
-         ArrayList<String> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
-         setMerceOrdineCellValueFactory();
-         merceOrdineTable.getItems().clear();
-         merceOrdineTable.getItems().addAll(merci);
-     }
+        System.out.println(gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText()));
+        if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
+            ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
+            setMerceOrdineCellValueFactory();
+            merceOrdineTable.getItems().clear();
+            for (ArrayList<String> m : merci) {
+                merceOrdineTable.getItems().add(m);
+            }
+        }
 
     }
 

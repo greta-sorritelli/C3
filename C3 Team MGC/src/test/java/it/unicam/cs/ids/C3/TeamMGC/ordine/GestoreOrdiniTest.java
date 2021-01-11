@@ -47,60 +47,6 @@ class GestoreOrdiniTest {
     }
 
     @Test
-    void getOrdine() throws SQLException {
-        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
-        GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
-        Cliente cliente1 = new Cliente("Maria", "Giuseppa");
-        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
-        int ID1 = Integer.parseInt(ordine1.get(0));
-        PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
-        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(52, "gomma", 10);
-        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
-
-        gestoreOrdini.registraMerce(IDMerce1,5, ID1);
-        gestoreOrdini.terminaOrdine(ID1);
-        gestoreOrdini.getOrdine(ID1).setPuntoPrelievo(p.getID());
-
-        assertEquals(cliente1.getID(), gestoreOrdini.getOrdine(ID1).getIDCliente());
-        assertEquals("Maria",gestoreOrdini.getOrdine(ID1).getNomeCliente());
-        assertEquals("Giuseppa",gestoreOrdini.getOrdine(ID1).getCognomeCliente());
-        assertEquals(260.0, gestoreOrdini.getOrdine(ID1).getTotalePrezzo());
-        assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getOrdine(ID1).getStato());
-        assertEquals(p.getID(), gestoreOrdini.getOrdine(ID1).getPuntoPrelievo());
-        assertEquals(gestoreOrdini.getMerceOrdine(1),gestoreOrdini.getOrdine(ID1).getMerci().get(0));
-        Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.getOrdine(1000));
-        assertEquals("ID non valido.", e1.getMessage());
-    }
-
-    @Test
-    void getDettagliOrdine() throws SQLException {
-        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
-        GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
-        Cliente cliente1 = new Cliente("Maria", "Giuseppa");
-        PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
-        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(52, "gomma", 10);
-
-        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
-        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
-        int ID1 = Integer.parseInt(ordine1.get(0));
-
-        gestoreOrdini.registraMerce(IDMerce1,5, ID1);
-        gestoreOrdini.terminaOrdine(ID1);
-        gestoreOrdini.getOrdine(ID1).setPuntoPrelievo(p.getID());
-
-        ArrayList<String> ordineLista = new ArrayList<>();
-        ordineLista.add(ordine1.get(0));
-        ordineLista.add(String.valueOf(cliente1.getID()));
-        ordineLista.add("Maria");
-        ordineLista.add("Giuseppa");
-        ordineLista.add("260.0");
-        ordineLista.add(StatoOrdine.PAGATO.toString());
-        ordineLista.add(String.valueOf(p.getID()));
-        ordineLista.add(gestoreOrdini.getOrdine(ID1).getMerci().toString());
-        assertEquals(ordineLista, gestoreOrdini.getDettagliOrdine(ID1));
-    }
-
-    @Test
     void getDettagliMerce() throws SQLException {
         Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
         GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
@@ -118,17 +64,17 @@ class GestoreOrdiniTest {
         ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
         int ID1 = Integer.parseInt(ordine1.get(0));
 
-        gestoreOrdini.registraMerce(IDMerce1,5, ID1);
-        gestoreOrdini.registraMerce(IDMerce2,10,ID1);
-        gestoreOrdini.registraMerce(IDMerce3,5, ID1);
+        gestoreOrdini.registraMerce(IDMerce1, 5, ID1);
+        gestoreOrdini.registraMerce(IDMerce2, 10, ID1);
+        gestoreOrdini.registraMerce(IDMerce3, 5, ID1);
 
         assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getMerceOrdine(1).getStato());
         assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getMerceOrdine(2).getStato());
         assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getMerceOrdine(3).getStato());
 
-        gestoreOrdini.setStatoMerce(1,StatoOrdine.AFFIDATO_AL_CORRIERE);
-        gestoreOrdini.setStatoMerce(2,StatoOrdine.IN_TRANSITO);
-        gestoreOrdini.setStatoMerce(3,StatoOrdine.RITIRATO);
+        gestoreOrdini.setStatoMerce(1, StatoOrdine.AFFIDATO_AL_CORRIERE);
+        gestoreOrdini.setStatoMerce(2, StatoOrdine.IN_TRANSITO);
+        gestoreOrdini.setStatoMerce(3, StatoOrdine.RITIRATO);
 
         assertEquals("gomma", gestoreOrdini.getDettagliMerce(StatoOrdine.AFFIDATO_AL_CORRIERE).get(0).get(3));
         assertEquals("matita", gestoreOrdini.getDettagliMerce(StatoOrdine.IN_TRANSITO).get(0).get(3));
@@ -136,6 +82,84 @@ class GestoreOrdiniTest {
         assertEquals("52.0", gestoreOrdini.getDettagliMerce(StatoOrdine.AFFIDATO_AL_CORRIERE).get(0).get(2));
         assertEquals("10.0", gestoreOrdini.getDettagliMerce(StatoOrdine.IN_TRANSITO).get(0).get(2));
         assertEquals("20.0", gestoreOrdini.getDettagliMerce(StatoOrdine.RITIRATO).get(0).get(2));
+    }
+
+    @Test
+    void getDettagliOrdine() throws SQLException {
+        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
+        GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+        Cliente cliente1 = new Cliente("Maria", "Giuseppa");
+        PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
+        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(52, "gomma", 10);
+
+        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
+        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
+        int ID1 = Integer.parseInt(ordine1.get(0));
+
+        gestoreOrdini.registraMerce(IDMerce1, 5, ID1);
+        gestoreOrdini.terminaOrdine(ID1);
+        gestoreOrdini.getOrdine(ID1).setPuntoPrelievo(p.getID());
+
+        ArrayList<String> ordineLista = new ArrayList<>();
+        ordineLista.add(ordine1.get(0));
+        ordineLista.add(String.valueOf(cliente1.getID()));
+        ordineLista.add("Maria");
+        ordineLista.add("Giuseppa");
+        ordineLista.add("260.0");
+        ordineLista.add(StatoOrdine.PAGATO.toString());
+        ordineLista.add(String.valueOf(p.getID()));
+        ordineLista.add(gestoreOrdini.getOrdine(ID1).getMerci().toString());
+        assertEquals(ordineLista, gestoreOrdini.getDettagliOrdine(ID1));
+    }
+
+    @Test
+        //todo da finire
+    void getInDepositMerci() throws SQLException {
+        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
+        GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+        Cliente cliente1 = new Cliente("Maria", "Giuseppa");
+        PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
+        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(52, "gomma", 10);
+
+        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
+        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
+        int ID1 = Integer.parseInt(ordine1.get(0));
+
+        gestoreOrdini.registraMerce(IDMerce1, 5, ID1);
+        gestoreOrdini.getOrdine(ID1).setPuntoPrelievo(p.getID());
+        gestoreOrdini.setStatoMerce(IDMerce1, StatoOrdine.IN_DEPOSITO);
+
+        ArrayList<Ordine> ordini = new ArrayList<>();
+        ordini.add(gestoreOrdini.getOrdine(ID1));
+
+        ArrayList<ArrayList<String>> merciInDeposito = gestoreOrdini.getInDepositMerci(ordini);
+
+    }
+
+    @Test
+    void getOrdine() throws SQLException {
+        Negozio negozio = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
+        GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+        Cliente cliente1 = new Cliente("Maria", "Giuseppa");
+        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(cliente1.getID(), cliente1.getNome(), cliente1.getCognome());
+        int ID1 = Integer.parseInt(ordine1.get(0));
+        PuntoPrelievo p = new PuntoPrelievo("Via dei Sequence Diagram", "SD 1");
+        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(52, "gomma", 10);
+        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
+
+        gestoreOrdini.registraMerce(IDMerce1, 5, ID1);
+        gestoreOrdini.terminaOrdine(ID1);
+        gestoreOrdini.getOrdine(ID1).setPuntoPrelievo(p.getID());
+
+        assertEquals(cliente1.getID(), gestoreOrdini.getOrdine(ID1).getIDCliente());
+        assertEquals("Maria", gestoreOrdini.getOrdine(ID1).getNomeCliente());
+        assertEquals("Giuseppa", gestoreOrdini.getOrdine(ID1).getCognomeCliente());
+        assertEquals(260.0, gestoreOrdini.getOrdine(ID1).getTotalePrezzo());
+        assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getOrdine(ID1).getStato());
+        assertEquals(p.getID(), gestoreOrdini.getOrdine(ID1).getPuntoPrelievo());
+        assertEquals(gestoreOrdini.getMerceOrdine(1), gestoreOrdini.getOrdine(ID1).getMerci().get(0));
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.getOrdine(1000));
+        assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test

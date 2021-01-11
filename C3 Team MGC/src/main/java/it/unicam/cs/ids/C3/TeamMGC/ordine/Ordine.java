@@ -16,19 +16,20 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 public class Ordine {
     private final int ID;
     private final int IDCliente;
+    private final int IDNegozio;
+    private final ArrayList<MerceOrdine> merci = new ArrayList<>();
     private String nomeCliente;
     private String cognomeCliente;
     private double totalePrezzo;
     private StatoOrdine stato = StatoOrdine.DA_PAGARE;
     private int IDPuntoPrelievo = -1;
     private String residenza = "";
-    private final int IDNegozio;
-    private final ArrayList<MerceOrdine> merci = new ArrayList<>();
 
     /**
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID dell' Ordine
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public Ordine(int ID) throws SQLException {
@@ -78,6 +79,7 @@ public class Ordine {
      * Aggiunge l'{@code indirizzo} della residenza all'{@link Ordine}.
      *
      * @param indirizzo Indirizzo residenza del cliente
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public void addResidenza(String indirizzo) throws SQLException {
@@ -92,6 +94,7 @@ public class Ordine {
      *
      * @param merce    Merce da aggiungere
      * @param quantita Quantita della merce da aggiungere
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     //todo
@@ -191,6 +194,22 @@ public class Ordine {
     @Override
     public int hashCode() {
         return Objects.hash(ID);
+    }
+
+    @Override
+    public String toString() {
+        return "Ordine{" +
+                "ID=" + ID +
+                ", IDCliente=" + IDCliente +
+                ", nomeCliente='" + nomeCliente + '\'' +
+                ", cognomeCliente='" + cognomeCliente + '\'' +
+                ", totalePrezzo=" + totalePrezzo +
+                ", stato=" + stato +
+                ", IDPuntoPrelievo=" + IDPuntoPrelievo +
+                ", residenza='" + residenza + '\'' +
+                ", IDNegozio=" + IDNegozio +
+                ", merci=" + merci +
+                '}';
     }
 
     /**
