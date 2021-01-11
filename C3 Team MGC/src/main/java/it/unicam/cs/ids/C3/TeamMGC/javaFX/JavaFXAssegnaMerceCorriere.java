@@ -4,7 +4,6 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
@@ -154,7 +153,7 @@ public class JavaFXAssegnaMerceCorriere {
 
 
     @FXML
-    public void setSelectCorriere() throws SQLException {
+    public void setSelectedCorriere() throws SQLException {
         if (!corriereTable.getSelectionModel().isEmpty()) {
             int id = Integer.parseInt(corriereTable.getSelectionModel().getSelectedItem().get(0));
             if (gestoreCorrieri.getItem(id) != null) {
@@ -200,7 +199,7 @@ public class JavaFXAssegnaMerceCorriere {
 
 
     @FXML
-    public void setSelectPuntoPrelievo() throws SQLException {
+    public void setSelectedPuntoPrelievo() throws SQLException {
         if (!magazzinoTable.getSelectionModel().isEmpty()) {
             int id = Integer.parseInt(magazzinoTable.getSelectionModel().getSelectedItem().get(0));
             if (gestoreMagazzini.getItem(id) != null) {
@@ -250,10 +249,39 @@ public class JavaFXAssegnaMerceCorriere {
         corrieri.setDisable(true);
     }
 
+
+    @FXML
+    public void setSelectedMerce() throws SQLException {
+    }
+
     //todo
-    public void confermaAssegnazioneMerce(int IDCorriere, int IDMerce, int capienza) throws SQLException {
-        gestoreCorrieri.setCapienza(IDCorriere, capienza);
-        gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.AFFIDATO_AL_CORRIERE);
+    public void confermaAssegnazioneMerce() throws SQLException {
+//        gestoreCorrieri.setCapienza(IDCorriere, capienza);
+//        gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.AFFIDATO_AL_CORRIERE);
+
+        if (!merceOrdineTable.getSelectionModel().isEmpty()) {
+            ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
+            for (ArrayList<String> merce : sel) {
+                if (merce != null) {
+                    int id = Integer.parseInt(merce.get(0));
+                    if (gestoreOrdini.getMerceOrdine(id) != null) {
+                        this.selectedMerce.add(gestoreOrdini.getMerceOrdine(id));
+                        //todo capienza corriere
+//                        gestoreOrdini.setStatoMerce();
+                    }
+                } else {
+                    //todo rivedere
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Impossibile proseguire");
+                    alert.setContentText("Selezionare un corriere.");
+                    alert.showAndWait();
+                }
+            }
+        }
+//        accountsTableView.getItems().removeAll(sel);
+//        accountRefresh();
+//        for ()
+//            int id = Integer.parseInt(merceOrdineTable.getSelectionModel().getSelectedItem().get(0));
     }
 
 
