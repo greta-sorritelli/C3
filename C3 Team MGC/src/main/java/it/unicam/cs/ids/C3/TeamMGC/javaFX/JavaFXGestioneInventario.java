@@ -3,7 +3,6 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -12,7 +11,6 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class JavaFXGestioneInventario {
@@ -36,25 +34,20 @@ public class JavaFXGestioneInventario {
     TextField quantita1;
 
     @FXML
-    ChoiceBox<Integer> choiceIDMerce = new ChoiceBox<>();
+    ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
 
 
     @FXML
-    private void choiceBox() throws SQLException {
-        List<Integer> ID = new ArrayList<>();
-        for (Merce m: negozio.getMerceDisponibile()) {
-               ID.add(m.getID());
-        }
-        ObservableList<Integer> IDMerci = FXCollections.observableList(ID);
-        choiceIDMerce.setItems(IDMerci);
+    public void showMerce() throws SQLException {
+        merceChoiceBox.getItems().clear();
+        merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getMerceDisponibile()));
     }
 
     @FXML
-    public void choiceBoxAppear() throws SQLException {
-        if (Objects.isNull(choiceIDMerce.getValue()))
-            choiceBox();
+    public void updateMerceChoiceBox() throws SQLException {
+        if (Objects.isNull(merceChoiceBox.getValue()))
+            showMerce();
     }
-
 
 
     /**
@@ -80,7 +73,7 @@ public class JavaFXGestioneInventario {
 
 
     public void inserisciNuovaMerce() throws SQLException {
-        negozio.inserisciNuovaMerce(Double.parseDouble(prezzo.getText()),descrizione.getText(), Integer.parseInt(quantita.getText()));
+        negozio.inserisciNuovaMerce(Double.parseDouble(prezzo.getText()), descrizione.getText(), Integer.parseInt(quantita.getText()));
     }
 
     public void selezionaMerce(int ID) {
@@ -88,11 +81,11 @@ public class JavaFXGestioneInventario {
     }
 
     public void setQuantita() throws SQLException {
-        negozio.setQuantita(choiceIDMerce.getValue(), Integer.parseInt(quantita1.getText()));
+//        negozio.setQuantita(choiceIDMerce.getValue(), Integer.parseInt(quantita1.getText()));
     }
 
-    public void removeMerce(int IDMerce){
-       //todo
+    public void removeMerce(int IDMerce) {
+        //todo
     }
 
 }

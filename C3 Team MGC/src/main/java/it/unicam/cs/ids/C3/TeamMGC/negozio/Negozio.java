@@ -143,6 +143,7 @@ public class Negozio {
 
     /**
      * todo
+     *
      * @return
      * @throws SQLException
      */
@@ -152,7 +153,7 @@ public class Negozio {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         while (rs.next())
             toReturn.add(addMerceInventario(rs).getDettagli());
-        return  toReturn;
+        return toReturn;
     }
 
     /**
@@ -165,7 +166,7 @@ public class Negozio {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
         while (rs.next())
             addMerceInventario(rs);
-        return inventario;
+        return new ArrayList<>(inventario);
     }
 
     public String getNome() {
