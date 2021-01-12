@@ -25,13 +25,12 @@
                      </columns>
                   </TableView>
                   <Button layoutX="700.0" layoutY="505.0" mnemonicParsing="false" onAction="#setSelectedCorriere" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
-                  <Button layoutX="636.0" layoutY="504.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="120.0" />
                   <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.leftAnchor="42.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="46.0" fitWidth="52.0" layoutX="715.0" layoutY="18.0" onMouseClicked="#visualizzaCorrieri" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="34.0" fitWidth="36.0" layoutX="726.0" layoutY="24.0" onMouseClicked="#visualizzaCorrieri" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@update.png" />
                      </image>
@@ -55,9 +54,8 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="632.0" layoutY="504.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="120.0" />
                   <Button layoutX="728.0" layoutY="530.0" mnemonicParsing="false" onAction="#setSelectedPuntoPrelievo" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
-                  <Button layoutX="548.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToCorrieri" text="&lt;&lt;Back" AnchorPane.rightAnchor="194.39999999999998" />
+                  <Button layoutX="627.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToCorrieri" text="&lt;&lt;Back" AnchorPane.rightAnchor="115.39999999999998" />
                </children></AnchorPane>
       </content>
     </Tab>

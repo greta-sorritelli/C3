@@ -29,6 +29,7 @@ public class JavaFXAssegnaMerceCorriere {
         this.gestoreOrdini = gestoreOrdini;
         this.selectedCorriere = null;
         this.selectedMagazzino = null;
+        this.selectedMerce = new ArrayList<>();
     }
 
 
@@ -281,17 +282,13 @@ public class JavaFXAssegnaMerceCorriere {
 
     //todo
     private void confermaAssegnazioneMerce() throws SQLException {
-        for (MerceOrdine merce : selectedMerce) {
-            if (merce != null) {
+        for (MerceOrdine merce : selectedMerce)
+            if (merce != null)
                 gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-            }
-        }
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Assegnazione eseguita con successo");
-        alert.setContentText("La merce selezionata è stata affidata al corriere.");
+        alert.setContentText("La merce selezionata e' stata affidata al corriere.");
         alert.showAndWait();
-
         //todo aggiorna tabella
         visualizzaMerce();
     }

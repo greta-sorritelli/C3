@@ -123,7 +123,9 @@ public class GestoreOrdini {
      */
     //todo rivedere test
     public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
+        update();
         ArrayList<MerceOrdine> merci = new ArrayList<>();
+
         for (Ordine ordine : ordini) {
             ordine.update();
             merci.addAll(ordine.getMerci());
@@ -317,6 +319,13 @@ public class GestoreOrdini {
             throw new IllegalArgumentException("Merce non pagata.");
 
         return getOrdine(IDOrdine).getDettagli();
+    }
+
+
+    public void update() throws SQLException {
+        ResultSet rs = executeQuery("SELECT ID from sys.ordini;");
+        while (rs.next())
+            addOrdine(rs);
     }
 
 //    /**
