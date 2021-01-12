@@ -67,7 +67,6 @@ public class ICorriere {
      * Apre la finestra per modificare lo stato di disponibilita del corriere.
      */
     @FXML
-    //todo creare fxml
     public void modificaDisponibilita(){
         openWindow("/ModificareDisponibilita.fxml", "ModificareDisponibilita", new JavaFXModificareDisponibilita(gestoreCorrieri));
     }

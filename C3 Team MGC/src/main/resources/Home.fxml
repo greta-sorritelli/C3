@@ -15,10 +15,13 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="374.0" layoutY="178.0" mnemonicParsing="false" onAction="#visualizzaHomeMagazziniere" text="Magazziniere">
+      <Button layoutX="356.0" layoutY="175.0" mnemonicParsing="false" onAction="#visualizzaHomeMagazziniere" prefHeight="31.0" prefWidth="150.0" text="Magazziniere">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="402.0" layoutY="219.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="357.0" layoutY="216.0" mnemonicParsing="false" onAction="#visualizzaHomeCorriere" prefHeight="31.0" prefWidth="150.0" text="Corriere">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
    </children>
 </Pane>

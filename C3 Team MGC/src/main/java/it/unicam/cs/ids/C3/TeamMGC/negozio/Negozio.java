@@ -208,9 +208,12 @@ public class Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo rivedere test
     public void removeMerce(int IDMerce) throws SQLException {
-        inventario.remove(getMerce(IDMerce));
-        getMerce(IDMerce).delete();
+        Merce toDelete = getMerce(IDMerce);
+        inventario.remove(toDelete);
+        toDelete.delete();
+
     }
 
     /**
