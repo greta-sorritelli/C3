@@ -87,9 +87,7 @@ public class GestoreOrdini {
      * @throws SQLException Errore causato da una query SQL
      */
     private MerceOrdine creaMerceFromDB(ResultSet rs, Ordine ordine) throws SQLException {
-        MerceOrdine toReturn = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
-                rs.getDouble("prezzo"), rs.getString("descrizione"),
-                rs.getInt("quantita"), StatoOrdine.valueOf(rs.getString("stato")));
+        MerceOrdine toReturn = new MerceOrdine(rs.getInt("ID"));
         ordine.addMerce(toReturn);
         return toReturn;
     }
@@ -106,14 +104,11 @@ public class GestoreOrdini {
      */
     private ArrayList<ArrayList<String>> getArrayListDettagliMerce(ArrayList<MerceOrdine> merce, ArrayList<ArrayList<String>> dettagli, ResultSet rs) throws SQLException {
         while (rs.next()) {
-            MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
-                    rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
-                    StatoOrdine.valueOf(rs.getString("stato")));
+            MerceOrdine tmp = new MerceOrdine(rs.getInt("ID"));
             merce.add(tmp);
         }
-        for (MerceOrdine m : merce) {
+        for (MerceOrdine m : merce)
             dettagli.add(m.getDettagli());
-        }
         return dettagli;
     }
 
@@ -279,8 +274,9 @@ public class GestoreOrdini {
     /**
      * Seleziona la {@link MerceOrdine} desiderata.
      *
-     * @param ID            Codice Identificativo della merce
-     * @return              Le informazioni della merce
+     * @param ID Codice Identificativo della merce
+     *
+     * @return Le informazioni della merce
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> selezionaMerce(int ID) throws SQLException {

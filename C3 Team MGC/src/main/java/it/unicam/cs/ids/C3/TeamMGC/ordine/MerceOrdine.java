@@ -43,14 +43,18 @@ public class MerceOrdine {
      * Costruttore per importare i dati dal DB
      *
      */
-    public MerceOrdine(int ID, int IDOrdine, double prezzo, String descrizione, int quantita, StatoOrdine stato) {
-        //todo rivedere
-        this.ID = ID;
-        this.IDOrdine = IDOrdine;
-        this.prezzo = prezzo;
-        this.descrizione = descrizione;
-        this.quantita = quantita;
-        this.stato = stato;
+    //todo test
+    public MerceOrdine(int ID) throws SQLException {
+        ResultSet rs = executeQuery("select * from merci where ID ='" + ID + "';");
+        if (rs.next()) {
+            this.ID = ID;
+            this.IDOrdine = rs.getInt("IDOrdine");
+            this.prezzo = rs.getDouble("prezzo");
+            this.descrizione = rs.getString("descrizione");
+            this.quantita = rs.getInt("quantita");
+            this.stato = StatoOrdine.valueOf(rs.getString("stato"));
+        } else
+            throw new IllegalArgumentException("ID non valido.");
     }
 
     @Override

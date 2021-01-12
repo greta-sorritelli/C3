@@ -110,9 +110,7 @@ public class PuntoPrelievo {
         ResultSet rs = executeQuery("SELECT * from merci\n" +
                 "where IDOrdine = " + IDOrdine + " and stato = '" + StatoOrdine.IN_DEPOSITO.toString() + "';");
         while (rs.next()) {
-            MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"), rs.getInt("IDOrdine"),
-                    rs.getDouble("prezzo"), rs.getString("descrizione"), rs.getInt("quantita"),
-                    StatoOrdine.valueOf(rs.getString("stato")));
+            MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"));
             lista.add(merceOrdine);
         }
         return lista;

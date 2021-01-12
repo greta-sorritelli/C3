@@ -44,6 +44,10 @@ public class Ordine {
             this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
             this.residenza = rs.getString("residenza");
             this.IDNegozio = rs.getInt("IDNegozio");
+
+            rs = executeQuery("select ID from merci where IDOrdine ='" + ID + "';");
+            while (rs.next())
+                this.merci.add(new MerceOrdine(rs.getInt("ID")));
         } else
             throw new IllegalArgumentException("ID non valido.");
     }
