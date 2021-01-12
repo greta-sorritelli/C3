@@ -9,8 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la creazione di un {@link PuntoPrelievo}
@@ -35,8 +34,11 @@ public class PuntoPrelievo {
             this.ID = ID;
             this.indirizzo = rs.getString("indirizzo");
             this.nome = rs.getString("nome");
-        } else
+            disconnectToDB(rs);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -52,6 +54,7 @@ public class PuntoPrelievo {
         this.ID = rs.getInt("ID");
         this.nome = nome;
         this.indirizzo = indirizzo;
+        disconnectToDB(rs);
     }
 
     @Override
@@ -113,6 +116,7 @@ public class PuntoPrelievo {
             MerceOrdine merceOrdine = new MerceOrdine(rs.getInt("ID"));
             lista.add(merceOrdine);
         }
+        disconnectToDB(rs);
         return lista;
     }
 
@@ -137,6 +141,7 @@ public class PuntoPrelievo {
                 ordine.addMerce(merciToAdd);
             lista.add(ordine);
         }
+        disconnectToDB(rs);
         return lista;
     }
 
@@ -156,6 +161,7 @@ public class PuntoPrelievo {
             this.indirizzo = rs.getString("indirizzo");
             this.nome = rs.getString("nome");
         }
+        disconnectToDB(rs);
     }
 
 }

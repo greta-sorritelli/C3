@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 /**
@@ -63,6 +64,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
             addMagazzino(rs);
         for (PuntoPrelievo magazzino : magazzini)
             dettagli.add(magazzino.getDettagli());
+        disconnectToDB(rs);
         return dettagli;
     }
 
@@ -76,10 +78,14 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
     @Override
     public PuntoPrelievo getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo where ID='" + ID + "' ;");
-        if (rs.next())
-            return addMagazzino(rs);
-        else
+        if (rs.next()) {
+            PuntoPrelievo toReturn = addMagazzino(rs);
+            disconnectToDB(rs);
+            return toReturn;
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -93,6 +99,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
         ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
         while (rs.next())
             addMagazzino(rs);
+        disconnectToDB(rs);
         return new ArrayList<>(magazzini);
     }
 
@@ -115,18 +122,22 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      */
     public PuntoPrelievo ricercaMagazzino(String indirizzo) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.punti_prelievo where indirizzo='" + indirizzo + "' ;");
-        if (rs.next())
-            return getItem(rs.getInt("ID"));
-        else
+        if (rs.next()) {
+            int IDtmp = rs.getInt("ID");
+            disconnectToDB(rs);
+            return getItem(IDtmp);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("Magazzino non trovato.");
+        }
     }
 
     /**
      * Ritorna i dettagli del {@link PuntoPrelievo}.
      *
-     * @param ID  Codice identificativo del punto di prelievo
+     * @param ID Codice identificativo del punto di prelievo
      *
-     * @return    ArrayList<String> dei dettagli
+     * @return ArrayList<String> dei dettagli
      */
     public ArrayList<String> sceltaPuntoPrelievo(int ID) throws SQLException {
         return getItem(ID).getDettagli();

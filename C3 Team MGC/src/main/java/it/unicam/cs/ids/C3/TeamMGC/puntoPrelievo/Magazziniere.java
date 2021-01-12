@@ -3,8 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la creazione di un {@link Magazziniere}
@@ -30,8 +29,11 @@ public class Magazziniere {
             this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
             this.nome = rs.getString("nome");
             this.cognome = rs.getString("cognome");
-        } else
+            disconnectToDB(rs);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -40,7 +42,7 @@ public class Magazziniere {
      * @throws SQLException eccezione causata una query SQL
      */
     public Magazziniere(int IDPuntoPrelievo, String nome, String cognome) throws SQLException {
-        updateData("INSERT INTO `sys`.`magazzinieri` (`IDPuntoPrelievo`,`nome`,`cognome`) \n" +
+        updateData("INSERT INTO sys.magazzinieri (IDPuntoPrelievo,nome,cognome) \n" +
                 "VALUES ('" + IDPuntoPrelievo + "' , '" + nome + "', '" + cognome + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from magazzinieri;");
         rs.next();
@@ -48,6 +50,7 @@ public class Magazziniere {
         this.nome = nome;
         this.cognome = cognome;
         this.IDPuntoPrelievo = IDPuntoPrelievo;
+        disconnectToDB(rs);
     }
 
     public String getCognome() {
