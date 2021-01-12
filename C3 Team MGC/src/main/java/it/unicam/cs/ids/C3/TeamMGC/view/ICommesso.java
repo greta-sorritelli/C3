@@ -55,14 +55,12 @@ public class ICommesso {
         }
     }
 
-    //todo da finire
     public void comunicaCodiceRitiro() {
         openWindow("/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro(gestoreClienti));
     }
 
-    //todo creare fxml
     public void ricezionePagamento() {
-        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(gestoreOrdini));
+        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio,gestoreOrdini, gestoreClienti));
     }
 
     //todo creare fxml
