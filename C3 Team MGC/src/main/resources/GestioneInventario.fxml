@@ -48,18 +48,18 @@
     </Tab>
     <Tab text="Modifica quantita prodotto">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#choiceBoxAppear" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#updateMerceChoiceBox" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Label layoutX="42.0" layoutY="31.0" text="Inserisci dati prodotto da modificare" AnchorPane.leftAnchor="42.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="201.0" layoutY="108.0" text="IDMerce" />
-                  <Label layoutX="183.0" layoutY="199.0" text="Nuova quantita" />
-                  <TextField fx:id="quantita1" layoutX="337.0" layoutY="195.0" />
+                  <Label layoutX="201.0" layoutY="108.0" text="IDMerce" AnchorPane.leftAnchor="42.0" />
+                  <Label layoutX="183.0" layoutY="199.0" text="Nuova quantita" AnchorPane.leftAnchor="42.0" />
+                  <TextField fx:id="quantita1" layoutX="171.0" layoutY="195.0" prefHeight="26.0" prefWidth="123.0" />
                   <Button layoutX="486.0" layoutY="273.0" mnemonicParsing="false" onAction="#setQuantita" text="Modifica quantita" />
-                  <ChoiceBox layoutX="336.0" layoutY="104.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="merceChoiceBox" layoutX="171.0" layoutY="103.0" onMouseClicked="#showMerce" prefHeight="26.0" prefWidth="570.0" />
                </children></AnchorPane>
       </content>
     </Tab>
