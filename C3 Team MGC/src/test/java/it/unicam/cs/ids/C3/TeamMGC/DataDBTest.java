@@ -69,6 +69,7 @@ public class DataDBTest {
 
         //Inventario
         updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '60.0', 'Felpa', '10');");
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '45.0', 'Jeans', '10');");
 
         //Corrieri
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato) VALUES ('Luigi', 'Bianchi', 'true');");

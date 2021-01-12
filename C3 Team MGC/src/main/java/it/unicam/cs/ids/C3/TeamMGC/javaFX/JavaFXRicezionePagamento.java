@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class JavaFXRicezionePagamento {
+public class JavaFXRicezionePagamento implements JavaFXController{
 
     private final Negozio negozio;
     private final GestoreOrdini gestoreOrdini;
@@ -29,6 +29,9 @@ public class JavaFXRicezionePagamento {
 
     @FXML
     TextField IDCliente;
+
+    @FXML
+    TextField ordineTextField;
 
     @FXML
     ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
@@ -90,28 +93,38 @@ public class JavaFXRicezionePagamento {
         }
     }
 
+    //todo errore se quantita è maggiore e alert
     public void registraOrdine() throws SQLException {
-        int ID = Integer.parseInt(IDCliente.getText());
-        ArrayList<String> dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getItem(ID).getNome(),
-                gestoreClienti.getItem(ID).getCognome());
-        gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(dettagliOrdine.get(0)));
+        if (ordineTextField.getText().isEmpty()) {
+            int ID = Integer.parseInt(IDCliente.getText());
+            ArrayList<String> dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getItem(ID).getNome(),
+                    gestoreClienti.getItem(ID).getCognome());
+            ordineTextField.setText(dettagliOrdine.get(0));
+        }
+        gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(ordineTextField.getText()));
         setMerceCellValueFactory();
         merceTable.getItems().clear();
-        for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(dettagliOrdine.get(0))).getMerci()) {
+        for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
             merceTable.getItems().add(m.getDettagli());
-        }
         quantita.clear();
         merceChoiceBox.getItems().clear();
+        IDCliente.setEditable(false);
     }
 
-    //todo
-    public void terminaOrdine() throws SQLException {
-//        gestoreOrdini.terminaOrdine();
+    //todo alert
+    public void terminaOrdine() {
+        try {
+            gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Ordine terminato con successo!");
+            alert.setContentText("Lo stato dell' ordine e' stato impostato a pagato.");
+            alert.showAndWait();
+            Stage stage = (Stage) IDCliente.getScene().getWindow();
+            closeWindow(stage);
+        } catch (Exception exception){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Inserire i dati richiesti.");
+        alert.showAndWait();
     }
-
-    @FXML
-    public void close() {
-        Stage stage = (Stage) IDCliente.getScene().getWindow();
-        stage.close();
     }
 }
