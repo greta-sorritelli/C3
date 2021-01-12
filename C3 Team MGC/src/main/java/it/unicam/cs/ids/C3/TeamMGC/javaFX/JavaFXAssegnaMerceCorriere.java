@@ -109,6 +109,7 @@ public class JavaFXAssegnaMerceCorriere {
      * Collega i campi del Corriere alle colonne della tabella.
      */
     private void setCorriereCellValueFactory() {
+        corriereTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         IDCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(0)));
         NomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(1)));
         CognomeCorriere.setCellValueFactory(corriere -> new SimpleObjectProperty<>(corriere.getValue().get(2)));
@@ -118,6 +119,7 @@ public class JavaFXAssegnaMerceCorriere {
      * Collega i campi del PuntoPrelievo alle colonne della tabella.
      */
     private void setPuntoPrelievoCellValueFactory() {
+        magazzinoTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         IDMagazzino.setCellValueFactory(puntoPrelievo -> new SimpleObjectProperty<>(puntoPrelievo.getValue().get(0)));
         NomeMagazzino.setCellValueFactory(puntoPrelievo -> new SimpleObjectProperty<>(puntoPrelievo.getValue().get(1)));
         IndirizzoMagazzino.setCellValueFactory(puntoPrelievo -> new SimpleObjectProperty<>(puntoPrelievo.getValue().get(2)));
@@ -127,6 +129,7 @@ public class JavaFXAssegnaMerceCorriere {
      * Collega i campi della MerceOrdine alle colonne della tabella.
      */
     private void setMerceOrdineCellValueFactory() {
+        merceOrdineTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         IDMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(0)));
         IDOrdineMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(1)));
         PrezzoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(2)));
@@ -290,6 +293,6 @@ public class JavaFXAssegnaMerceCorriere {
         alert.showAndWait();
 
         //todo aggiorna tabella
-//        visualizzaMerce();
+        visualizzaMerce();
     }
 }

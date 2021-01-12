@@ -53,6 +53,8 @@ public class DataDBTest {
 
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('1', '59.0', 'Matita', '3', 'PAGATO');");
 
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('1', '59.0', 'Penna', '3', 'PAGATO');");
+
         //Codici di Ritiro
         updateData("INSERT INTO sys.codici_ritiro (codice, IDCliente, IDOrdine, dataCreazione) VALUES ('101010101010', '1', '1', '2021-01-01');");
 
