@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 /**
@@ -73,8 +74,11 @@ public class GestoreOrdini {
      */
     private void controllaCliente(int IDCliente, String nome, String cognome) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID = '" + IDCliente + "' and nome = '" + nome + "' and cognome = '" + cognome + "';");
-        if (!rs.next())
+        if (!rs.next()) {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
+        disconnectToDB(rs);
     }
 
     /**
@@ -165,8 +169,11 @@ public class GestoreOrdini {
     //todo test e forse levare
     public ArrayList<String> getDettagliOrdineCliente(int IDCliente) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID from ordini where IDCliente ='" + IDCliente + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "';");
-        if (rs.next())
-            return getOrdine(rs.getInt("ID")).getDettagli();
+        if (rs.next()) {
+            ArrayList<String> tmp = getOrdine(rs.getInt("ID")).getDettagli();
+            disconnectToDB(rs);
+            return tmp;
+        }
         return null;
     }
 
@@ -203,12 +210,19 @@ public class GestoreOrdini {
         if (rs.next()) {
             Ordine ordine = getOrdine(rs.getInt("IDOrdine"));
             for (MerceOrdine merceOrdine : ordine.getMerci())
-                if (merceOrdine.getID() == ID)
+                if (merceOrdine.getID() == ID) {
+                    disconnectToDB(rs);
                     return merceOrdine;
-                else
-                    return creaMerceFromDB(rs, ordine);
-        } else
+                }
+                else {
+                    MerceOrdine tmp = creaMerceFromDB(rs, ordine);
+                    disconnectToDB(rs);
+                    return tmp;
+                }
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
         return null;
     }
 
@@ -222,10 +236,15 @@ public class GestoreOrdini {
      */
     public Ordine getOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.ordini where ID='" + ID + "' ;");
-        if (rs.next())
-            return addOrdine(rs);
-        else
+        if (rs.next()) {
+            Ordine tmp = addOrdine(rs);
+            disconnectToDB(rs);
+            return tmp;
+        }
+        else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -326,6 +345,7 @@ public class GestoreOrdini {
         ResultSet rs = executeQuery("SELECT ID from sys.ordini;");
         while (rs.next())
             addOrdine(rs);
+        disconnectToDB(rs);
     }
 
 //    /**

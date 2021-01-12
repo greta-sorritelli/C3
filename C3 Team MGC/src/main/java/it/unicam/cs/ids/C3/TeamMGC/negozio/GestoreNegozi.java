@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 /**
@@ -30,9 +31,9 @@ public class GestoreNegozi implements Gestore<Negozio> {
         for (Negozio negozio : negozi)
             if (negozio.getID() == rs.getInt("ID"))
                 return negozio;
-        Negozio toReturn = new Negozio(rs.getInt("ID"));
-        addNegozioToList(toReturn);
-        return toReturn;
+        Negozio tmp = new Negozio(rs.getInt("ID"));
+        addNegozioToList(tmp);
+        return tmp;
     }
 
     /**
@@ -59,6 +60,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
             addNegozio(rs);
         for (Negozio negozio : negozi)
             dettagli.add(negozio.getDettagli());
+        disconnectToDB(rs);
         return dettagli;
     }
 
@@ -75,6 +77,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         while (rs.next())
             toReturn.add(getItem(rs.getInt("IDNegozio")).getDettagli());
+        disconnectToDB(rs);
         return toReturn;
     }
 
@@ -82,6 +85,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * Ritorna il {@link Negozio} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Negozio
+     *
      * @return Il Negozio desiderato
      * @throws SQLException Errore causato da una query SQL
      */
@@ -89,10 +93,14 @@ public class GestoreNegozi implements Gestore<Negozio> {
     public Negozio getItem(int ID) throws SQLException {
         //todo
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi where ID='" + ID + "' ;");
-        if (rs.next())
-            return addNegozio(rs);
-        else
+        if (rs.next()) {
+            Negozio negozio = addNegozio(rs);
+            disconnectToDB(rs);
+            return negozio;
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -107,6 +115,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
         while (rs.next())
             addNegozio(rs);
+        disconnectToDB(rs);
         return new ArrayList<>(negozi);
     }
 
@@ -114,6 +123,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * todo
      *
      * @param ID
+     *
      * @return
      * @throws SQLException eccezione causata da una query SQL
      */

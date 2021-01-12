@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 /**
@@ -26,8 +27,9 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      */
     private Corriere addCorriere(ResultSet rs) throws SQLException {
         for (Corriere corriere : corrieri)
-            if (corriere.getID() == rs.getInt("ID"))
+            if (corriere.getID() == rs.getInt("ID")) {
                 return corriere;
+            }
         Corriere toReturn = new Corriere(rs.getInt("ID"));
         addCorriereToList(toReturn);
         return toReturn;
@@ -51,7 +53,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      */
     public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
         ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri WHERE (stato = 'true' );");
+        ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri WHERE (stato = 'true');");
         if (rs.next())
             do {
                 Corriere tmp = new Corriere(rs.getInt("ID"));
@@ -60,8 +62,10 @@ public class GestoreCorrieri implements Gestore<Corriere> {
 
         else {
             //todo eccezione
+            disconnectToDB(rs);
             throw new IllegalArgumentException("Corrieri disponibili non presenti.");
         }
+        disconnectToDB(rs);
         return corrieriDisponibili;
     }
 
@@ -79,11 +83,14 @@ public class GestoreCorrieri implements Gestore<Corriere> {
             Corriere tmp = new Corriere(rs.getInt("ID"));
             corrieriDisponibili.add(tmp);
         }
-        if (corrieriDisponibili.isEmpty())
+        if (corrieriDisponibili.isEmpty()) {
             //todo eccezione
+            disconnectToDB(rs);
             throw new IllegalArgumentException("Corrieri disponibili non presenti.");
+        }
         for (Corriere corriere : corrieriDisponibili)
             dettagli.add(corriere.getDettagli());
+        disconnectToDB(rs);
         return dettagli;
     }
 
@@ -101,6 +108,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
             addCorriere(rs);
         for (Corriere corrieri : corrieri)
             dettagli.add(corrieri.getDettagli());
+        disconnectToDB(rs);
         return dettagli;
     }
 
@@ -118,10 +126,13 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     @Override
     public Corriere getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
-        if (rs.next())
+        if (rs.next()) {
             return addCorriere(rs);
-        else
+        }
+        else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -135,6 +146,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
         while (rs.next())
             addCorriere(rs);
+        disconnectToDB(rs);
         return new ArrayList<>(corrieri);
     }
 

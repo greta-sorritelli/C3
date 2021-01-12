@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la creazione di un {@link Corriere}
@@ -34,8 +33,11 @@ public class Corriere {
             this.nome = rs.getString("nome");
             this.cognome = rs.getString("cognome");
             this.disponibilita = rs.getBoolean("stato");
-        } else
+            disconnectToDB(rs);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -52,6 +54,7 @@ public class Corriere {
         this.nome = nome;
         this.cognome = cognome;
         this.disponibilita = disponibilita;
+        disconnectToDB(rs);
     }
 
     @Override
@@ -148,6 +151,7 @@ public class Corriere {
             this.cognome = rs.getString("cognome");
             this.disponibilita = rs.getBoolean("stato");
         }
+        disconnectToDB(rs);
     }
 
 }

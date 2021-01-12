@@ -5,8 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la creazione di un {@link Ordine}
@@ -48,8 +47,11 @@ public class Ordine {
             rs = executeQuery("select ID from merci where IDOrdine ='" + ID + "';");
             while (rs.next())
                 this.merci.add(new MerceOrdine(rs.getInt("ID")));
-        } else
+            disconnectToDB(rs);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -67,6 +69,7 @@ public class Ordine {
         this.nomeCliente = nomeCliente;
         this.cognomeCliente = cognomeCliente;
         this.IDNegozio = IDNegozio;
+        disconnectToDB(rs);
     }
 
     /**
@@ -257,5 +260,6 @@ public class Ordine {
 //            for (MerceOrdine merceOrdine : merci)
 //                merceOrdine.update();
         }
+        disconnectToDB(rs);
     }
 }

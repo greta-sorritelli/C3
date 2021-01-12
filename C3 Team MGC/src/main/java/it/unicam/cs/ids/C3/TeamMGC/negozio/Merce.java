@@ -4,8 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per rappresentare la Merce all' interno dell' Inventario di un {@link Negozio}.
@@ -35,6 +34,7 @@ public class Merce {
         this.prezzo = prezzo;
         this.descrizione = descrizione;
         this.quantita = quantita;
+        disconnectToDB(rs);
     }
 
     /**
@@ -51,8 +51,11 @@ public class Merce {
             this.prezzo = rs.getDouble("prezzo");
             this.descrizione = rs.getString("descrizione");
             this.quantita = rs.getInt("quantita");
-        } else
+            disconnectToDB(rs);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
 
     }
 
@@ -145,6 +148,7 @@ public class Merce {
             this.descrizione = rs.getString("descrizione");
             this.quantita = rs.getInt("quantita");
         }
+        disconnectToDB(rs);
     }
 
 }
