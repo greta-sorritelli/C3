@@ -6,6 +6,7 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -60,19 +61,67 @@ public class JavaFXConsegnareMerceAlCliente {
         StatoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(5)));
     }
 
-    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) {
-        //todo stato ritirato
+    public void setStatoMerce() {
+        try {
+            if (!merceOrdineTable.getItems().isEmpty()) {
+                for (ArrayList<String> merce : merceOrdineTable.getItems())
+                    gestoreOrdini.setStatoMerce(Integer.parseInt(merce.get(0)), StatoOrdine.RITIRATO);
+                merceOrdineTable.getItems().clear();
+                IDCliente.clear();
+                codiceRitiro.clear();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Consegna merce eseguita con successo!");
+                alert.setContentText("La merce e' stata consegnata al cliente.");
+                alert.showAndWait();
+            } else
+                throw new IllegalArgumentException("Merce non presente nella tabella.");
+        } catch (Exception exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Error!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
-    public void verificaCodice() throws SQLException {
-        if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
-            ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
-            setMerceOrdineCellValueFactory();
-            merceOrdineTable.getItems().clear();
-            for (ArrayList<String> m : merci) {
-                merceOrdineTable.getItems().add(m);
-            }
+    public void verificaCodice() {
+        try {
+            if (IDCliente.getText().equals("") ||  codiceRitiro.getText().equals(""))
+                throw new NullPointerException("Codice non valido");
+
+            if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
+                ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
+                setMerceOrdineCellValueFactory();
+                merceOrdineTable.getItems().clear();
+                for (ArrayList<String> m : merci) {
+                    merceOrdineTable.getItems().add(m);
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Verifica codice eseguita con successo!");
+                alert.setContentText("Il codice inserito appartiene al cliente.");
+                alert.showAndWait();
+                if(merci.isEmpty()) {
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setContentText("Il cliente non ha merci da ritirare.");
+                    alert1.showAndWait();
+                    IDCliente.clear();
+                    codiceRitiro.clear();
+                }
+            } else
+                throw new IllegalArgumentException("Parametri non presenti.");
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Inserisci tutti i dati richiesti!");
+            alert.showAndWait();
+            IDCliente.clear();
+            codiceRitiro.clear();
+        } catch (IllegalArgumentException exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Il codice non appartiene al cliente!");
+            alert.showAndWait();
+            IDCliente.clear();
+            codiceRitiro.clear();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
 
     }
