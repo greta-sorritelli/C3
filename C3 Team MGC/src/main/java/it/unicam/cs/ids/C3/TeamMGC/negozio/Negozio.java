@@ -4,8 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la creazione di un {@link Negozio}
@@ -40,6 +39,7 @@ public class Negozio {
         this.orarioChiusura = orarioChiusura;
         this.indirizzo = indirizzo;
         this.telefono = telefono;
+        disconnectToDB(rs);
     }
 
     /**
@@ -57,8 +57,11 @@ public class Negozio {
             this.orarioChiusura = rs.getString("orarioChiusura");
             this.indirizzo = rs.getString("indirizzo");
             this.telefono = rs.getString("telefono");
-        } else
+            disconnectToDB(rs);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -135,10 +138,15 @@ public class Negozio {
     public Merce getMerce(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
                 this.ID + "' ;");
-        if (rs.next())
-            return addMerceInventario(rs);
-        else
+        if (rs.next()) {
+            Merce merce = addMerceInventario(rs);
+            disconnectToDB(rs);
+            return merce;
+        }
+        else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -153,6 +161,7 @@ public class Negozio {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         while (rs.next())
             toReturn.add(addMerceInventario(rs).getDettagli());
+        disconnectToDB(rs);
         return toReturn;
     }
 
@@ -166,6 +175,7 @@ public class Negozio {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
         while (rs.next())
             addMerceInventario(rs);
+        disconnectToDB(rs);
         return new ArrayList<>(inventario);
     }
 
@@ -247,6 +257,7 @@ public class Negozio {
             this.indirizzo = rs.getString("indirizzo");
             this.telefono = rs.getString("telefono");
         }
+        disconnectToDB(rs);
     }
 
 }

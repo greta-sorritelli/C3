@@ -12,8 +12,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la gestione di ogni {@link Cliente}
@@ -91,6 +90,7 @@ public class GestoreClienti implements Gestore<Cliente> {
             addCliente(rs);
         for (Cliente cliente : clienti)
             dettagli.add(cliente.getDettagli());
+        disconnectToDB(rs);
         return dettagli;
     }
 
@@ -105,10 +105,13 @@ public class GestoreClienti implements Gestore<Cliente> {
     @Override
     public Cliente getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
-        if (rs.next())
+        if (rs.next()) {
             return addCliente(rs);
-        else
+        }
+        else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -122,6 +125,7 @@ public class GestoreClienti implements Gestore<Cliente> {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
         while (rs.next())
             addCliente(rs);
+        disconnectToDB(rs);
         return new ArrayList<>(clienti);
     }
 
@@ -157,10 +161,13 @@ public class GestoreClienti implements Gestore<Cliente> {
             String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
             if (Objects.isNull(date) || !date.equals(dataOdierna)) {
                 creazioneCodice(IDCliente, IDOrdine);
+                disconnectToDB(rs);
                 return getItem(IDCliente).getCodiceRitiro();
             }
+            disconnectToDB(rs);
             return getItem(IDCliente).getCodiceRitiro();
         }
+        disconnectToDB(rs);
         return getItem(IDCliente).getCodiceRitiro();
     }
 
