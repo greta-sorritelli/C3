@@ -8,8 +8,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la creazione di un {@link Cliente}
@@ -37,8 +36,11 @@ public class Cliente {
             this.cognome = rs.getString("cognome");
             this.codiceRitiro = rs.getString("codiceRitiro");
             this.dataCreazioneCodice = rs.getString("dataCreazione");
-        } else
+            disconnectToDB(rs);
+        } else {
+            disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
+        }
     }
 
     /**
@@ -53,6 +55,7 @@ public class Cliente {
         ID = rs.getInt("ID");
         this.nome = nome;
         this.cognome = cognome;
+        disconnectToDB(rs);
     }
 
     @Override
@@ -135,5 +138,6 @@ public class Cliente {
                 this.dataCreazioneCodice = rs.getString("dataCreazione");
             }
         }
+        disconnectToDB(rs);
     }
 }
