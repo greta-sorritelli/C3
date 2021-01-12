@@ -12,7 +12,6 @@ public class DatabaseConnection {
 
     /**
      * Connessione al DB
-     *
      */
     public static Connection connectToDB() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/sys?serverTimezone=" + TimeZone.getDefault().getID();
@@ -27,7 +26,9 @@ public class DatabaseConnection {
 
     /**
      * Esecuzione di una query SQL sul database
+     *
      * @param query query SQL
+     *
      * @return risultato della query
      * @throws SQLException eccezione causata dalla query
      */
@@ -37,10 +38,32 @@ public class DatabaseConnection {
 
     /**
      * Esecuzione di una query per aggiornare i dati del database
+     *
      * @param query query SQL
+     *
      * @throws SQLException eccezione causata dalla query
      */
     public static void updateData(String query) throws SQLException {
-        connectToDB().createStatement().executeUpdate(query);
+        Connection connection = connectToDB();
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(query);
+        disconnectToDB(connection, statement);
+//        connectToDB().createStatement().executeUpdate(query);
+    }
+
+    private static void disconnectToDB(Connection connection, Statement statement) throws SQLException {
+        if (statement != null)
+            statement.close();
+        if (connection != null)
+            connection.close();
+    }
+
+    public static void disconnectToDB(ResultSet rs) throws SQLException {
+        Statement statement = rs.getStatement();
+        Connection connection = statement.getConnection();
+        rs.close();
+        statement.close();
+        if (connection != null)
+            connection.close();
     }
 }

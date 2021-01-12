@@ -181,7 +181,7 @@ public class Ordine {
     }
 
     public ArrayList<MerceOrdine> getMerci() throws SQLException {
-        update();
+//        update();
         return new ArrayList<>(merci);
     }
 
@@ -254,8 +254,8 @@ public class Ordine {
             this.residenza = rs.getString("residenza");
 
             addMerce(executeQuery("select ID from merci where IDOrdine ='" + ID + "';"));
-            for (MerceOrdine merceOrdine : merci)
-                merceOrdine.update();
+//            for (MerceOrdine merceOrdine : merci)
+//                merceOrdine.update();
         }
     }
 }
