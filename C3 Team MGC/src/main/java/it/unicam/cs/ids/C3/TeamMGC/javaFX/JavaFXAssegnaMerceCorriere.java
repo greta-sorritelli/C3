@@ -247,19 +247,14 @@ public class JavaFXAssegnaMerceCorriere {
     }
 
 
-
-
-
-
-
     @FXML
-    public void selezionaMerce() {
-
+    public void confermaButton() throws SQLException {
+        selezionaMerce();
+        confermaAssegnazioneMerce();
     }
 
 
-    //todo
-    public void confermaAssegnazioneMerce() throws SQLException {
+    private void selezionaMerce() throws SQLException {
         if (!merceOrdineTable.getSelectionModel().isEmpty()) {
             ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
             for (ArrayList<String> merce : sel) {
@@ -267,13 +262,10 @@ public class JavaFXAssegnaMerceCorriere {
                     int id = Integer.parseInt(merce.get(0));
                     if (gestoreOrdini.getMerceOrdine(id) != null) {
                         this.selectedMerce.add(gestoreOrdini.getMerceOrdine(id));
-                        gestoreOrdini.setStatoMerce(id, StatoOrdine.AFFIDATO_AL_CORRIERE);
                     }
                 }
             }
-            //todo mostra messaggio conferma
-            //todo aggiorna tabella
-//            visualizzaMerce();
+            sel.clear();
         } else {
             //todo rivedere
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -284,4 +276,20 @@ public class JavaFXAssegnaMerceCorriere {
     }
 
 
+    //todo
+    private void confermaAssegnazioneMerce() throws SQLException {
+        for (MerceOrdine merce : selectedMerce) {
+            if (merce != null) {
+                gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Assegnazione eseguita con successo");
+        alert.setContentText("La merce selezionata è stata affidata al corriere.");
+        alert.showAndWait();
+
+        //todo aggiorna tabella
+//        visualizzaMerce();
+    }
 }
