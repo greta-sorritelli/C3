@@ -86,6 +86,7 @@ public class GestoreOrdini {
      * @return la MerceOrdine creata
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo forse non serve piu'
     private MerceOrdine creaMerceFromDB(ResultSet rs, Ordine ordine) throws SQLException {
         MerceOrdine toReturn = new MerceOrdine(rs.getInt("ID"));
         ordine.addMerce(toReturn);
@@ -120,11 +121,23 @@ public class GestoreOrdini {
      * @return ArrayList<ArrayList < String>> dei dettagli della merce.
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo rivedere test
     public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
-        ArrayList<MerceOrdine> merce = new ArrayList<>();
+        ArrayList<MerceOrdine> merci = new ArrayList<>();
+        for (Ordine ordine : ordini) {
+            ordine.update();
+            merci.addAll(ordine.getMerci());
+        }
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + statoOrdine + "');");
-        return getArrayListDettagliMerce(merce, dettagli, rs);
+
+        for (MerceOrdine merceOrdine : merci)
+            if (merceOrdine.getStato().equals(statoOrdine))
+                dettagli.add(merceOrdine.getDettagli());
+
+        return dettagli;
+
+//        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (stato =  '" + statoOrdine + "');");
+//        return getArrayListDettagliMerce(merci, dettagli, rs);
     }
 
     /**
@@ -319,7 +332,7 @@ public class GestoreOrdini {
 //    public ArrayList<ArrayList<String>> visualizzaMerce(double capienza) throws SQLException {
 //        ArrayList<MerceOrdine> merce = new ArrayList<>();
 //        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-//        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (`stato` =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
+//        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (stato =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
 //        return getArrayListDettagliMerce(merce, dettagli, rs);
 //    }
 }

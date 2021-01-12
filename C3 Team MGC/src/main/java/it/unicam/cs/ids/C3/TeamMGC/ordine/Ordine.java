@@ -76,8 +76,26 @@ public class Ordine {
      */
     //todo rivedere il commento e test
     public void addMerce(MerceOrdine merce) throws SQLException {
-        merci.add(merce);
+        addMerceToOrdine(merce);
         update();
+    }
+
+    /**
+     * @param rs
+     *
+     * @throws SQLException
+     */
+    private void addMerce(ResultSet rs) throws SQLException {
+        while (rs.next())
+            addMerceToOrdine(new MerceOrdine(rs.getInt("ID")));
+    }
+
+    /**
+     * @param merceOrdine
+     */
+    private void addMerceToOrdine(MerceOrdine merceOrdine) {
+        if (!merci.contains(merceOrdine))
+            merci.add(merceOrdine);
     }
 
     /**
@@ -162,8 +180,9 @@ public class Ordine {
         return IDNegozio;
     }
 
-    public ArrayList<MerceOrdine> getMerci() {
-        return merci;
+    public ArrayList<MerceOrdine> getMerci() throws SQLException {
+        update();
+        return new ArrayList<>(merci);
     }
 
     public String getNomeCliente() {
@@ -222,6 +241,7 @@ public class Ordine {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo rivedere test
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.ordini where ID= '" + this.ID + "';");
         if (rs.next()) {
@@ -232,6 +252,10 @@ public class Ordine {
                 this.stato = StatoOrdine.valueOf(rs.getString("stato"));
             this.IDPuntoPrelievo = rs.getInt("IDPuntoPrelievo");
             this.residenza = rs.getString("residenza");
+
+            addMerce(executeQuery("select ID from merci where IDOrdine ='" + ID + "';"));
+            for (MerceOrdine merceOrdine : merci)
+                merceOrdine.update();
         }
     }
 }
