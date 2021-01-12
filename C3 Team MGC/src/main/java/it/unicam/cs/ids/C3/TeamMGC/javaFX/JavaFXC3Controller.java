@@ -21,7 +21,6 @@ public class JavaFXC3Controller implements JavaFXController {
         openWindow("/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere());
     }
 
-    //todo fxml
     public void visualizzaHomeCorriere() throws SQLException {
         openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere());
     }

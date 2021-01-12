@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -88,6 +87,10 @@ public class JavaFXGestioneInventario {
             descrizione.clear();
             quantita.clear();
             visualizzaMerciInserite();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Aggiunta prodotto eseguita con successo!");
+            alert.setContentText("La merce e' stata inserita correttamente nell' inventario.");
+            alert.showAndWait();
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Inserire i dati richiesti.");
@@ -109,6 +112,10 @@ public class JavaFXGestioneInventario {
                 }
                 visualizzaMerci();
                 visualizzaMerciInserite();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Rimozione prodotto eseguita con successo!");
+                alert.setContentText("La merce selezionata e' stata rimossa dall' inventario.");
+                alert.showAndWait();
             }else
                 throw new IllegalArgumentException("Merci non selezionate.");
         } catch (Exception exception) {
@@ -153,6 +160,10 @@ public class JavaFXGestioneInventario {
             visualizzaMerciInserite();
             quantita1.clear();
             merceChoiceBox.getItems().clear();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Modifica prodotto eseguita con successo!");
+            alert.setContentText("La quantita' della merce e' stata modificata.");
+            alert.showAndWait();
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Inserire i dati richiesti.");

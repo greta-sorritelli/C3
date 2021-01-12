@@ -23,7 +23,7 @@
                   <TextField fx:id="prezzo" layoutX="326.0" layoutY="83.0" />
                   <TextField fx:id="descrizione" layoutX="326.0" layoutY="128.0" />
                   <TextField fx:id="quantita" layoutX="326.0" layoutY="177.0" />
-                  <Button layoutX="520.0" layoutY="215.0" mnemonicParsing="false" onAction="#inserisciNuovaMerce" text="Inserisci prodotto" />
+                  <Button layoutX="469.0" layoutY="213.0" mnemonicParsing="false" onAction="#inserisciNuovaMerce" text="Inserisci prodotto" />
                   <Label layoutX="35.0" layoutY="246.0" text="Nuovi prodotti inseriti" AnchorPane.leftAnchor="42.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
