@@ -145,7 +145,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     @FXML
     public void terminaOrdine() {
         try {
-            if (!ordineTextField.getText().isEmpty()) {
+            if (!merceTable.getItems().isEmpty()) {
                 gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
                 successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.");
                 selezionaPuntoPrelievo();
