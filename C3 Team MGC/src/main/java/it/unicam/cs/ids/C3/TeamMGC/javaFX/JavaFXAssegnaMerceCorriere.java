@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class JavaFXAssegnaMerceCorriere {
+public class JavaFXAssegnaMerceCorriere implements JavaFXController {
 
     private final GestoreCorrieri gestoreCorrieri;
     private final GestoreMagazzini gestoreMagazzini;
@@ -103,9 +103,6 @@ public class JavaFXAssegnaMerceCorriere {
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
 
-    @FXML
-    Label capienza;
-
     /**
      * Collega i campi del Corriere alle colonne della tabella.
      */
@@ -166,11 +163,7 @@ public class JavaFXAssegnaMerceCorriere {
                 merceOrdine.setDisable(true);
             }
         } else {
-            //todo rivedere
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Impossibile proseguire");
-            alert.setContentText("Selezionare un corriere.");
-            alert.showAndWait();
+            alertWindow("Impossibile proseguire", "Selezionare un corriere.");
         }
     }
 
@@ -211,13 +204,8 @@ public class JavaFXAssegnaMerceCorriere {
                 corrieri.setDisable(true);
                 puntiPrelievo.setDisable(true);
             }
-        } else {
-            //todo rivedere
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Impossibile proseguire");
-            alert.setContentText("Selezionare un punto di prelievo.");
-            alert.showAndWait();
-        }
+        } else
+            alertWindow("Impossibile proseguire", "Selezionare un punto di prelievo.");
     }
 
     @FXML
@@ -253,8 +241,13 @@ public class JavaFXAssegnaMerceCorriere {
 
     @FXML
     public void confermaButton() throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Attendere...");
+        alert.setContentText("L'affidamento della merce e' in corso.");
+        alert.show();
         selezionaMerce();
         confermaAssegnazioneMerce();
+        alert.close();
     }
 
 
@@ -270,13 +263,8 @@ public class JavaFXAssegnaMerceCorriere {
                 }
             }
             sel.clear();
-        } else {
-            //todo rivedere
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Impossibile proseguire");
-            alert.setContentText("Selezionare la merce da affidare al corriere.");
-            alert.showAndWait();
-        }
+        } else
+            alertWindow("Impossibile proseguire", "Selezionare la merce da affidare al corriere.");
     }
 
 
@@ -285,11 +273,7 @@ public class JavaFXAssegnaMerceCorriere {
         for (MerceOrdine merce : selectedMerce)
             if (merce != null)
                 gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("Assegnazione eseguita con successo");
-        alert.setContentText("La merce selezionata e' stata affidata al corriere.");
-        alert.showAndWait();
-        //todo aggiorna tabella
+        successWindow("Assegnazione eseguita con successo", "La merce selezionata e' stata affidata al corriere.");
         visualizzaMerce();
     }
 }

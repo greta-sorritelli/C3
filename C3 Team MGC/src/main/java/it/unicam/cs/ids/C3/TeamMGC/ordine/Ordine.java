@@ -257,8 +257,8 @@ public class Ordine {
             this.residenza = rs.getString("residenza");
 
             addMerce(executeQuery("select ID from merci where IDOrdine ='" + ID + "';"));
-//            for (MerceOrdine merceOrdine : merci)
-//                merceOrdine.update();
+            for (MerceOrdine merceOrdine : merci)
+                merceOrdine.update();
         }
         disconnectToDB(rs);
     }

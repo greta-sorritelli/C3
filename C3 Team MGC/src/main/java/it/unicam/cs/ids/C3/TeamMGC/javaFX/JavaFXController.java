@@ -62,8 +62,14 @@ public interface JavaFXController {
         alert.showAndWait();
     }
 
-    default void successWindow(String successHeader, String successMessage) {
+    default void informationWindow(String successHeader, String successMessage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info!");
+        showAlert(alert, successHeader, successMessage);
+    }
+
+    default void successWindow(String successHeader, String successMessage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Success!");
         showAlert(alert, successHeader, successMessage);
     }
