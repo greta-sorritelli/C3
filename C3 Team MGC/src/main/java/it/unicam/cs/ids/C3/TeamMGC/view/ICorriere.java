@@ -66,7 +66,7 @@ public class ICorriere implements JavaFXController {
      * Apre la finestra per modificare lo stato di disponibilita del corriere.
      */
     @FXML
-    public void modificaDisponibilita() throws SQLException {
+    public void modificaDisponibilita() {
         openWindow("/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(gestoreCorrieri, IDCorriere));
     }
 

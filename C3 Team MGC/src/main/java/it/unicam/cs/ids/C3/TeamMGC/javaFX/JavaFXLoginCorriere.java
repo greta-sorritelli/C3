@@ -2,9 +2,10 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.view.ICorriere;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class JavaFXLoginCorriere implements JavaFXController{
     @FXML
     TextField IDCorriere;
 
+    @FXML
     public void loginCorriere() throws SQLException {
         try {
             int id = Integer.parseInt(IDCorriere.getText());
@@ -34,6 +36,19 @@ public class JavaFXLoginCorriere implements JavaFXController{
         }
     }
 
+
+    @FXML
+    public void login() {
+        IDCorriere.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.ENTER){
+                try {
+                    loginCorriere();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+    }
 
 
 }

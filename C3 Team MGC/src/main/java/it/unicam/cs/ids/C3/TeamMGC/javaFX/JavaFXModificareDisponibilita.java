@@ -21,15 +21,12 @@ public class JavaFXModificareDisponibilita {
     @FXML
     Button nonDisponibile = new Button();
 
-    public JavaFXModificareDisponibilita(GestoreCorrieri gestoreCorrieri, int id) throws SQLException {
+    public JavaFXModificareDisponibilita(GestoreCorrieri gestoreCorrieri, int id) {
         this.gestoreCorrieri = gestoreCorrieri;
         this.IDCorriere = id;
-//        getDisponibilita();
     }
 
-
     public void getDisponibilita() throws SQLException {
-        //todo
         if (gestoreCorrieri.getDisponibilita(IDCorriere)) {
             disponibilita.setText("disponibile");
         } else {
@@ -48,20 +45,20 @@ public class JavaFXModificareDisponibilita {
         }
     }
 
-
     private void selezionaDisponibilita(boolean statoAttuale) throws SQLException {
-        //todo
         gestoreCorrieri.setDisponibilita(IDCorriere, statoAttuale);
+        getDisponibilita();
+        aggiornaButton();
     }
 
     @FXML
-    public void setDisponibilita() throws SQLException {
-        //todo impostare a true se il corriere non è disponibile e vuole iniziare il turno
-        //todo impostare a false se il corriere è disponibile e vuole terminare il turno
-        if (gestoreCorrieri.getDisponibilita(IDCorriere))
-            selezionaDisponibilita(true);
-        else
-            selezionaDisponibilita(false);
-        getDisponibilita();
+    public void setDisponibile() throws SQLException {
+        selezionaDisponibilita(true);
     }
+
+    @FXML
+    public void setNonDisponibile() throws SQLException {
+        selezionaDisponibilita(false);
+    }
+
 }
