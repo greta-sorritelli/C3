@@ -25,8 +25,10 @@ public class ICorriere {
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
     private final GestoreCorrieri gestoreCorrieri= new GestoreCorrieri();
+    private int IDCorriere;
 
-    public ICorriere() throws SQLException {
+    public ICorriere(int ID) throws SQLException {
+        this.IDCorriere = ID;
     }
 
     /**
@@ -67,8 +69,8 @@ public class ICorriere {
      * Apre la finestra per modificare lo stato di disponibilita del corriere.
      */
     @FXML
-    public void modificaDisponibilita(){
-        openWindow("/ModificareDisponibilita.fxml", "ModificareDisponibilita", new JavaFXModificareDisponibilita(gestoreCorrieri));
+    public void modificaDisponibilita() throws SQLException {
+        openWindow("/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(gestoreCorrieri, IDCorriere));
     }
 
     /**
@@ -77,7 +79,7 @@ public class ICorriere {
     @FXML
     //todo creare fxml
     public void avviaRegistrazione(){
-        openWindow("/RegistrazionePiattaforma.fxml", "RegistrazionePiattaforma", new JavaFXRegistrazionePiattaforma(gestoreCorrieri));
+        openWindow("/RegistrazionePiattaforma.fxml", "Registrazione Piattaforma", new JavaFXRegistrazionePiattaforma(gestoreCorrieri));
     }
 
     /**
