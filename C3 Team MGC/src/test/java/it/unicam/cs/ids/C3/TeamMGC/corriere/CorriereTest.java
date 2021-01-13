@@ -27,11 +27,6 @@ class CorriereTest {
         assertEquals("ID non valido.", e1.getMessage());
     }
 
-    @Test
-    void mandaAlert() throws SQLException {
-        Corriere corriereTest = new Corriere("Nathan", "Brown", true);
-        corriereTest.mandaAlert("Via dei Test, 10");
-    }
 
     @Test
     void getDettagli() throws SQLException {

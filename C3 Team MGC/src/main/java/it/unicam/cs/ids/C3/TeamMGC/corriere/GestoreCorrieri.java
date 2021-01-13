@@ -7,8 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la gestione di ogni {@link Corriere}
@@ -180,22 +179,24 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * todo
+     * todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
      *
-     * @param IDCorriere
      * @param negozi
      */
-    public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) {
-        //todo manda alert al corriere con i negozi in cui prelevare merce
+    public void mandaAlert(int IDCorriere,ArrayList<Negozio> negozi) throws SQLException {
+        for (Negozio negozio : negozi)
+            updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
+                    "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
+                    + " per ritirare le merci dei clienti.');");
     }
 
     /**
-     * todo
+     * todo alert mandato dal commesso per prelevare la merce dal negozio
      *
-     * @param IDCorriere
      * @param residenza
      */
-    public void mandaAlert(int IDCorriere, String residenza) {
-        //todo manda alert quando il commesso seleziona un corriere per andare alla residenza
+    public void mandaAlert(int IDCorriere, String residenza) throws SQLException {
+        updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
+                "', 'Consegnare le merci del Cliente all indirizzo: " + residenza + "');");
     }
 }

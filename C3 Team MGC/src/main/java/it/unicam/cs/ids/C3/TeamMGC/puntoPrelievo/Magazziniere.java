@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -69,8 +71,6 @@ public class Magazziniere {
         return nome;
     }
 
-    public void mandaAlert() {
-        //todo
-    }
+
 
 }
