@@ -25,7 +25,7 @@
       <TableView fx:id="merceTable" layoutX="42.0" layoutY="323.0" prefHeight="213.0" prefWidth="727.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="323.0">
         <columns>
           <TableColumn fx:id="IDMerce" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="IDNegozioMerce" prefWidth="75.0" text="IDNegozio" />
+          <TableColumn fx:id="IDOrdineMerce" prefWidth="75.0" text="IDOrdine" />
             <TableColumn fx:id="PrezzoMerce" prefWidth="114.0" text="Prezzo" />
             <TableColumn fx:id="DescrizioneMerce" prefWidth="372.0" text="Descrizione" />
             <TableColumn fx:id="QuantitaMerce" prefWidth="90.0" text="Quantita" />

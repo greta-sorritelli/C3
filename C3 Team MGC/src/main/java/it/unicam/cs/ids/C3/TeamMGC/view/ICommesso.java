@@ -4,8 +4,6 @@ import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXComunicareCodiceRitiro;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXRicezionePagamento;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXSelezionaCorriere;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXSelezionaPuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -60,18 +58,9 @@ public class ICommesso {
     }
 
     public void ricezionePagamento() {
-        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio,gestoreOrdini, gestoreClienti));
+        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio,gestoreOrdini, gestoreClienti, gestoreMagazzini, gestoreCorrieri));
     }
 
-    //todo creare fxml
-    public void sceltaCorriere() {
-        openWindow("/SceltaCorriere.fxml", "SceltaCorriere", new JavaFXSelezionaCorriere(gestoreCorrieri));
-    }
-
-    //todo creare fxml
-    public void selezionaPuntoPrelievo() {
-        openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(gestoreOrdini,gestoreMagazzini));
-    }
 
 //    /**
 //     * Imposta il negozio collegato all' interfaccia.

@@ -112,28 +112,6 @@ public class Corriere {
         return Objects.hash(getID());
     }
 
-    /**
-     * todo alert mandato dal commesso per prelevare la merce dal negozio
-     *
-     * @param residenza
-     */
-    public void mandaAlert(String residenza) throws SQLException {
-        updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + ID +
-                "', 'Consegnare le merci del Cliente all indirizzo: " + residenza + "');");
-    }
-
-    /**
-     * todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
-     *
-     * @param negozi
-     */
-    public void mandaAlert(ArrayList<Negozio> negozi) throws SQLException {
-        for (Negozio negozio : negozi)
-            updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + ID +
-                    "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
-                    + " per ritirare le merci dei clienti.');");
-    }
-
     @Override
     public String toString() {
         return "Corriere{" +

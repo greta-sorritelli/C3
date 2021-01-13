@@ -1,17 +1,18 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,11 +21,15 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     private final Negozio negozio;
     private final GestoreOrdini gestoreOrdini;
     private final GestoreClienti gestoreClienti;
+    private final GestoreMagazzini gestoreMagazzini;
+    private final GestoreCorrieri gestoreCorrieri;
 
-    public JavaFXRicezionePagamento(Negozio negozio, GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti) {
+    public JavaFXRicezionePagamento(Negozio negozio, GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti, GestoreMagazzini gestoreMagazzini, GestoreCorrieri gestoreCorrieri) {
         this.negozio = negozio;
         this.gestoreOrdini = gestoreOrdini;
         this.gestoreClienti = gestoreClienti;
+        this.gestoreMagazzini = gestoreMagazzini;
+        this.gestoreCorrieri = gestoreCorrieri;
     }
 
     @FXML
@@ -49,7 +54,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     TableColumn<ArrayList<String>, String> IDMerce;
 
     @FXML
-    TableColumn<ArrayList<String>, String> IDNegozioMerce;
+    TableColumn<ArrayList<String>, String> IDOrdineMerce;
 
     @FXML
     TableColumn<ArrayList<String>, String> PrezzoMerce;
@@ -65,7 +70,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
      */
     private void setMerceCellValueFactory() {
         IDMerce.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(0)));
-        IDNegozioMerce.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(1)));
+        IDOrdineMerce.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(1)));
         PrezzoMerce.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(2)));
         DescrizioneMerce.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(3)));
         QuantitaMerce.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(4)));
@@ -129,11 +134,16 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         try {
             gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
             successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.");
+            selezionaPuntoPrelievo();
             Stage stage = (Stage) IDCliente.getScene().getWindow();
             closeWindow(stage);
         } catch (Exception exception) {
             errorWindow("L' ordine non puo' essere terminato!", "Inserire i dati richiesti.");
         }
+    }
+
+    public void selezionaPuntoPrelievo() {
+        openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(gestoreOrdini,gestoreMagazzini, Integer.parseInt(ordineTextField.getText()), gestoreCorrieri));
     }
 
     /**
