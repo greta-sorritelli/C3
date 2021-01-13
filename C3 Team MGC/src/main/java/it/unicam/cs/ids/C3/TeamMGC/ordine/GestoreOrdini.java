@@ -315,8 +315,13 @@ public class GestoreOrdini {
             ordine.setStato(statoOrdine);
     }
 
+    //todo controllare test
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
+        for (MerceOrdine merceOrdine : getOrdine(IDOrdine).getMerci()) {
+              merceOrdine.setStato(statoOrdine);
+        }
+
     }
 
     /**

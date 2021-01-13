@@ -104,7 +104,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
                     gestoreClienti.getItem(ID).getCognome());
             ordineTextField.setText(dettagliOrdine.get(0));
         } catch (Exception exception) {
-            errorWindow("Errore!", "Error");
+            errorWindow("Errore!", "L' ID del cliente non è valido.");
         }
     }
 
@@ -143,7 +143,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     }
 
     public void selezionaPuntoPrelievo() {
-        openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(gestoreOrdini,gestoreMagazzini, Integer.parseInt(ordineTextField.getText()), gestoreCorrieri));
+        openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(gestoreOrdini,gestoreMagazzini, Integer.parseInt(ordineTextField.getText()), gestoreCorrieri,negozio));
     }
 
     /**

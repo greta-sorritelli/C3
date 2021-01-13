@@ -119,6 +119,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * Ritorna il {@link Corriere} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Corriere
+     *
      * @return Il Corriere desiderato
      * @throws SQLException Errore causato da una query SQL
      */
@@ -127,8 +128,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
         if (rs.next()) {
             return addCorriere(rs);
-        }
-        else {
+        } else {
             disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
         }
@@ -152,9 +152,10 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     /**
      * Crea e inserisce un nuovo {@link Corriere} nella lista.
      *
-     * @param nome          Nome del corriere da inserire
-     * @param cognome       Cognome del corriere da inserire
-     * @return              ArrayList<String> dei dettagli del corriere creato
+     * @param nome    Nome del corriere da inserire
+     * @param cognome Cognome del corriere da inserire
+     *
+     * @return ArrayList<String> dei dettagli del corriere creato
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
@@ -166,8 +167,9 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     /**
      * Seleziona il {@link Corriere} desiderato.
      *
-     * @param ID            Codice Identificativo del Corriere
-     * @return              Le informazioni del Corriere
+     * @param ID Codice Identificativo del Corriere
+     *
+     * @return Le informazioni del Corriere
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> selezionaCorriere(int ID) throws SQLException {
@@ -179,24 +181,23 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     }
 
     /**
-     * todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
+     * todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere e dal commesso
      *
      * @param negozi
      */
-    public void mandaAlert(int IDCorriere,ArrayList<Negozio> negozi) throws SQLException {
+    public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) throws SQLException {
         for (Negozio negozio : negozi)
             updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
                     "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
-                    + " per ritirare le merci dei clienti.');");
+                    + ", per ritirare le merci dei clienti.');");
     }
 
     /**
      * todo alert mandato dal commesso per prelevare la merce dal negozio
-     *
-     * @param residenza
      */
-    public void mandaAlert(int IDCorriere, String residenza) throws SQLException {
+    public void mandaAlert(int IDCorriere, Negozio negozio, String residenza) throws SQLException {
         updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
-                "', 'Consegnare le merci del Cliente all indirizzo: " + residenza + "');");
+                "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
+                + ", per ritirare le merci dei cliente alla residenza: " + residenza + ".');");
     }
 }

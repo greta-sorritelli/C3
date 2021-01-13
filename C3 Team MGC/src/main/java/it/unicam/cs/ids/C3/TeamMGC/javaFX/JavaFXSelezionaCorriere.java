@@ -3,6 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
@@ -13,14 +14,16 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class JavaFXSelezionaCorriere implements JavaFXController{
+public class JavaFXSelezionaCorriere implements JavaFXController {
 
     private final GestoreCorrieri gestoreCorrieri;
     private Corriere selectedCorriere;
     private String residenza;
+    private final Negozio negozio;
 
-    public JavaFXSelezionaCorriere(GestoreCorrieri gestoreCorrieri, String residenza) {
+    public JavaFXSelezionaCorriere(GestoreCorrieri gestoreCorrieri, String residenza, Negozio negozio) {
         this.gestoreCorrieri = gestoreCorrieri;
+        this.negozio = negozio;
         this.selectedCorriere = null;
         this.residenza = residenza;
     }
@@ -71,18 +74,18 @@ public class JavaFXSelezionaCorriere implements JavaFXController{
                 int ID = Integer.parseInt(corriereTable.getSelectionModel().getSelectedItem().get(0));
                 if (gestoreCorrieri.getItem(ID) != null) {
                     this.selectedCorriere = gestoreCorrieri.getItem(ID);
-                    gestoreCorrieri.mandaAlert(ID,residenza);
-                    successWindow("Alert mandato con successo!","L' alert e' stato inviato al corriere.");
-                    Stage stage = (Stage) corriereTable.getScene().getWindow();
-                    closeWindow(stage);
+                    gestoreCorrieri.mandaAlert(ID, negozio, residenza);
+                    successWindow("Alert mandato con successo!", "L' alert e' stato inviato al corriere.");
+                    closeWindow((Stage) corriereTable.getScene().getWindow());
                 }
-            }
-        } catch (SQLException exception) {
-            //todo
-            exception.printStackTrace();
+            }else
+                throw new IllegalArgumentException("Dati non presenti.");
+        } catch (Exception exception) {
+            errorWindow("Errore!", "Inserire i dati richiesti.");
+
         }
     }
 
-    }
+}
 
 
