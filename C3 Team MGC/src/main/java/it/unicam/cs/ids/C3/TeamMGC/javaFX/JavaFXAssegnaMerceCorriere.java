@@ -244,15 +244,14 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Attendere...");
         alert.setContentText("L'affidamento della merce e' in corso.");
-        alert.show();
-        selezionaMerce();
-        confermaAssegnazioneMerce();
-        alert.close();
+        selezionaMerce(alert);
+        confermaAssegnazioneMerce(alert);
     }
 
 
-    private void selezionaMerce() throws SQLException {
+    private void selezionaMerce(Alert alert) throws SQLException {
         if (!merceOrdineTable.getSelectionModel().isEmpty()) {
+            alert.show();
             ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
             for (ArrayList<String> merce : sel) {
                 if (merce != null) {
@@ -269,11 +268,14 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
 
 
     //todo
-    private void confermaAssegnazioneMerce() throws SQLException {
-        for (MerceOrdine merce : selectedMerce)
-            if (merce != null)
-                gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-        successWindow("Assegnazione eseguita con successo", "La merce selezionata e' stata affidata al corriere.");
-        visualizzaMerce();
+    private void confermaAssegnazioneMerce(Alert alert) throws SQLException {
+        if (!merceOrdineTable.getSelectionModel().isEmpty()) {
+            for (MerceOrdine merce : selectedMerce)
+                if (merce != null)
+                    gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
+            alert.close();
+            successWindow("Assegnazione eseguita con successo", "La merce selezionata e' stata affidata al corriere.");
+            visualizzaMerce();
+        }
     }
 }
