@@ -24,10 +24,11 @@ public class JavaFXLoginCorriere implements JavaFXController{
     public void loginCorriere() throws SQLException {
         try {
             int id = Integer.parseInt(IDCorriere.getText());
+            this.ID = id;
             gestoreCorrieri.getItem(id);
             Stage stage = (Stage) IDCorriere.getScene().getWindow();
+            openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere(ID));
             closeWindow(stage);
-            openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere(id));
         } catch (IllegalArgumentException e) {
             errorWindow("ID errato", "Inserire un ID valido.");
         }

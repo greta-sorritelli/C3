@@ -1,10 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXConsegnareMerceAlPuntoPrelievo;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXModificareDisponibilita;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXRegistrazionePiattaforma;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXTrasportareMerce;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.*;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -18,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ICorriere {
+public class ICorriere implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
@@ -31,29 +28,29 @@ public class ICorriere {
         this.IDCorriere = ID;
     }
 
-    /**
-     * Apre una nuova finestra
-     *
-     * @param a Fxml path
-     * @param b Titolo della finestra.
-     */
-    @FXML
-    public void openWindow(String a, String b, Object controller) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(a));
-            fxmlLoader.setController(controller);
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle(b);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-//            Image icon = new Image("/icon.png");
-//            stage.getIcons().add(icon);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * Apre una nuova finestra
+//     *
+//     * @param a Fxml path
+//     * @param b Titolo della finestra.
+//     */
+//    @FXML
+//    public void openWindow(String a, String b, Object controller) {
+//        try {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(a));
+//            fxmlLoader.setController(controller);
+//            Parent root = fxmlLoader.load();
+//            Stage stage = new Stage();
+//            stage.setTitle(b);
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.setScene(new Scene(root));
+////            Image icon = new Image("/icon.png");
+////            stage.getIcons().add(icon);
+//            stage.showAndWait();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * Apre la finestra per consegnare la merce al punto di prelievo.

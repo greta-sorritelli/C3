@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#getDisponibilita" prefHeight="343.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="35.0" layoutY="46.0" text="Modifica la tua disponibilità" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="34.0">
          <font>
@@ -14,7 +13,7 @@
          </font>
       </Label>
       <Label layoutX="42.0" layoutY="101.0" text="Disponibilità attuale:" />
-      <Label fx:id="disponibilita" layoutX="159.0" layoutY="100.0" prefHeight="18.0" prefWidth="109.0" />
+      <Label fx:id="disponibilita" layoutX="162.0" layoutY="100.0" prefHeight="18.0" prefWidth="110.0" />
       <Button fx:id="disponibile" layoutX="42.0" layoutY="210.0" mnemonicParsing="false" onAction="#setDisponibilita" prefHeight="86.0" prefWidth="142.0" text="Disponibile" AnchorPane.leftAnchor="42.0" />
       <Button fx:id="nonDisponibile" layoutX="293.0" layoutY="210.0" mnemonicParsing="false" onAction="#setDisponibilita" prefHeight="86.0" prefWidth="160.0" text="Non disponibile" AnchorPane.rightAnchor="42.0" />
       <Label layoutX="42.0" layoutY="163.0" text="Seleziona la disponibilità da impostare" />
