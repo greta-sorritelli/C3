@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
@@ -14,7 +15,7 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class JavaFXConsegnareMerceAlCliente {
+public class JavaFXConsegnareMerceAlCliente implements JavaFXController{
 
     private final PuntoPrelievo puntoPrelievo;
     private final GestoreOrdini gestoreOrdini;
@@ -69,16 +70,11 @@ public class JavaFXConsegnareMerceAlCliente {
                 merceOrdineTable.getItems().clear();
                 IDCliente.clear();
                 codiceRitiro.clear();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Consegna merce eseguita con successo!");
-                alert.setContentText("La merce e' stata consegnata al cliente.");
-                alert.showAndWait();
+                successWindow("Consegna merce eseguita con successo!","La merce e' stata consegnata al cliente.");
             } else
                 throw new IllegalArgumentException("Merce non presente nella tabella.");
         } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Error!");
-            alert.showAndWait();
+            errorWindow("Errore!", "Inserire i dati richiesti.");
         }
     }
 
@@ -90,39 +86,34 @@ public class JavaFXConsegnareMerceAlCliente {
 
             if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
                 ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
-                setMerceOrdineCellValueFactory();
-                merceOrdineTable.getItems().clear();
-                for (ArrayList<String> m : merci) {
-                    merceOrdineTable.getItems().add(m);
-                }
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Verifica codice eseguita con successo!");
-                alert.setContentText("Il codice inserito appartiene al cliente.");
-                alert.showAndWait();
+                visualizzaMerci(merci);
+                successWindow("Verifica codice eseguita con successo!","Il codice inserito appartiene al cliente.");
                 if(merci.isEmpty()) {
-                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                    alert1.setContentText("Il cliente non ha merci da ritirare.");
-                    alert1.showAndWait();
+                    informationWindow("Verifica codice eseguita con successo!","Il codice inserito appartiene al cliente.");
                     IDCliente.clear();
                     codiceRitiro.clear();
                 }
             } else
                 throw new IllegalArgumentException("Parametri non presenti.");
         } catch (NullPointerException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Inserisci tutti i dati richiesti!");
-            alert.showAndWait();
+            errorWindow("Errore!","Inserisci tutti i dati richiesti!");
             IDCliente.clear();
             codiceRitiro.clear();
         } catch (IllegalArgumentException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Il codice non appartiene al cliente!");
-            alert.showAndWait();
+            errorWindow("Errore!","Il codice non appartiene al cliente!");
             IDCliente.clear();
             codiceRitiro.clear();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+
+    }
+
+    public void visualizzaMerci(ArrayList<ArrayList<String>> merci) {
+            setMerceOrdineCellValueFactory();
+            merceOrdineTable.getItems().clear();
+            for (ArrayList<String> m : merci)
+                merceOrdineTable.getItems().add(m);
 
     }
 
