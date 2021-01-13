@@ -18,7 +18,7 @@
          </font>
       </Label>
       <TextField fx:id="IDCliente" layoutX="351.0" layoutY="107.0" />
-      <Button layoutX="582.0" layoutY="269.0" mnemonicParsing="false" onAction="#registraOrdine" text="Aggiungi merce all'ordine " />
+      <Button layoutX="582.0" layoutY="269.0" mnemonicParsing="false" onAction="#registraMerce" text="Aggiungi merce all'ordine " />
       <ChoiceBox fx:id="merceChoiceBox" layoutX="352.0" layoutY="170.0" onMouseClicked="#showMerce" prefWidth="150.0" />
       <TextField fx:id="quantita" layoutX="352.0" layoutY="239.0" />
       <Label layoutX="179.0" layoutY="174.0" text="Merce" />

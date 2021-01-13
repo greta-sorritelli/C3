@@ -28,6 +28,12 @@ class CorriereTest {
     }
 
     @Test
+    void mandaAlert() throws SQLException {
+        Corriere corriereTest = new Corriere("Nathan", "Brown", true);
+        corriereTest.mandaAlert("Via dei Test, 10");
+    }
+
+    @Test
     void getDettagli() throws SQLException {
         Corriere corriereTest = new Corriere("Mario", "Rossi", true);
         ArrayList<String> corriereLista = new ArrayList<>();

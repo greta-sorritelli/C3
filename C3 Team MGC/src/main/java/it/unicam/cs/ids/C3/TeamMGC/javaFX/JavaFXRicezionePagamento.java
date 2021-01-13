@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class JavaFXRicezionePagamento implements JavaFXController{
+public class JavaFXRicezionePagamento implements JavaFXController {
 
     private final Negozio negozio;
     private final GestoreOrdini gestoreOrdini;
@@ -80,9 +80,7 @@ public class JavaFXRicezionePagamento implements JavaFXController{
             merceChoiceBox.getItems().clear();
             merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getMerceDisponibile()));
         } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Error!");
-            alert.showAndWait();
+            errorWindow("Errore!", "Error.");
         }
     }
 
@@ -93,38 +91,63 @@ public class JavaFXRicezionePagamento implements JavaFXController{
         }
     }
 
-    //todo errore se quantita è maggiore e alert
-    public void registraOrdine() throws SQLException {
-        if (ordineTextField.getText().isEmpty()) {
+    @FXML
+    public void registraOrdine() {
+        try {
             int ID = Integer.parseInt(IDCliente.getText());
             ArrayList<String> dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getItem(ID).getNome(),
                     gestoreClienti.getItem(ID).getCognome());
             ordineTextField.setText(dettagliOrdine.get(0));
+        } catch (Exception exception) {
+            errorWindow("Errore!", "Error");
         }
-        gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(ordineTextField.getText()));
-        setMerceCellValueFactory();
-        merceTable.getItems().clear();
-        for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
-            merceTable.getItems().add(m.getDettagli());
-        quantita.clear();
-        merceChoiceBox.getItems().clear();
-        IDCliente.setEditable(false);
     }
 
-    //todo alert
+    @FXML
+    public void registraMerce() {
+        try {
+            if (ordineTextField.getText().isEmpty()) {
+                registraOrdine();
+            }
+            gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(ordineTextField.getText()));
+            visualizzaMerci();
+            quantita.clear();
+            merceChoiceBox.getItems().clear();
+            IDCliente.setEditable(false);
+            successWindow("Merce aggiunta con successo!", "La merce e' stata aggiunta all'ordine creato.");
+            merceChoiceBox.getItems().clear();
+            quantita.clear();
+        } catch (Exception exception) {
+            errorWindow("Quantita non corretta!", "La quantita inserita e' maggiore di quella presente in negozio.");
+            quantita.clear();
+
+        }
+    }
+
+    @FXML
     public void terminaOrdine() {
         try {
             gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Ordine terminato con successo!");
-            alert.setContentText("Lo stato dell' ordine e' stato impostato a pagato.");
-            alert.showAndWait();
+            successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.");
             Stage stage = (Stage) IDCliente.getScene().getWindow();
             closeWindow(stage);
-        } catch (Exception exception){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setContentText("Inserire i dati richiesti.");
-        alert.showAndWait();
+        } catch (Exception exception) {
+            errorWindow("L' ordine non puo' essere terminato!", "Inserire i dati richiesti.");
+        }
     }
+
+    /**
+     * Inserisce i dati delle {@link MerceOrdine merci}  nella tabella.
+     */
+    @FXML
+    public void visualizzaMerci() {
+        try {
+            setMerceCellValueFactory();
+            merceTable.getItems().clear();
+            for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
+                merceTable.getItems().add(m.getDettagli());
+    } catch (Exception exception) {
+            errorWindow("Errore!", "Error.");
+        }
     }
 }

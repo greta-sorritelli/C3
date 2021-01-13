@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class JavaFXGestioneInventario {
+public class JavaFXGestioneInventario implements JavaFXController {
 
     private final Negozio negozio;
 
@@ -87,14 +87,9 @@ public class JavaFXGestioneInventario {
             descrizione.clear();
             quantita.clear();
             visualizzaMerciInserite();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Aggiunta prodotto eseguita con successo!");
-            alert.setContentText("La merce e' stata inserita correttamente nell' inventario.");
-            alert.showAndWait();
+            successWindow("Aggiunta prodotto eseguita con successo!","La merce e' stata inserita correttamente nell' inventario.");
         } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Inserire i dati richiesti.");
-            alert.showAndWait();
+            errorWindow("Errore!","Inserire i dati richiesti.");
         }
     }
 
@@ -112,16 +107,11 @@ public class JavaFXGestioneInventario {
                 }
                 visualizzaMerci();
                 visualizzaMerciInserite();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Rimozione prodotto eseguita con successo!");
-                alert.setContentText("La merce selezionata e' stata rimossa dall' inventario.");
-                alert.showAndWait();
+                successWindow("Rimozione prodotto eseguita con successo!","La merce selezionata e' stata rimossa dall' inventario.");
             }else
                 throw new IllegalArgumentException("Merci non selezionate.");
         } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Selezionare la merce.");
-            alert.showAndWait();
+            errorWindow("Errore!","Selezionare la merce.");
         }
     }
 
@@ -160,14 +150,9 @@ public class JavaFXGestioneInventario {
             visualizzaMerciInserite();
             quantita1.clear();
             merceChoiceBox.getItems().clear();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Modifica prodotto eseguita con successo!");
-            alert.setContentText("La quantita' della merce e' stata modificata.");
-            alert.showAndWait();
+            successWindow("Modifica prodotto eseguita con successo!","La quantita' della merce e' stata modificata.");
         } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Inserire i dati richiesti.");
-            alert.showAndWait();
+            errorWindow("Errore!","Inserire i dati richiesti.");
         }
     }
 
@@ -180,9 +165,7 @@ public class JavaFXGestioneInventario {
             merceChoiceBox.getItems().clear();
             merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getMerceDisponibile()));
         } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Error!");
-            alert.showAndWait();
+            errorWindow("Errore!","Error.");
         }
     }
 
@@ -205,9 +188,7 @@ public class JavaFXGestioneInventario {
                 merceTable2.getItems().add(m);
             }
         } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Error!");
-            alert.showAndWait();
+            errorWindow("Errore!","Error.");
         }
     }
 

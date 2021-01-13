@@ -24,6 +24,7 @@ public class Corriere {
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID del Corriere
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public Corriere(int ID) throws SQLException {
@@ -94,7 +95,7 @@ public class Corriere {
      * @throws SQLException eccezione causa da una query SQL
      */
     public void setDisponibilita(boolean disponibilita) throws SQLException {
-        updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (`ID` = '" + this.ID + "');");
+        updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (ID = '" + this.ID + "');");
         this.disponibilita = disponibilita;
     }
 
@@ -112,21 +113,25 @@ public class Corriere {
     }
 
     /**
-     * todo
+     * todo alert mandato dal commesso per prelevare la merce dal negozio
      *
      * @param residenza
      */
-    public void mandaAlert(String residenza) {
-        // todo alert per andare alla residenza, mandato dal commesso
+    public void mandaAlert(String residenza) throws SQLException {
+        updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + ID +
+                "', 'Consegnare le merci del Cliente all indirizzo: " + residenza + "');");
     }
 
     /**
-     * todo
+     * todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
      *
      * @param negozi
      */
-    public void mandaAlert(ArrayList<Negozio> negozi) {
-        // todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere
+    public void mandaAlert(ArrayList<Negozio> negozi) throws SQLException {
+        for (Negozio negozio : negozi)
+            updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + ID +
+                    "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
+                    + " per ritirare le merci dei clienti.');");
     }
 
     @Override
