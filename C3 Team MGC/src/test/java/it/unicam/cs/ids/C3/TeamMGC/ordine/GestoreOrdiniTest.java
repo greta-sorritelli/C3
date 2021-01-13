@@ -201,7 +201,7 @@ class GestoreOrdiniTest {
         assertEquals(p.getID(), gestoreOrdini.getOrdine(ID1).getPuntoPrelievo());
         assertEquals(gestoreOrdini.getMerceOrdine(1), gestoreOrdini.getOrdine(ID1).getMerci().get(0));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.getOrdine(1000));
-        assertEquals("ID non valido.", e1.getMessage());
+        assertEquals("ID ordine non valido.", e1.getMessage());
     }
 
     @Test

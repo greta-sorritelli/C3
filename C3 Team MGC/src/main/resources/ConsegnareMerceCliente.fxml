@@ -35,6 +35,5 @@
       </Label>
       <Button layoutX="693.0" layoutY="530.0" mnemonicParsing="false" onAction="#setStatoMerce" text="Consegna" AnchorPane.rightAnchor="42.0" />
       <Label layoutX="195.0" layoutY="86.0" text="Codice di ritiro" />
-      <Button cancelButton="true" layoutX="630.0" layoutY="530.0" mnemonicParsing="false" text="Cancel" AnchorPane.rightAnchor="120.0" />
    </children>
 </AnchorPane>

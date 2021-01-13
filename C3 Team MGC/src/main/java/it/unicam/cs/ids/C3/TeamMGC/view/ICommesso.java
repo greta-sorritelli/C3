@@ -54,7 +54,7 @@ public class ICommesso {
     }
 
     public void comunicaCodiceRitiro() {
-        openWindow("/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro(gestoreClienti));
+        openWindow("/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro(gestoreClienti, gestoreOrdini));
     }
 
     public void ricezionePagamento() {

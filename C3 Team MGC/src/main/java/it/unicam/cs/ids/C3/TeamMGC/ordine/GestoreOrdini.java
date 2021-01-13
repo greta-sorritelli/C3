@@ -257,7 +257,7 @@ public class GestoreOrdini {
             return tmp;
         } else {
             disconnectToDB(rs);
-            throw new IllegalArgumentException("ID non valido.");
+            throw new IllegalArgumentException("ID ordine non valido.");
         }
     }
 
@@ -273,7 +273,7 @@ public class GestoreOrdini {
     public void registraMerce(int IDMerce, int quantita, int IDOrdine) throws SQLException {
         Merce merce = negozio.getMerce(IDMerce);
         if (merce.getQuantita() == 0 || merce.getQuantita() < quantita)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Quantita non valida.");
 
         merce.setQuantita(merce.getQuantita() - quantita);
         MerceOrdine merceOrdine = new MerceOrdine(merce.getPrezzo(), merce.getDescrizione(), StatoOrdine.PAGATO, IDOrdine);

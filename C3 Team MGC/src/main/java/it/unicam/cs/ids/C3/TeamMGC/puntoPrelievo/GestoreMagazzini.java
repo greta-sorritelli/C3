@@ -107,6 +107,7 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
      * todo alert mandato dal commesso
      * @param negozio
      */
+    //todo test
     public void mandaAlert(int IDPuntoPrelievo, Negozio negozio) throws SQLException {
         updateData("INSERT INTO sys.alert_magazzinieri (IDPuntoPrelievo, messaggio) VALUES ('" + IDPuntoPrelievo +
                 "', 'Mandare un corriere al negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo() + ", per " +

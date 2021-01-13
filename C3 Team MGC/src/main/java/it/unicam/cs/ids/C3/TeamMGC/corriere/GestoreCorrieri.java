@@ -185,6 +185,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      *
      * @param negozi
      */
+    //todo test
     public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) throws SQLException {
         for (Negozio negozio : negozi)
             updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
@@ -195,6 +196,7 @@ public class GestoreCorrieri implements Gestore<Corriere> {
     /**
      * todo alert mandato dal commesso per prelevare la merce dal negozio
      */
+    //todo test
     public void mandaAlert(int IDCorriere, Negozio negozio, String residenza) throws SQLException {
         updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
                 "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
