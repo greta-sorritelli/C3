@@ -198,6 +198,22 @@ public class GestoreOrdini {
     }
 
     //todo test
+    public ArrayList<ArrayList<String>> getMerciResidenza(String residenza) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where residenza = '" + residenza + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (Ordine ordine : ordini)
+            if (ordine.getResidenza().equals(residenza))
+                for (MerceOrdine merceOrdine : ordine.getMerci())
+                    if (merceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(merceOrdine.getDettagli());
+        return toReturn;
+    }
+
+    //todo test
     public ArrayList<ArrayList<String>> getMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
@@ -319,7 +335,7 @@ public class GestoreOrdini {
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
         for (MerceOrdine merceOrdine : getOrdine(IDOrdine).getMerci()) {
-              merceOrdine.setStato(statoOrdine);
+            merceOrdine.setStato(statoOrdine);
         }
 
     }

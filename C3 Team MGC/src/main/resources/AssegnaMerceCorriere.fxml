@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,8 +25,8 @@
                         <TableColumn fx:id="CognomeCorriere" prefWidth="369.60009765625" text="Cognome" />
                      </columns>
                   </TableView>
-                  <Button layoutX="700.0" layoutY="505.0" mnemonicParsing="false" onAction="#setSelectedCorriere" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
-                  <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.leftAnchor="42.0">
+                  <Button defaultButton="true" layoutX="700.0" layoutY="505.0" mnemonicParsing="false" onAction="#setSelectedCorriere" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -49,16 +50,32 @@
                         <TableColumn fx:id="IndirizzoMagazzino" prefWidth="487.20001220703125" text="Indirizzo" />
                     </columns>
                   </TableView>
-                  <Label layoutX="43.0" layoutY="33.0" text="Seleziona Punto di prelievo" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="26.0">
+                  <Label layoutX="43.0" layoutY="33.0" text="Seleziona Punto di prelievo" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="728.0" layoutY="530.0" mnemonicParsing="false" onAction="#setSelectedPuntoPrelievo" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button defaultButton="true" layoutX="728.0" layoutY="530.0" mnemonicParsing="false" onAction="#setSelectedPuntoPrelievo" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
                   <Button layoutX="627.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToCorrieri" text="&lt;&lt;Back" AnchorPane.rightAnchor="115.39999999999998" />
                </children></AnchorPane>
       </content>
     </Tab>
+      <Tab fx:id="residenza" disable="true" text="Residenza">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="108.0" layoutY="40.0" text="Inserisci Residenza del cliente" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="residenzaTextField" layoutX="266.0" layoutY="156.0" promptText="Residenza dove consegnare la Merce" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0" />
+                  <Button layoutX="645.0" layoutY="504.0" mnemonicParsing="false" text="Button" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="115.0" />
+                  <Button defaultButton="true" layoutX="551.0" layoutY="285.0" mnemonicParsing="false" onAction="#setSelectedResidenza" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
       <Tab fx:id="merceOrdine" disable="true" onSelectionChanged="#visualizzaMerce" text="MerceOrdine">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -78,7 +95,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="615.0" layoutY="491.0" mnemonicParsing="false" onAction="#confermaButton" text="Conferma assegnazione" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button defaultButton="true" layoutX="615.0" layoutY="491.0" mnemonicParsing="false" onAction="#confermaButton" text="Conferma assegnazione" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
                   <Button layoutX="542.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToMagazzini" text="&lt;&lt;Back" />
                </children>
             </AnchorPane>
