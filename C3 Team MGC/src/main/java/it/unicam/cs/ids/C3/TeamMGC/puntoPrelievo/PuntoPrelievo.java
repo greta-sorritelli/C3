@@ -80,6 +80,10 @@ public class PuntoPrelievo {
         return dettagli;
     }
 
+    public int getID() {
+        return ID;
+    }
+
 //    public void setMagazziniere(IMagazziniere magazziniere) {
 //        try {
 //            updateData("UPDATE sys.punti_prelievo SET magazziniere = '" + magazziniere.getID() + "' WHERE (ID = '" + this.ID + "');");
@@ -91,10 +95,6 @@ public class PuntoPrelievo {
 //        this.magazziniere = magazziniere;
 //
 //    }
-
-    public int getID() {
-        return ID;
-    }
 
     public String getIndirizzo() {
         return indirizzo;
@@ -148,6 +148,15 @@ public class PuntoPrelievo {
     @Override
     public int hashCode() {
         return Objects.hash(getID());
+    }
+
+    @Override
+    public String toString() {
+        return "PuntoPrelievo{" +
+                "ID=" + ID +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 
     /**
