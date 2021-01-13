@@ -197,6 +197,22 @@ public class GestoreOrdini {
         return toReturn;
     }
 
+    //todo test
+    public ArrayList<ArrayList<String>> getMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (Ordine ordine : ordini)
+            if (ordine.getPuntoPrelievo() == IDPuntoPrelievo)
+                for (MerceOrdine merceOrdine : ordine.getMerci())
+                    if (merceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(merceOrdine.getDettagli());
+        return toReturn;
+    }
+
     /**
      * Ritorna la {@link MerceOrdine} collegata all' {@code ID}.
      *
@@ -213,8 +229,7 @@ public class GestoreOrdini {
                 if (merceOrdine.getID() == ID) {
                     disconnectToDB(rs);
                     return merceOrdine;
-                }
-                else {
+                } else {
                     MerceOrdine tmp = creaMerceFromDB(rs, ordine);
                     disconnectToDB(rs);
                     return tmp;
@@ -240,8 +255,7 @@ public class GestoreOrdini {
             Ordine tmp = addOrdine(rs);
             disconnectToDB(rs);
             return tmp;
-        }
-        else {
+        } else {
             disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
         }
@@ -347,6 +361,7 @@ public class GestoreOrdini {
             addOrdine(rs);
         disconnectToDB(rs);
     }
+
 
 //    /**
 //     * Ritorna la lista dei dettagli della {@link MerceOrdine} con stato "pagato"
