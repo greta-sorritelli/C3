@@ -1,6 +1,7 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaFX;
+package it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
@@ -15,7 +16,7 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class JavaFXConsegnareMerceAlCliente implements JavaFXController{
+public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
 
     private final PuntoPrelievo puntoPrelievo;
     private final GestoreOrdini gestoreOrdini;

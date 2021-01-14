@@ -22,7 +22,7 @@ public class JavaFXC3Controller implements JavaFXController {
     }
 
     public void visualizzaHomeCorriere() throws SQLException {
-        openWindow("/LoginCorriere.fxml", "Login Corriere", new JavaFXLoginCorriere());
+        openWindow("/LoginCorriere.fxml", "Login Corriere", new JavaFXLogin());
 //        openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere());
     }
 

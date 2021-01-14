@@ -10,12 +10,12 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class JavaFXLoginCorriere implements JavaFXController{
+public class JavaFXLogin implements JavaFXController{
 
     private GestoreCorrieri gestoreCorrieri;
     private int ID;
 
-    public JavaFXLoginCorriere() {
+    public JavaFXLogin() {
         this.gestoreCorrieri = new GestoreCorrieri();
     }
 

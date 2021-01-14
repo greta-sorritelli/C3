@@ -2,8 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXComunicareConCorriere;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXConsegnareMerceAlCliente;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXComunicareConCorriere;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXConsegnareMerceAlCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
@@ -82,7 +82,7 @@ public class IMagazziniere {
     @FXML
     //todo creare fxml
     public void avvisaCorriere() {
-        openWindow("/ComunicareConCorriere.fxml", "ComunicareConCorriere", new JavaFXComunicareConCorriere(gestoreCorrieri, gestoreNegozi));
+        openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(gestoreCorrieri, gestoreNegozi));
     }
 
     /**

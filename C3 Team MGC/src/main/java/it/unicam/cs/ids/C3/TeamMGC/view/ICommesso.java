@@ -2,8 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXComunicareCodiceRitiro;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXRicezionePagamento;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXComunicareCodiceRitiro;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXRicezionePagamento;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
