@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaFX;
+package it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;

@@ -1,5 +1,5 @@
 
-package it.unicam.cs.ids.C3.TeamMGC.javaFX;
+package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
