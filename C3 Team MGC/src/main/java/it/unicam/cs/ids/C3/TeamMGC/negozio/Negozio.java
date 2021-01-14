@@ -11,7 +11,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class Negozio {
+public class Negozio implements GestoreInventario {
     private final ArrayList<SimpleMerce> inventario = new ArrayList<>();
     private final int ID;
     private String nome;
@@ -100,6 +100,7 @@ public class Negozio {
      * @return ArrayList<String> dei dettagli del negozio.
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -135,6 +136,7 @@ public class Negozio {
      * @return la Merce desiderata
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public SimpleMerce getMerce(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
                 this.ID + "' ;");
@@ -156,6 +158,7 @@ public class Negozio {
      * @throws SQLException
      */
     //todo test
+    @Override
     public ArrayList<ArrayList<String>> getDettagliMerce() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
@@ -171,6 +174,7 @@ public class Negozio {
      * @return l'elenco della Merce del Negozio
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public ArrayList<SimpleMerce> getMerceDisponibile() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
         while (rs.next())
@@ -205,6 +209,7 @@ public class Negozio {
      * @return ArrayList<String> dei dettagli della merce creata
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
         SimpleMerce simpleMerce = new SimpleMerce(this.ID, prezzo, descrizione, quantita);
         addMerceToList(simpleMerce);
@@ -219,6 +224,7 @@ public class Negozio {
      * @throws SQLException Errore causato da una query SQL
      */
     //todo rivedere test
+    @Override
     public void removeMerce(int IDMerce) throws SQLException {
         SimpleMerce toDelete = getMerce(IDMerce);
         inventario.remove(toDelete);
@@ -234,6 +240,7 @@ public class Negozio {
      * @return ArrayList<String> dei dettagli della merce
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public ArrayList<String> selezionaMerce(int IDMerce) throws SQLException {
         return getMerce(IDMerce).getDettagli();
     }
@@ -247,6 +254,7 @@ public class Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.ID + "';");
         if (rs.next()) {

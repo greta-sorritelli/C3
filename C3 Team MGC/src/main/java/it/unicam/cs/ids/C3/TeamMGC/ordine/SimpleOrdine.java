@@ -12,7 +12,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class SimpleOrdine {
+public class SimpleOrdine implements Ordine {
     private final int ID;
     private final int IDCliente;
     private final int IDNegozio;
@@ -112,6 +112,7 @@ public class SimpleOrdine {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public void addResidenza(String indirizzo) throws SQLException {
         updateData("UPDATE sys.ordini SET IDPuntoPrelievo = -1 WHERE (ID = '" + this.ID + "');");
         updateData("UPDATE sys.ordini SET residenza = '" + indirizzo + "' WHERE (ID = '" + this.ID + "');");
@@ -153,6 +154,7 @@ public class SimpleOrdine {
      * @return ArrayList dei dettagli dell' ordine
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> ordini = new ArrayList<>();

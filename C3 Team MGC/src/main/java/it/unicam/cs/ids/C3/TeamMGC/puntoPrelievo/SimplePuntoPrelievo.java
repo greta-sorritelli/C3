@@ -16,7 +16,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class SimplePuntoPrelievo {
+public class SimplePuntoPrelievo implements PuntoPrelievo{
     private int ID = 0;
     private String indirizzo = "";
     private String nome = "";
@@ -71,6 +71,7 @@ public class SimplePuntoPrelievo {
      * @return ArrayList<String> dei dettagli del punto di prelievo.
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> dettagli = new ArrayList<>();
@@ -108,6 +109,7 @@ public class SimplePuntoPrelievo {
      * @throws SQLException Errore causato da una query SQL
      */
     //todo test
+    @Override
     public ArrayList<SimpleMerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException {
         ArrayList<SimpleMerceOrdine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from merci\n" +
@@ -131,6 +133,7 @@ public class SimplePuntoPrelievo {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public ArrayList<SimpleOrdine> getOrdini(int IDCliente) throws SQLException {
         ArrayList<SimpleOrdine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from ordini WHERE IDCliente = '" + IDCliente +
@@ -164,6 +167,7 @@ public class SimplePuntoPrelievo {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.punti_prelievo where ID= '" + this.ID + "';");
         if (rs.next()) {

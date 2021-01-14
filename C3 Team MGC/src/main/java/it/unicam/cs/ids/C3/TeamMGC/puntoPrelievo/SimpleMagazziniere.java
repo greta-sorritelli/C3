@@ -10,7 +10,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class SimpleMagazziniere {
+public class SimpleMagazziniere implements Magazziniere {
     private final int IDPuntoPrelievo;
     private final int ID ;
     private final String nome ;
@@ -68,7 +68,4 @@ public class SimpleMagazziniere {
     public String getNome() {
         return nome;
     }
-
-
-
 }

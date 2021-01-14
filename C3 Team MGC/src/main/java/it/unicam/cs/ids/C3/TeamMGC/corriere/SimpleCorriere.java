@@ -12,7 +12,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class SimpleCorriere {
+public class SimpleCorriere implements Corriere {
     private final int ID;
     private String nome;
     private String cognome;
@@ -73,6 +73,7 @@ public class SimpleCorriere {
      *
      * @return ArrayList dei dettagli
      */
+    @Override
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> corriere = new ArrayList<>();
@@ -125,6 +126,7 @@ public class SimpleCorriere {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.corrieri where ID= '" + this.ID + "';");
         if (rs.next()) {

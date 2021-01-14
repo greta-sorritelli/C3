@@ -12,7 +12,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  *
  */
-public class SimpleMerce {
+public class SimpleMerce implements Merce {
     private int ID;
     private int IDNegozio;
     private double prezzo;
@@ -64,6 +64,7 @@ public class SimpleMerce {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public void delete() throws SQLException {
         updateData("DELETE FROM sys.inventario WHERE (ID = '" + ID + "');");
         this.ID = -1;
@@ -88,6 +89,7 @@ public class SimpleMerce {
      * @return                ArrayList<String> dei dettagli della merce.
      * @throws SQLException   Errore causato da una query SQL
      **/
+    @Override
     public ArrayList<String> getDettagli() throws SQLException {
         update();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -141,6 +143,7 @@ public class SimpleMerce {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.inventario where ID= '" + this.ID + "';");
         if (rs.next()) {
