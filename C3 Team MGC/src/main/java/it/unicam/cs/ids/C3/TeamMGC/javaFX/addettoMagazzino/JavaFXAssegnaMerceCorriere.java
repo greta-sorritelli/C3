@@ -14,7 +14,6 @@ import javafx.scene.control.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class JavaFXAssegnaMerceCorriere implements JavaFXController {
 
@@ -29,12 +28,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     @FXML
     Tab corrieri;
     @FXML
-    Tab puntiPrelievo;
+    Tab destinazione;
     @FXML
     Tab merceOrdine;
-    @FXML
-    Tab residenza;
-
     /**
      * Tabella dei corrieri
      */
@@ -74,13 +70,13 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     TableColumn<ArrayList<String>, String> QuantitaMerce;
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
-
     @FXML
     TextField residenzaTextField;
-
     private Corriere selectedCorriere;
     private PuntoPrelievo selectedMagazzino;
+    private String selectedResidenza;
     private ArrayList<MerceOrdine> selectedMerce;
+
 
     public JavaFXAssegnaMerceCorriere(GestoreCorrieri gestoreCorrieri, GestoreMagazzini gestoreMagazzini, GestoreOrdini gestoreOrdini) {
         this.gestoreCorrieri = gestoreCorrieri;
@@ -97,16 +93,16 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         corrieri.setDisable(false);
         tab.getSelectionModel().select(corrieri);
         merceOrdine.setDisable(true);
-        puntiPrelievo.setDisable(true);
+        destinazione.setDisable(true);
     }
 
     @FXML
     public void backToMagazzini() {
         corriereTable.getSelectionModel().select(null);
         magazzinoTable.getSelectionModel().select(null);
-        puntiPrelievo.setDisable(false);
-        tab.getSelectionModel().select(puntiPrelievo);
-        residenza.setDisable(false);
+        destinazione.setDisable(false);
+        tab.getSelectionModel().select(destinazione);
+        residenzaTextField.clear();
         merceOrdine.setDisable(true);
         corrieri.setDisable(true);
     }
@@ -114,27 +110,34 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     @FXML
     public void clearPuntiPrelievo() {
         magazzinoTable.getSelectionModel().select(null);
+        this.selectedMagazzino = null;
     }
 
     @FXML
     public void clearResidenza() {
         residenzaTextField.clear();
+        this.selectedResidenza = null;
     }
 
-    //todo
-    private void confermaAssegnazioneMerce(Alert alert) throws SQLException {
-        if (!merceOrdineTable.getSelectionModel().isEmpty()) {
-            for (MerceOrdine merce : selectedMerce)
-                if (merce != null)
-                    gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-            alert.close();
-            successWindow("Assegnazione eseguita con successo", "La merce selezionata e' stata affidata al corriere.");
-            visualizzaMerce();
+    private void confermaAssegnazioneMerce(Alert alert) {
+        try {
+            if (!merceOrdineTable.getSelectionModel().isEmpty()) {
+                for (MerceOrdine merce : selectedMerce) {
+                    if (merce != null) {
+                        gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
+                    }
+                }
+                alert.close();
+                successWindow("Assegnazione eseguita con successo", "La merce selezionata e' stata affidata al corriere.");
+                visualizzaMerce();
+            }
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
     @FXML
-    public void confermaButton() throws SQLException {
+    public void confermaButton() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Attendere...");
         alert.setContentText("L'affidamento della merce e' in corso.");
@@ -142,31 +145,88 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         confermaAssegnazioneMerce(alert);
     }
 
-    //todo
-    public void sceltaPuntoPrelievo(int ID) throws SQLException {
-        gestoreMagazzini.sceltaPuntoPrelievo(ID);
+    @FXML
+    public void selezionaCorriere() {
+        try {
+            if (!corriereTable.getSelectionModel().isEmpty()) {
+                int id = Integer.parseInt(corriereTable.getSelectionModel().getSelectedItem().get(0));
+                if (gestoreCorrieri.getItem(id) != null) {
+                    this.selectedCorriere = gestoreCorrieri.getItem(id);
+                    destinazione.setDisable(false);
+                    tab.getSelectionModel().select(destinazione);
+                    corrieri.setDisable(true);
+                    merceOrdine.setDisable(true);
+                }
+            } else {
+                alertWindow("Impossibile proseguire", "Selezionare un corriere.");
+            }
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
     }
 
-    //todo
-    public void selezionaCorriere(int ID) throws SQLException {
-        gestoreCorrieri.selezionaCorriere(ID);
+    @FXML
+    public void selezionaDestinazione() {
+        try {
+            if (residenzaTextField.getText().isEmpty())
+                selezionaPuntoPrelievo();
+            else
+                selezionaResidenza();
+            merceOrdine.setDisable(false);
+            tab.getSelectionModel().select(merceOrdine);
+            corrieri.setDisable(true);
+            destinazione.setDisable(true);
+        } catch (NullPointerException e) {
+            errorWindow("Selezionare una destinazione!", "Seleziona un punto di prelievo o inserisci una residenza.");
+        }
     }
 
-    private void selezionaMerce(Alert alert) throws SQLException {
-        if (!merceOrdineTable.getSelectionModel().isEmpty()) {
-            alert.show();
-            ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
-            for (ArrayList<String> merce : sel) {
-                if (merce != null) {
-                    int id = Integer.parseInt(merce.get(0));
-                    if (gestoreOrdini.getMerceOrdine(id) != null) {
-                        this.selectedMerce.add(gestoreOrdini.getMerceOrdine(id));
+    private void selezionaMerce(Alert alert) {
+        try {
+            if (!merceOrdineTable.getSelectionModel().isEmpty()) {
+                alert.show();
+                ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
+                for (ArrayList<String> merce : sel) {
+                    if (merce != null) {
+                        int id = Integer.parseInt(merce.get(0));
+                        if (gestoreOrdini.getMerceOrdine(id) != null) {
+                            this.selectedMerce.add(gestoreOrdini.getMerceOrdine(id));
+                        }
                     }
                 }
-            }
-            sel.clear();
-        } else
-            alertWindow("Impossibile proseguire", "Selezionare la merce da affidare al corriere.");
+                sel.clear();
+            } else
+                alertWindow("Impossibile proseguire", "Selezionare la merce da affidare al corriere.");
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
+    private void selezionaPuntoPrelievo() {
+        try {
+            if (!magazzinoTable.getSelectionModel().isEmpty()) {
+                int id = Integer.parseInt(magazzinoTable.getSelectionModel().getSelectedItem().get(0));
+                if (gestoreMagazzini.getItem(id) != null) {
+                    this.selectedMagazzino = gestoreMagazzini.getItem(id);
+                }
+            } else
+                throw new NullPointerException();
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
+    //todo
+    private void selezionaResidenza() {
+        try {
+            if (!residenzaTextField.getText().isEmpty()) {
+                this.selectedResidenza = residenzaTextField.getText();
+            } else
+                throw new NullPointerException();
+        } catch (IllegalArgumentException e) {
+            errorWindow("Residenza errata.", "Selezionare una residenza valida.");
+        }
+
     }
 
     /**
@@ -202,39 +262,6 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         IndirizzoMagazzino.setCellValueFactory(puntoPrelievo -> new SimpleObjectProperty<>(puntoPrelievo.getValue().get(2)));
     }
 
-    @FXML
-    public void setSelectedCorriere() throws SQLException {
-        if (!corriereTable.getSelectionModel().isEmpty()) {
-            int id = Integer.parseInt(corriereTable.getSelectionModel().getSelectedItem().get(0));
-            if (gestoreCorrieri.getItem(id) != null) {
-                this.selectedCorriere = gestoreCorrieri.getItem(id);
-                puntiPrelievo.setDisable(false);
-                tab.getSelectionModel().select(puntiPrelievo);
-                corrieri.setDisable(true);
-                merceOrdine.setDisable(true);
-            }
-        } else {
-            alertWindow("Impossibile proseguire", "Selezionare un corriere.");
-        }
-    }
-
-    @FXML
-    public void setSelectedPuntoPrelievo() throws SQLException {
-        if (!magazzinoTable.getSelectionModel().isEmpty() || !residenzaTextField.getText().isEmpty()) {
-            if (!magazzinoTable.getSelectionModel().isEmpty()) {
-                int id = Integer.parseInt(magazzinoTable.getSelectionModel().getSelectedItem().get(0));
-                if (gestoreMagazzini.getItem(id) != null) {
-                    this.selectedMagazzino = gestoreMagazzini.getItem(id);
-                }
-            }
-            merceOrdine.setDisable(false);
-            tab.getSelectionModel().select(merceOrdine);
-            corrieri.setDisable(true);
-            puntiPrelievo.setDisable(true);
-        } else
-            alertWindow("Impossibile proseguire", "Selezionare un punto di prelievo o una residenza.");
-    }
-
     /**
      * Inserisce i dati dei corrieri nella tabella
      */
@@ -245,20 +272,29 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             corriereTable.getItems().clear();
             corriereTable.getItems().addAll(gestoreCorrieri.getDettagliCorrieriDisponibili());
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalArgumentException e) {
+            alertWindow("Corrieri non disponibili.", "Aggiorna piu' tardi.");
         }
     }
 
-    public void visualizzaMerce() throws SQLException {
+
+    //todo
+    @FXML
+    public void visualizzaMerce() {
         try {
             setMerceOrdineCellValueFactory();
             merceOrdineTable.getItems().clear();
-            if (!Objects.isNull(selectedMagazzino))
+            if (selectedMagazzino != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciMagazzino(selectedMagazzino.getID()));
-            if (!residenzaTextField.getText().isEmpty())
-                merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(residenzaTextField.getText()));
+            try {
+                if (selectedResidenza != null)
+                    merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(residenzaTextField.getText()));
+            } catch (NullPointerException e) {
+                errorWindow("Errore.", "Residenza errata.");
+            }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -272,7 +308,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             magazzinoTable.getItems().clear();
             magazzinoTable.getItems().addAll(gestoreMagazzini.getDettagliItems());
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 }

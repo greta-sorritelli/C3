@@ -61,7 +61,7 @@ public class IMagazziniere implements JavaFXController {
     @FXML
     //todo creare fxml
     public void avvisaCorriere() {
-        openWindow("/ComunicareConCorriere.fxml", "ComunicareConCorriere", new JavaFXComunicareConCorriere(gestoreCorrieri, gestoreNegozi));
+        openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(gestoreCorrieri, gestoreNegozi));
     }
 
     /**

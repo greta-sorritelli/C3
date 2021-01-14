@@ -24,8 +24,11 @@
                         <TableColumn fx:id="NomeCorriere" prefWidth="223.20004272460938" text="Nome" />
                         <TableColumn fx:id="CognomeCorriere" prefWidth="369.60009765625" text="Cognome" />
                      </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
-                  <Button defaultButton="true" layoutX="700.0" layoutY="505.0" mnemonicParsing="false" onAction="#setSelectedCorriere" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button defaultButton="true" layoutX="700.0" layoutY="505.0" mnemonicParsing="false" onAction="#selezionaCorriere" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
                   <Label layoutX="43.0" layoutY="26.0" prefHeight="30.0" prefWidth="286.0" text="Seleziona Corriere disponibile" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
@@ -39,7 +42,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab fx:id="puntiPrelievo" disable="true" onSelectionChanged="#visualizzaPuntiPrelievo" text="Punti di prelievo">
+    <Tab fx:id="destinazione" disable="true" onSelectionChanged="#visualizzaPuntiPrelievo" text="Destinazione">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -49,6 +52,9 @@
                       <TableColumn fx:id="NomeMagazzino" prefWidth="142.39999389648438" text="Nome" />
                         <TableColumn fx:id="IndirizzoMagazzino" prefWidth="487.20001220703125" text="Indirizzo" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                   <Label layoutX="43.0" layoutY="33.0" text="Seleziona Punto di prelievo o una Residenza" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
                      <font>
@@ -56,7 +62,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="residenzaTextField" layoutX="42.0" layoutY="450.0" onMouseClicked="#clearPuntiPrelievo" promptText="Residenza dove consegnare la Merce" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="450.0" />
-                  <Button defaultButton="true" layoutX="728.0" layoutY="530.0" mnemonicParsing="false" onAction="#setSelectedPuntoPrelievo" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
+                  <Button defaultButton="true" layoutX="728.0" layoutY="530.0" mnemonicParsing="false" onAction="#selezionaDestinazione" text="Next&gt;&gt;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="42.0" />
                   <Button layoutX="627.0" layoutY="504.0" mnemonicParsing="false" onAction="#backToCorrieri" text="&lt;&lt;Back" AnchorPane.rightAnchor="115.39999999999998" />
                </children></AnchorPane>
       </content>
@@ -74,6 +80,9 @@
                         <TableColumn fx:id="QuantitaMerce" prefWidth="100.800048828125" text="Quantita" />
                         <TableColumn fx:id="StatoMerce" prefWidth="205.5999755859375" text="Stato" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                   <Label layoutX="43.0" layoutY="39.0" text="Merce da affidare al corriere" AnchorPane.topAnchor="26.0">
                      <font>
