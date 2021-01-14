@@ -16,7 +16,7 @@ public class ICorriere implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
-    private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+    private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
     private final GestoreCorrieri gestoreCorrieri= new GestoreCorrieri();
     private int IDCorriere;

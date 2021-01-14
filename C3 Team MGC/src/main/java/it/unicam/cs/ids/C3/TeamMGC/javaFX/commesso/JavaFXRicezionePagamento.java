@@ -104,7 +104,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
             int ID = Integer.parseInt(IDCliente.getText());
             ArrayList<String> dettagliOrdine = null;
             dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getItem(ID).getNome(),
-                    gestoreClienti.getItem(ID).getCognome());
+                    gestoreClienti.getItem(ID).getCognome(), negozio );
             ordineTextField.setText(dettagliOrdine.get(0));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
@@ -119,7 +119,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
             if (ordineTextField.getText().isEmpty()) {
                 registraOrdine();
             }
-            gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(ordineTextField.getText()));
+            gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(ordineTextField.getText()), negozio );
             visualizzaMerci();
             quantita.clear();
             merceChoiceBox.getItems().clear();

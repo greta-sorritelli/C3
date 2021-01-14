@@ -28,7 +28,7 @@ public class IMagazziniere implements JavaFXController {
     private final GestoreClienti gestoreClienti = new GestoreClienti();
     private final GestoreNegozi gestoreNegozi = new GestoreNegozi();
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
-    private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+    private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
     private int IDMazziniere;
 
     public IMagazziniere(int ID) throws SQLException {

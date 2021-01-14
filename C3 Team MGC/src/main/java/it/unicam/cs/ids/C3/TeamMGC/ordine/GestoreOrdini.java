@@ -17,12 +17,11 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class GestoreOrdini {
-    private final Negozio negozio;
     private final ArrayList<Ordine> ordini = new ArrayList<>();
 
-    public GestoreOrdini(Negozio negozio) {
-        this.negozio = negozio;
-    }
+//    public GestoreOrdini(Negozio negozio) {
+//        this.negozio = negozio;
+//    }
 
     /**
      * Controlla se l' {@link Ordine} che si vuole creare e' gia' presente nella lista degli ordini. Se non e' presente
@@ -284,9 +283,10 @@ public class GestoreOrdini {
      * @param quantita Quantita della merce
      * @param IDOrdine Ordine in cui registrare la merce
      *
+     * @param negozio
      * @throws SQLException Errore causato da una query SQL
      */
-    public void registraMerce(int IDMerce, int quantita, int IDOrdine) throws SQLException {
+    public void registraMerce(int IDMerce, int quantita, int IDOrdine, Negozio negozio) throws SQLException {
         Merce merce = negozio.getMerce(IDMerce);
         if (merce.getQuantita() == 0 || merce.getQuantita() < quantita)
             throw new IllegalArgumentException("Quantita non valida.");
@@ -303,10 +303,11 @@ public class GestoreOrdini {
      * @param nome      Nome del cliente a cui appartiene l' ordine
      * @param cognome   Cognome del cliente a cui appartiene l' ordine
      *
+     * @param negozio
      * @return un ArrayList di String contenente i dettagli dell' Ordine creato
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome) throws SQLException {
+    public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome, Negozio negozio) throws SQLException {
         controllaCliente(IDCliente, nome, cognome);
         Ordine ordine = new Ordine(IDCliente, nome, cognome, negozio.getID());
         addOrdineToList(ordine);

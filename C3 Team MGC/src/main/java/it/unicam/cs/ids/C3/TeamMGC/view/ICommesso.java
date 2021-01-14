@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXComunicareCodiceRitiro;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXRicezionePagamento;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -17,40 +18,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ICommesso {
+public class ICommesso implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
-    private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+    private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
     private final GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
     private final GestoreClienti gestoreClienti = new GestoreClienti();
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
 
     public ICommesso() throws SQLException {
-    }
-
-    /**
-     * Apre una nuova finestra
-     *
-     * @param a Fxml path
-     * @param b Titolo della finestra.
-     */
-    @FXML
-    public void openWindow(String a, String b, Object controller) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(a));
-            fxmlLoader.setController(controller);
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle(b);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-//            Image icon = new Image("/icon.png");
-//            stage.getIcons().add(icon);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void comunicaCodiceRitiro() {
