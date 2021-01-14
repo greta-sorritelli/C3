@@ -216,7 +216,6 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         }
     }
 
-    //todo
     private void selezionaResidenza() {
         try {
             if (!residenzaTextField.getText().isEmpty()) {
@@ -278,8 +277,6 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         }
     }
 
-
-    //todo
     @FXML
     public void visualizzaMerce() {
         try {
@@ -287,12 +284,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             merceOrdineTable.getItems().clear();
             if (selectedMagazzino != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciMagazzino(selectedMagazzino.getID()));
-            try {
-                if (selectedResidenza != null)
+                if (selectedResidenza != null) {
                     merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(residenzaTextField.getText()));
-            } catch (NullPointerException e) {
-                errorWindow("Errore.", "Residenza errata.");
-            }
+                }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }
