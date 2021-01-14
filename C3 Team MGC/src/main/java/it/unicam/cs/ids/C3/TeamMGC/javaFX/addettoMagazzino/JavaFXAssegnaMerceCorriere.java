@@ -72,6 +72,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     TableColumn<ArrayList<String>, String> StatoMerce;
     @FXML
     TextField residenzaTextField;
+
     private SimpleCorriere selectedSimpleCorriere;
     private SimplePuntoPrelievo selectedMagazzino;
     private String selectedResidenza;
@@ -125,6 +126,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                 for (SimpleMerceOrdine merce : selectedMerce) {
                     if (merce != null) {
                         gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
+                        this.selectedSimpleCorriere.getMerceAffidata().add(merce);
                     }
                 }
                 alert.close();
@@ -206,8 +208,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         try {
             if (!magazzinoTable.getSelectionModel().isEmpty()) {
                 int id = Integer.parseInt(magazzinoTable.getSelectionModel().getSelectedItem().get(0));
-                if (gestoreMagazzini.getItem(id) != null) {
-                    this.selectedMagazzino = gestoreMagazzini.getItem(id);
+                SimplePuntoPrelievo puntoPrelievo = gestoreMagazzini.getItem(id);
+                if (puntoPrelievo != null) {
+                    this.selectedMagazzino = puntoPrelievo;
                 }
             } else
                 throw new NullPointerException();

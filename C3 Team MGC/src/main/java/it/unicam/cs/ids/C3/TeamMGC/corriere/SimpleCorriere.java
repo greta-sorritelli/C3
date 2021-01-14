@@ -1,5 +1,8 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class SimpleCorriere implements Corriere {
     private String nome;
     private String cognome;
     private boolean disponibilita;
+    private ArrayList<SimpleMerceOrdine> merceAffidata = new ArrayList<>();
 
     /**
      * Costruttore per importare i dati dal DB.
@@ -104,6 +108,10 @@ public class SimpleCorriere implements Corriere {
 
     public String getNome() {
         return nome;
+    }
+
+    public ArrayList<SimpleMerceOrdine> getMerceAffidata() {
+        return merceAffidata;
     }
 
     @Override
