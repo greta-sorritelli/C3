@@ -28,7 +28,7 @@ class ClienteTest {
         assertEquals("", cliente.getCodiceRitiro());
         assertEquals("", cliente.getDataCreazioneCodice());
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Cliente(1000));
-        assertEquals("ID non valido.", e1.getMessage());
+        assertEquals("ID cliente non valido.", e1.getMessage());
     }
 
     @Test

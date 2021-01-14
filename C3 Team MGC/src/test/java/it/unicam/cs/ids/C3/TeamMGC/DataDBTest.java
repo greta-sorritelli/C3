@@ -22,6 +22,8 @@ public class DataDBTest {
         updateData("delete from sys.negozi;");
         updateData("delete from sys.ordini;");
         updateData("delete from sys.punti_prelievo;");
+        updateData("delete from alert_corrieri;");
+        updateData("delete from alert_magazzinieri;");
 
         updateData("alter table clienti AUTO_INCREMENT = 1;");
         updateData("alter table codici_ritiro AUTO_INCREMENT = 1;");

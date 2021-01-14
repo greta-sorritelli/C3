@@ -81,8 +81,8 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController{
     @FXML
     public void verificaCodice() {
         try {
-            if (IDCliente.getText().equals("") ||  codiceRitiro.getText().equals(""))
-                throw new NullPointerException("Codice non valido");
+            if (IDCliente.getText().isEmpty() ||  codiceRitiro.getText().isEmpty())
+                throw new NullPointerException("Dati non presenti.");
 
             if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
                 ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
@@ -94,13 +94,14 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController{
                     codiceRitiro.clear();
                 }
             } else
-                throw new IllegalArgumentException("Parametri non presenti.");
+                throw new IllegalStateException("Codice non valido.");
         } catch (NullPointerException e) {
             errorWindow("Errore!","Inserisci tutti i dati richiesti!");
-            IDCliente.clear();
-            codiceRitiro.clear();
         } catch (IllegalArgumentException exception) {
-            errorWindow("Errore!","Il codice non appartiene al cliente!");
+            errorWindow("Errore!","ID cliente non valido.");
+            IDCliente.clear();
+        } catch (IllegalStateException exception) {
+            errorWindow("Errore!", "Il codice non appartiene al cliente!");
             IDCliente.clear();
             codiceRitiro.clear();
         } catch (SQLException exception) {

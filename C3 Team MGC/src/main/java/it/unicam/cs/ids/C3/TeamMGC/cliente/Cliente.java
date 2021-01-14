@@ -39,7 +39,7 @@ public class Cliente {
             disconnectToDB(rs);
         } else {
             disconnectToDB(rs);
-            throw new IllegalArgumentException("ID non valido.");
+            throw new IllegalArgumentException("ID cliente non valido.");
         }
     }
 

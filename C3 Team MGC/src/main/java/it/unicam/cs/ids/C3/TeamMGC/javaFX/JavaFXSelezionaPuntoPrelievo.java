@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class JavaFXSelezionaPuntoPrelievo implements JavaFXController{
+public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     private final GestoreOrdini gestoreOrdini;
     private final GestoreMagazzini gestoreMagazzini;
     private final GestoreCorrieri gestoreCorrieri;
@@ -55,56 +55,61 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController{
     TextField residenza;
 
 
-    public void addResidenza(){
+    public void addResidenza() {
         try {
-            if(!residenza.getText().isEmpty()) {
-            gestoreOrdini.addResidenza(IDOrdine,residenza.getText());
-            successWindow("Residenza salvata con successo!","Ora potrai scegliere il corriere da avvisare.");
-            sceltaCorriere();
-            closeWindow((Stage) residenza.getScene().getWindow());
-            }else
-                throw new IllegalArgumentException("Dati non presenti.");
-        } catch (Exception exception) {
-            errorWindow("Errore!","Inserire la residenza.");
-
+            if (!residenza.getText().isEmpty()) {
+                gestoreCorrieri.getCorrieriDisponibili();
+                gestoreOrdini.addResidenza(IDOrdine, residenza.getText());
+                successWindow("Residenza salvata con successo!", "Ora potrai scegliere il corriere da avvisare.");
+                sceltaCorriere();
+                closeWindow((Stage) residenza.getScene().getWindow());
+            } else
+                throw new NullPointerException("Dati non presenti.");
+        } catch (NullPointerException exception) {
+            errorWindow("Errore!", "Inserire la residenza.");
+        } catch (IllegalArgumentException exception) {
+            errorWindow("Non ci sono corrieri disponibili.", "Scegliere di nuovo una modalita' di consegna.");
+            residenza.clear();
+        } catch (SQLException exception) {
+            errorWindow("Errore!", "Error DB.");
         }
     }
 
     public void sceltaCorriere() {
-        openWindow("/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(gestoreCorrieri, residenza.getText(),negozio));
+        openWindow("/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(gestoreCorrieri, residenza.getText(), negozio));
     }
 
 
-    public void setPuntoPrelievo(){
+    public void setPuntoPrelievo() {
         try {
-            if(!choicePuntoPrelievo.getItems().isEmpty()) {
+            if (!choicePuntoPrelievo.getItems().isEmpty()) {
                 gestoreOrdini.setPuntoPrelievo(IDOrdine, choicePuntoPrelievo.getValue().getID());
                 mandaAlert();
                 closeWindow((Stage) residenza.getScene().getWindow());
-            }else
+            } else
                 throw new IllegalArgumentException("Dati non presenti.");
         } catch (Exception exception) {
-            errorWindow("Errore!","Inserire i dati richiesti.");
+            errorWindow("Errore!", "Inserire i dati richiesti.");
         }
     }
 
-    public void mandaAlert(){
+    public void mandaAlert() {
         try {
             gestoreMagazzini.mandaAlert(choicePuntoPrelievo.getValue().getID(), negozio);
-            successWindow("Alert mandato con successo!","L' alert e' stato inviato al magazziniere.");
+            successWindow("Alert mandato con successo!", "L' alert e' stato inviato al magazziniere.");
         } catch (Exception exception) {
-            errorWindow("Errore!","Error.");
+            errorWindow("Errore!", "Error.");
             exception.printStackTrace();
         }
     }
 
-    public void setStatoOrdine()  {
+    public void setStatoOrdine() {
         try {
             gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.RITIRATO);
-            successWindow("Ordine ritirato con successo!","Lo stato dell' ordine e' stato impostato a ritirato.");
+            successWindow("Ordine ritirato con successo!", "Lo stato dell' ordine e' stato impostato a ritirato.");
             closeWindow((Stage) residenza.getScene().getWindow());
         } catch (Exception exception) {
-            errorWindow("Errore!","Error.");
+            errorWindow("Errore!", "Error.");
         }
     }
 
@@ -117,7 +122,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController{
             choicePuntoPrelievo.getItems().clear();
             choicePuntoPrelievo.setItems(FXCollections.observableArrayList(gestoreMagazzini.getItems()));
         } catch (Exception exception) {
-            errorWindow("Errore!","Error.");
+            errorWindow("Errore!", "Error.");
         }
     }
 

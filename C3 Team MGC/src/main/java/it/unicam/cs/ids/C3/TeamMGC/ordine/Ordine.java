@@ -24,6 +24,10 @@ public class Ordine {
     private int IDPuntoPrelievo = -1;
     private String residenza = "";
 
+    public void setResidenza(String residenza) {
+        this.residenza = residenza;
+    }
+
     /**
      * Costruttore per importare i dati dal DB.
      *
