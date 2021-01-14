@@ -80,7 +80,6 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     private Corriere selectedCorriere;
     private PuntoPrelievo selectedMagazzino;
     private ArrayList<MerceOrdine> selectedMerce;
-    private String selectedResidenza;
 
     public JavaFXAssegnaMerceCorriere(GestoreCorrieri gestoreCorrieri, GestoreMagazzini gestoreMagazzini, GestoreOrdini gestoreOrdini) {
         this.gestoreCorrieri = gestoreCorrieri;
@@ -106,8 +105,19 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         magazzinoTable.getSelectionModel().select(null);
         puntiPrelievo.setDisable(false);
         tab.getSelectionModel().select(puntiPrelievo);
+        residenza.setDisable(false);
         merceOrdine.setDisable(true);
         corrieri.setDisable(true);
+    }
+
+    @FXML
+    public void clearPuntiPrelievo() {
+        magazzinoTable.getSelectionModel().select(null);
+    }
+
+    @FXML
+    public void clearResidenza() {
+        residenzaTextField.clear();
     }
 
     //todo
@@ -198,7 +208,6 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             if (gestoreCorrieri.getItem(id) != null) {
                 this.selectedCorriere = gestoreCorrieri.getItem(id);
                 puntiPrelievo.setDisable(false);
-                residenza.setDisable(false);
                 tab.getSelectionModel().select(puntiPrelievo);
                 corrieri.setDisable(true);
                 merceOrdine.setDisable(true);
@@ -210,31 +219,19 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
 
     @FXML
     public void setSelectedPuntoPrelievo() throws SQLException {
-        if (!magazzinoTable.getSelectionModel().isEmpty()) {
-            int id = Integer.parseInt(magazzinoTable.getSelectionModel().getSelectedItem().get(0));
-            if (gestoreMagazzini.getItem(id) != null) {
-                this.selectedMagazzino = gestoreMagazzini.getItem(id);
-                merceOrdine.setDisable(false);
-                tab.getSelectionModel().select(merceOrdine);
-                corrieri.setDisable(true);
-                puntiPrelievo.setDisable(true);
+        if (!magazzinoTable.getSelectionModel().isEmpty() || !residenzaTextField.getText().isEmpty()) {
+            if (!magazzinoTable.getSelectionModel().isEmpty()) {
+                int id = Integer.parseInt(magazzinoTable.getSelectionModel().getSelectedItem().get(0));
+                if (gestoreMagazzini.getItem(id) != null) {
+                    this.selectedMagazzino = gestoreMagazzini.getItem(id);
+                }
             }
-        } else
-            alertWindow("Impossibile proseguire", "Selezionare un punto di prelievo.");
-    }
-
-    //todo finire
-    @FXML
-    public void setSelectedResidenza() {
-        if (!residenzaTextField.getText().isEmpty()) {
             merceOrdine.setDisable(false);
-            this.selectedMagazzino = null;
-            this.selectedResidenza = residenzaTextField.getText();
             tab.getSelectionModel().select(merceOrdine);
             corrieri.setDisable(true);
             puntiPrelievo.setDisable(true);
         } else
-            alertWindow("Impossibile proseguire", "Selezionare una residenza.");
+            alertWindow("Impossibile proseguire", "Selezionare un punto di prelievo o una residenza.");
     }
 
     /**
@@ -257,8 +254,8 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             merceOrdineTable.getItems().clear();
             if (!Objects.isNull(selectedMagazzino))
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciMagazzino(selectedMagazzino.getID()));
-            if(!Objects.isNull(selectedResidenza))
-                merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(selectedResidenza));
+            if (!residenzaTextField.getText().isEmpty())
+                merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(residenzaTextField.getText()));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
