@@ -1,6 +1,7 @@
 
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.beans.property.SimpleObjectProperty;
@@ -9,9 +10,10 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class JavaFXTrasportareMerce {
+public class JavaFXTrasportareMerce implements JavaFXController {
 
     private final GestoreOrdini gestoreOrdini;
 
@@ -19,19 +21,19 @@ public class JavaFXTrasportareMerce {
     TableView<ArrayList<String>> merceTable;
 
     @FXML
-    TableColumn<ArrayList<String>, Integer> merceID;
+    TableColumn<ArrayList<String>, String> merceID;
 
     @FXML
-    TableColumn<ArrayList<String>, Integer> merceIDOrdine;
+    TableColumn<ArrayList<String>, String> merceIDOrdine;
 
     @FXML
     TableColumn<ArrayList<String>, String> merceDescrizione;
 
     @FXML
-    TableColumn<ArrayList<String>, Integer> mercePrezzo;
+    TableColumn<ArrayList<String>, String> mercePrezzo;
 
     @FXML
-    TableColumn<ArrayList<String>, Integer> merceQuantita;
+    TableColumn<ArrayList<String>, String> merceQuantita;
 
 
     public JavaFXTrasportareMerce(GestoreOrdini gestoreOrdini) {
@@ -47,9 +49,25 @@ public class JavaFXTrasportareMerce {
         merceQuantita.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(4)));
     }
 
-    public void getDettagliMerce(StatoOrdine statoOrdine) {
-        // todo stato affidato al corriere
+    public void visualizzaMerce() {
+        try {
+            setCorriereCellValueFactory();
+            merceTable.getItems().clear();
+            merceTable.getItems().addAll(gestoreOrdini.getDettagliMerce(StatoOrdine.AFFIDATO_AL_CORRIERE));
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (NullPointerException e) {
+            alertWindow("Merci non disponibili.", "Nessuna merce affidata.");
+        }
+    }
 
+    @FXML
+    public void setStatoInTransito() {
+
+    }
+
+    private void getDettagliMerce(StatoOrdine statoOrdine) {
+        // todo stato affidato al corriere
     }
 
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) {
