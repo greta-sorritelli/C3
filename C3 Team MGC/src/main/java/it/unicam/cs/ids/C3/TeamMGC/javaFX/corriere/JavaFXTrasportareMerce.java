@@ -1,6 +1,7 @@
 
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
@@ -15,7 +16,14 @@ import java.util.ArrayList;
 
 public class JavaFXTrasportareMerce implements JavaFXController {
 
-    private final GestoreOrdini gestoreOrdini;
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
+    private int IDCorriere;
+    private final ArrayList<ArrayList<String>> merceDaTrasportare = new ArrayList<>();
+
+    public JavaFXTrasportareMerce(int id) {
+        this.IDCorriere = id;
+    }
 
     @FXML
     TableView<ArrayList<String>> merceTable;
@@ -35,11 +43,6 @@ public class JavaFXTrasportareMerce implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> merceQuantita;
 
-
-    public JavaFXTrasportareMerce(GestoreOrdini gestoreOrdini) {
-        this.gestoreOrdini = gestoreOrdini;
-    }
-
     private void setCorriereCellValueFactory() {
         merceTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         merceID.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(0)));
@@ -49,13 +52,12 @@ public class JavaFXTrasportareMerce implements JavaFXController {
         merceQuantita.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(4)));
     }
 
+    @FXML
     public void visualizzaMerce() {
         try {
             setCorriereCellValueFactory();
             merceTable.getItems().clear();
-            merceTable.getItems().addAll(gestoreOrdini.getDettagliMerce(StatoOrdine.AFFIDATO_AL_CORRIERE));
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            merceTable.getItems().addAll(getDettagliMerce(StatoOrdine.AFFIDATO_AL_CORRIERE));
         } catch (NullPointerException e) {
             alertWindow("Merci non disponibili.", "Nessuna merce affidata.");
         }
@@ -63,15 +65,29 @@ public class JavaFXTrasportareMerce implements JavaFXController {
 
     @FXML
     public void setStatoInTransito() {
-
+        if (!merceTable.getSelectionModel().getSelectedItems().isEmpty())
+            for (ArrayList<String> merce : merceTable.getSelectionModel().getSelectedItems())
+                setStatoMerce(Integer.parseInt(merce.get(0)));
+        else
+            alertWindow("Nessuna merce selezionata.", "Selezionare almeno una merce.");
     }
 
-    private void getDettagliMerce(StatoOrdine statoOrdine) {
+    private ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) {
         // todo stato affidato al corriere
+        try {
+            return gestoreCorrieri.getItem(IDCorriere).getDettagliMerceAffidata();
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+        return null;
     }
 
-    public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) {
-        //todo stato in transito
+    private void setStatoMerce(int IDMerce) {
+        try {
+            gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.IN_TRANSITO);
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
     }
 
 }

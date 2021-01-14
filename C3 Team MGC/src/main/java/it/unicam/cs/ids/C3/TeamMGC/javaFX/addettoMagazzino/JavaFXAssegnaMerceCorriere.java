@@ -11,6 +11,7 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.checkerframework.checker.units.qual.A;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,9 +25,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
      * TabPane della finestra
      */
     @FXML
-    TabPane tab;
+    TabPane tab ;
     @FXML
-    Tab corrieri;
+    Tab corrieri ;
     @FXML
     Tab destinazione;
     @FXML
@@ -76,7 +77,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     private SimpleCorriere selectedSimpleCorriere;
     private SimplePuntoPrelievo selectedMagazzino;
     private String selectedResidenza;
-    private ArrayList<SimpleMerceOrdine> selectedMerce;
+    private ArrayList<SimpleMerceOrdine> selectedMerce = new ArrayList<>();
 
 
     public JavaFXAssegnaMerceCorriere(GestoreCorrieri gestoreCorrieri, GestoreMagazzini gestoreMagazzini, GestoreOrdini gestoreOrdini) {
@@ -85,7 +86,6 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         this.gestoreOrdini = gestoreOrdini;
         this.selectedSimpleCorriere = null;
         this.selectedMagazzino = null;
-        this.selectedMerce = new ArrayList<>();
     }
 
     @FXML

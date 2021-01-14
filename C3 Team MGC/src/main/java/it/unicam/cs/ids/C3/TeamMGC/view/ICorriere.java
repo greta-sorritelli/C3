@@ -82,7 +82,7 @@ public class ICorriere implements JavaFXController {
     @FXML
     //todo creare fxml
     public void trasportoMerce(){
-        openWindow("/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(gestoreOrdini));
+        openWindow("/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(IDCorriere));
     }
 
 }

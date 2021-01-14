@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
+import org.checkerframework.checker.units.qual.A;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class SimpleCorriere implements Corriere {
+
     private final int ID;
     private String nome;
     private String cognome;
@@ -113,6 +115,15 @@ public class SimpleCorriere implements Corriere {
     public ArrayList<SimpleMerceOrdine> getMerceAffidata() {
         return merceAffidata;
     }
+
+    public ArrayList<ArrayList<String>> getDettagliMerceAffidata() throws SQLException {
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        for (SimpleMerceOrdine merce : merceAffidata) {
+            dettagli.add(merce.getDettagli());
+        }
+        return dettagli;
+    }
+
 
     @Override
     public int hashCode() {
