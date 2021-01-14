@@ -68,12 +68,12 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
             } else
                 throw new NullPointerException("Dati non presenti.");
         } catch (NullPointerException exception) {
-            errorWindow("Errore!", "Inserire la residenza.");
+            alertWindow("Alert!", "Inserire la residenza.");
         } catch (IllegalArgumentException exception) {
             errorWindow("Non ci sono corrieri disponibili.", "Scegliere di nuovo una modalita' di consegna.");
             residenza.clear();
         } catch (SQLException exception) {
-            errorWindow("Errore!", "Error DB.");
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -90,8 +90,10 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
                 closeWindow((Stage) residenza.getScene().getWindow());
             } else
                 throw new IllegalArgumentException("Dati non presenti.");
-        } catch (Exception exception) {
-            errorWindow("Errore!", "Inserire i dati richiesti.");
+        } catch (IllegalArgumentException exception) {
+            alertWindow("Alert!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -99,9 +101,8 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
         try {
             gestoreMagazzini.mandaAlert(choicePuntoPrelievo.getValue().getID(), negozio);
             successWindow("Alert mandato con successo!", "L' alert e' stato inviato al magazziniere.");
-        } catch (Exception exception) {
-            errorWindow("Errore!", "Error.");
-            exception.printStackTrace();
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -110,8 +111,8 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
             gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.RITIRATO);
             successWindow("Ordine ritirato con successo!", "Lo stato dell' ordine e' stato impostato a ritirato.");
             closeWindow((Stage) residenza.getScene().getWindow());
-        } catch (Exception exception) {
-            errorWindow("Errore!", "Error.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -123,8 +124,8 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
         try {
             choicePuntoPrelievo.getItems().clear();
             choicePuntoPrelievo.setItems(FXCollections.observableArrayList(gestoreMagazzini.getItems()));
-        } catch (Exception exception) {
-            errorWindow("Errore!", "Error.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 

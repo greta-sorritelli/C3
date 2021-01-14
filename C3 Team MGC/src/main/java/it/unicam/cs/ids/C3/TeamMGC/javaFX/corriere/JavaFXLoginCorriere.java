@@ -1,6 +1,7 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaFX;
+package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.view.ICorriere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,12 +11,12 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class JavaFXLogin implements JavaFXController{
+public class JavaFXLoginCorriere implements JavaFXController {
 
     private GestoreCorrieri gestoreCorrieri;
     private int ID;
 
-    public JavaFXLogin() {
+    public JavaFXLoginCorriere() {
         this.gestoreCorrieri = new GestoreCorrieri();
     }
 
@@ -33,6 +34,7 @@ public class JavaFXLogin implements JavaFXController{
             closeWindow(stage);
         } catch (IllegalArgumentException e) {
             errorWindow("ID errato", "Inserire un ID valido.");
+            IDCorriere.clear();
         }
     }
 

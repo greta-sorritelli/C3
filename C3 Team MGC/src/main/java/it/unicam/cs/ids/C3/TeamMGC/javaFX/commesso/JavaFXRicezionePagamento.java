@@ -86,8 +86,8 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         try {
             merceChoiceBox.getItems().clear();
             merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getMerceDisponibile()));
-        } catch (Exception exception) {
-            errorWindow("Errore!", "Error.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -107,7 +107,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
                     gestoreClienti.getItem(ID).getCognome());
             ordineTextField.setText(dettagliOrdine.get(0));
         } catch (SQLException exception) {
-            errorWindow("Errore!", "Error DB.");
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -137,9 +137,9 @@ public class JavaFXRicezionePagamento implements JavaFXController {
                 IDCliente.clear();
             }
         } catch (NullPointerException exception) {
-            errorWindow("Errore!", "Inserire tutti i dati richiesti.");
+            alertWindow("Alert!", "Inserire tutti i dati richiesti.");
         } catch (SQLException exception) {
-            errorWindow("Errore!", "Error DB.");
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -154,8 +154,10 @@ public class JavaFXRicezionePagamento implements JavaFXController {
                 closeWindow(stage);
             } else
                 throw new IllegalArgumentException("Dati non presenti.");
-        } catch (Exception exception) {
+        } catch (IllegalArgumentException exception) {
             errorWindow("L' ordine non puo' essere terminato!", "Inserire i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -173,8 +175,8 @@ public class JavaFXRicezionePagamento implements JavaFXController {
             merceTable.getItems().clear();
             for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
                 merceTable.getItems().add(m.getDettagli());
-        } catch (Exception exception) {
-            errorWindow("Errore!", "Error.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 }

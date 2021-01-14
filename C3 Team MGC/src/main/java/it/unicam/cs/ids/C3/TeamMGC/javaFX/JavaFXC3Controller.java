@@ -1,5 +1,8 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXLoginCliente;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXLoginCorriere;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXLoginMagazziniere;
 import it.unicam.cs.ids.C3.TeamMGC.view.*;
 
 import java.sql.SQLException;
@@ -17,18 +20,17 @@ public class JavaFXC3Controller implements JavaFXController {
         openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso());
     }
 
-    public void visualizzaHomeMagazziniere() throws SQLException {
-        openWindow("/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere());
+    public void visualizzaHomeMagazziniere()  {
+        openWindow("/LoginMagazziniere.fxml", "Login Magazziniere", new JavaFXLoginMagazziniere());
     }
 
-    public void visualizzaHomeCorriere() throws SQLException {
-        openWindow("/LoginCorriere.fxml", "Login Corriere", new JavaFXLogin());
-//        openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere());
+    public void visualizzaHomeCorriere()  {
+        openWindow("/LoginCorriere.fxml", "Login Corriere", new JavaFXLoginCorriere());
     }
 
-    //todo fxml
+    //todo fxml home cliente
     public void visualizzaHomeCliente() {
-        openWindow("/HomeCliente.fxml", "Home Cliente", new ICliente());
+        openWindow("/LoginCliente.fxml", "Login Cliente", new JavaFXLoginCliente());
     }
 
     //todo fxml

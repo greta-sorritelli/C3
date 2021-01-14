@@ -23,5 +23,10 @@
          <font>
             <Font size="15.0" />
          </font></Button>
+      <Button layoutX="231.0" layoutY="264.0" mnemonicParsing="false" onAction="#visualizzaHomeCliente" prefHeight="25.0" prefWidth="150.0" text="Cliente">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

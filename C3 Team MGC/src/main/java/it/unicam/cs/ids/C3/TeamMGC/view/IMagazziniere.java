@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXComunicareConCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXConsegnareMerceAlCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class IMagazziniere {
+public class IMagazziniere implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
     //todo
@@ -28,8 +29,10 @@ public class IMagazziniere {
     private final GestoreNegozi gestoreNegozi = new GestoreNegozi();
     private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini(negozio);
+    private int IDMazziniere;
 
-    public IMagazziniere() throws SQLException {
+    public IMagazziniere(int ID) throws SQLException {
+        this.IDMazziniere = ID;
     }
 
 //    //todo essendo un' interfaccia forse il cerca cliente non deve creare un Cliente come oggetto ma deve
@@ -51,30 +54,6 @@ public class IMagazziniere {
 //            return null;
 //        }
 //    }
-
-    /**
-     * Apre una nuova finestra
-     *
-     * @param a Fxml path
-     * @param b Titolo della finestra.
-     */
-    @FXML
-    public void openWindow(String a, String b, Object controller) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(a));
-            fxmlLoader.setController(controller);
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle(b);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-//            Image icon = new Image("/icon.png");
-//            stage.getIcons().add(icon);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Apre la finestra per comunicare con il corriere.

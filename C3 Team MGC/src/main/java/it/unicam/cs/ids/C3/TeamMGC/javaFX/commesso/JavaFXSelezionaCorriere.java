@@ -64,7 +64,7 @@ public class JavaFXSelezionaCorriere implements JavaFXController {
             corriereTable.getItems().clear();
             corriereTable.getItems().addAll(gestoreCorrieri.getDettagliCorrieriDisponibili());
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -81,12 +81,11 @@ public class JavaFXSelezionaCorriere implements JavaFXController {
                 }
             }else
                 throw new IllegalArgumentException("Dati non presenti.");
-        } catch (Exception exception) {
-            errorWindow("Errore!", "Inserire i dati richiesti.");
-
+        } catch (IllegalArgumentException exception) {
+            alertWindow("Alert!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
 }
-
-
