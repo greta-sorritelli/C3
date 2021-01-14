@@ -16,9 +16,9 @@ public class ICorriere implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
-    private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
-    private final GestoreCorrieri gestoreCorrieri= new GestoreCorrieri();
+    private final GestoreCorrieri gestoreCorrieri= GestoreCorrieri.getInstance();
     private int IDCorriere;
 
     public ICorriere(int ID) throws SQLException {

@@ -16,9 +16,9 @@ public class IAddettoMagazzino implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
-    private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
-    private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
 
     public IAddettoMagazzino() throws SQLException {
     }

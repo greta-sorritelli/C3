@@ -2,8 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,9 +10,10 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class GestoreClientiTest {
 
-    static final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
+    static GestoreClienti gestoreClienti = GestoreClienti.getInstance();
 
     @BeforeAll
     static void clearDB() throws SQLException {
@@ -34,10 +34,11 @@ class GestoreClientiTest {
     }
 
     @Test
+    @Order(2)
     void getClienti() throws SQLException {
         ArrayList<SimpleCliente> test = gestoreClienti.getItems();
-        assertEquals(1, test.get(0).getID());
-        assertEquals(2, test.get(1).getID());
+        assertEquals(1,test.get(0).getID());
+        assertEquals(2,test.get(1).getID());
         assertEquals("Clarissa", test.get(0).getNome());
         assertEquals("Matteo", test.get(1).getNome());
         assertEquals("Albanese", test.get(0).getCognome());
@@ -45,6 +46,7 @@ class GestoreClientiTest {
     }
 
     @Test
+    @Order(3)
     void getDettagliClienti() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreClienti.getDettagliItems();
         assertEquals(test.get(0).get(0), "1");
@@ -61,7 +63,6 @@ class GestoreClientiTest {
         assertTrue(gestoreClienti.getItems().contains(gestoreClienti.getItem(Integer.parseInt(test.get(0)))));
         assertEquals("Sabrina",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getNome());
         assertEquals("Spellman",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getCognome());
-
     }
 
     @Test

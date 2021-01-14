@@ -1,8 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,9 +8,10 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class GestoreCorrieriTest {
 
-    static final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
+    static GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
     @BeforeAll
     static void preparaDB() throws SQLException {
@@ -41,21 +40,23 @@ class GestoreCorrieriTest {
 
     @Test
     void inserisciDati() throws SQLException {
-        ArrayList<String> test = gestoreCorrieri.inserisciDati("Giuseppe","Bianchi");
+        ArrayList<String> test = gestoreCorrieri.inserisciDati("Giuseppe", "Bianchi");
         assertTrue(gestoreCorrieri.getItems().contains(gestoreCorrieri.getItem(Integer.parseInt(test.get(0)))));
-        assertEquals("Giuseppe",gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getNome());
-        assertEquals("Bianchi",gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getCognome());
+        assertEquals("Giuseppe", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getNome());
+        assertEquals("Bianchi", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getCognome());
     }
 
     @Test
+    @Order(2)
     void getCorriere() throws SQLException {
         assertEquals("Matteo", gestoreCorrieri.getItem(2).getNome());
-        assertEquals("false", String.valueOf(gestoreCorrieri.getItem(3).getDisponibilita()));
+        assertEquals("false", String.valueOf(gestoreCorrieri.getItem(2).getDisponibilita()));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreCorrieri.getItem(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
+    @Order(1)
     void getCorrieri() throws SQLException {
         ArrayList<SimpleCorriere> test = gestoreCorrieri.getItems();
         assertEquals(1, test.get(0).getID());
@@ -67,6 +68,7 @@ class GestoreCorrieriTest {
     }
 
     @Test
+    @Order(6)
     void getCorrieriDisponibili() throws SQLException {
         SimpleCorriere simpleCorriere = new SimpleCorriere("Matteo", "Rondini", false);
 
@@ -83,13 +85,13 @@ class GestoreCorrieriTest {
 
         gestoreCorrieri.setDisponibilita(test.get(0).getID(),false);
         gestoreCorrieri.setDisponibilita(test.get(1).getID(),false);
-        gestoreCorrieri.setDisponibilita(test.get(2).getID(),false);
 
         Exception e1 = assertThrows(IllegalArgumentException.class, gestoreCorrieri::getCorrieriDisponibili);
         assertEquals("Corrieri disponibili non presenti.", e1.getMessage());
     }
 
     @Test
+    @Order(4)
     void getDettagliCorrieri() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliItems();
         assertEquals("Clarissa",test.get(0).get(1));
@@ -98,12 +100,13 @@ class GestoreCorrieriTest {
         assertEquals("Albanese",test.get(0).get(2));
         assertEquals("Rondini",test.get(1).get(2));
         assertEquals("Sorritelli",test.get(2).get(2));
-        assertEquals("false",test.get(0).get(3));
+        assertEquals("true",test.get(0).get(3));
         assertEquals("false",test.get(1).get(3) );
-        assertEquals("false",test.get(2).get(3));
+        assertEquals("true",test.get(2).get(3));
     }
 
     @Test
+    @Order(5)
     void getDettagliCorrieriDisponibili() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
         assertEquals("Clarissa",test.get(0).get(1));
@@ -122,8 +125,9 @@ class GestoreCorrieriTest {
     }
 
     @Test
+    @Order(3)
     void selezionaCorriere() throws SQLException {
         assertEquals("Clarissa", gestoreCorrieri.selezionaCorriere(1).get(1));
-        assertEquals("false", gestoreCorrieri.selezionaCorriere(3).get(3));
+        assertEquals("true", gestoreCorrieri.selezionaCorriere(3).get(3));
     }
 }

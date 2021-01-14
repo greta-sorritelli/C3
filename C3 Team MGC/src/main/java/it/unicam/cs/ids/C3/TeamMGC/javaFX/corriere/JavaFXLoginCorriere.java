@@ -13,12 +13,8 @@ import java.sql.SQLException;
 
 public class JavaFXLoginCorriere implements JavaFXController {
 
-    private GestoreCorrieri gestoreCorrieri;
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private int ID;
-
-    public JavaFXLoginCorriere() {
-        this.gestoreCorrieri = new GestoreCorrieri();
-    }
 
     @FXML
     TextField IDCorriere;

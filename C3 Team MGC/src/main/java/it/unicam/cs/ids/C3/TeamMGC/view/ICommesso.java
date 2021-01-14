@@ -15,10 +15,10 @@ public class ICommesso implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
-    private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
-    private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
     public ICommesso() throws SQLException {
     }
