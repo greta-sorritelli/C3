@@ -4,6 +4,8 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +17,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     private final GestoreCorrieri gestoreCorrieri;
     private final GestoreNegozi gestoreNegozi;
     private ArrayList<String> dettagliCorriereSelezionato;
+    private ArrayList<Negozio> negoziSelezionati = new ArrayList<>();
 
     @FXML
     TabPane tab;
@@ -79,6 +82,49 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) {
         //todo manda alert al corriere con i negozi in cui prelevare merce
     }
+
+    @FXML
+    public void conferma() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Attendere...");
+        //todo
+        alert.setContentText("Invio Alert in corso.");
+        selezionaNegozi(alert);
+        confermaAssegnazione(alert);
+    }
+
+    private void selezionaNegozi(Alert alert) {
+        try {
+            if (!negoziTable.getSelectionModel().isEmpty()) {
+                alert.show();
+                ArrayList<ArrayList<String>> sel = new ArrayList<>(negoziTable.getSelectionModel().getSelectedItems());
+                for (ArrayList<String> negozio : sel) {
+                    if (negozio != null) {
+                        int id = Integer.parseInt(negozio.get(0));
+                        this.negoziSelezionati.add(gestoreNegozi.getItem(id));
+                    }
+                }
+                sel.clear();
+            } else
+                alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.");
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
+    private void confermaAssegnazione(Alert alert) {
+        try {
+            if (!negoziTable.getSelectionModel().isEmpty()) {
+                gestoreCorrieri.mandaAlert(Integer.parseInt(dettagliCorriereSelezionato.get(0)), negoziSelezionati);
+                alert.close();
+                successWindow("Alert mandato con successo", "Il corriere e' stato avvisato.");
+                visualizzaNegozi();
+            }
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
 
     @FXML
     public void selezionaCorriere() {

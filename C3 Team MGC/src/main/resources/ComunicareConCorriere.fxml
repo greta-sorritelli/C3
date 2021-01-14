@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <TabPane fx:id="tab" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <tabs>
       <Tab fx:id="tabCorriere" closable="false" onSelectionChanged="#visualizzaCorrieri" text="Selezione Corriere">
@@ -59,7 +58,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button defaultButton="true" layoutX="706.0" layoutY="527.0" mnemonicParsing="false" text="Conferma" AnchorPane.rightAnchor="42.0" />
+                  <Button defaultButton="true" layoutX="706.0" layoutY="527.0" mnemonicParsing="false" onAction="#conferma" text="Conferma" AnchorPane.rightAnchor="42.0" />
                   <Button layoutX="625.0" layoutY="527.0" mnemonicParsing="false" text="&lt;&lt;Back" AnchorPane.rightAnchor="120.0" />
                </children>
             </AnchorPane>
