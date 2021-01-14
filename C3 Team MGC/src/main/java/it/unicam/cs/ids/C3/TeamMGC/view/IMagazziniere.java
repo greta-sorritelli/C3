@@ -8,22 +8,16 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXConsegnareMerceAlCl
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class IMagazziniere implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
     //todo
-    private final PuntoPrelievo puntoPrelievo = new PuntoPrelievo(1);
+    private final SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(1);
 
     private final GestoreClienti gestoreClienti = new GestoreClienti();
     private final GestoreNegozi gestoreNegozi = new GestoreNegozi();
@@ -69,7 +63,7 @@ public class IMagazziniere implements JavaFXController {
      */
     @FXML
     public void consegnaMerceCliente(){
-        openWindow("/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(puntoPrelievo,gestoreOrdini,gestoreClienti));
+        openWindow("/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(simplePuntoPrelievo,gestoreOrdini,gestoreClienti));
     }
 
 }

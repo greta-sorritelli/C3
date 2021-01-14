@@ -24,7 +24,7 @@ class GestoreMagazziniTest {
     @Test
     void ricercaMagazzino() throws SQLException {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
-        PuntoPrelievo punto = gestoreMagazzini.ricercaMagazzino("via Giacinto");
+        SimplePuntoPrelievo punto = gestoreMagazzini.ricercaMagazzino("via Giacinto");
         assertEquals(punto.getID(), 1);
         assertEquals(punto.getNome(), gestoreMagazzini.getItem(1).getNome());
         assertThrows(IllegalArgumentException.class, () -> gestoreMagazzini.ricercaMagazzino("Polo Nord"));
@@ -49,7 +49,7 @@ class GestoreMagazziniTest {
     @Test
     void getMagazziniDisponibili() throws SQLException {
         GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
-        ArrayList<PuntoPrelievo> test = gestoreMagazzini.getItems();
+        ArrayList<SimplePuntoPrelievo> test = gestoreMagazzini.getItems();
         assertEquals(test.get(0).getNome(),"B1");
         assertEquals(test.get(1).getIndirizzo(),"via Giuseppe");
         assertEquals(test.get(2).getNome(),"B3");

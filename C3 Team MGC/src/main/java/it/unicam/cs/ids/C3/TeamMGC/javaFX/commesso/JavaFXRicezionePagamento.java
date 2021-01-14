@@ -3,10 +3,10 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -41,7 +41,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     TextField ordineTextField;
 
     @FXML
-    ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
+    ChoiceBox<SimpleMerce> merceChoiceBox = new ChoiceBox<>();
 
     @FXML
     TextField quantita;
@@ -166,14 +166,14 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     }
 
     /**
-     * Inserisce i dati delle {@link MerceOrdine merci}  nella tabella.
+     * Inserisce i dati delle {@link SimpleMerceOrdine merci}  nella tabella.
      */
     @FXML
     public void visualizzaMerci() {
         try {
             setMerceCellValueFactory();
             merceTable.getItems().clear();
-            for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
+            for (SimpleMerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
                 merceTable.getItems().add(m.getDettagli());
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

@@ -6,6 +6,6 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="391.0" layoutY="314.0" mnemonicParsing="false" onAction="#comunicaCodiceRitiro" text="Comunicare Codice di ritiro" />
-      <Button layoutX="243.0" layoutY="314.0" mnemonicParsing="false" onAction="#ricezionePagamento" text="Pagamento ordine" />
+      <Button layoutX="243.0" layoutY="314.0" mnemonicParsing="false" onAction="#ricezionePagamento" text="Pagamento simpleOrdine" />
    </children>
 </Pane>

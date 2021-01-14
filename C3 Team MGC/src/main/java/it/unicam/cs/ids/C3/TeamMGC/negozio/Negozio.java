@@ -12,7 +12,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class Negozio {
-    private final ArrayList<Merce> inventario = new ArrayList<>();
+    private final ArrayList<SimpleMerce> inventario = new ArrayList<>();
     private final int ID;
     private String nome;
     private String categoria;
@@ -65,29 +65,29 @@ public class Negozio {
     }
 
     /**
-     * Controlla se la {@link Merce} che si vuole creare e' gia' presente nell' Inventario. Se non e' presente
+     * Controlla se la {@link SimpleMerce} che si vuole creare e' gia' presente nell' Inventario. Se non e' presente
      * viene creata e aggiunta all' Inventario del {@link Negozio}.
      *
      * @return la Merce
      * @throws SQLException Errore causato da una query SQL
      */
-    private Merce addMerceInventario(ResultSet rs) throws SQLException {
-        for (Merce merce : inventario)
-            if (merce.getID() == rs.getInt("ID"))
-                return merce;
-        Merce toReturn = new Merce(rs.getInt("ID"));
+    private SimpleMerce addMerceInventario(ResultSet rs) throws SQLException {
+        for (SimpleMerce simpleMerce : inventario)
+            if (simpleMerce.getID() == rs.getInt("ID"))
+                return simpleMerce;
+        SimpleMerce toReturn = new SimpleMerce(rs.getInt("ID"));
         addMerceToList(toReturn);
         return toReturn;
     }
 
     /**
-     * Aggiunge un {@link Merce} all' inventario.
+     * Aggiunge un {@link SimpleMerce} all' inventario.
      *
-     * @param merce Merce da aggiungere
+     * @param simpleMerce Merce da aggiungere
      */
-    private void addMerceToList(Merce merce) {
-        if (!inventario.contains(merce))
-            inventario.add(merce);
+    private void addMerceToList(SimpleMerce simpleMerce) {
+        if (!inventario.contains(simpleMerce))
+            inventario.add(simpleMerce);
     }
 
     public String getCategoria() {
@@ -123,25 +123,25 @@ public class Negozio {
         return indirizzo;
     }
 
-    public ArrayList<Merce> getInventario() {
+    public ArrayList<SimpleMerce> getInventario() {
         return inventario;
     }
 
     /**
-     * Ritorna la {@link Merce} collegata all' {@code ID}.
+     * Ritorna la {@link SimpleMerce} collegata all' {@code ID}.
      *
      * @param ID Codice Identificativo della Merce
      *
      * @return la Merce desiderata
      * @throws SQLException Errore causato da una query SQL
      */
-    public Merce getMerce(int ID) throws SQLException {
+    public SimpleMerce getMerce(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
                 this.ID + "' ;");
         if (rs.next()) {
-            Merce merce = addMerceInventario(rs);
+            SimpleMerce simpleMerce = addMerceInventario(rs);
             disconnectToDB(rs);
-            return merce;
+            return simpleMerce;
         }
         else {
             disconnectToDB(rs);
@@ -166,12 +166,12 @@ public class Negozio {
     }
 
     /**
-     * Ritorna tutta la {@link Merce} all' interno del {@link Negozio}.
+     * Ritorna tutta la {@link SimpleMerce} all' interno del {@link Negozio}.
      *
      * @return l'elenco della Merce del Negozio
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<Merce> getMerceDisponibile() throws SQLException {
+    public ArrayList<SimpleMerce> getMerceDisponibile() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
         while (rs.next())
             addMerceInventario(rs);
@@ -196,7 +196,7 @@ public class Negozio {
     }
 
     /**
-     * Crea e inserisce una nuova {@link Merce} all 'interno dell' inventario.
+     * Crea e inserisce una nuova {@link SimpleMerce} all 'interno dell' inventario.
      *
      * @param prezzo      Prezzo della merce da inserire
      * @param descrizione Descrizione della merce da inserire
@@ -206,13 +206,13 @@ public class Negozio {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
-        Merce merce = new Merce(this.ID, prezzo, descrizione, quantita);
-        addMerceToList(merce);
-        return merce.getDettagli();
+        SimpleMerce simpleMerce = new SimpleMerce(this.ID, prezzo, descrizione, quantita);
+        addMerceToList(simpleMerce);
+        return simpleMerce.getDettagli();
     }
 
     /**
-     * Rimuove la {@link Merce} dall' inventario.
+     * Rimuove la {@link SimpleMerce} dall' inventario.
      *
      * @param IDMerce ID della Merce da rimuovere.
      *
@@ -220,14 +220,14 @@ public class Negozio {
      */
     //todo rivedere test
     public void removeMerce(int IDMerce) throws SQLException {
-        Merce toDelete = getMerce(IDMerce);
+        SimpleMerce toDelete = getMerce(IDMerce);
         inventario.remove(toDelete);
         toDelete.delete();
 
     }
 
     /**
-     * Seleziona la {@link Merce} tramite l' {@code ID}.
+     * Seleziona la {@link SimpleMerce} tramite l' {@code ID}.
      *
      * @param IDMerce ID della merce da selezionare
      *

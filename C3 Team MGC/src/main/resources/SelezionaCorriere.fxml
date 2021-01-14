@@ -17,7 +17,7 @@
             <TableColumn fx:id="CognomeCorriere" prefWidth="353.0" text="Cognome" />
         </columns>
       </TableView>
-      <Label layoutX="42.0" layoutY="41.0" text="Seleziona corriere disponibile per consegnare la merce alla residenza del cliente">
+      <Label layoutX="42.0" layoutY="41.0" text="Seleziona simpleCorriere disponibile per consegnare la simpleMerce alla residenza del simpleCliente">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

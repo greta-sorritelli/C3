@@ -1,7 +1,7 @@
 
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -18,14 +18,14 @@ import java.util.ArrayList;
 public class JavaFXSelezionaCorriere implements JavaFXController {
 
     private final GestoreCorrieri gestoreCorrieri;
-    private Corriere selectedCorriere;
+    private SimpleCorriere selectedSimpleCorriere;
     private String residenza;
     private final Negozio negozio;
 
     public JavaFXSelezionaCorriere(GestoreCorrieri gestoreCorrieri, String residenza, Negozio negozio) {
         this.gestoreCorrieri = gestoreCorrieri;
         this.negozio = negozio;
-        this.selectedCorriere = null;
+        this.selectedSimpleCorriere = null;
         this.residenza = residenza;
     }
 
@@ -74,7 +74,7 @@ public class JavaFXSelezionaCorriere implements JavaFXController {
             if (!corriereTable.getSelectionModel().isEmpty()) {
                 int ID = Integer.parseInt(corriereTable.getSelectionModel().getSelectedItem().get(0));
                 if (gestoreCorrieri.getItem(ID) != null) {
-                    this.selectedCorriere = gestoreCorrieri.getItem(ID);
+                    this.selectedSimpleCorriere = gestoreCorrieri.getItem(ID);
                     gestoreCorrieri.mandaAlert(ID, negozio, residenza);
                     successWindow("Alert mandato con successo!", "L' alert e' stato inviato al corriere.");
                     closeWindow((Stage) corriereTable.getScene().getWindow());

@@ -11,8 +11,8 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MerceTest {
-    static Merce merceTest;
+class SimpleMerceTest {
+    static SimpleMerce simpleMerceTest;
     static Negozio negozioTest;
 
     @BeforeAll
@@ -22,25 +22,25 @@ class MerceTest {
         updateData("delete from sys.negozi;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         negozioTest = new Negozio("merceria", "oggettistica", null, null, "via roma", null);
-        merceTest = new Merce(1, 12, "test allSet", 10);
+        simpleMerceTest = new SimpleMerce(1, 12, "test allSet", 10);
     }
 
     @Test
     void creazioneMerce() throws SQLException {
         Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
-        Merce merce = new Merce(negozio.getID(), 60, "sciarpa",3);
+        SimpleMerce simpleMerce = new SimpleMerce(negozio.getID(), 60, "sciarpa",3);
 
-        assertEquals(negozio.getID(), merce.getIDNegozio());
-        assertEquals(60, merce.getPrezzo());
-        assertEquals("sciarpa", merce.getDescrizione());
-        assertEquals(3, merce.getQuantita());
-        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Merce(1000));
+        assertEquals(negozio.getID(), simpleMerce.getIDNegozio());
+        assertEquals(60, simpleMerce.getPrezzo());
+        assertEquals("sciarpa", simpleMerce.getDescrizione());
+        assertEquals(3, simpleMerce.getQuantita());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimpleMerce(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
     void delete() throws SQLException {
-        Merce toDelete = new Merce(1, 15, "test delete", 10);
+        SimpleMerce toDelete = new SimpleMerce(1, 15, "test delete", 10);
         int tmpID = toDelete.getID();
         toDelete.delete();
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID = '" + tmpID + "';");
@@ -54,32 +54,32 @@ class MerceTest {
 
     @Test
     void getDettagli() throws SQLException {
-        Merce merce = new Merce(1, 6.5, "test getDettagli", 2);
-        int IDTest = merce.getID();
+        SimpleMerce simpleMerce = new SimpleMerce(1, 6.5, "test getDettagli", 2);
+        int IDTest = simpleMerce.getID();
         ArrayList<String> toControl = new ArrayList<>();
         toControl.add(String.valueOf(IDTest));
         toControl.add("1");
         toControl.add("6.5");
         toControl.add("test getDettagli");
         toControl.add("2");
-        assertEquals(toControl, merce.getDettagli());
+        assertEquals(toControl, simpleMerce.getDettagli());
 
         updateData("UPDATE sys.inventario SET prezzo = '25' WHERE (ID = '" + IDTest + "');");
-        assertNotEquals(toControl, merce.getDettagli());
+        assertNotEquals(toControl, simpleMerce.getDettagli());
         toControl.clear();
         toControl.add(String.valueOf(IDTest));
         toControl.add("1");
         toControl.add("25.0");
         toControl.add("test getDettagli");
         toControl.add("2");
-        assertEquals(toControl, merce.getDettagli());
+        assertEquals(toControl, simpleMerce.getDettagli());
     }
 
     @Test
     void setDescrizione() throws SQLException {
-        assertEquals("test allSet", merceTest.getDescrizione());
-        merceTest.setDescrizione("test setDescrizione");
-        assertEquals("test setDescrizione", merceTest.getDescrizione());
+        assertEquals("test allSet", simpleMerceTest.getDescrizione());
+        simpleMerceTest.setDescrizione("test setDescrizione");
+        assertEquals("test setDescrizione", simpleMerceTest.getDescrizione());
 
         ResultSet rs = executeQuery("SELECT descrizione FROM sys.inventario where ID = 1;");
         if (rs.next())
@@ -88,9 +88,9 @@ class MerceTest {
 
     @Test
     void setPrezzo() throws SQLException {
-        assertEquals(12, merceTest.getPrezzo());
-        merceTest.setPrezzo(15);
-        assertEquals(15, merceTest.getPrezzo());
+        assertEquals(12, simpleMerceTest.getPrezzo());
+        simpleMerceTest.setPrezzo(15);
+        assertEquals(15, simpleMerceTest.getPrezzo());
 
         ResultSet rs = executeQuery("SELECT prezzo FROM sys.inventario where ID = 1;");
         if (rs.next())
@@ -99,9 +99,9 @@ class MerceTest {
 
     @Test
     void setQuantita() throws SQLException {
-        assertEquals(10, merceTest.getQuantita());
-        merceTest.setQuantita(100);
-        assertEquals(100, merceTest.getQuantita());
+        assertEquals(10, simpleMerceTest.getQuantita());
+        simpleMerceTest.setQuantita(100);
+        assertEquals(100, simpleMerceTest.getQuantita());
 
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = 1;");
         if (rs.next())
@@ -110,19 +110,19 @@ class MerceTest {
 
     @Test
     void update() throws SQLException {
-        Merce merceTest = new Merce(1, 6.5, "test update", 2);
-        int IDTest = merceTest.getID();
-        assertEquals(6.5, merceTest.getPrezzo());
-        assertEquals("test update", merceTest.getDescrizione());
-        assertEquals(2, merceTest.getQuantita());
+        SimpleMerce simpleMerceTest = new SimpleMerce(1, 6.5, "test update", 2);
+        int IDTest = simpleMerceTest.getID();
+        assertEquals(6.5, simpleMerceTest.getPrezzo());
+        assertEquals("test update", simpleMerceTest.getDescrizione());
+        assertEquals(2, simpleMerceTest.getQuantita());
 
         updateData("UPDATE sys.inventario SET prezzo = '12.0' WHERE (ID = '" + IDTest + "');");
         updateData("UPDATE sys.inventario SET descrizione = 'test update 2.0' WHERE (ID = '" + IDTest + "');");
         updateData("UPDATE sys.inventario SET quantita = '6' WHERE (ID = '" + IDTest + "');");
 
-        merceTest.update();
-        assertEquals(12.0, merceTest.getPrezzo());
-        assertEquals("test update 2.0", merceTest.getDescrizione());
-        assertEquals(6, merceTest.getQuantita());
+        simpleMerceTest.update();
+        assertEquals(12.0, simpleMerceTest.getPrezzo());
+        assertEquals("test update 2.0", simpleMerceTest.getDescrizione());
+        assertEquals(6, simpleMerceTest.getQuantita());
     }
 }

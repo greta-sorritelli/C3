@@ -33,13 +33,13 @@ class NegozioTest {
     @Test
     void getMerce() throws SQLException {
         Negozio negozio = new Negozio(1);
-        Merce merce1 = negozio.getMerce(1);
-        Merce merce2 = negozio.getMerce(1);
-        merce1.setQuantita(500);
-        assertEquals(merce1.getQuantita(), 500);
-        assertEquals(merce2.getQuantita(), 500);
-        assertTrue(negozio.getMerceDisponibile().contains(merce1));
-        assertTrue(negozio.getMerceDisponibile().contains(merce2));
+        SimpleMerce simpleMerce1 = negozio.getMerce(1);
+        SimpleMerce simpleMerce2 = negozio.getMerce(1);
+        simpleMerce1.setQuantita(500);
+        assertEquals(simpleMerce1.getQuantita(), 500);
+        assertEquals(simpleMerce2.getQuantita(), 500);
+        assertTrue(negozio.getMerceDisponibile().contains(simpleMerce1));
+        assertTrue(negozio.getMerceDisponibile().contains(simpleMerce2));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> negozio.getMerce(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
@@ -47,7 +47,7 @@ class NegozioTest {
     @Test
     void getMerceDisponibile() throws SQLException {
         Negozio negozio = new Negozio(1);
-        ArrayList<Merce> inventario = negozio.getMerceDisponibile();
+        ArrayList<SimpleMerce> inventario = negozio.getMerceDisponibile();
         assertEquals(1, inventario.get(0).getID());
         assertEquals(1, inventario.get(1).getIDNegozio());
         assertEquals("test Negozio", inventario.get(2).getDescrizione());
@@ -79,7 +79,7 @@ class NegozioTest {
     @Test
     void removeMerce() throws SQLException {
         Negozio negozio = new Negozio(1);
-        Merce toDelete = new Merce(1, 15, "test delete", 10);
+        SimpleMerce toDelete = new SimpleMerce(1, 15, "test delete", 10);
         negozio.removeMerce(toDelete.getID());
         assertFalse(negozio.getMerceDisponibile().contains(toDelete));
     }
@@ -96,12 +96,12 @@ class NegozioTest {
     @Test
     void setQuantita() throws SQLException {
         Negozio negozio = new Negozio(1);
-        Merce merce = negozio.getMerce(1);
-        assertEquals(10, merce.getQuantita());
-        merce.setQuantita(100);
-        assertEquals(100, merce.getQuantita());
-        negozio.setQuantita(merce.getID(), 20);
-        assertEquals(20, negozio.getMerce(merce.getID()).getQuantita());
+        SimpleMerce simpleMerce = negozio.getMerce(1);
+        assertEquals(10, simpleMerce.getQuantita());
+        simpleMerce.setQuantita(100);
+        assertEquals(100, simpleMerce.getQuantita());
+        negozio.setQuantita(simpleMerce.getID(), 20);
+        assertEquals(20, negozio.getMerce(simpleMerce.getID()).getQuantita());
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = 1;");
         if (rs.next())
             assertEquals(20, rs.getInt("quantita"));

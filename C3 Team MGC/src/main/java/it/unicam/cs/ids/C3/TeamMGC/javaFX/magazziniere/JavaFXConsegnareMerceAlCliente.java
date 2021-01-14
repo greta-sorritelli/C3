@@ -3,12 +3,10 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 
 public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
 
-    private final PuntoPrelievo puntoPrelievo;
+    private final SimplePuntoPrelievo simplePuntoPrelievo;
     private final GestoreOrdini gestoreOrdini;
     private final GestoreClienti gestoreClienti;
 
@@ -45,8 +43,8 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
 
-    public JavaFXConsegnareMerceAlCliente(PuntoPrelievo puntoPrelievo, GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti) {
-        this.puntoPrelievo = puntoPrelievo;
+    public JavaFXConsegnareMerceAlCliente(SimplePuntoPrelievo simplePuntoPrelievo, GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti) {
+        this.simplePuntoPrelievo = simplePuntoPrelievo;
         this.gestoreOrdini = gestoreOrdini;
         this.gestoreClienti = gestoreClienti;
     }
@@ -86,7 +84,7 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
 
             if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
-                ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(puntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
+                ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(simplePuntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
                 visualizzaMerci(merci);
                 successWindow("Verifica codice eseguita con successo!","Il codice inserito appartiene al cliente.");
                 if(merci.isEmpty()) {

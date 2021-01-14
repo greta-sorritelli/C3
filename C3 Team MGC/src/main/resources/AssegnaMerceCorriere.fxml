@@ -67,7 +67,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab fx:id="merceOrdine" disable="true" onSelectionChanged="#visualizzaMerce" text="MerceOrdine">
+      <Tab fx:id="simpleMerceOrdine" disable="true" onSelectionChanged="#visualizzaMerce" text="MerceOrdine">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -84,7 +84,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Label layoutX="43.0" layoutY="39.0" text="Merce da affidare al corriere" AnchorPane.topAnchor="26.0">
+                  <Label layoutX="43.0" layoutY="39.0" text="Merce da affidare al simpleCorriere" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

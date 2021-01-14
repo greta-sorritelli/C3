@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,42 +15,42 @@ import java.util.Random;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la gestione di ogni {@link Cliente}
+ * Classe per la gestione di ogni {@link SimpleCliente}
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class GestoreClienti implements Gestore<Cliente> {
+public class GestoreClienti implements Gestore<SimpleCliente> {
 
-    private final ArrayList<Cliente> clienti = new ArrayList<>();
+    private final ArrayList<SimpleCliente> clienti = new ArrayList<>();
 
     /**
-     * Controlla se il {@link Cliente} che si vuole creare e' gia' presente nella lista dei clienti. Se non e' presente
+     * Controlla se il {@link SimpleCliente} che si vuole creare e' gia' presente nella lista dei clienti. Se non e' presente
      * viene creato e aggiunto alla lista.
      *
      * @return Il Cliente
      * @throws SQLException Errore causato da una query SQL
      */
-    private Cliente addCliente(ResultSet rs) throws SQLException {
-        for (Cliente cliente : clienti)
-            if (cliente.getID() == rs.getInt("ID"))
-                return cliente;
-        Cliente toReturn = new Cliente(rs.getInt("ID"));
+    private SimpleCliente addCliente(ResultSet rs) throws SQLException {
+        for (SimpleCliente simpleCliente : clienti)
+            if (simpleCliente.getID() == rs.getInt("ID"))
+                return simpleCliente;
+        SimpleCliente toReturn = new SimpleCliente(rs.getInt("ID"));
         addClienteToList(toReturn);
         return toReturn;
     }
 
     /**
-     * Aggiunge un {@link Cliente} alla lista di clienti.
+     * Aggiunge un {@link SimpleCliente} alla lista di clienti.
      *
-     * @param cliente Cliente da aggiungere
+     * @param simpleCliente Cliente da aggiungere
      */
-    private void addClienteToList(Cliente cliente) {
-        if (!clienti.contains(cliente))
-            clienti.add(cliente);
+    private void addClienteToList(SimpleCliente simpleCliente) {
+        if (!clienti.contains(simpleCliente))
+            clienti.add(simpleCliente);
     }
 
     /**
-     * Crea il nuovo {@code Codice di Ritiro} e lo associa all' {@link Ordine} ed al {@link Cliente} .
+     * Crea il nuovo {@code Codice di Ritiro} e lo associa all' {@link SimpleOrdine} ed al {@link SimpleCliente} .
      *
      * @param IDCliente Codice Identificativo del Cliente
      * @param IDOrdine  Codice Identificativo dell' Ordine
@@ -64,7 +64,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Genera il nuovo {@code Codice di Ritiro} del {@link Cliente}.
+     * Genera il nuovo {@code Codice di Ritiro} del {@link SimpleCliente}.
      *
      * @return il Codice generato
      */
@@ -77,7 +77,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Ritorna la lista dei dettagli dei {@link Cliente Clienti} presenti nel DB.
+     * Ritorna la lista dei dettagli dei {@link SimpleCliente Clienti} presenti nel DB.
      *
      * @return ArrayList<ArrayList < String>> dei dettagli dei Clienti.
      * @throws SQLException Errore causato da una query SQL
@@ -88,14 +88,14 @@ public class GestoreClienti implements Gestore<Cliente> {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
         while (rs.next())
             addCliente(rs);
-        for (Cliente cliente : clienti)
-            dettagli.add(cliente.getDettagli());
+        for (SimpleCliente simpleCliente : clienti)
+            dettagli.add(simpleCliente.getDettagli());
         disconnectToDB(rs);
         return dettagli;
     }
 
     /**
-     * Ritorna il {@link Cliente} collegato all' {@code ID}.
+     * Ritorna il {@link SimpleCliente} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Cliente
      *
@@ -103,7 +103,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public Cliente getItem(int ID) throws SQLException {
+    public SimpleCliente getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
         if (rs.next()) {
             return addCliente(rs);
@@ -115,13 +115,13 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Ritorna la lista dei {@link Cliente Clienti} presenti nel DB.
+     * Ritorna la lista dei {@link SimpleCliente Clienti} presenti nel DB.
      *
      * @return ArrayList<Cliente> dei Clienti.
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public ArrayList<Cliente> getItems() throws SQLException {
+    public ArrayList<SimpleCliente> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
         while (rs.next())
             addCliente(rs);
@@ -130,7 +130,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Crea e inserisce un nuovo {@link Cliente} nella lista.
+     * Crea e inserisce un nuovo {@link SimpleCliente} nella lista.
      *
      * @param nome    Nome del cliente da inserire
      * @param cognome Cognome del cliente da inserire
@@ -139,9 +139,9 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
-        Cliente cliente = new Cliente(nome, cognome);
-        addClienteToList(cliente);
-        return cliente.getDettagli();
+        SimpleCliente simpleCliente = new SimpleCliente(nome, cognome);
+        addClienteToList(simpleCliente);
+        return simpleCliente.getDettagli();
     }
 
     /**
@@ -172,7 +172,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Verifica se il codice di ritiro è quello associato al {@link Cliente}
+     * Verifica se il codice di ritiro è quello associato al {@link SimpleCliente}
      *
      * @param IDCliente    Codice Identificativo del Cliente
      * @param codiceRitiro Codice di Ritiro comunicato dal Cliente
@@ -181,9 +181,9 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @throws SQLException Errore causato da una query SQL
      */
     public boolean verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
-        Cliente cliente = getItem(IDCliente);
-        cliente.update();
-        return verificaCodice(codiceRitiro, cliente.getCodiceRitiro());
+        SimpleCliente simpleCliente = getItem(IDCliente);
+        simpleCliente.update();
+        return verificaCodice(codiceRitiro, simpleCliente.getCodiceRitiro());
     }
 
     /**

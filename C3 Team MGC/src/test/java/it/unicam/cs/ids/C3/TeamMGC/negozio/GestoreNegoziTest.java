@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
-import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -75,13 +75,13 @@ class GestoreNegoziTest {
     @Test
     void getDettagliItemsConOrdini() throws SQLException {
         GestoreNegozi gestoreNegozi = new GestoreNegozi();
-        Cliente cliente = new Cliente("Yoshi", "Haloa");
-        Ordine ordine1 = new Ordine(cliente.getID(), cliente.getNome(), cliente.getCognome(), 1);
-        ordine1.setStato(StatoOrdine.PAGATO);
+        SimpleCliente simpleCliente = new SimpleCliente("Yoshi", "Haloa");
+        SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), 1);
+        simpleOrdine1.setStato(StatoOrdine.PAGATO);
         assertEquals(1, gestoreNegozi.getDettagliItemsConOrdini().size());
         assertEquals(gestoreNegozi.getDettagliItems().get(0).get(1), "Emporio");
         assertEquals(gestoreNegozi.getDettagliItems().get(0).get(5), "Via Culmone");
-        ordine1.setStato(StatoOrdine.IN_DEPOSITO);
+        simpleOrdine1.setStato(StatoOrdine.IN_DEPOSITO);
         assertEquals(0, gestoreNegozi.getDettagliItemsConOrdini().size());
     }
 }

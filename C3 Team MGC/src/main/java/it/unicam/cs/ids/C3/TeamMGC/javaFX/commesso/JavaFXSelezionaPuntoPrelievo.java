@@ -3,12 +3,11 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXSelezionaCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -51,7 +50,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     Tab ritiro;
 
     @FXML
-    ChoiceBox<PuntoPrelievo> choicePuntoPrelievo = new ChoiceBox<>();
+    ChoiceBox<SimplePuntoPrelievo> choicePuntoPrelievo = new ChoiceBox<>();
 
     @FXML
     TextField residenza;

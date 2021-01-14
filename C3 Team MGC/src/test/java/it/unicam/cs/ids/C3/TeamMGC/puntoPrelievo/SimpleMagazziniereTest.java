@@ -9,7 +9,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MagazziniereTest {
+class SimpleMagazziniereTest {
 
     @BeforeEach
     void clearDB() throws SQLException {
@@ -19,13 +19,13 @@ class MagazziniereTest {
 
     @Test
     void creazioneMagazziniere() throws SQLException {
-        PuntoPrelievo p = new PuntoPrelievo("via Verdi","B1");
-        Magazziniere magazziniere = new Magazziniere(p.getID(),"Mario", "Rossi");
+        SimplePuntoPrelievo p = new SimplePuntoPrelievo("via Verdi","B1");
+        SimpleMagazziniere simpleMagazziniere = new SimpleMagazziniere(p.getID(),"Mario", "Rossi");
 
-        assertEquals(p.getID(), magazziniere.getIDPuntoPrelievo());
-        assertEquals("Mario", magazziniere.getNome());
-        assertEquals("Rossi", magazziniere.getCognome());
-        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new Magazziniere(1000));
+        assertEquals(p.getID(), simpleMagazziniere.getIDPuntoPrelievo());
+        assertEquals("Mario", simpleMagazziniere.getNome());
+        assertEquals("Rossi", simpleMagazziniere.getCognome());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimpleMagazziniere(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
 }

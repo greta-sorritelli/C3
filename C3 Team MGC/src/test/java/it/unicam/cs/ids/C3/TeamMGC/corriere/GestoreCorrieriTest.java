@@ -60,7 +60,7 @@ class GestoreCorrieriTest {
     @Test
     void getCorrieri() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
-        ArrayList<Corriere> test = gestoreCorrieri.getItems();
+        ArrayList<SimpleCorriere> test = gestoreCorrieri.getItems();
         assertEquals(1, test.get(0).getID());
         assertEquals(2, test.get(1).getID());
         assertEquals(3, test.get(2).getID());
@@ -72,18 +72,18 @@ class GestoreCorrieriTest {
     @Test
     void getCorrieriDisponibili() throws SQLException {
         GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
-        Corriere corriere = new Corriere("Matteo", "Rondini", false);
+        SimpleCorriere simpleCorriere = new SimpleCorriere("Matteo", "Rondini", false);
 
         gestoreCorrieri.getItems().get(0).setDisponibilita(true);
         gestoreCorrieri.getItems().get(2).setDisponibilita(true);
 
-        ArrayList<Corriere> test = gestoreCorrieri.getCorrieriDisponibili();
+        ArrayList<SimpleCorriere> test = gestoreCorrieri.getCorrieriDisponibili();
 
         assertEquals(1, test.get(0).getID());
         assertEquals(3, test.get(1).getID());
         assertTrue(test.get(0).getDisponibilita());
         assertTrue(test.get(1).getDisponibilita());
-        assertFalse(test.contains(corriere));
+        assertFalse(test.contains(simpleCorriere));
 
         gestoreCorrieri.setDisponibilita(test.get(0).getID(),false);
         gestoreCorrieri.setDisponibilita(test.get(1).getID(),false);

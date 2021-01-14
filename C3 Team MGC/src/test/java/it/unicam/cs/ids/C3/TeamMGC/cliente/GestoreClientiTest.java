@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +35,7 @@ class GestoreClientiTest {
     @Test
     void getClienti() throws SQLException {
         GestoreClienti gestoreClienti = new GestoreClienti();
-        ArrayList<Cliente> test = gestoreClienti.getItems();
+        ArrayList<SimpleCliente> test = gestoreClienti.getItems();
         assertEquals(1, test.get(0).getID());
         assertEquals(2, test.get(1).getID());
         assertEquals("Clarissa", test.get(0).getNome());
@@ -71,8 +71,8 @@ class GestoreClientiTest {
         GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
         Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        Ordine ordine = new Ordine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
-        String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)),ordine.getID());
+        SimpleOrdine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
+        String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
         assertTrue(gestoreClienti.verificaCodice(Integer.parseInt(dettagli.get(0)),codice));
         assertFalse(gestoreClienti.verificaCodice(Integer.parseInt(dettagli.get(0)),"1256"));
 
@@ -83,13 +83,13 @@ class GestoreClientiTest {
         GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
         Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        Ordine ordine = new Ordine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
-        String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), ordine.getID());
-        Cliente cliente = gestoreClienti.getItem(Integer.parseInt(dettagli.get(0)));
-        assertNotEquals("", cliente.getCodiceRitiro());
-        assertEquals(codice, cliente.getCodiceRitiro());
-        assertTrue(gestoreClienti.verificaCodice(cliente.getID(), codice));
-        assertEquals(codice, gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), ordine.getID()));
+        SimpleOrdine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
+        String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
+        SimpleCliente simpleCliente = gestoreClienti.getItem(Integer.parseInt(dettagli.get(0)));
+        assertNotEquals("", simpleCliente.getCodiceRitiro());
+        assertEquals(codice, simpleCliente.getCodiceRitiro());
+        assertTrue(gestoreClienti.verificaCodice(simpleCliente.getID(), codice));
+        assertEquals(codice, gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID()));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreClienti.verificaEsistenzaCodice(1000, 1000));
         assertEquals("ID non valido.", e1.getMessage());
     }

@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -28,7 +28,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
     TextField quantita1;
 
     @FXML
-    ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
+    ChoiceBox<SimpleMerce> merceChoiceBox = new ChoiceBox<>();
 
     ArrayList<ArrayList<String>> merceCreata = new ArrayList<>();
 
@@ -178,7 +178,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
     }
 
     /**
-     * Inserisce i dati delle {@link Merce Merci} dell' inventario nella tabella.
+     * Inserisce i dati delle {@link SimpleMerce Merci} dell' inventario nella tabella.
      */
     @FXML
     public void visualizzaMerci() {
@@ -194,7 +194,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
     }
 
     /**
-     * Inserisce i dati delle {@link Merce Merci} create nella tabella.
+     * Inserisce i dati delle {@link SimpleMerce Merci} create nella tabella.
      */
     @FXML
     public void visualizzaMerciInserite() {

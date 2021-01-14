@@ -1,13 +1,13 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -72,17 +72,17 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     TableColumn<ArrayList<String>, String> StatoMerce;
     @FXML
     TextField residenzaTextField;
-    private Corriere selectedCorriere;
-    private PuntoPrelievo selectedMagazzino;
+    private SimpleCorriere selectedSimpleCorriere;
+    private SimplePuntoPrelievo selectedMagazzino;
     private String selectedResidenza;
-    private ArrayList<MerceOrdine> selectedMerce;
+    private ArrayList<SimpleMerceOrdine> selectedMerce;
 
 
     public JavaFXAssegnaMerceCorriere(GestoreCorrieri gestoreCorrieri, GestoreMagazzini gestoreMagazzini, GestoreOrdini gestoreOrdini) {
         this.gestoreCorrieri = gestoreCorrieri;
         this.gestoreMagazzini = gestoreMagazzini;
         this.gestoreOrdini = gestoreOrdini;
-        this.selectedCorriere = null;
+        this.selectedSimpleCorriere = null;
         this.selectedMagazzino = null;
         this.selectedMerce = new ArrayList<>();
     }
@@ -122,7 +122,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     private void confermaAssegnazioneMerce(Alert alert) {
         try {
             if (!merceOrdineTable.getSelectionModel().isEmpty()) {
-                for (MerceOrdine merce : selectedMerce) {
+                for (SimpleMerceOrdine merce : selectedMerce) {
                     if (merce != null) {
                         gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
                     }
@@ -151,7 +151,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             if (!corriereTable.getSelectionModel().isEmpty()) {
                 int id = Integer.parseInt(corriereTable.getSelectionModel().getSelectedItem().get(0));
                 if (gestoreCorrieri.getItem(id) != null) {
-                    this.selectedCorriere = gestoreCorrieri.getItem(id);
+                    this.selectedSimpleCorriere = gestoreCorrieri.getItem(id);
                     destinazione.setDisable(false);
                     tab.getSelectionModel().select(destinazione);
                     corrieri.setDisable(true);
