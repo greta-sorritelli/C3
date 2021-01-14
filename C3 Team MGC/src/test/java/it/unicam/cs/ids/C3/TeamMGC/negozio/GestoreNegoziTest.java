@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GestoreNegoziTest {
 
+    static final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
+
     @BeforeAll
     static void preparaDB() throws SQLException {
         updateData("delete from sys.negozi;");
@@ -28,7 +30,6 @@ class GestoreNegoziTest {
 
     @Test
     void getItem() throws SQLException {
-        GestoreNegozi gestoreNegozi = new GestoreNegozi();
         assertEquals("Via Culmone", gestoreNegozi.getItem(1).getIndirizzo());
         ArrayList<String> prova = new ArrayList<>();
         prova.add("1");
@@ -48,7 +49,6 @@ class GestoreNegoziTest {
     //todo controllare addNegozio (import dati dal database)
     @Test
     void getItems() throws SQLException {
-        GestoreNegozi gestoreNegozi = new GestoreNegozi();
         ArrayList<Negozio> test = gestoreNegozi.getItems();
         assertEquals(1, test.get(0).getID());
         assertEquals(2, test.get(1).getID());
@@ -60,7 +60,6 @@ class GestoreNegoziTest {
 
     @Test
     void getDettagliItems() throws SQLException {
-        GestoreNegozi gestoreNegozi = new GestoreNegozi();
         ArrayList<ArrayList<String>> test = gestoreNegozi.getDettagliItems();
         assertEquals(test.get(0).get(1), "Emporio");
         assertEquals(test.get(0).get(5), "Via Culmone");
@@ -74,7 +73,6 @@ class GestoreNegoziTest {
     //todo finire
     @Test
     void getDettagliItemsConOrdini() throws SQLException {
-        GestoreNegozi gestoreNegozi = new GestoreNegozi();
         SimpleCliente simpleCliente = new SimpleCliente("Yoshi", "Haloa");
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), 1);
         simpleOrdine1.setStato(StatoOrdine.PAGATO);

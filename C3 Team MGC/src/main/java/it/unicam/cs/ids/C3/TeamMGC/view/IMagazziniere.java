@@ -19,9 +19,9 @@ public class IMagazziniere implements JavaFXController {
     //todo
     private final SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(1);
 
-    private final GestoreClienti gestoreClienti = new GestoreClienti();
-    private final GestoreNegozi gestoreNegozi = new GestoreNegozi();
-    private final GestoreCorrieri gestoreCorrieri = new GestoreCorrieri();
+    private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
+    private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
     private int IDMazziniere;
 

@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
 import java.sql.ResultSet;
@@ -17,7 +18,17 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
  */
 public class GestoreNegozi implements Gestore<Negozio> {
 
+    private static GestoreNegozi gestoreNegozi;
     ArrayList<Negozio> negozi = new ArrayList<>();
+
+    private GestoreNegozi() {
+    }
+
+    public static GestoreNegozi getInstance() {
+        if (gestoreNegozi == null)
+            gestoreNegozi = new GestoreNegozi();
+        return gestoreNegozi;
+    }
 
     /**
      * Controlla se il {@link Negozio} che si vuole creare e' gia' presente nella lista dei negozi. Se non e' presente

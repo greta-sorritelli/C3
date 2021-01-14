@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GestoreMagazziniTest {
 
+    static final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
+
     @BeforeAll
     static void preparaDB() throws SQLException {
         updateData("delete from sys.punti_prelievo;");
@@ -23,7 +25,6 @@ class GestoreMagazziniTest {
 
     @Test
     void ricercaMagazzino() throws SQLException {
-        GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         SimplePuntoPrelievo punto = gestoreMagazzini.ricercaMagazzino("via Giacinto");
         assertEquals(punto.getID(), 1);
         assertEquals(punto.getNome(), gestoreMagazzini.getItem(1).getNome());
@@ -32,7 +33,6 @@ class GestoreMagazziniTest {
 
     @Test
     void getDettagliMagazziniDisponibili() throws SQLException {
-        GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         ArrayList<ArrayList<String>> test = gestoreMagazzini.getDettagliItems();
         assertEquals(test.get(0).get(0),"1");
         assertEquals(test.get(0).get(1), "B1");
@@ -48,7 +48,6 @@ class GestoreMagazziniTest {
 
     @Test
     void getMagazziniDisponibili() throws SQLException {
-        GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         ArrayList<SimplePuntoPrelievo> test = gestoreMagazzini.getItems();
         assertEquals(test.get(0).getNome(),"B1");
         assertEquals(test.get(1).getIndirizzo(),"via Giuseppe");
@@ -57,7 +56,6 @@ class GestoreMagazziniTest {
 
     @Test
     void getPuntoPrelievo() throws SQLException {
-        GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         assertEquals("B1", gestoreMagazzini.getItem(1).getNome());
         assertEquals("via Giuseppe", gestoreMagazzini.getItem(2).getIndirizzo());
         assertEquals("via Paolo", gestoreMagazzini.getItem(3).getIndirizzo());
@@ -66,7 +64,6 @@ class GestoreMagazziniTest {
 
     @Test
     void sceltaPuntoPrelievo() throws SQLException {
-        GestoreMagazzini gestoreMagazzini = new GestoreMagazzini();
         ArrayList<String> prova = new ArrayList<>();
         prova.add("1");
         prova.add("B1");

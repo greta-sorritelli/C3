@@ -1,10 +1,8 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.view.ICliente;
-import it.unicam.cs.ids.C3.TeamMGC.view.ICorriere;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -13,12 +11,8 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class JavaFXLoginCliente implements JavaFXController {
-    private GestoreClienti gestoreClienti;
+    private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
     private int ID;
-
-    public JavaFXLoginCliente() {
-        this.gestoreClienti = new GestoreClienti();
-    }
 
     @FXML
     TextField IDCliente;

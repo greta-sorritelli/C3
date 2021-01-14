@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
@@ -16,8 +17,17 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
 
+    private static GestoreMagazzini gestoreMagazzini;
     ArrayList<SimplePuntoPrelievo> magazzini = new ArrayList<>();
 
+    private GestoreMagazzini() {
+    }
+
+    public static GestoreMagazzini getInstance() {
+        if (gestoreMagazzini == null)
+            gestoreMagazzini = new GestoreMagazzini();
+        return gestoreMagazzini;
+    }
     //todo
 //    public Magazziniere getMagazziniere(PuntoPrelievo magazzino) {
 //		return magazzino.getMagazziniere();

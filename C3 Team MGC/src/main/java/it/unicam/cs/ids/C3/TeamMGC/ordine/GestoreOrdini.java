@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -17,7 +18,18 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class GestoreOrdini {
+
+    private static GestoreOrdini gestoreOrdini;
     private final ArrayList<SimpleOrdine> ordini = new ArrayList<>();
+
+    private GestoreOrdini() {
+    }
+
+    public static GestoreOrdini getInstance() {
+        if (gestoreOrdini == null)
+            gestoreOrdini = new GestoreOrdini();
+        return gestoreOrdini;
+    }
 
 //    public GestoreOrdini(Negozio negozio) {
 //        this.negozio = negozio;

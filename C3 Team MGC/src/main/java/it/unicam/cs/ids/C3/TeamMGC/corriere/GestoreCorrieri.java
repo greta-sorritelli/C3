@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
@@ -15,7 +16,18 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class GestoreCorrieri implements Gestore<SimpleCorriere> {
+
+    private static GestoreCorrieri gestoreCorrieri;
     ArrayList<SimpleCorriere> corrieri = new ArrayList<>();
+
+    private GestoreCorrieri() {
+    }
+
+    public static GestoreCorrieri getInstance() {
+        if (gestoreCorrieri == null)
+            gestoreCorrieri = new GestoreCorrieri();
+        return gestoreCorrieri;
+    }
 
     /**
      * Controlla se il {@link SimpleCorriere} che si vuole creare e' gia' presente nella lista dei corrieri. Se non e' presente

@@ -21,7 +21,17 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class GestoreClienti implements Gestore<SimpleCliente> {
 
+    private static GestoreClienti gestoreClienti;
     private final ArrayList<SimpleCliente> clienti = new ArrayList<>();
+
+    private GestoreClienti() {
+    }
+
+    public static GestoreClienti getInstance() {
+        if (gestoreClienti == null)
+            gestoreClienti = new GestoreClienti();
+        return gestoreClienti;
+    }
 
     /**
      * Controlla se il {@link SimpleCliente} che si vuole creare e' gia' presente nella lista dei clienti. Se non e' presente
@@ -107,8 +117,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
         if (rs.next()) {
             return addCliente(rs);
-        }
-        else {
+        } else {
             disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
         }

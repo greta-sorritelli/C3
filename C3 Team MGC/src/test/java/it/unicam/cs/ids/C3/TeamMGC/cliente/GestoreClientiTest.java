@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GestoreClientiTest {
 
+    static final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
+
     @BeforeAll
     static void clearDB() throws SQLException {
         updateData("delete from sys.clienti;");
@@ -23,7 +25,6 @@ class GestoreClientiTest {
 
     @Test
     void getCliente() throws SQLException {
-        GestoreClienti gestoreClienti = new GestoreClienti();
         assertEquals("Clarissa", gestoreClienti.getItem(1).getNome());
         assertEquals("Matteo", gestoreClienti.getItem(2).getNome());
         assertEquals("Albanese", gestoreClienti.getItem(1).getCognome());
@@ -34,7 +35,6 @@ class GestoreClientiTest {
 
     @Test
     void getClienti() throws SQLException {
-        GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<SimpleCliente> test = gestoreClienti.getItems();
         assertEquals(1, test.get(0).getID());
         assertEquals(2, test.get(1).getID());
@@ -46,7 +46,6 @@ class GestoreClientiTest {
 
     @Test
     void getDettagliClienti() throws SQLException {
-        GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<ArrayList<String>> test = gestoreClienti.getDettagliItems();
         assertEquals(test.get(0).get(0), "1");
         assertEquals(test.get(0).get(1), "Clarissa");
@@ -58,7 +57,6 @@ class GestoreClientiTest {
 
     @Test
     void inserisciDati() throws SQLException {
-        GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> test = gestoreClienti.inserisciDati("Sabrina","Spellman");
         assertTrue(gestoreClienti.getItems().contains(gestoreClienti.getItem(Integer.parseInt(test.get(0)))));
         assertEquals("Sabrina",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getNome());
@@ -68,7 +66,6 @@ class GestoreClientiTest {
 
     @Test
     void verificaCodice() throws SQLException {
-        GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
         Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         SimpleOrdine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
@@ -80,7 +77,6 @@ class GestoreClientiTest {
 
     @Test
     void verificaEsistenzaCodiceTest() throws SQLException {
-        GestoreClienti gestoreClienti = new GestoreClienti();
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
         Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         SimpleOrdine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
