@@ -4,6 +4,8 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 public class JavaFXComunicareConCorriere implements JavaFXController {
     private final GestoreCorrieri gestoreCorrieri;
     private final GestoreNegozi gestoreNegozi;
+    private final GestoreOrdini gestoreOrdini;
     private ArrayList<String> dettagliCorriereSelezionato;
     private ArrayList<Negozio> negoziSelezionati = new ArrayList<>();
 
@@ -56,9 +59,10 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> TelefonoNegozio;
 
-    public JavaFXComunicareConCorriere(GestoreCorrieri gestoreCorrieri, GestoreNegozi gestoreNegozi) {
+    public JavaFXComunicareConCorriere(GestoreCorrieri gestoreCorrieri, GestoreNegozi gestoreNegozi, GestoreOrdini gestoreOrdini) {
         this.gestoreCorrieri = gestoreCorrieri;
         this.gestoreNegozi = gestoreNegozi;
+        this.gestoreOrdini = gestoreOrdini;
     }
 
     public void getDettagliCorrieriDisponibili() {
@@ -114,6 +118,11 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
         try {
             if (!negoziTable.getSelectionModel().isEmpty()) {
                 gestoreCorrieri.mandaAlert(Integer.parseInt(dettagliCorriereSelezionato.get(0)), negoziSelezionati);
+                ArrayList<ArrayList<String>> merci = new ArrayList<>();
+                for (Negozio negozio : negoziSelezionati)
+                    merci.addAll(gestoreOrdini.getMerciNegozio(negozio.getID()));
+                for (ArrayList<String> m : merci)
+                    gestoreOrdini.setStatoMerce(Integer.parseInt(m.get(0)), StatoOrdine.CORRIERE_SCELTO);
                 alert.close();
                 successWindow("Alert mandato con successo", "Il corriere e' stato avvisato.");
                 visualizzaNegozi();

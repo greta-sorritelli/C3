@@ -25,8 +25,7 @@ public class IMagazziniere implements JavaFXController {
     private final GestoreOrdini gestoreOrdini = new GestoreOrdini();
     private int IDMazziniere;
 
-    public IMagazziniere(int ID) throws SQLException {
-        this.IDMazziniere = ID;
+    public IMagazziniere() throws SQLException {
     }
 
 //    //todo essendo un' interfaccia forse il cerca cliente non deve creare un Cliente come oggetto ma deve
@@ -55,7 +54,7 @@ public class IMagazziniere implements JavaFXController {
     @FXML
     //todo creare fxml
     public void avvisaCorriere() {
-        openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(gestoreCorrieri, gestoreNegozi));
+        openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(gestoreCorrieri, gestoreNegozi, gestoreOrdini));
     }
 
     /**

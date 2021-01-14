@@ -83,7 +83,7 @@ public class GestoreOrdini {
     /**
      * Crea una {@link SimpleMerceOrdine} e la aggiunge ad un {@link SimpleOrdine}.
      *
-     * @param rs     ResultSet contenente la query per creare la Merce
+     * @param rs           ResultSet contenente la query per creare la Merce
      * @param simpleOrdine Ordine a cui aggiungere la Merce
      *
      * @return la MerceOrdine creata
@@ -197,6 +197,22 @@ public class GestoreOrdini {
     }
 
     //todo test
+    public ArrayList<ArrayList<String>> getMerciNegozio(int IDNegozio) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (SimpleOrdine simpleOrdine : ordini)
+            if (simpleOrdine.getIDNegozio() == IDNegozio)
+                for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
+                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(simpleMerceOrdine.getDettagli());
+        return toReturn;
+    }
+
+    //todo test
     public ArrayList<ArrayList<String>> getMerciResidenza(String residenza) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where residenza = '" + residenza + "';");
@@ -282,8 +298,8 @@ public class GestoreOrdini {
      * @param IDMerce  ID della merce
      * @param quantita Quantita della merce
      * @param IDOrdine Ordine in cui registrare la merce
-     *
      * @param negozio
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public void registraMerce(int IDMerce, int quantita, int IDOrdine, Negozio negozio) throws SQLException {
@@ -302,8 +318,8 @@ public class GestoreOrdini {
      * @param IDCliente ID del cliente a cui appartiene l' ordine
      * @param nome      Nome del cliente a cui appartiene l' ordine
      * @param cognome   Cognome del cliente a cui appartiene l' ordine
-     *
      * @param negozio
+     *
      * @return un ArrayList di String contenente i dettagli dell' Ordine creato
      * @throws SQLException Errore causato da una query SQL
      */
