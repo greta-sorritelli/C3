@@ -67,12 +67,17 @@ public class JavaFXTrasportareMerce implements JavaFXController {
 
     @FXML
     public void setStatoInTransito() {
-        if (!merceTable.getSelectionModel().isEmpty()) {
-            for (ArrayList<String> merce : merceTable.getSelectionModel().getSelectedItems())
-                setStatoMerce(Integer.parseInt(merce.get(0)));
-            visualizzaMerce();
-        } else
-            alertWindow("Nessuna merce selezionata.", "Selezionare almeno una merce.");
+        try {
+            if (!merceTable.getSelectionModel().isEmpty()) {
+                for (ArrayList<String> merce : merceTable.getSelectionModel().getSelectedItems())
+                    setStatoMerce(Integer.parseInt(merce.get(0)));
+                successWindow("Merce in transito.", "La merce selezionata e' in transito.");
+                visualizzaMerce();
+            } else
+                alertWindow("Nessuna merce selezionata.", "Selezionare almeno una merce.");
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
     }
 
     private ArrayList<ArrayList<String>> getDettagliMerce() {
@@ -89,13 +94,8 @@ public class JavaFXTrasportareMerce implements JavaFXController {
         return null;
     }
 
-    private void setStatoMerce(int IDMerce) {
-        try {
-            gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.IN_TRANSITO);
-            successWindow("Merce in transito.", "La merce selezionata e' in transito.");
-        } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
-        }
+    private void setStatoMerce(int IDMerce) throws SQLException {
+        gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.IN_TRANSITO);
     }
 
 }

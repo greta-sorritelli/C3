@@ -368,8 +368,8 @@ public class GestoreOrdini {
             case IN_TRANSITO:
                 ResultSet rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
                 if (rs.next())
-                    updateData("UPDATE sys.stato_merce SET stato = " + statoOrdine.toString() +
-                            "WHERE IDMerce = " + IDMerce + ";");
+                    updateData("UPDATE sys.stato_merce SET stato_merce = '" + statoOrdine.toString() +
+                            "' WHERE IDMerce = " + IDMerce + ";");
                 disconnectToDB(rs);
         }
     }
