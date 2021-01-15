@@ -15,20 +15,15 @@ public class ICommesso implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
-    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
-    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
-    private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
-    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-
     public ICommesso() throws SQLException {
     }
 
     public void comunicaCodiceRitiro() {
-        openWindow("/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro(gestoreClienti, gestoreOrdini));
+        openWindow("/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro());
     }
 
     public void ricezionePagamento() {
-        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio,gestoreOrdini, gestoreClienti, gestoreMagazzini, gestoreCorrieri));
+        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio));
     }
 
 

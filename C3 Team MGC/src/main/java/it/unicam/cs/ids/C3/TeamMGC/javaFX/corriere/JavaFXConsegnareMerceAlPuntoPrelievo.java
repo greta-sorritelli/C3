@@ -7,15 +7,9 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 
 public class JavaFXConsegnareMerceAlPuntoPrelievo {
 
-    private final GestoreOrdini gestoreOrdini;
-    private final GestoreMagazzini gestoreMagazzini;
-    private final GestoreCorrieri gestoreCorrieri;
-
-    public JavaFXConsegnareMerceAlPuntoPrelievo(GestoreOrdini gestoreOrdini, GestoreMagazzini gestoreMagazzini, GestoreCorrieri gestoreCorrieri) {
-        this.gestoreOrdini = gestoreOrdini;
-        this.gestoreMagazzini = gestoreMagazzini;
-        this.gestoreCorrieri = gestoreCorrieri;
-    }
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
     public void getDettagliMerce(StatoOrdine statoOrdine){
         // todo stato ritirato

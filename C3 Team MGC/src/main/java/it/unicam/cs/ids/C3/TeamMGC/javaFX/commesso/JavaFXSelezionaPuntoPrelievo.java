@@ -20,16 +20,13 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
-    private final GestoreOrdini gestoreOrdini;
-    private final GestoreMagazzini gestoreMagazzini;
-    private final GestoreCorrieri gestoreCorrieri;
-    private int IDOrdine;
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
+    private final int IDOrdine;
     private final Negozio negozio;
 
-    public JavaFXSelezionaPuntoPrelievo(GestoreOrdini gestoreOrdini, GestoreMagazzini gestoreMagazzini, int IDOrdine, GestoreCorrieri gestoreCorrieri, Negozio negozio) {
-        this.gestoreOrdini = gestoreOrdini;
-        this.gestoreMagazzini = gestoreMagazzini;
-        this.gestoreCorrieri = gestoreCorrieri;
+    public JavaFXSelezionaPuntoPrelievo(int IDOrdine, Negozio negozio) {
         this.IDOrdine = IDOrdine;
         this.negozio = negozio;
     }
@@ -77,7 +74,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     }
 
     public void sceltaCorriere() {
-        openWindow("/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(gestoreCorrieri, residenza.getText(), negozio));
+        openWindow("/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(residenza.getText(), negozio));
     }
 
 

@@ -6,11 +6,7 @@ import java.sql.SQLException;
 
 public class JavaFXRegistrazionePiattaforma {
 
-    private final GestoreCorrieri gestoreCorrieri;
-
-    public JavaFXRegistrazionePiattaforma(GestoreCorrieri gestoreCorrieri) {
-        this.gestoreCorrieri = gestoreCorrieri;
-    }
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
     public void inserisciDati(String nome, String cognome, int capienza){
         //todo di corriere

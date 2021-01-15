@@ -21,17 +21,13 @@ import java.util.Objects;
 public class JavaFXRicezionePagamento implements JavaFXController {
 
     private final Negozio negozio;
-    private final GestoreOrdini gestoreOrdini;
-    private final GestoreClienti gestoreClienti;
-    private final GestoreMagazzini gestoreMagazzini;
-    private final GestoreCorrieri gestoreCorrieri;
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+    private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
+    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
-    public JavaFXRicezionePagamento(Negozio negozio, GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti, GestoreMagazzini gestoreMagazzini, GestoreCorrieri gestoreCorrieri) {
+    public JavaFXRicezionePagamento(Negozio negozio) {
         this.negozio = negozio;
-        this.gestoreOrdini = gestoreOrdini;
-        this.gestoreClienti = gestoreClienti;
-        this.gestoreMagazzini = gestoreMagazzini;
-        this.gestoreCorrieri = gestoreCorrieri;
     }
 
     @FXML
@@ -162,7 +158,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     }
 
     public void selezionaPuntoPrelievo() {
-        openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(gestoreOrdini, gestoreMagazzini, Integer.parseInt(ordineTextField.getText()), gestoreCorrieri, negozio));
+        openWindow("/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(Integer.parseInt(ordineTextField.getText()), negozio));
     }
 
     /**

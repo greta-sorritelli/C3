@@ -17,13 +17,12 @@ import java.util.ArrayList;
 
 public class JavaFXSelezionaCorriere implements JavaFXController {
 
-    private final GestoreCorrieri gestoreCorrieri;
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private SimpleCorriere selectedSimpleCorriere;
     private String residenza;
     private final Negozio negozio;
 
-    public JavaFXSelezionaCorriere(GestoreCorrieri gestoreCorrieri, String residenza, Negozio negozio) {
-        this.gestoreCorrieri = gestoreCorrieri;
+    public JavaFXSelezionaCorriere(String residenza, Negozio negozio) {
         this.negozio = negozio;
         this.selectedSimpleCorriere = null;
         this.residenza = residenza;

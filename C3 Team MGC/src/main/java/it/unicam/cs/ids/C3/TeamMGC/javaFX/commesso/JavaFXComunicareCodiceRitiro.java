@@ -10,13 +10,8 @@ import java.sql.SQLException;
 
 public class JavaFXComunicareCodiceRitiro implements JavaFXController {
 
-    private final GestoreClienti gestoreClienti;
-    private final GestoreOrdini gestoreOrdini;
-
-    public JavaFXComunicareCodiceRitiro(GestoreClienti gestoreClienti, GestoreOrdini gestoreOrdini) {
-        this.gestoreClienti = gestoreClienti;
-        this.gestoreOrdini = gestoreOrdini;
-    }
+    private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
 
     @FXML
     TextField IDCliente;

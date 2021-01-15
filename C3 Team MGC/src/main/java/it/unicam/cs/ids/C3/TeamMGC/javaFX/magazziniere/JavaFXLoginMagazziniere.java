@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class JavaFXLoginMagazziniere implements JavaFXController {
-    private GestoreMagazzini gestoreMagazzini;
+    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private int ID;
 
     @FXML

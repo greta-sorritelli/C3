@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
 
     private final SimplePuntoPrelievo simplePuntoPrelievo;
-    private final GestoreOrdini gestoreOrdini;
-    private final GestoreClienti gestoreClienti;
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+    private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
 
     @FXML
     TextField IDCliente;
@@ -43,10 +43,8 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
 
-    public JavaFXConsegnareMerceAlCliente(SimplePuntoPrelievo simplePuntoPrelievo, GestoreOrdini gestoreOrdini, GestoreClienti gestoreClienti) {
+    public JavaFXConsegnareMerceAlCliente(SimplePuntoPrelievo simplePuntoPrelievo) {
         this.simplePuntoPrelievo = simplePuntoPrelievo;
-        this.gestoreOrdini = gestoreOrdini;
-        this.gestoreClienti = gestoreClienti;
     }
 
     /**

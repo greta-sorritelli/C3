@@ -6,48 +6,17 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXConsegnareMerceAlPuntoP
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXModificareDisponibilita;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXTrasportareMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
 
 public class ICorriere implements JavaFXController {
-    //todo
-    private final Negozio negozio = new Negozio(1);
 
-    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
-    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
-    private final GestoreCorrieri gestoreCorrieri= GestoreCorrieri.getInstance();
-    private int IDCorriere;
+    private final int IDCorriere;
 
-    public ICorriere(int ID) throws SQLException {
+    public ICorriere(int ID){
         this.IDCorriere = ID;
     }
-
-//    /**
-//     * Apre una nuova finestra
-//     *
-//     * @param a Fxml path
-//     * @param b Titolo della finestra.
-//     */
-//    @FXML
-//    public void openWindow(String a, String b, Object controller) {
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(a));
-//            fxmlLoader.setController(controller);
-//            Parent root = fxmlLoader.load();
-//            Stage stage = new Stage();
-//            stage.setTitle(b);
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.setScene(new Scene(root));
-////            Image icon = new Image("/icon.png");
-////            stage.getIcons().add(icon);
-//            stage.showAndWait();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     /**
      * Apre la finestra per consegnare la merce al punto di prelievo.
@@ -55,8 +24,7 @@ public class ICorriere implements JavaFXController {
     @FXML
     //todo creare fxml
     private void consegnaMercePP() {
-        openWindow("/ConsegnaMercePP.fxml", "ConsegnaMercePP", new JavaFXConsegnareMerceAlPuntoPrelievo(gestoreOrdini,
-                gestoreMagazzini, gestoreCorrieri));
+        openWindow("/ConsegnaMercePP.fxml", "ConsegnaMercePP", new JavaFXConsegnareMerceAlPuntoPrelievo());
     }
 
     /**
@@ -64,7 +32,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     public void modificaDisponibilita() {
-        openWindow("/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(gestoreCorrieri, IDCorriere));
+        openWindow("/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(IDCorriere));
     }
 
     /**
@@ -73,7 +41,7 @@ public class ICorriere implements JavaFXController {
     @FXML
     //todo creare fxml
     public void avviaRegistrazione(){
-        openWindow("/RegistrazionePiattaforma.fxml", "Registrazione Piattaforma", new JavaFXRegistrazionePiattaforma(gestoreCorrieri));
+        openWindow("/RegistrazionePiattaforma.fxml", "Registrazione Piattaforma", new JavaFXRegistrazionePiattaforma());
     }
 
     /**

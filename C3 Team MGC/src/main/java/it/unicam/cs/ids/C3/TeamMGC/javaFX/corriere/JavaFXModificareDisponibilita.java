@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 public class JavaFXModificareDisponibilita {
 
-    private final GestoreCorrieri gestoreCorrieri;
-    private int IDCorriere;
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
+    private final int IDCorriere;
 
     @FXML
     Label disponibilita = new Label();
@@ -21,8 +21,7 @@ public class JavaFXModificareDisponibilita {
     @FXML
     Button nonDisponibile = new Button();
 
-    public JavaFXModificareDisponibilita(GestoreCorrieri gestoreCorrieri, int id) {
-        this.gestoreCorrieri = gestoreCorrieri;
+    public JavaFXModificareDisponibilita(int id) {
         this.IDCorriere = id;
     }
 
