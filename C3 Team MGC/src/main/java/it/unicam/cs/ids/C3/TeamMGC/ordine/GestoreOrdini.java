@@ -325,16 +325,6 @@ public class GestoreOrdini {
             throw new IllegalArgumentException("ID ordine non valido.");
         }
     }
-//
-//    //todo test
-//    public ArrayList<SimpleMerceOrdine> getMerce(int IDCorriere, StatoOrdine stato) throws SQLException {
-//        return getItem(IDCorriere).getMerce(stato);
-//    }
-//
-//    //todo test
-//    public ArrayList<SimpleMerceOrdine> getMerceAffidata(int IDCorriere) throws SQLException {
-//        return getItem(IDCorriere).getMerceAffidata();
-//    }
 
     /**
      * Registra la {@link SimpleMerce} nell'{@link SimpleOrdine} creato.
@@ -390,10 +380,8 @@ public class GestoreOrdini {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
 
-    //todo controllare test
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
-        updateMerceCorriere(IDMerce, statoOrdine);
         SimpleOrdine simpleOrdine = getOrdine(getMerceOrdine(IDMerce).getIDOrdine());
         boolean toControl = true;
         for (SimpleMerceOrdine m : simpleOrdine.getMerci()) {
@@ -444,43 +432,4 @@ public class GestoreOrdini {
             addOrdine(rs);
         disconnectToDB(rs);
     }
-
-    //todo test
-    private void updateMerceCorriere(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
-        switch (statoOrdine) {
-            case AFFIDATO_AL_CORRIERE:
-            case IN_TRANSITO:
-                ResultSet rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
-                if (rs.next())
-                    updateData("UPDATE sys.stato_merce SET stato_merce = '" + statoOrdine.toString() +
-                            "' WHERE IDMerce = " + IDMerce + ";");
-                disconnectToDB(rs);
-                break;
-            case IN_DEPOSITO:
-            case RITIRATO:
-                rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
-                if (rs.next())
-                    updateData("delete from sys.stato_merce where IDMerce = " + IDMerce + ";");
-                disconnectToDB(rs);
-                break;
-        }
-    }
-
-
-//    /**
-//     * Ritorna la lista dei dettagli della {@link MerceOrdine} con stato "pagato"
-//     * e che rientra nella {@code capienza} del corriere.
-//     *
-//     * @param capienza Capienza entro la quale deve rientrare la merce
-//     *
-//     * @return ArrayList<ArrayList < String>> dei dettagli della merce con stato "PAGATO"
-//     * e che rientra nella capienza del corriere a cui deve essere assegnata.
-//     * @throws SQLException Errore causato da una query SQL
-//     */
-//    public ArrayList<ArrayList<String>> visualizzaMerce(double capienza) throws SQLException {
-//        ArrayList<MerceOrdine> merce = new ArrayList<>();
-//        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-//        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (stato =  '" + StatoOrdine.PAGATO + "' and quantita <= '" + capienza + "');");
-//        return getArrayListDettagliMerce(merce, dettagli, rs);
-//    }
 }

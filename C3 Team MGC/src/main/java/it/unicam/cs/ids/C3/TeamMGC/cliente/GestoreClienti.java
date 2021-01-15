@@ -1,7 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -206,5 +208,33 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      */
     private boolean verificaCodice(String codiceRitiroComunicato, String codiceRitiroDB) {
         return codiceRitiroComunicato.equals(codiceRitiroDB);
+    }
+
+    /**
+     * todo alert per residenza cambiata a punto prelievo
+     * @param IDCliente
+     * @param puntoPrelievo
+     * @throws SQLException
+     */
+    //todo test
+    public void mandaAlertResidenza(int IDCliente, SimplePuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
+            updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
+                    "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
+                    + ", indirizzo: " + puntoPrelievo.getIndirizzo()
+                    + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
+    }
+
+    /**
+     * todo alert per merce arrivata al punto prelievo
+     * @param IDCliente
+     * @param puntoPrelievo
+     * @throws SQLException
+     */
+    //todo test
+    public void mandaAlertPuntoPrelievo(int IDCliente, SimplePuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
+        updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
+                "', 'Merce arrivata a destinazione. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
+                + ", indirizzo: " + puntoPrelievo.getIndirizzo()
+                + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
     }
 }

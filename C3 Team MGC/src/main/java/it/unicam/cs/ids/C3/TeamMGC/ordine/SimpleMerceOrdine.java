@@ -148,14 +148,12 @@ public class SimpleMerceOrdine implements MerceOrdine {
 
     @Override
     public String toString() {
-        return "MerceOrdine{" +
-                "ID=" + ID +
+        return "ID=" + ID +
                 ", IDOrdine=" + IDOrdine +
                 ", prezzo=" + prezzo +
                 ", descrizione='" + descrizione + '\'' +
                 ", quantita=" + quantita +
-                ", stato=" + stato +
-                '}';
+                ", stato=" + stato;
     }
 
     /**

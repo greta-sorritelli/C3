@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<TabPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane fx:id="tab" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <tabs>
-      <Tab closable="false" onSelectionChanged="#visualizzaMerci" text="Consegna merce alla destinazione">
+      <Tab fx:id="merce" closable="false" onSelectionChanged="#visualizzaMerci" text="Consegna merce alla destinazione">
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
                <children>
@@ -31,16 +30,16 @@
                         <TableColumn fx:id="QuantitaMerce" prefWidth="95.0" text="Quantita" />
                     </columns>
                   </TableView>
-                  <Button accessibleHelp="scsds" layoutX="656.0" layoutY="516.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Consegna" AnchorPane.leftAnchor="656.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="516.0" />
-                  <Button layoutX="533.0" layoutY="554.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="213.0" text="Ricerca punto di prelievo più vicino" />
+                  <Button accessibleHelp="scsds" layoutX="656.0" layoutY="516.0" mnemonicParsing="false" onAction="#confermaConsegna" prefHeight="25.0" prefWidth="90.0" text="Consegna" AnchorPane.leftAnchor="656.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="516.0" />
+                  <Button layoutX="533.0" layoutY="554.0" mnemonicParsing="false" onAction="#ricercaMagazzini" prefHeight="25.0" prefWidth="213.0" text="Ricerca punto di prelievo più vicino" />
                   <Label layoutX="370.0" layoutY="558.0" text="Se non hai trovato il cliente:" />
                </children>
             </AnchorPane>
          </content>
       </Tab>
-      <Tab closable="false" disable="true" onSelectionChanged="#updateMagazziniChoiceBox" text="Cliente non trovato">
+      <Tab fx:id="ricerca" closable="false" disable="true" text="Cliente non trovato">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#updateMagazziniChoiceBox" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Label layoutX="38.0" layoutY="37.0" text="Seleziona un punto di prelievo vicino">
                      <font>
@@ -48,8 +47,9 @@
                      </font>
                   </Label>
                   <Label layoutX="65.0" layoutY="134.0" text="Punto prelievo" />
-                  <ChoiceBox layoutX="177.0" layoutY="130.0" onMouseClicked="#showMagazzini" prefHeight="25.0" prefWidth="547.0" />
-                  <Button layoutX="618.0" layoutY="509.0" mnemonicParsing="false" onAction="#trasportoMerce" text="Trasporta merce " AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="516.0" />
+                  <ChoiceBox fx:id="magazziniChoiceBox" layoutX="177.0" layoutY="130.0" onMouseClicked="#showMagazzini" prefHeight="25.0" prefWidth="547.0" />
+                  <Button layoutX="598.0" layoutY="516.0" mnemonicParsing="false" onAction="#mandaAlert" text="Cambia destinazione" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="516.0" />
+                  <Button layoutX="518.0" layoutY="516.0" mnemonicParsing="false" onAction="#backToMerci" text="&lt;&lt;Back" />
                </children>
             </AnchorPane>
         </content>

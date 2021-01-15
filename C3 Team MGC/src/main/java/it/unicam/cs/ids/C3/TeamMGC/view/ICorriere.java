@@ -18,9 +18,8 @@ public class ICorriere implements JavaFXController {
      * Apre la finestra per consegnare la merce al punto di prelievo.
      */
     @FXML
-    //todo creare fxml
     private void consegnaMerce() {
-        openWindow("/ConsegnaMercePP.fxml", "ConsegnaMercePP", new JavaFXConsegnareMerceADestinazione(IDCorriere));
+        openWindow("/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(IDCorriere));
     }
 
     /**

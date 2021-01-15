@@ -16,7 +16,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class SimplePuntoPrelievo implements PuntoPrelievo{
+public class SimplePuntoPrelievo implements PuntoPrelievo {
     private int ID = 0;
     private String indirizzo = "";
     private String nome = "";
@@ -155,11 +155,9 @@ public class SimplePuntoPrelievo implements PuntoPrelievo{
 
     @Override
     public String toString() {
-        return "PuntoPrelievo{" +
-                "ID=" + ID +
+        return "ID=" + ID +
                 ", indirizzo='" + indirizzo + '\'' +
-                ", nome='" + nome + '\'' +
-                '}';
+                ", nome='" + nome;
     }
 
     /**

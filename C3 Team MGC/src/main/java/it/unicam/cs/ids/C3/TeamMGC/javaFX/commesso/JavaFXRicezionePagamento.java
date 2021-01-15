@@ -110,8 +110,8 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     @FXML
     public void registraMerce() {
         try {
-            if (IDCliente.getText().isEmpty() || merceChoiceBox.getItems().isEmpty() || quantita.getText().isEmpty())
-                throw new NullPointerException("Dati non presenti.");
+            if (IDCliente.getText().isEmpty() || merceChoiceBox.getValue() == null || quantita.getText().isEmpty())
+               throw new NullPointerException("Dati non presenti.");
             if (ordineTextField.getText().isEmpty()) {
                 registraOrdine();
             }

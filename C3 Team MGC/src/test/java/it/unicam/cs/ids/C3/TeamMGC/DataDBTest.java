@@ -24,7 +24,8 @@ public class DataDBTest {
         updateData("delete from sys.punti_prelievo;");
         updateData("delete from alert_corrieri;");
         updateData("delete from alert_magazzinieri;");
-        updateData("delete from stato_merce;");
+        updateData("delete from alert_clienti;");
+
 
         updateData("alter table clienti AUTO_INCREMENT = 1;");
         updateData("alter table codici_ritiro AUTO_INCREMENT = 1;");
@@ -35,7 +36,10 @@ public class DataDBTest {
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         updateData("alter table punti_prelievo AUTO_INCREMENT = 1;");
-        updateData("alter table stato_merce AUTO_INCREMENT = 1;");
+        updateData("alter table alert_clienti AUTO_INCREMENT = 1;");
+        updateData("alter table alert_corrieri AUTO_INCREMENT = 1;");
+        updateData("alter table alert_magazzinieri AUTO_INCREMENT = 1;");
+
     }
 
     @Test

@@ -58,11 +58,6 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
             corrieri.add(simpleCorriere);
     }
 
-//    //todo test
-//    public void associaMerce(int IDCorriere, int IDMerce) throws SQLException {
-//        getItem(IDCorriere).associaMerce(IDMerce);
-//    }
-
     /**
      * Ritorna la lista dei {@link SimpleCorriere Corrieri} {@code disponibili} presenti nel DB.
      *

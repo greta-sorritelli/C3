@@ -81,7 +81,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
 
     public void setPuntoPrelievo() {
         try {
-            if (!choicePuntoPrelievo.getItems().isEmpty()) {
+            if (choicePuntoPrelievo.getValue() != null) {
                 gestoreOrdini.setPuntoPrelievo(IDOrdine, choicePuntoPrelievo.getValue().getID());
                 mandaAlert();
                 closeWindow((Stage) residenza.getScene().getWindow());
