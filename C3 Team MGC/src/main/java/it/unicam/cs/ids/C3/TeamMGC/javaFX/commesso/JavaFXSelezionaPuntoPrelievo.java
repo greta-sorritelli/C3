@@ -58,6 +58,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
             if (!residenza.getText().isEmpty()) {
                 gestoreCorrieri.getCorrieriDisponibili();
                 gestoreOrdini.addResidenza(IDOrdine, residenza.getText());
+                gestoreOrdini.setStatoOrdine(IDOrdine,StatoOrdine.CORRIERE_SCELTO);
                 successWindow("Residenza salvata con successo!", "Ora potrai scegliere il corriere da avvisare.");
                 sceltaCorriere();
                 closeWindow((Stage) residenza.getScene().getWindow());

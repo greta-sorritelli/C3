@@ -5,6 +5,7 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class JavaFXSelezionaCorriere implements JavaFXController {
 
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private SimpleCorriere selectedSimpleCorriere;
     private String residenza;
