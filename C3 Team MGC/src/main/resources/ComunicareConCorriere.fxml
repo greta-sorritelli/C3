@@ -15,7 +15,7 @@
          <content>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
                <children>
-                  <Label layoutX="107.0" layoutY="40.0" text="Seleziona un simpleCorriere" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
+                  <Label layoutX="107.0" layoutY="40.0" text="Seleziona un Corriere" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

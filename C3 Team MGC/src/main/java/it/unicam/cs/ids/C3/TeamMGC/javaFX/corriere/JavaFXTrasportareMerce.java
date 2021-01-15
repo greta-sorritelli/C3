@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class JavaFXTrasportareMerce implements JavaFXController {
 
@@ -57,7 +58,7 @@ public class JavaFXTrasportareMerce implements JavaFXController {
         try {
             setCorriereCellValueFactory();
             merceTable.getItems().clear();
-            merceTable.getItems().addAll(getDettagliMerce(StatoOrdine.AFFIDATO_AL_CORRIERE));
+            merceTable.getItems().addAll(Objects.requireNonNull(getDettagliMerce()));
         } catch (NullPointerException e) {
             alertWindow("Merci non disponibili.", "Nessuna merce affidata.");
         }
@@ -65,14 +66,15 @@ public class JavaFXTrasportareMerce implements JavaFXController {
 
     @FXML
     public void setStatoInTransito() {
-        if (!merceTable.getSelectionModel().getSelectedItems().isEmpty())
+        if (!merceTable.getSelectionModel()) {
             for (ArrayList<String> merce : merceTable.getSelectionModel().getSelectedItems())
                 setStatoMerce(Integer.parseInt(merce.get(0)));
-        else
+            visualizzaMerce();
+        } else
             alertWindow("Nessuna merce selezionata.", "Selezionare almeno una merce.");
     }
 
-    private ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) {
+    private ArrayList<ArrayList<String>> getDettagliMerce() {
         // todo stato affidato al corriere
         try {
             return gestoreCorrieri.getItem(IDCorriere).getDettagliMerceAffidata();

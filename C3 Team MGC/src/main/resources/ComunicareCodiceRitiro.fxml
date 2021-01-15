@@ -13,7 +13,7 @@
       <Label layoutX="169.0" layoutY="101.0" text="IDCliente" />
       <Label layoutX="169.0" layoutY="168.0" text="IDOrdine" />
       <Button layoutX="451.0" layoutY="209.0" mnemonicParsing="false" onAction="#verificaEsistenzaCodice" text="Verifica codice" />
-      <Label layoutX="137.0" layoutY="362.0" text="Codice simpleCliente attuale" />
+      <Label layoutX="137.0" layoutY="362.0" text="Codice Cliente attuale" />
       <TextField fx:id="CodiceRitiroAttuale" editable="false" layoutX="302.0" layoutY="358.0" />
       <Label layoutX="52.0" layoutY="41.0" text="Verifica codice di ritiro ">
          <font>
