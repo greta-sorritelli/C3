@@ -22,6 +22,7 @@ public class SimpleMerceOrdine implements MerceOrdine {
     private String descrizione = "";
     private int quantita = 0;
     private StatoOrdine stato;
+    private int IDCorriere = -1;
 
     /**
      * Costruttore per inserire i dati nel DB
@@ -43,7 +44,6 @@ public class SimpleMerceOrdine implements MerceOrdine {
 
     /**
      * Costruttore per importare i dati dal DB
-     *
      */
     //todo test
     public SimpleMerceOrdine(int ID) throws SQLException {
@@ -82,7 +82,6 @@ public class SimpleMerceOrdine implements MerceOrdine {
 
     /**
      * @return ArrayList<String> dei dettagli della merce
-     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -100,6 +99,15 @@ public class SimpleMerceOrdine implements MerceOrdine {
 
     public int getID() {
         return ID;
+    }
+
+    public int getIDCorriere() {
+        return IDCorriere;
+    }
+
+    public void setIDCorriere(int IDCorriere) throws SQLException {
+        updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + ID + "');");
+        this.IDCorriere = IDCorriere;
     }
 
     public int getIDOrdine() {
@@ -163,6 +171,7 @@ public class SimpleMerceOrdine implements MerceOrdine {
             this.descrizione = rs.getString("descrizione");
             this.quantita = rs.getInt("quantita");
             this.stato = StatoOrdine.valueOf(rs.getString("stato"));
+            this.IDCorriere = rs.getInt("IDCorriere");
         }
         disconnectToDB(rs);
     }

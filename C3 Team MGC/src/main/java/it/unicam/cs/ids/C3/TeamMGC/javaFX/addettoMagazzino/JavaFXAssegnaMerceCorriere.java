@@ -118,7 +118,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                 for (SimpleMerceOrdine merce : selectedMerce) {
                     if (merce != null) {
                         gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-                        gestoreCorrieri.associaMerce(selectedSimpleCorriere.getID(), merce.getID());
+                        gestoreOrdini.associaMerceCorriere(selectedSimpleCorriere.getID(), merce.getID());
                     }
                 }
                 alert.close();
@@ -280,7 +280,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             if (selectedMagazzino != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciMagazzino(selectedMagazzino.getID()));
             if (selectedResidenza != null) {
-                merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(residenzaTextField.getText()));
+                merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciResidenza(residenzaTextField.getText()));
             }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

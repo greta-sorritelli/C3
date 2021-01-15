@@ -73,6 +73,12 @@ public class GestoreOrdini {
         getOrdine(IDOrdine).addResidenza(indirizzo);
     }
 
+    //todo test
+    public void associaMerceCorriere(int IDCorriere, int IDMerce) throws SQLException {
+        updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + IDMerce + "');");
+        getMerceOrdine(IDMerce).setIDCorriere(IDCorriere);
+    }
+
     /**
      * Controlla se il {@link SimpleCliente} è già presente nel database.
      *
@@ -208,55 +214,6 @@ public class GestoreOrdini {
         return toReturn;
     }
 
-    //todo test
-    public ArrayList<ArrayList<String>> getMerciFromNegozioToMagazzino(int IDNegozio, int IDPuntoPrelievo) throws SQLException {
-        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "' and IDPuntoPrelievo ='"
-                + IDPuntoPrelievo + "';");
-        while (rs.next())
-            addOrdine(rs);
-        disconnectToDB(rs);
-
-        for (SimpleOrdine simpleOrdine : ordini)
-            if (simpleOrdine.getIDNegozio() == IDNegozio && simpleOrdine.getPuntoPrelievo() == IDPuntoPrelievo)
-                for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
-                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
-                        toReturn.add(simpleMerceOrdine.getDettagli());
-        return toReturn;
-    }
-
-    //todo test
-    public ArrayList<ArrayList<String>> getMerciResidenza(String residenza) throws SQLException {
-        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        ResultSet rs = executeQuery("select ID from ordini where residenza = '" + residenza + "';");
-        while (rs.next())
-            addOrdine(rs);
-        disconnectToDB(rs);
-
-        for (SimpleOrdine simpleOrdine : ordini)
-            if (simpleOrdine.getResidenza().equals(residenza))
-                for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
-                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
-                        toReturn.add(simpleMerceOrdine.getDettagli());
-        return toReturn;
-    }
-
-    //todo test
-    public ArrayList<ArrayList<String>> getMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
-        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
-        while (rs.next())
-            addOrdine(rs);
-        disconnectToDB(rs);
-
-        for (SimpleOrdine simpleOrdine : ordini)
-            if (simpleOrdine.getPuntoPrelievo() == IDPuntoPrelievo)
-                for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
-                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
-                        toReturn.add(simpleMerceOrdine.getDettagli());
-        return toReturn;
-    }
-
     /**
      * Ritorna la {@link SimpleMerceOrdine} collegata all' {@code ID}.
      *
@@ -285,6 +242,70 @@ public class GestoreOrdini {
         return null;
     }
 
+    //todo test
+    public ArrayList<ArrayList<String>> getMerciFromNegozioToMagazzino(int IDNegozio, int IDPuntoPrelievo) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "' and IDPuntoPrelievo ='"
+                + IDPuntoPrelievo + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (SimpleOrdine simpleOrdine : ordini)
+            if (simpleOrdine.getIDNegozio() == IDNegozio && simpleOrdine.getPuntoPrelievo() == IDPuntoPrelievo)
+                for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
+                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(simpleMerceOrdine.getDettagli());
+        return toReturn;
+    }
+
+    //todo test
+    public ArrayList<ArrayList<String>> getMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (SimpleOrdine simpleOrdine : ordini)
+            if (simpleOrdine.getPuntoPrelievo() == IDPuntoPrelievo)
+                for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
+                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(simpleMerceOrdine.getDettagli());
+        return toReturn;
+    }
+
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliMerciOfCorriere(int IDCorriere, StatoOrdine statoOrdine) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select IDOrdine as ID from merci where IDCorriere = '" + IDCorriere + "';");
+        while (rs.next())
+            addOrdine(rs).update();
+        disconnectToDB(rs);
+
+        for (SimpleOrdine simpleOrdine : ordini)
+            for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
+                if (simpleMerceOrdine.getIDCorriere() == IDCorriere && simpleMerceOrdine.getStato().equals(statoOrdine))
+                    toReturn.add(simpleMerceOrdine.getDettagli());
+        return toReturn;
+    }
+
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliMerciResidenza(String residenza) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where residenza = '" + residenza + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (SimpleOrdine simpleOrdine : ordini)
+            if (simpleOrdine.getResidenza().equals(residenza))
+                for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
+                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(simpleMerceOrdine.getDettagli());
+        return toReturn;
+    }
+
     /**
      * Ritorna l' {@link SimpleOrdine} collegato all' {@code ID}.
      *
@@ -304,16 +325,6 @@ public class GestoreOrdini {
             throw new IllegalArgumentException("ID ordine non valido.");
         }
     }
-
-//    //todo test
-//    public ArrayList<ArrayList<String>> getDettagliMerceAffidata(int IDCorriere) throws SQLException {
-//        return getItem(IDCorriere).getDettagliMerceAffidata();
-//    }
-//
-//    //todo test
-//    public void associaMerce(int IDCorriere, int IDMerce) throws SQLException {
-//        getItem(IDCorriere).associaMerce(IDMerce);
-//    }
 //
 //    //todo test
 //    public ArrayList<SimpleMerceOrdine> getMerce(int IDCorriere, StatoOrdine stato) throws SQLException {
@@ -363,6 +374,18 @@ public class GestoreOrdini {
         return simpleOrdine.getDettagli();
     }
 
+    /**
+     * Seleziona la {@link SimpleMerceOrdine} desiderata.
+     *
+     * @param ID Codice Identificativo della merce
+     *
+     * @return Le informazioni della merce
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<String> selezionaMerce(int ID) throws SQLException {
+        return getMerceOrdine(ID).getDettagli();
+    }
+
     public void setPuntoPrelievo(int IDOrdine, int IDPuntoPrelievo) throws SQLException {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
@@ -383,27 +406,6 @@ public class GestoreOrdini {
             simpleOrdine.setStato(statoOrdine);
     }
 
-    //todo test
-    private void updateMerceCorriere(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
-        switch (statoOrdine) {
-            case AFFIDATO_AL_CORRIERE:
-            case IN_TRANSITO:
-                ResultSet rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
-                if (rs.next())
-                    updateData("UPDATE sys.stato_merce SET stato_merce = '" + statoOrdine.toString() +
-                            "' WHERE IDMerce = " + IDMerce + ";");
-                disconnectToDB(rs);
-                break;
-            case IN_DEPOSITO:
-            case RITIRATO:
-                rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
-                if (rs.next())
-                    updateData("delete from sys.stato_merce where IDMerce = " + IDMerce + ";");
-                disconnectToDB(rs);
-                break;
-        }
-    }
-
     //todo controllare test
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
@@ -411,18 +413,6 @@ public class GestoreOrdini {
             simpleMerceOrdine.setStato(statoOrdine);
         }
 
-    }
-
-    /**
-     * Seleziona la {@link SimpleMerceOrdine} desiderata.
-     *
-     * @param ID Codice Identificativo della merce
-     *
-     * @return Le informazioni della merce
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<String> selezionaMerce(int ID) throws SQLException {
-        return getMerceOrdine(ID).getDettagli();
     }
 
     /**
@@ -448,12 +438,32 @@ public class GestoreOrdini {
         return getOrdine(IDOrdine).getDettagli();
     }
 
-
     public void update() throws SQLException {
         ResultSet rs = executeQuery("SELECT ID from sys.ordini;");
         while (rs.next())
             addOrdine(rs);
         disconnectToDB(rs);
+    }
+
+    //todo test
+    private void updateMerceCorriere(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
+        switch (statoOrdine) {
+            case AFFIDATO_AL_CORRIERE:
+            case IN_TRANSITO:
+                ResultSet rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
+                if (rs.next())
+                    updateData("UPDATE sys.stato_merce SET stato_merce = '" + statoOrdine.toString() +
+                            "' WHERE IDMerce = " + IDMerce + ";");
+                disconnectToDB(rs);
+                break;
+            case IN_DEPOSITO:
+            case RITIRATO:
+                rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
+                if (rs.next())
+                    updateData("delete from sys.stato_merce where IDMerce = " + IDMerce + ";");
+                disconnectToDB(rs);
+                break;
+        }
     }
 
 

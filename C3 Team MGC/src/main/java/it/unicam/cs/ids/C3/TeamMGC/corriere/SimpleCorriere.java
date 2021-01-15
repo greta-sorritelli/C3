@@ -18,12 +18,10 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class SimpleCorriere implements Corriere {
-
     private final int ID;
     private String nome;
     private String cognome;
     private boolean disponibilita;
-    private ArrayList<SimpleMerceOrdine> merceAffidata = new ArrayList<>();
 
     /**
      * Costruttore per importare i dati dal DB.
@@ -60,7 +58,6 @@ public class SimpleCorriere implements Corriere {
         this.nome = nome;
         this.cognome = cognome;
         this.disponibilita = disponibilita;
-        updateMerce();
         disconnectToDB(rs);
     }
 
@@ -114,47 +111,6 @@ public class SimpleCorriere implements Corriere {
         return nome;
     }
 
-    //todo test
-    private void updateMerce() throws SQLException {
-        merceAffidata.clear();
-        ResultSet rs = executeQuery("select * from stato_merce where IDCorriere ='" + ID + "';");
-        while (rs.next()) {
-            int IDMerce = rs.getInt("IDMerce");
-            merceAffidata.add(GestoreOrdini.getInstance().getMerceOrdine(IDMerce));
-        }
-    }
-
-    //todo test
-    public ArrayList<SimpleMerceOrdine> getMerceAffidata() throws SQLException {
-        updateMerce();
-        return merceAffidata;
-    }
-
-    //todo test
-    public ArrayList<SimpleMerceOrdine> getMerce(StatoOrdine stato) throws SQLException {
-        updateMerce();
-        return merceAffidata.stream().filter(simpleMerceOrdine -> simpleMerceOrdine.getStato().equals(stato)).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    //todo test
-    public ArrayList<ArrayList<String>> getDettagliMerceAffidata() throws SQLException {
-        updateMerce();
-        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        for (SimpleMerceOrdine merce : merceAffidata) {
-            dettagli.add(merce.getDettagli());
-        }
-        return dettagli;
-    }
-
-    //todo test
-    public void associaMerce(int IDMerce) throws SQLException {
-        updateMerce();
-        StatoOrdine stato = GestoreOrdini.getInstance().getMerceOrdine(IDMerce).getStato();
-        updateData("INSERT INTO sys.stato_merce (IDCorriere, IDMerce, stato_merce) " +
-                "VALUES ('"+ ID + "', '" + IDMerce + "', '" + stato + "');");
-        merceAffidata.add(GestoreOrdini.getInstance().getMerceOrdine(IDMerce));
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(getID());
@@ -162,12 +118,10 @@ public class SimpleCorriere implements Corriere {
 
     @Override
     public String toString() {
-        return "Corriere{" +
-                "ID=" + ID +
+        return "ID=" + ID +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
-                ", disponibilita=" + disponibilita +
-                '}';
+                ", disponibilita=" + disponibilita;
     }
 
     /**
