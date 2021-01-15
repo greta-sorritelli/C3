@@ -305,6 +305,26 @@ public class GestoreOrdini {
         }
     }
 
+//    //todo test
+//    public ArrayList<ArrayList<String>> getDettagliMerceAffidata(int IDCorriere) throws SQLException {
+//        return getItem(IDCorriere).getDettagliMerceAffidata();
+//    }
+//
+//    //todo test
+//    public void associaMerce(int IDCorriere, int IDMerce) throws SQLException {
+//        getItem(IDCorriere).associaMerce(IDMerce);
+//    }
+//
+//    //todo test
+//    public ArrayList<SimpleMerceOrdine> getMerce(int IDCorriere, StatoOrdine stato) throws SQLException {
+//        return getItem(IDCorriere).getMerce(stato);
+//    }
+//
+//    //todo test
+//    public ArrayList<SimpleMerceOrdine> getMerceAffidata(int IDCorriere) throws SQLException {
+//        return getItem(IDCorriere).getMerceAffidata();
+//    }
+
     /**
      * Registra la {@link SimpleMerce} nell'{@link SimpleOrdine} creato.
      *
@@ -347,6 +367,7 @@ public class GestoreOrdini {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
 
+    //todo controllare test
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
         updateMerceCorriere(IDMerce, statoOrdine);
@@ -362,6 +383,7 @@ public class GestoreOrdini {
             simpleOrdine.setStato(statoOrdine);
     }
 
+    //todo test
     private void updateMerceCorriere(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         switch (statoOrdine) {
             case AFFIDATO_AL_CORRIERE:

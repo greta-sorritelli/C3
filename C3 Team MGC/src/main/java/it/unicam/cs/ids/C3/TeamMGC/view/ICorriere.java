@@ -1,14 +1,10 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.*;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXConsegnareMerceAlPuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXConsegnareMerceADestinazione;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXModificareDisponibilita;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXTrasportareMerce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import javafx.fxml.FXML;
-
-import java.sql.SQLException;
 
 public class ICorriere implements JavaFXController {
 
@@ -23,8 +19,8 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     //todo creare fxml
-    private void consegnaMercePP() {
-        openWindow("/ConsegnaMercePP.fxml", "ConsegnaMercePP", new JavaFXConsegnareMerceAlPuntoPrelievo());
+    private void consegnaMerce() {
+        openWindow("/ConsegnaMercePP.fxml", "ConsegnaMercePP", new JavaFXConsegnareMerceADestinazione(IDCorriere));
     }
 
     /**

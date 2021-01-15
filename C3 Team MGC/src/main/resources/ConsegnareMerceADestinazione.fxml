@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<TabPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab closable="false" onSelectionChanged="#visualizzaMerci" text="Consegna merce alla destinazione">
+         <content>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+               <children>
+                  <Label layoutX="42.0" layoutY="32.0" text="Selezionare la merce consegnata ">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="merceTable" layoutX="42.0" layoutY="80.0" prefHeight="424.0" prefWidth="716.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
+                    <columns>
+                      <TableColumn fx:id="IDMerce" prefWidth="63.0" text="ID" />
+                      <TableColumn fx:id="IDOrdineMerce" prefWidth="90.0" text="IDOrdine" />
+                        <TableColumn fx:id="PrezzoMerce" prefWidth="85.0" text="Prezzo" />
+                        <TableColumn fx:id="DescrizioneMerce" prefWidth="382.0" text="Descrizione" />
+                        <TableColumn fx:id="QuantitaMerce" prefWidth="95.0" text="Quantita" />
+                    </columns>
+                  </TableView>
+                  <Button accessibleHelp="scsds" layoutX="656.0" layoutY="516.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Consegna" AnchorPane.leftAnchor="656.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="516.0" />
+                  <Button layoutX="533.0" layoutY="554.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="213.0" text="Ricerca punto di prelievo più vicino" />
+                  <Label layoutX="370.0" layoutY="558.0" text="Se non hai trovato il cliente:" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab closable="false" disable="true" onSelectionChanged="#updateMagazziniChoiceBox" text="Cliente non trovato">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="38.0" layoutY="37.0" text="Seleziona un punto di prelievo vicino">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="65.0" layoutY="134.0" text="Punto prelievo" />
+                  <ChoiceBox layoutX="177.0" layoutY="130.0" onMouseClicked="#showMagazzini" prefHeight="25.0" prefWidth="547.0" />
+                  <Button layoutX="618.0" layoutY="509.0" mnemonicParsing="false" onAction="#trasportoMerce" text="Trasporta merce " AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="516.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+   </tabs>
+</TabPane>

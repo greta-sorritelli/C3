@@ -58,10 +58,10 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
             corrieri.add(simpleCorriere);
     }
 
-    //todo test
-    public void associaMerce(int IDCorriere, int IDMerce) throws SQLException {
-        getItem(IDCorriere).associaMerce(IDMerce);
-    }
+//    //todo test
+//    public void associaMerce(int IDCorriere, int IDMerce) throws SQLException {
+//        getItem(IDCorriere).associaMerce(IDMerce);
+//    }
 
     /**
      * Ritorna la lista dei {@link SimpleCorriere Corrieri} {@code disponibili} presenti nel DB.
@@ -130,11 +130,6 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
         return dettagli;
     }
 
-    //todo test
-    public ArrayList<ArrayList<String>> getDettagliMerceAffidata(int IDCorriere) throws SQLException {
-        return getItem(IDCorriere).getDettagliMerceAffidata();
-    }
-
     public boolean getDisponibilita(int IDCorriere) throws SQLException {
         return getItem(IDCorriere).getDisponibilita();
     }
@@ -171,16 +166,6 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
             addCorriere(rs);
         disconnectToDB(rs);
         return new ArrayList<>(corrieri);
-    }
-
-    //todo test
-    public ArrayList<SimpleMerceOrdine> getMerce(int IDCorriere, StatoOrdine stato) throws SQLException {
-        return getItem(IDCorriere).getMerce(stato);
-    }
-
-    //todo test
-    public ArrayList<SimpleMerceOrdine> getMerceAffidata(int IDCorriere) throws SQLException {
-        return getItem(IDCorriere).getMerceAffidata();
     }
 
     /**

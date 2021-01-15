@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
-import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
@@ -125,23 +124,14 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
     }
 
     /**
-     * Ricerca un {@link SimplePuntoPrelievo Magazzino} tramite il suo indirizzo.
+     * Ricerca i {@link SimplePuntoPrelievo Punti prelievo} più vicini.
      *
-     * @param indirizzo Indirizzo del Magazzino da ricercare
-     *
-     * @return il Punto di Prelievo collegato all' indirizzo
      * @throws SQLException Errore causato da una query SQL
+     * @return              ArrayList<ArrayList<String>>
      */
-    public SimplePuntoPrelievo ricercaMagazzino(String indirizzo) throws SQLException {
-        ResultSet rs = executeQuery("SELECT ID FROM sys.punti_prelievo where indirizzo='" + indirizzo + "' ;");
-        if (rs.next()) {
-            int IDtmp = rs.getInt("ID");
-            disconnectToDB(rs);
-            return getItem(IDtmp);
-        } else {
-            disconnectToDB(rs);
-            throw new IllegalArgumentException("Magazzino non trovato.");
-        }
+    //todo test
+    public ArrayList<SimplePuntoPrelievo> ricercaMagazziniVicini() throws SQLException {
+        return getItems();
     }
 
     /**
