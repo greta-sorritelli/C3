@@ -209,15 +209,16 @@ public class GestoreOrdini {
     }
 
     //todo test
-    public ArrayList<ArrayList<String>> getMerciNegozio(int IDNegozio) throws SQLException {
+    public ArrayList<ArrayList<String>> getMerciFromNegozioToMagazzino(int IDNegozio, int IDPuntoPrelievo) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "';");
+        ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "' and IDPuntoPrelievo ='"
+                + IDPuntoPrelievo + "';");
         while (rs.next())
             addOrdine(rs);
         disconnectToDB(rs);
 
         for (SimpleOrdine simpleOrdine : ordini)
-            if (simpleOrdine.getIDNegozio() == IDNegozio)
+            if (simpleOrdine.getIDNegozio() == IDNegozio && simpleOrdine.getPuntoPrelievo() == IDPuntoPrelievo)
                 for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
                     if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
                         toReturn.add(simpleMerceOrdine.getDettagli());

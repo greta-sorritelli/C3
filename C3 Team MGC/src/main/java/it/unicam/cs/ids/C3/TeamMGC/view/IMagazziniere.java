@@ -54,15 +54,15 @@ public class IMagazziniere implements JavaFXController {
     @FXML
     //todo creare fxml
     public void avvisaCorriere() {
-        openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(gestoreCorrieri, gestoreNegozi, gestoreOrdini));
+        openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(simplePuntoPrelievo.getID()));
     }
 
     /**
      * Apre la finestra per consegnare la merce al cliente.
      */
     @FXML
-    public void consegnaMerceCliente(){
-        openWindow("/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(simplePuntoPrelievo,gestoreOrdini,gestoreClienti));
+    public void consegnaMerceCliente() {
+        openWindow("/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(simplePuntoPrelievo, gestoreOrdini, gestoreClienti));
     }
 
 }

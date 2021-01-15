@@ -14,11 +14,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class JavaFXComunicareConCorriere implements JavaFXController {
-    private final GestoreCorrieri gestoreCorrieri;
-    private final GestoreNegozi gestoreNegozi;
-    private final GestoreOrdini gestoreOrdini;
-    private ArrayList<String> dettagliCorriereSelezionato;
-    private ArrayList<Negozio> negoziSelezionati = new ArrayList<>();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
+    private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+    private final int IDPuntoPrelievo;
+    private final ArrayList<Negozio> negoziSelezionati = new ArrayList<>();
 
     @FXML
     TabPane tab;
@@ -59,59 +59,27 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> TelefonoNegozio;
 
-    public JavaFXComunicareConCorriere(GestoreCorrieri gestoreCorrieri, GestoreNegozi gestoreNegozi, GestoreOrdini gestoreOrdini) {
-        this.gestoreCorrieri = gestoreCorrieri;
-        this.gestoreNegozi = gestoreNegozi;
-        this.gestoreOrdini = gestoreOrdini;
+    private ArrayList<String> dettagliCorriereSelezionato;
+
+    public JavaFXComunicareConCorriere(int IDPuntoPrelievo) {
+        this.IDPuntoPrelievo = IDPuntoPrelievo;
     }
 
-    public void getDettagliCorrieriDisponibili() {
-        //todo
-    }
-
-    public void selezionaCorriere(int ID) {
-        //todo (metodo di gestoreCorrieri)
-    }
-
-    public void selezionaNegozio(int ID) {
-        //todo (metodo di gestoreNegozi)
-    }
-
-    public void getDettagliNegoziConOrdini() {
-        //todo
-    }
-
-    public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) {
-        //todo manda alert al corriere con i negozi in cui prelevare merce
+    @FXML
+    public void backToCorrieri() {
+        corrieriTable.getSelectionModel().select(null);
+        tabCorriere.setDisable(false);
+        tab.getSelectionModel().select(tabCorriere);
+        tabNegozi.setDisable(true);
     }
 
     @FXML
     public void conferma() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Attendere...");
-        //todo
         alert.setContentText("Invio Alert in corso.");
         selezionaNegozi(alert);
         confermaAssegnazione(alert);
-    }
-
-    private void selezionaNegozi(Alert alert) {
-        try {
-            if (!negoziTable.getSelectionModel().isEmpty()) {
-                alert.show();
-                ArrayList<ArrayList<String>> sel = new ArrayList<>(negoziTable.getSelectionModel().getSelectedItems());
-                for (ArrayList<String> negozio : sel) {
-                    if (negozio != null) {
-                        int id = Integer.parseInt(negozio.get(0));
-                        this.negoziSelezionati.add(gestoreNegozi.getItem(id));
-                    }
-                }
-                sel.clear();
-            } else
-                alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.");
-        } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
-        }
     }
 
     private void confermaAssegnazione(Alert alert) {
@@ -120,7 +88,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
                 gestoreCorrieri.mandaAlert(Integer.parseInt(dettagliCorriereSelezionato.get(0)), negoziSelezionati);
                 ArrayList<ArrayList<String>> merci = new ArrayList<>();
                 for (Negozio negozio : negoziSelezionati)
-                    merci.addAll(gestoreOrdini.getMerciNegozio(negozio.getID()));
+                    merci.addAll(gestoreOrdini.getMerciFromNegozioToMagazzino(negozio.getID(), IDPuntoPrelievo));
                 for (ArrayList<String> m : merci)
                     gestoreOrdini.setStatoMerce(Integer.parseInt(m.get(0)), StatoOrdine.CORRIERE_SCELTO);
                 alert.close();
@@ -131,7 +99,6 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
             errorWindow("Error!", "Errore nel DB.");
         }
     }
-
 
     @FXML
     public void selezionaCorriere() {
@@ -147,6 +114,24 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
             } else {
                 alertWindow("Impossibile proseguire", "Selezionare un corriere.");
             }
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
+    private void selezionaNegozi(Alert alert) {
+        try {
+            if (!negoziTable.getSelectionModel().isEmpty()) {
+                alert.show();
+                ArrayList<ArrayList<String>> sel = new ArrayList<>(negoziTable.getSelectionModel().getSelectedItems());
+                for (ArrayList<String> negozio : sel)
+                    if (negozio != null) {
+                        int id = Integer.parseInt(negozio.get(0));
+                        this.negoziSelezionati.add(gestoreNegozi.getItem(id));
+                    }
+                sel.clear();
+            } else
+                alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.");
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");
         }
@@ -177,22 +162,23 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     }
 
     @FXML
-    public void visualizzaNegozi() {
+    public void visualizzaCorrieri() {
         try {
-            setNegozioCellValueFactory();
-            negoziTable.getItems().clear();
-            negoziTable.getItems().addAll(gestoreNegozi.getDettagliItemsConOrdini());
+            setCorriereCellValueFactory();
+            corrieriTable.getItems().clear();
+            corrieriTable.getItems().addAll(gestoreCorrieri.getDettagliCorrieriDisponibili());
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");
         }
     }
 
     @FXML
-    public void visualizzaCorrieri() {
+    public void visualizzaNegozi() {
         try {
-            setCorriereCellValueFactory();
-            corrieriTable.getItems().clear();
-            corrieriTable.getItems().addAll(gestoreCorrieri.getDettagliCorrieriDisponibili());
+            setNegozioCellValueFactory();
+            negoziTable.getItems().clear();
+            negoziSelezionati.clear();
+            negoziTable.getItems().addAll(gestoreNegozi.getDettagliItemsConOrdini(IDPuntoPrelievo));
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");
         }

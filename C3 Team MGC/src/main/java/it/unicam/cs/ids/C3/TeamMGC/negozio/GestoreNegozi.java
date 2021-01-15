@@ -83,8 +83,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
      */
     //todo controllare problema Franco e Clarissa
     //todo finire test
-    public ArrayList<ArrayList<String>> getDettagliItemsConOrdini() throws SQLException {
-        ResultSet rs = executeQuery("SELECT DISTINCT IDNegozio FROM sys.ordini where stato = '" + StatoOrdine.PAGATO + "' ;");
+    //todo rivedere il commento
+    public ArrayList<ArrayList<String>> getDettagliItemsConOrdini(int IDPuntoPrelievo) throws SQLException {
+        ResultSet rs = executeQuery("SELECT DISTINCT IDNegozio FROM sys.ordini where stato = '" + StatoOrdine.PAGATO +
+                "' and IDPuntoPrelievo = '" + IDPuntoPrelievo + "' ;");
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         while (rs.next())
             toReturn.add(getItem(rs.getInt("IDNegozio")).getDettagli());
