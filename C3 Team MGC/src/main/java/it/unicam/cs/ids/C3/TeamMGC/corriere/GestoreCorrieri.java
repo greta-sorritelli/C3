@@ -3,6 +3,8 @@ package it.unicam.cs.ids.C3.TeamMGC.corriere;
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,6 +56,11 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
     private void addCorriereToList(SimpleCorriere simpleCorriere) {
         if (!corrieri.contains(simpleCorriere))
             corrieri.add(simpleCorriere);
+    }
+
+    //todo test
+    public void associaMerce(int IDCorriere, int IDMerce) throws SQLException {
+        getItem(IDCorriere).associaMerce(IDMerce);
     }
 
     /**
@@ -123,6 +130,11 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
         return dettagli;
     }
 
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliMerceAffidata(int IDCorriere) throws SQLException {
+        return getItem(IDCorriere).getDettagliMerceAffidata();
+    }
+
     public boolean getDisponibilita(int IDCorriere) throws SQLException {
         return getItem(IDCorriere).getDisponibilita();
     }
@@ -161,6 +173,16 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
         return new ArrayList<>(corrieri);
     }
 
+    //todo test
+    public ArrayList<SimpleMerceOrdine> getMerce(int IDCorriere, StatoOrdine stato) throws SQLException {
+        return getItem(IDCorriere).getMerce(stato);
+    }
+
+    //todo test
+    public ArrayList<SimpleMerceOrdine> getMerceAffidata(int IDCorriere) throws SQLException {
+        return getItem(IDCorriere).getMerceAffidata();
+    }
+
     /**
      * Crea e inserisce un nuovo {@link SimpleCorriere} nella lista.
      *
@@ -174,22 +196,6 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
         SimpleCorriere simpleCorriere = new SimpleCorriere(nome, cognome, true);
         addCorriereToList(simpleCorriere);
         return simpleCorriere.getDettagli();
-    }
-
-    /**
-     * Seleziona il {@link SimpleCorriere} desiderato.
-     *
-     * @param ID Codice Identificativo del Corriere
-     *
-     * @return Le informazioni del Corriere
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<String> selezionaCorriere(int ID) throws SQLException {
-        return getItem(ID).getDettagli();
-    }
-
-    public void setDisponibilita(int IDCorriere, boolean disponibilita) throws SQLException {
-        getItem(IDCorriere).setDisponibilita(disponibilita);
     }
 
     /**
@@ -214,4 +220,21 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
                 "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
                 + ", per ritirare le merci dei cliente alla residenza: " + residenza + ".');");
     }
+
+    /**
+     * Seleziona il {@link SimpleCorriere} desiderato.
+     *
+     * @param ID Codice Identificativo del Corriere
+     *
+     * @return Le informazioni del Corriere
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<String> selezionaCorriere(int ID) throws SQLException {
+        return getItem(ID).getDettagli();
+    }
+
+    public void setDisponibilita(int IDCorriere, boolean disponibilita) throws SQLException {
+        getItem(IDCorriere).setDisponibilita(disponibilita);
+    }
+
 }

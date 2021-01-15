@@ -4,6 +4,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -66,7 +67,7 @@ public class JavaFXTrasportareMerce implements JavaFXController {
 
     @FXML
     public void setStatoInTransito() {
-        if (!merceTable.getSelectionModel()) {
+        if (!merceTable.getSelectionModel().isEmpty()) {
             for (ArrayList<String> merce : merceTable.getSelectionModel().getSelectedItems())
                 setStatoMerce(Integer.parseInt(merce.get(0)));
             visualizzaMerce();
@@ -77,7 +78,11 @@ public class JavaFXTrasportareMerce implements JavaFXController {
     private ArrayList<ArrayList<String>> getDettagliMerce() {
         // todo stato affidato al corriere
         try {
-            return gestoreCorrieri.getItem(IDCorriere).getDettagliMerceAffidata();
+            ArrayList<ArrayList<String>> merce = new ArrayList<>();
+            for (SimpleMerceOrdine merceTot : gestoreCorrieri.getItem(IDCorriere).getMerce(StatoOrdine.AFFIDATO_AL_CORRIERE)) {
+                merce.add(merceTot.getDettagli());
+            }
+            return merce;
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }
@@ -87,6 +92,7 @@ public class JavaFXTrasportareMerce implements JavaFXController {
     private void setStatoMerce(int IDMerce) {
         try {
             gestoreOrdini.setStatoMerce(IDMerce, StatoOrdine.IN_TRANSITO);
+            successWindow("Merce in transito.", "La merce selezionata e' in transito.");
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");
         }

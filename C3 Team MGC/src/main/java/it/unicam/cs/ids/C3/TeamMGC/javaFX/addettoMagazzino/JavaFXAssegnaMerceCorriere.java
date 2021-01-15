@@ -118,7 +118,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                 for (SimpleMerceOrdine merce : selectedMerce) {
                     if (merce != null) {
                         gestoreOrdini.setStatoMerce(merce.getID(), StatoOrdine.AFFIDATO_AL_CORRIERE);
-                        this.selectedSimpleCorriere.getMerceAffidata().add(merce);
+                        gestoreCorrieri.associaMerce(selectedSimpleCorriere.getID(), merce.getID());
                     }
                 }
                 alert.close();

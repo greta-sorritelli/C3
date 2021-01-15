@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
@@ -9,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la gestione di ogni {@link SimpleOrdine}
@@ -349,6 +349,7 @@ public class GestoreOrdini {
 
     public void setStatoMerce(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
+        updateMerceCorriere(IDMerce, statoOrdine);
         SimpleOrdine simpleOrdine = getOrdine(getMerceOrdine(IDMerce).getIDOrdine());
         boolean toControl = true;
         for (SimpleMerceOrdine m : simpleOrdine.getMerci()) {
@@ -359,6 +360,18 @@ public class GestoreOrdini {
         }
         if (toControl)
             simpleOrdine.setStato(statoOrdine);
+    }
+
+    private void updateMerceCorriere(int IDMerce, StatoOrdine statoOrdine) throws SQLException {
+        switch (statoOrdine) {
+            case AFFIDATO_AL_CORRIERE:
+            case IN_TRANSITO:
+                ResultSet rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
+                if (rs.next())
+                    updateData("UPDATE sys.stato_merce SET stato = " + statoOrdine.toString() +
+                            "WHERE IDMerce = " + IDMerce + ";");
+                disconnectToDB(rs);
+        }
     }
 
     //todo controllare test

@@ -1,13 +1,14 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import org.checkerframework.checker.units.qual.A;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
@@ -59,6 +60,7 @@ public class SimpleCorriere implements Corriere {
         this.nome = nome;
         this.cognome = cognome;
         this.disponibilita = disponibilita;
+        updateMerce();
         disconnectToDB(rs);
     }
 
@@ -112,11 +114,31 @@ public class SimpleCorriere implements Corriere {
         return nome;
     }
 
-    public ArrayList<SimpleMerceOrdine> getMerceAffidata() {
+    //todo test
+    private void updateMerce() throws SQLException {
+        merceAffidata.clear();
+        ResultSet rs = executeQuery("select * from stato_merce where IDCorriere ='" + ID + "';");
+        while (rs.next()) {
+            int IDMerce = rs.getInt("IDMerce");
+            merceAffidata.add(GestoreOrdini.getInstance().getMerceOrdine(IDMerce));
+        }
+    }
+
+    //todo test
+    public ArrayList<SimpleMerceOrdine> getMerceAffidata() throws SQLException {
+        updateMerce();
         return merceAffidata;
     }
 
+    //todo test
+    public ArrayList<SimpleMerceOrdine> getMerce(StatoOrdine stato) throws SQLException {
+        updateMerce();
+        return merceAffidata.stream().filter(simpleMerceOrdine -> simpleMerceOrdine.getStato().equals(stato)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    //todo test
     public ArrayList<ArrayList<String>> getDettagliMerceAffidata() throws SQLException {
+        updateMerce();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         for (SimpleMerceOrdine merce : merceAffidata) {
             dettagli.add(merce.getDettagli());
@@ -124,6 +146,14 @@ public class SimpleCorriere implements Corriere {
         return dettagli;
     }
 
+    //todo test
+    public void associaMerce(int IDMerce) throws SQLException {
+        updateMerce();
+        StatoOrdine stato = GestoreOrdini.getInstance().getMerceOrdine(IDMerce).getStato();
+        updateData("INSERT INTO sys.stato_merce (IDCorriere, IDMerce, stato_merce) " +
+                "VALUES ('"+ ID + "', '" + IDMerce + "', '" + stato + "');");
+        merceAffidata.add(GestoreOrdini.getInstance().getMerceOrdine(IDMerce));
+    }
 
     @Override
     public int hashCode() {
