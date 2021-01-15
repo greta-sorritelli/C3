@@ -11,27 +11,26 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.checkerframework.checker.units.qual.A;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class JavaFXAssegnaMerceCorriere implements JavaFXController {
 
-    private final GestoreCorrieri gestoreCorrieri;
-    private final GestoreMagazzini gestoreMagazzini;
-    private final GestoreOrdini gestoreOrdini;
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
+    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     /**
      * TabPane della finestra
      */
     @FXML
-    TabPane tab ;
+    TabPane tab = new TabPane();
     @FXML
-    Tab corrieri ;
+    Tab corrieri = new Tab();
     @FXML
-    Tab destinazione;
+    Tab destinazione = new Tab();
     @FXML
-    Tab merceOrdine;
+    Tab merceOrdine = new Tab();
     /**
      * Tabella dei corrieri
      */
@@ -71,22 +70,15 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     TableColumn<ArrayList<String>, String> QuantitaMerce;
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
+
     @FXML
     TextField residenzaTextField;
 
-    private SimpleCorriere selectedSimpleCorriere;
-    private SimplePuntoPrelievo selectedMagazzino;
+    private SimpleCorriere selectedSimpleCorriere = null;
+    private SimplePuntoPrelievo selectedMagazzino = null;
     private String selectedResidenza;
-    private ArrayList<SimpleMerceOrdine> selectedMerce = new ArrayList<>();
+    private final ArrayList<SimpleMerceOrdine> selectedMerce = new ArrayList<>();
 
-
-    public JavaFXAssegnaMerceCorriere(GestoreCorrieri gestoreCorrieri, GestoreMagazzini gestoreMagazzini, GestoreOrdini gestoreOrdini) {
-        this.gestoreCorrieri = gestoreCorrieri;
-        this.gestoreMagazzini = gestoreMagazzini;
-        this.gestoreOrdini = gestoreOrdini;
-        this.selectedSimpleCorriere = null;
-        this.selectedMagazzino = null;
-    }
 
     @FXML
     public void backToCorrieri() {
@@ -287,9 +279,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             merceOrdineTable.getItems().clear();
             if (selectedMagazzino != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciMagazzino(selectedMagazzino.getID()));
-                if (selectedResidenza != null) {
-                    merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(residenzaTextField.getText()));
-                }
+            if (selectedResidenza != null) {
+                merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciResidenza(residenzaTextField.getText()));
+            }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }

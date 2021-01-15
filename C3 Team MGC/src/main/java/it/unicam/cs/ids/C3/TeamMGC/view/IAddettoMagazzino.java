@@ -1,12 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino.JavaFXAssegnaMerceCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXGestioneInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
@@ -16,10 +13,6 @@ public class IAddettoMagazzino implements JavaFXController {
     //todo
     private final Negozio negozio = new Negozio(1);
 
-    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
-    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
-
     public IAddettoMagazzino() throws SQLException {
     }
 
@@ -28,8 +21,7 @@ public class IAddettoMagazzino implements JavaFXController {
      */
     @FXML
     private void assegnaMerceCorriere() {
-        openWindow("/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere(gestoreCorrieri,
-                gestoreMagazzini, gestoreOrdini));
+        openWindow("/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere());
 
     }
 

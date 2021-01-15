@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="34.0" layoutY="30.0" prefHeight="30.0" prefWidth="330.0" text="Seleziona la merce da trasportare" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
@@ -27,6 +26,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="setStatoMerce" layoutX="488.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#setStatoInTransito" text="In transito" />
+      <Button layoutX="488.0" layoutY="350.0" mnemonicParsing="false" onAction="#setStatoInTransito" onMouseClicked="#setStatoInTransito" text="In transito" />
    </children>
 </AnchorPane>
