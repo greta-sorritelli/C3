@@ -371,6 +371,14 @@ public class GestoreOrdini {
                     updateData("UPDATE sys.stato_merce SET stato_merce = '" + statoOrdine.toString() +
                             "' WHERE IDMerce = " + IDMerce + ";");
                 disconnectToDB(rs);
+                break;
+            case IN_DEPOSITO:
+            case RITIRATO:
+                rs = executeQuery("SELECT * from sys.stato_merce where IDMerce = " + IDMerce + ";");
+                if (rs.next())
+                    updateData("delete from sys.stato_merce where IDMerce = " + IDMerce + ";");
+                disconnectToDB(rs);
+                break;
         }
     }
 
