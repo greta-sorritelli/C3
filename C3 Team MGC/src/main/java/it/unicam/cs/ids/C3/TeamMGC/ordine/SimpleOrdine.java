@@ -231,8 +231,7 @@ public class SimpleOrdine implements Ordine {
 
     @Override
     public String toString() {
-        return "Ordine{" +
-                "ID=" + ID +
+        return "ID=" + ID +
                 ", IDCliente=" + IDCliente +
                 ", nomeCliente='" + nomeCliente + '\'' +
                 ", cognomeCliente='" + cognomeCliente + '\'' +
@@ -241,8 +240,7 @@ public class SimpleOrdine implements Ordine {
                 ", IDPuntoPrelievo=" + IDPuntoPrelievo +
                 ", residenza='" + residenza + '\'' +
                 ", IDNegozio=" + IDNegozio +
-                ", merci=" + merci +
-                '}';
+                ", merci=" + merci;
     }
 
     /**

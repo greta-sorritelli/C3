@@ -10,7 +10,6 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * Classe per rappresentare la Merce all' interno dell' Inventario di un {@link Negozio}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
- *
  */
 public class SimpleMerce implements Merce {
     private int ID;
@@ -41,6 +40,7 @@ public class SimpleMerce implements Merce {
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID della Merce
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public SimpleMerce(int ID) throws SQLException {
@@ -86,8 +86,8 @@ public class SimpleMerce implements Merce {
     /**
      * Ritorna la lista dei dettagli della {@link SimpleMerce } presente nel DB.
      *
-     * @return                ArrayList<String> dei dettagli della merce.
-     * @throws SQLException   Errore causato da una query SQL
+     * @return ArrayList<String> dei dettagli della merce.
+     * @throws SQLException Errore causato da una query SQL
      **/
     @Override
     public ArrayList<String> getDettagli() throws SQLException {
@@ -129,13 +129,11 @@ public class SimpleMerce implements Merce {
 
     @Override
     public String toString() {
-        return "Merce{" +
-                "ID=" + ID +
+        return "ID=" + ID +
                 ", IDNegozio=" + IDNegozio +
                 ", prezzo=" + prezzo +
                 ", descrizione='" + descrizione + '\'' +
-                ", quantita=" + quantita +
-                '}';
+                ", quantita=" + quantita;
     }
 
     /**

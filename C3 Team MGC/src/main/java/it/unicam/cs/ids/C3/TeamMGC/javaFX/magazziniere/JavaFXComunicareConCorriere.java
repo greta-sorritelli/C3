@@ -86,11 +86,8 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
         try {
             if (!negoziTable.getSelectionModel().isEmpty()) {
                 gestoreCorrieri.mandaAlert(Integer.parseInt(dettagliCorriereSelezionato.get(0)), negoziSelezionati);
-                ArrayList<ArrayList<String>> merci = new ArrayList<>();
                 for (Negozio negozio : negoziSelezionati)
-                    merci.addAll(gestoreOrdini.getMerciFromNegozioToMagazzino(negozio.getID(), IDPuntoPrelievo));
-                for (ArrayList<String> m : merci)
-                    gestoreOrdini.setStatoMerce(Integer.parseInt(m.get(0)), StatoOrdine.CORRIERE_SCELTO);
+                    gestoreOrdini.getMerciFromNegozioToMagazzino(negozio.getID(), IDPuntoPrelievo);
                 alert.close();
                 successWindow("Alert mandato con successo", "Il corriere e' stato avvisato.");
                 visualizzaNegozi();

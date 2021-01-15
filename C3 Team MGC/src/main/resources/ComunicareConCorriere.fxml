@@ -58,8 +58,8 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button defaultButton="true" layoutX="706.0" layoutY="527.0" mnemonicParsing="false" onAction="#conferma" text="Conferma" AnchorPane.rightAnchor="42.0" />
-                  <Button layoutX="625.0" layoutY="527.0" mnemonicParsing="false" onAction="#backToCorrieri" text="&lt;&lt;Back" AnchorPane.rightAnchor="120.0" />
+                  <Button defaultButton="true" layoutX="706.0" layoutY="527.0" mnemonicParsing="false" onAction="#conferma" text="Manda alert" AnchorPane.rightAnchor="42.0" />
+                  <Button layoutX="608.0" layoutY="527.0" mnemonicParsing="false" onAction="#backToCorrieri" text="&lt;&lt;Back" AnchorPane.rightAnchor="135.0" />
                </children>
             </AnchorPane>
         </content>

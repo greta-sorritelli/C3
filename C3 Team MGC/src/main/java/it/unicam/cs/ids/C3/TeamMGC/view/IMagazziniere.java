@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXComunicareConCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXConsegnareMerceAlCliente;
@@ -13,6 +14,7 @@ public class IMagazziniere implements JavaFXController {
 
     //todo
     private final SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(1);
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
     public IMagazziniere() throws SQLException {
     }
@@ -23,7 +25,14 @@ public class IMagazziniere implements JavaFXController {
     @FXML
     //todo creare fxml
     public void avvisaCorriere() {
-        openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(simplePuntoPrelievo.getID()));
+        try {
+            if(!gestoreCorrieri.getCorrieriDisponibili().isEmpty())
+            openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(simplePuntoPrelievo.getID()));
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        }catch (IllegalArgumentException exception){
+            alertWindow("Riprovare piu' tardi.", "Non ci sono corrieri disponibili.");
+        }
     }
 
     /**
