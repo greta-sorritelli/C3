@@ -7,15 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="34.0" layoutY="30.0" prefHeight="30.0" prefWidth="330.0" text="Seleziona la merce da trasportare" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="26.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="merceTable" layoutX="42.0" layoutY="78.0" onMouseEntered="#visualizzaMerce" prefHeight="246.0" prefWidth="516.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
+      <TableView fx:id="merceTable" layoutX="42.0" layoutY="78.0" onMouseEntered="#visualizzaMerce" prefHeight="436.0" prefWidth="716.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="81.0">
         <columns>
           <TableColumn fx:id="merceID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="merceIDOrdine" prefWidth="75.0" text="ID Ordine" />
@@ -27,6 +26,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="setStatoMerce" layoutX="488.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#setStatoInTransito" text="In transito" />
+      <Button fx:id="setStatoMerce" layoutX="668.0" layoutY="538.0" mnemonicParsing="false" onMouseClicked="#setStatoInTransito" text="In transito" />
    </children>
 </AnchorPane>
