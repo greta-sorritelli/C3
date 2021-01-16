@@ -7,6 +7,7 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXTrasportareMerce;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 
 import java.sql.SQLException;
 
@@ -16,7 +17,7 @@ public class ICorriere implements JavaFXController {
 
     private final int IDCorriere;
 
-    public ICorriere(int ID){
+    public ICorriere(int ID) {
         this.IDCorriere = ID;
     }
 
@@ -26,12 +27,19 @@ public class ICorriere implements JavaFXController {
     @FXML
     private void consegnaMerce() {
         try {
-            if(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.IN_TRANSITO).isEmpty())
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Attendere...");
+            alert.setContentText("Controllo della merce da consegnare.");
+            alert.show();
+            if (gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.IN_TRANSITO).isEmpty()) {
+                alert.close();
                 throw new IllegalArgumentException("Merci non presenti.");
+            }
+            alert.close();
             openWindow("/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(IDCorriere));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception) {
             alertWindow("Riprovare piu' tardi.", "Non ci sono merci da consegnare.");
         }
     }
@@ -49,7 +57,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     //todo creare fxml
-    public void avviaRegistrazione(){
+    public void avviaRegistrazione() {
         openWindow("/RegistrazionePiattaforma.fxml", "Registrazione Piattaforma", new JavaFXRegistrazionePiattaforma());
     }
 
@@ -58,7 +66,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     //todo creare fxml
-    public void trasportoMerce(){
+    public void trasportoMerce() {
         openWindow("/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(IDCorriere));
     }
 

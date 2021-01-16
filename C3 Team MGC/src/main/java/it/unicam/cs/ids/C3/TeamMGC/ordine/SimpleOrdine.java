@@ -82,6 +82,7 @@ public class SimpleOrdine implements Ordine {
      * @param merce Merce da aggiungere
      */
     //todo rivedere il commento e test
+    @Override
     public void addMerce(SimpleMerceOrdine merce) throws SQLException {
         addMerceToOrdine(merce);
         update();
@@ -129,6 +130,7 @@ public class SimpleOrdine implements Ordine {
      * @throws SQLException Errore causato da una query SQL
      */
     //todo
+    @Override
     public void aggiungiMerce(SimpleMerceOrdine merce, int quantita) throws SQLException {
         merce.setQuantita(quantita);
         merci.add(merce);
@@ -249,6 +251,7 @@ public class SimpleOrdine implements Ordine {
      * @throws SQLException Errore causato da una query SQL
      */
     //todo rivedere test
+    @Override
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.ordini where ID= '" + this.ID + "';");
         if (rs.next()) {

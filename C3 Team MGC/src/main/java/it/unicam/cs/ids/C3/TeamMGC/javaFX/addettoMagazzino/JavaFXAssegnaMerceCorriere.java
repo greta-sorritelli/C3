@@ -11,6 +11,7 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -279,9 +280,8 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             merceOrdineTable.getItems().clear();
             if (selectedMagazzino != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciMagazzino(selectedMagazzino.getID()));
-            if (selectedResidenza != null) {
+            if (selectedResidenza != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciResidenza(residenzaTextField.getText()));
-            }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }
