@@ -233,7 +233,7 @@ class GestoreOrdiniTest {
 
         assertEquals(520.0, Double.parseDouble(ordine1.get(4)));
         assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(IDMerce1)));
-        assertEquals("[MerceOrdine{ID=" + IDMerce1 + ", IDOrdine=" + ID1 + ", prezzo=52.0, descrizione='gomma', quantita=10, stato=PAGATO}]", ordine1.get(7));
+        assertEquals("[ID=" + IDMerce1 + ", IDOrdine=" + ID1 + ", prezzo=52.0, descrizione='gomma', quantita=10, stato=PAGATO]", ordine1.get(7));
 
         assertEquals(40.0, Double.parseDouble(ordine2.get(4)));
         assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(IDMerce2)));

@@ -25,7 +25,7 @@ class NegozioTest {
         test.add("");
         test.add("Via dei Test");
         test.add("12345");
-        test.add("[Merce{ID=" + dettagli.get(0) + ", IDNegozio=" + dettagli.get(1) + ", prezzo=52.0, descrizione='gomma', quantita=10}]");
+        test.add("[ID=" + dettagli.get(0) + ", IDNegozio=" + dettagli.get(1) + ", prezzo=52.0, descrizione='gomma', quantita=10]");
         assertEquals(test, negozio.getDettagli());
         assertThrows(IllegalArgumentException.class, () -> new Negozio(1000));
     }
