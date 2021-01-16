@@ -146,8 +146,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
                 gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
                 successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.");
                 selezionaPuntoPrelievo();
-                Stage stage = (Stage) IDCliente.getScene().getWindow();
-                closeWindow(stage);
+                closeWindow((Stage) IDCliente.getScene().getWindow());
             } else
                 throw new IllegalArgumentException("Dati non presenti.");
         } catch (IllegalArgumentException exception) {

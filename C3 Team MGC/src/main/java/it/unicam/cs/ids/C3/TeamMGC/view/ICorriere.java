@@ -4,9 +4,15 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.*;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXConsegnareMerceADestinazione;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXModificareDisponibilita;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXTrasportareMerce;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.fxml.FXML;
 
+import java.sql.SQLException;
+
 public class ICorriere implements JavaFXController {
+
+    GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
 
     private final int IDCorriere;
 
@@ -19,7 +25,15 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     private void consegnaMerce() {
-        openWindow("/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(IDCorriere));
+        try {
+            if(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.IN_TRANSITO).isEmpty())
+                throw new IllegalArgumentException("Merci non presenti.");
+            openWindow("/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(IDCorriere));
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalArgumentException exception){
+            alertWindow("Riprovare piu' tardi.", "Non ci sono merci da consegnare.");
+        }
     }
 
     /**

@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -115,6 +116,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
                     gestoreOrdini.setStatoMerce(selectedMerce.getID(), StatoOrdine.RITIRATO);
                     successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al cliente.");
                 }
+                merceSelezionata.add(selectedMerce.getDettagli());
                 selectedMerce = null;
                 merceTable.getSelectionModel().select(null);
                 visualizzaMerci();
@@ -129,12 +131,10 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
         try {
             if (!merceTable.getSelectionModel().isEmpty()) {
                 int ID = Integer.parseInt(merceTable.getSelectionModel().getSelectedItem().get(0));
-                if (gestoreOrdini.getMerceOrdine(ID) != null) {
+                if (gestoreOrdini.getMerceOrdine(ID) != null)
                     this.selectedMerce = gestoreOrdini.getMerceOrdine(ID);
-                    merceSelezionata.add(selectedMerce.getDettagli());
-                }
             } else
-                alertWindow("Impossibile proseguire", "Selezionare la merce consegnata.");
+                alertWindow("Impossibile proseguire", "Selezionare la merce.");
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }
@@ -146,8 +146,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
             tab.getSelectionModel().select(ricerca);
             ricerca.setDisable(false);
             merce.setDisable(true);
-        } else
-            alertWindow("Impossibile proseguire", "Selezionare la merce.");
+        }
     }
 
     public void mandaAlert() {
@@ -157,6 +156,9 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
                 gestoreClienti.mandaAlertResidenza(ordine.getIDCliente(), magazziniChoiceBox.getValue(), selectedMerce);
                 successWindow("Destinazione cambiata con successo!", "La merce dovra' essere consegnata al punto di prelievo.");
                 magazziniChoiceBox.getItems().clear();
+                merceSelezionata.add(selectedMerce.getDettagli());
+                selectedMerce = null;
+                merceTable.getSelectionModel().select(null);
                 backToMerci();
             } else
                 alertWindow("Impossibile proseguire", "Selezionare il punto di prelievo.");
@@ -168,12 +170,12 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
 
     @FXML
     public void backToMerci() {
-        if(magazziniChoiceBox.getValue() == null) {
-            tab.getSelectionModel().select(merce);
-            merce.setDisable(false);
-            ricerca.setDisable(true);
-        } else
-            alertWindow("Impossibile proseguire", "Prima cambiare destinazione.");
+        selectedMerce = null;
+        merceTable.getSelectionModel().select(null);
+        tab.getSelectionModel().select(merce);
+        merce.setDisable(false);
+        ricerca.setDisable(true);
+        magazziniChoiceBox.getItems().clear();
 
     }
 
@@ -187,6 +189,10 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
             merceTable.getItems().clear();
             merceTable.getItems().addAll(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.IN_TRANSITO));
             merceTable.getItems().removeIf(merceSelezionata::contains);
+            if(merceTable.getItems().isEmpty()) {
+                successWindow("Merci consegnate con successo!", "Tutte le merci sono state consegnate.");
+                closeWindow((Stage) tab.getScene().getWindow());
+            }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }

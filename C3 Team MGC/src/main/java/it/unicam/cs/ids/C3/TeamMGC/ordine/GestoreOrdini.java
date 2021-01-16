@@ -242,8 +242,9 @@ public class GestoreOrdini {
         return null;
     }
 
-    //todo test cambiare nome
-    public void getMerciFromNegozioToMagazzino(int IDNegozio, int IDPuntoPrelievo) throws SQLException {
+    //todo test
+    public ArrayList<ArrayList<String>> getMerciFromNegozioToMagazzino(int IDNegozio, int IDPuntoPrelievo) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "' and IDPuntoPrelievo ='"
                 + IDPuntoPrelievo + "';");
         while (rs.next())
@@ -254,8 +255,9 @@ public class GestoreOrdini {
             if (simpleOrdine.getIDNegozio() == IDNegozio && simpleOrdine.getPuntoPrelievo() == IDPuntoPrelievo)
                 for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
                     if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO) {
-                        setStatoMerce(simpleMerceOrdine.getID(), StatoOrdine.CORRIERE_SCELTO);
+                        toReturn.add(simpleOrdine.getDettagli());
                     }
+        return toReturn;
     }
 
     //todo test
