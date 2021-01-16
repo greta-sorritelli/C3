@@ -22,6 +22,8 @@ public class JavaFXLoginCorriere implements JavaFXController {
     @FXML
     public void loginCorriere() throws SQLException {
         try {
+            if(IDCorriere.getText().isEmpty())
+                throw new NullPointerException("ID non presente.");
             int id = Integer.parseInt(IDCorriere.getText());
             this.ID = id;
             gestoreCorrieri.getItem(id);
@@ -29,7 +31,10 @@ public class JavaFXLoginCorriere implements JavaFXController {
             openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere(ID));
             closeWindow(stage);
         } catch (IllegalArgumentException e) {
-            errorWindow("ID errato", "Inserire un ID valido.");
+            errorWindow("ID errato!", "Inserire un ID valido.");
+            IDCorriere.clear();
+        }catch (NullPointerException e) {
+            errorWindow("ID non presente!", "Inserire un ID.");
             IDCorriere.clear();
         }
     }

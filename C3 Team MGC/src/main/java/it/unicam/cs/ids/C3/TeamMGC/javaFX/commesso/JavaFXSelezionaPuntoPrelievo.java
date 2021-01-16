@@ -96,6 +96,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
 
     public void mandaAlert() {
         try {
+            if(!gestoreCorrieri.getCorrieriDisponibili().isEmpty())
             gestoreMagazzini.mandaAlert(choicePuntoPrelievo.getValue().getID(), negozio);
             successWindow("Alert mandato con successo!", "L' alert e' stato inviato al magazziniere.");
         } catch (SQLException exception) {

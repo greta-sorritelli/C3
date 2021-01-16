@@ -65,9 +65,23 @@ public class ICorriere implements JavaFXController {
      * Apre la finestra registrarsi sulla piattaforma.
      */
     @FXML
-    //todo creare fxml
     public void trasportoMerce() {
-        openWindow("/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(IDCorriere));
+        try {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Attendere...");
+            alert.setContentText("Controllo della merce da trasportare.");
+            alert.show();
+            if (gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.AFFIDATO_AL_CORRIERE).isEmpty()) {
+                alert.close();
+                throw new IllegalArgumentException("Merci non presenti.");
+            }
+            alert.close();
+            openWindow("/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(IDCorriere));
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalArgumentException exception) {
+            alertWindow("Riprovare piu' tardi.", "Non ci sono merci da trasportare.");
+        }
     }
 
 }

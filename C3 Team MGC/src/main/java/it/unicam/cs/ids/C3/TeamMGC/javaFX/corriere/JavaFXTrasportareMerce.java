@@ -81,7 +81,6 @@ public class JavaFXTrasportareMerce implements JavaFXController {
     }
 
     private ArrayList<ArrayList<String>> getDettagliMerce() {
-        // todo stato affidato al corriere
         try {
             return new ArrayList<>(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.AFFIDATO_AL_CORRIERE));
         } catch (SQLException exception) {

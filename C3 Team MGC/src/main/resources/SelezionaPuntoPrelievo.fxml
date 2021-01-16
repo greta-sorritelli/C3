@@ -28,9 +28,9 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="32.0" layoutY="70.0" text="Inserisci la residenza del simpleCliente" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="70.0" />
+                        <Label layoutX="32.0" layoutY="70.0" text="Inserisci la residenza del cliente" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="70.0" />
                         <TextField fx:id="residenza" layoutX="206.0" layoutY="66.0" prefHeight="25.0" prefWidth="518.0" AnchorPane.leftAnchor="208.0" />
-                        <Button layoutX="563.0" layoutY="201.0" mnemonicParsing="false" onAction="#addResidenza" text="Seleziona simpleCorriere" AnchorPane.bottomAnchor="235.0" AnchorPane.topAnchor="261.0" />
+                        <Button layoutX="563.0" layoutY="201.0" mnemonicParsing="false" onAction="#addResidenza" text="Seleziona corriere" AnchorPane.bottomAnchor="235.0" AnchorPane.topAnchor="261.0" />
                      </children>
                   </AnchorPane>
             </content>
