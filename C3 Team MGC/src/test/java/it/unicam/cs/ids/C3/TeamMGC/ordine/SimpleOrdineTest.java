@@ -75,6 +75,7 @@ class SimpleOrdineTest {
         ordineLista.add("24.0");
         ordineLista.add(StatoOrdine.PAGATO.toString());
         ordineLista.add(String.valueOf(p.getID()));
+        ordineLista.add(String.valueOf(negozio.getID()));
         ordineLista.add(simpleOrdine.getMerci().toString());
         assertEquals(ordineLista, simpleOrdine.getDettagli());
     }
@@ -120,7 +121,7 @@ class SimpleOrdineTest {
         assertEquals(StatoOrdine.DA_PAGARE, simpleOrdine.getStato());
         assertEquals(p.getID(), simpleOrdine.getPuntoPrelievo());
 
-        simpleOrdine.aggiungiMerce(merce,10);
+        simpleOrdine.aggiungiMerce(merce, 10);
         simpleOrdine.setStato(StatoOrdine.PAGATO);
         SimplePuntoPrelievo p1 = new SimplePuntoPrelievo("Via degli Activity Diagram", "SD 2");
 

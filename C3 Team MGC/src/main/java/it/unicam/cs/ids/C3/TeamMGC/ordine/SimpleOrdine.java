@@ -172,6 +172,8 @@ public class SimpleOrdine implements Ordine {
         else
             ordini.add(String.valueOf(getResidenza()));
 
+        ordini.add(String.valueOf(IDNegozio));
+
         for (SimpleMerceOrdine merce : merci)
             merce.update();
 

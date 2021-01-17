@@ -115,26 +115,6 @@ public class GestoreOrdini {
     }
 
     /**
-     * Ritorna la lista dei dettagli della {@link SimpleMerceOrdine};
-     *
-     * @param merce    Lista della merceOrdine
-     * @param dettagli Lista dei dettagli
-     * @param rs       ResultSet
-     *
-     * @return ArrayList<ArrayList < String>> dei dettagli della merceOrdine
-     * @throws SQLException Errore causato da una query SQL
-     */
-    private ArrayList<ArrayList<String>> getArrayListDettagliMerce(ArrayList<SimpleMerceOrdine> merce, ArrayList<ArrayList<String>> dettagli, ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            SimpleMerceOrdine tmp = new SimpleMerceOrdine(rs.getInt("ID"));
-            merce.add(tmp);
-        }
-        for (SimpleMerceOrdine m : merce)
-            dettagli.add(m.getDettagli());
-        return dettagli;
-    }
-
-    /**
      * Ritorna la lista dei dettagli delle {@link SimpleMerceOrdine Merci} con un certo stato presenti nel DB.
      *
      * @param statoOrdine Stato della merce
@@ -158,9 +138,6 @@ public class GestoreOrdini {
                 dettagli.add(simpleMerceOrdine.getDettagli());
 
         return dettagli;
-
-//        ResultSet rs = executeQuery("SELECT * FROM sys.merci WHERE (stato =  '" + statoOrdine + "');");
-//        return getArrayListDettagliMerce(merci, dettagli, rs);
     }
 
     /**
@@ -206,11 +183,10 @@ public class GestoreOrdini {
     //todo finire test
     public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<SimpleOrdine> ordini) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        for (SimpleOrdine simpleOrdine : ordini) {
+        for (SimpleOrdine simpleOrdine : ordini)
             for (SimpleMerceOrdine m : simpleOrdine.getMerci())
                 if (m.getStato() == StatoOrdine.IN_DEPOSITO)
                     toReturn.add(m.getDettagli());
-        }
         return toReturn;
     }
 
@@ -235,14 +211,12 @@ public class GestoreOrdini {
                     disconnectToDB(rs);
                     return tmp;
                 }
-        } else {
-            disconnectToDB(rs);
-            throw new IllegalArgumentException("ID non valido.");
         }
-        return null;
+        disconnectToDB(rs);
+        throw new IllegalArgumentException("ID non valido.");
     }
 
-    //todo test
+    //todo commento
     public ArrayList<ArrayList<String>> getMerciFromNegozioToMagazzino(int IDNegozio, int IDPuntoPrelievo) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "' and IDPuntoPrelievo ='"
@@ -254,13 +228,12 @@ public class GestoreOrdini {
         for (SimpleOrdine simpleOrdine : ordini)
             if (simpleOrdine.getIDNegozio() == IDNegozio && simpleOrdine.getPuntoPrelievo() == IDPuntoPrelievo)
                 for (SimpleMerceOrdine simpleMerceOrdine : simpleOrdine.getMerci())
-                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO) {
-                        toReturn.add(simpleOrdine.getDettagli());
-                    }
+                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(simpleMerceOrdine.getDettagli());
         return toReturn;
     }
 
-    //todo test
+    //todo commento
     public ArrayList<ArrayList<String>> getMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
@@ -398,10 +371,8 @@ public class GestoreOrdini {
     //todo controllare test
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
-        for (SimpleMerceOrdine simpleMerceOrdine : getOrdine(IDOrdine).getMerci()) {
+        for (SimpleMerceOrdine simpleMerceOrdine : getOrdine(IDOrdine).getMerci())
             simpleMerceOrdine.setStato(statoOrdine);
-        }
-
     }
 
     /**
