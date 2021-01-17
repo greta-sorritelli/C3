@@ -49,7 +49,7 @@ class GestoreNegoziTest {
 
     @Test
     void getItems() throws SQLException {
-        ArrayList<Negozio> test = gestoreNegozi.getItems();
+        ArrayList<GestoreInventario> test = gestoreNegozi.getItems();
         assertEquals(1, test.get(0).getID());
         assertEquals(2, test.get(1).getID());
         assertEquals(3, test.get(2).getID());
@@ -78,9 +78,9 @@ class GestoreNegoziTest {
         simpleOrdine1.setStato(StatoOrdine.PAGATO);
 
         assertEquals(1, gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).size());
-        assertEquals("1",gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).get(0).get(0));
-        assertEquals("Emporio",gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).get(0).get(1));
-        assertEquals("Via Culmone",gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).get(0).get(5));
+        assertEquals("1", gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).get(0).get(0));
+        assertEquals("Emporio", gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).get(0).get(1));
+        assertEquals("Via Culmone", gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).get(0).get(5));
         simpleOrdine1.setStato(StatoOrdine.IN_DEPOSITO);
         assertEquals(0, gestoreNegozi.getDettagliItemsConOrdini(magazzino.getID()).size());
     }

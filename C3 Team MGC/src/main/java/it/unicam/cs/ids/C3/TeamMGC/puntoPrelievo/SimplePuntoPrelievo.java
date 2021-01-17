@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
@@ -125,8 +126,8 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public ArrayList<SimpleOrdine> getOrdini(int IDCliente) throws SQLException {
-        ArrayList<SimpleOrdine> lista = new ArrayList<>();
+    public ArrayList<Ordine> getOrdini(int IDCliente) throws SQLException {
+        ArrayList<Ordine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from ordini WHERE IDCliente = '" + IDCliente +
                 "' AND IDPuntoPrelievo = '" + this.ID + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "' ;");
         while (rs.next()) {

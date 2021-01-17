@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
@@ -181,12 +182,13 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
     /**
      * Manda un alert al corriere per andare ai negozi dove deve prelevare la merce.
      *
-     * @param IDCorriere    ID del corriere
-     * @param negozi        Negozi dove il corriere preleva la merce
+     * @param IDCorriere ID del corriere
+     * @param negozi     Negozi dove il corriere preleva la merce
+     *
      * @throws SQLException Errore causato da una query SQL
      */
-    public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) throws SQLException {
-        for (Negozio negozio : negozi)
+    public void mandaAlert(int IDCorriere, ArrayList<GestoreInventario> negozi) throws SQLException {
+        for (GestoreInventario negozio : negozi)
             updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
                     "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
                     + ", per ritirare le merci dei clienti.');");
@@ -196,10 +198,11 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      * Manda un alert al corriere per andare al negozio dove deve prelevare la merce per poi
      * consegnarla in una residenza.
      *
-     * @param IDCorriere     ID del corriere
-     * @param negozio        Negozio dove il corriere preleva la merce
-     * @param residenza      Residenza dove il corriere consegna le merci
-     * @throws SQLException  Errore causato da una query SQL
+     * @param IDCorriere ID del corriere
+     * @param negozio    Negozio dove il corriere preleva la merce
+     * @param residenza  Residenza dove il corriere consegna le merci
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void mandaAlert(int IDCorriere, Negozio negozio, String residenza) throws SQLException {
         updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +

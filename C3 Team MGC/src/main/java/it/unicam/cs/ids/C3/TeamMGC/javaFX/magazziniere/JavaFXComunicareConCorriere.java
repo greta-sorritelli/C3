@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
@@ -18,7 +19,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final int IDPuntoPrelievo;
-    private final ArrayList<Negozio> negoziSelezionati = new ArrayList<>();
+    private final ArrayList<GestoreInventario> negoziSelezionati = new ArrayList<>();
 
     @FXML
     TabPane tab;
@@ -87,9 +88,9 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
             if (!negoziTable.getSelectionModel().isEmpty()) {
                 gestoreCorrieri.mandaAlert(Integer.parseInt(dettagliCorriereSelezionato.get(0)), negoziSelezionati);
                 ArrayList<ArrayList<String>> merci = new ArrayList<>();
-                for (Negozio negozio : negoziSelezionati)
+                for (GestoreInventario negozio : negoziSelezionati)
                     merci.addAll(gestoreOrdini.getMerciFromNegozioToMagazzino(negozio.getID(), IDPuntoPrelievo));
-                for (ArrayList<String> m: merci) {
+                for (ArrayList<String> m : merci) {
                     gestoreOrdini.setStatoMerce(Integer.parseInt(m.get(0)), StatoOrdine.CORRIERE_SCELTO);
                 }
                 alert.close();

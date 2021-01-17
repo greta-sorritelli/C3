@@ -11,7 +11,33 @@ public interface Ordine {
 
     void aggiungiMerce(SimpleMerceOrdine merce, int quantita) throws SQLException;
 
+    String getCognomeCliente();
+
     ArrayList<String> getDettagli() throws SQLException;
+
+    int getID();
+
+    int getIDCliente();
+
+    int getIDNegozio();
+
+    ArrayList<SimpleMerceOrdine> getMerci() throws SQLException;
+
+    String getNomeCliente();
+
+    int getPuntoPrelievo();
+
+    void setPuntoPrelievo(int IDPuntoPrelievo) throws SQLException;
+
+    String getResidenza();
+
+    void setResidenza(String residenza);
+
+    StatoOrdine getStato();
+
+    void setStato(StatoOrdine statoOrdine) throws SQLException;
+
+    double getTotalePrezzo();
 
     void update() throws SQLException;
 }

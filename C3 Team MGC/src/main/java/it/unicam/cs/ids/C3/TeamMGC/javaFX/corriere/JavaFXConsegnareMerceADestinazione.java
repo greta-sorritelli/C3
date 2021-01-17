@@ -4,10 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
@@ -108,7 +105,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
         try {
             if (selectedMerce != null) {
                 if (gestoreOrdini.getOrdine(selectedMerce.getIDOrdine()).getResidenza() == null) {
-                    SimpleOrdine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
+                    Ordine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
                     gestoreOrdini.setStatoMerce(selectedMerce.getID(), StatoOrdine.IN_DEPOSITO);
                     gestoreClienti.mandaAlertPuntoPrelievo(ordine.getIDCliente(), gestoreMagazzini.getItem(ordine.getPuntoPrelievo()), selectedMerce);
                     successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al punto di prelievo.");
@@ -152,7 +149,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
     public void mandaAlert() {
         try {
             if (magazziniChoiceBox.getValue() != null) {
-                SimpleOrdine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
+                Ordine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
                 gestoreClienti.mandaAlertResidenza(ordine.getIDCliente(), magazziniChoiceBox.getValue(), selectedMerce);
                 successWindow("Destinazione cambiata con successo!", "La merce dovra' essere consegnata al punto di prelievo.");
                 magazziniChoiceBox.getItems().clear();

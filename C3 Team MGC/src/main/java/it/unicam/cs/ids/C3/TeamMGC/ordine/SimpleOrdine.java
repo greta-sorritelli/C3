@@ -24,10 +24,6 @@ public class SimpleOrdine implements Ordine {
     private int IDPuntoPrelievo = -1;
     private String residenza = "";
 
-    public void setResidenza(String residenza) {
-        this.residenza = residenza;
-    }
-
     /**
      * Costruttore per importare i dati dal DB.
      *
@@ -50,7 +46,7 @@ public class SimpleOrdine implements Ordine {
 
             rs = executeQuery("select ID from merci where IDOrdine ='" + ID + "';");
             while (rs.next())
-                this.merci.add(new SimpleMerceOrdine(rs.getInt("ID")));
+                addMerceToOrdine(new SimpleMerceOrdine(rs.getInt("ID")));
             disconnectToDB(rs);
         } else {
             disconnectToDB(rs);
@@ -146,6 +142,7 @@ public class SimpleOrdine implements Ordine {
         return ID == simpleOrdine.ID;
     }
 
+    @Override
     public String getCognomeCliente() {
         return cognomeCliente;
     }
@@ -181,49 +178,64 @@ public class SimpleOrdine implements Ordine {
         return ordini;
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
+    @Override
     public int getIDCliente() {
         return IDCliente;
     }
 
+    @Override
     public int getIDNegozio() {
         return IDNegozio;
     }
 
+    @Override
     public ArrayList<SimpleMerceOrdine> getMerci() throws SQLException {
-//        update();
         return new ArrayList<>(merci);
     }
 
+    @Override
     public String getNomeCliente() {
         return nomeCliente;
     }
 
+    @Override
     public int getPuntoPrelievo() {
         return IDPuntoPrelievo;
     }
 
+    @Override
     public void setPuntoPrelievo(int IDPuntoPrelievo) throws SQLException {
         updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + IDPuntoPrelievo + " WHERE ID = " + this.ID + ";");
         this.IDPuntoPrelievo = IDPuntoPrelievo;
     }
 
+    @Override
     public String getResidenza() {
         return residenza;
     }
 
+    @Override
+    public void setResidenza(String residenza) {
+        this.residenza = residenza;
+    }
+
+    @Override
     public StatoOrdine getStato() {
         return stato;
     }
 
+    @Override
     public void setStato(StatoOrdine statoOrdine) throws SQLException {
         updateData("UPDATE sys.ordini SET stato = '" + statoOrdine + "' WHERE (ID = '" + this.ID + "');");
         this.stato = statoOrdine;
     }
 
+    @Override
     public double getTotalePrezzo() {
         return totalePrezzo;
     }

@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import org.junit.jupiter.api.*;
@@ -82,8 +83,8 @@ class GestoreCorrieriTest {
         assertTrue(test.get(1).getDisponibilita());
         assertFalse(test.contains(simpleCorriere));
 
-        gestoreCorrieri.setDisponibilita(test.get(0).getID(),false);
-        gestoreCorrieri.setDisponibilita(test.get(1).getID(),false);
+        gestoreCorrieri.setDisponibilita(test.get(0).getID(), false);
+        gestoreCorrieri.setDisponibilita(test.get(1).getID(), false);
 
         Exception e1 = assertThrows(IllegalArgumentException.class, gestoreCorrieri::getCorrieriDisponibili);
         assertEquals("Corrieri disponibili non presenti.", e1.getMessage());
@@ -93,31 +94,31 @@ class GestoreCorrieriTest {
     @Order(4)
     void getDettagliCorrieri() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliItems();
-        assertEquals("Clarissa",test.get(0).get(1));
-        assertEquals("Matteo",test.get(1).get(1));
-        assertEquals("Greta",test.get(2).get(1) );
-        assertEquals("Albanese",test.get(0).get(2));
-        assertEquals("Rondini",test.get(1).get(2));
-        assertEquals("Sorritelli",test.get(2).get(2));
-        assertEquals("true",test.get(0).get(3));
-        assertEquals("false",test.get(1).get(3) );
-        assertEquals("true",test.get(2).get(3));
+        assertEquals("Clarissa", test.get(0).get(1));
+        assertEquals("Matteo", test.get(1).get(1));
+        assertEquals("Greta", test.get(2).get(1));
+        assertEquals("Albanese", test.get(0).get(2));
+        assertEquals("Rondini", test.get(1).get(2));
+        assertEquals("Sorritelli", test.get(2).get(2));
+        assertEquals("true", test.get(0).get(3));
+        assertEquals("false", test.get(1).get(3));
+        assertEquals("true", test.get(2).get(3));
     }
 
     @Test
     @Order(5)
     void getDettagliCorrieriDisponibili() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
-        assertEquals("Clarissa",test.get(0).get(1));
-        assertEquals("Albanese",test.get(0).get(2));
-        assertEquals("true",test.get(0).get(3));
-        assertEquals("Greta",test.get(1).get(1));
-        assertEquals("Sorritelli",test.get(1).get(2));
-        assertEquals("true",test.get(1).get(3));
+        assertEquals("Clarissa", test.get(0).get(1));
+        assertEquals("Albanese", test.get(0).get(2));
+        assertEquals("true", test.get(0).get(3));
+        assertEquals("Greta", test.get(1).get(1));
+        assertEquals("Sorritelli", test.get(1).get(2));
+        assertEquals("true", test.get(1).get(3));
         assertEquals(2, test.size());
 
-        gestoreCorrieri.setDisponibilita(Integer.parseInt(test.get(0).get(0)),false);
-        gestoreCorrieri.setDisponibilita(Integer.parseInt(test.get(1).get(0)),false);
+        gestoreCorrieri.setDisponibilita(Integer.parseInt(test.get(0).get(0)), false);
+        gestoreCorrieri.setDisponibilita(Integer.parseInt(test.get(1).get(0)), false);
 
         Exception e1 = assertThrows(IllegalArgumentException.class, gestoreCorrieri::getDettagliCorrieriDisponibili);
         assertEquals("Corrieri disponibili non presenti.", e1.getMessage());
@@ -137,7 +138,7 @@ class GestoreCorrieriTest {
         Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         Negozio negozio1 = new Negozio("Sportland", "Sport", null, null, "Via delle Trombe", null);
         Negozio negozio2 = new Negozio("King", "Sport", null, null, "Via delle Cascate", null);
-        ArrayList<Negozio> negozi = new ArrayList<>();
+        ArrayList<GestoreInventario> negozi = new ArrayList<>();
         negozi.add(negozio);
         negozi.add(negozio1);
         negozi.add(negozio2);
@@ -146,34 +147,34 @@ class GestoreCorrieriTest {
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio.getID());
 
         simpleOrdine1.addResidenza("Via Giuseppe Verdi, 2");
-        gestoreCorrieri.mandaAlert(Integer.parseInt(test.get(0).get(0)),negozio, simpleOrdine1.getResidenza());
+        gestoreCorrieri.mandaAlert(Integer.parseInt(test.get(0).get(0)), negozio, simpleOrdine1.getResidenza());
 
         ResultSet rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 1;");
         rs.next();
-        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
-        assertEquals(1,rs.getInt("ID"));
+        assertEquals(Integer.parseInt(test.get(0).get(0)), rs.getInt("IDCorriere"));
+        assertEquals(1, rs.getInt("ID"));
         assertEquals("Andare al Negozio: Trinkets, indirizzo: Via delle Trombette, per ritirare le merci dei cliente alla residenza: Via " +
-                "Giuseppe Verdi, 2.",rs.getString("messaggio"));
+                "Giuseppe Verdi, 2.", rs.getString("messaggio"));
 
-        gestoreCorrieri.mandaAlert(Integer.parseInt(test.get(0).get(0)),negozi);
+        gestoreCorrieri.mandaAlert(Integer.parseInt(test.get(0).get(0)), negozi);
 
         rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 2;");
         rs.next();
-        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
-        assertEquals(2,rs.getInt("ID"));
-        assertEquals("Andare al Negozio: Trinkets, indirizzo: Via delle Trombette, per ritirare le merci dei clienti.",rs.getString("messaggio"));
+        assertEquals(Integer.parseInt(test.get(0).get(0)), rs.getInt("IDCorriere"));
+        assertEquals(2, rs.getInt("ID"));
+        assertEquals("Andare al Negozio: Trinkets, indirizzo: Via delle Trombette, per ritirare le merci dei clienti.", rs.getString("messaggio"));
 
         rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 3;");
         rs.next();
-        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
-        assertEquals(3,rs.getInt("ID"));
-        assertEquals("Andare al Negozio: Sportland, indirizzo: Via delle Trombe, per ritirare le merci dei clienti.",rs.getString("messaggio"));
+        assertEquals(Integer.parseInt(test.get(0).get(0)), rs.getInt("IDCorriere"));
+        assertEquals(3, rs.getInt("ID"));
+        assertEquals("Andare al Negozio: Sportland, indirizzo: Via delle Trombe, per ritirare le merci dei clienti.", rs.getString("messaggio"));
 
         rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 4;");
         rs.next();
-        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
-        assertEquals(4,rs.getInt("ID"));
-        assertEquals("Andare al Negozio: King, indirizzo: Via delle Cascate, per ritirare le merci dei clienti.",rs.getString("messaggio"));
+        assertEquals(Integer.parseInt(test.get(0).get(0)), rs.getInt("IDCorriere"));
+        assertEquals(4, rs.getInt("ID"));
+        assertEquals("Andare al Negozio: King, indirizzo: Via delle Cascate, per ritirare le merci dei clienti.", rs.getString("messaggio"));
 
         disconnectToDB(rs);
     }

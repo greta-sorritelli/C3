@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 
@@ -18,7 +19,7 @@ public interface PuntoPrelievo {
 
     ArrayList<SimpleMerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException;
 
-    ArrayList<SimpleOrdine> getOrdini(int IDCliente) throws SQLException;
+    ArrayList<Ordine> getOrdini(int IDCliente) throws SQLException;
 
     void update() throws SQLException;
 
