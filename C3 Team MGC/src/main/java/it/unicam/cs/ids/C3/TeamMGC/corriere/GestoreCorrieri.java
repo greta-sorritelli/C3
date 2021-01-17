@@ -139,7 +139,7 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      */
     @Override
     public SimpleCorriere getItem(int ID) throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.corrieri where ID='" + ID + "' ;");
+        ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri where ID='" + ID + "' ;");
         if (rs.next()) {
             return addCorriere(rs);
         } else {
@@ -179,11 +179,12 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
     }
 
     /**
-     * todo alert per andare ai negozi dove prelevare la merce, mandato dal magazziniere e dal commesso
+     * Manda un alert al corriere per andare ai negozi dove deve prelevare la merce.
      *
-     * @param negozi
+     * @param IDCorriere    ID del corriere
+     * @param negozi        Negozi dove il corriere preleva la merce
+     * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public void mandaAlert(int IDCorriere, ArrayList<Negozio> negozi) throws SQLException {
         for (Negozio negozio : negozi)
             updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
@@ -192,9 +193,14 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
     }
 
     /**
-     * todo alert mandato dal commesso per prelevare la merce dal negozio
+     * Manda un alert al corriere per andare al negozio dove deve prelevare la merce per poi
+     * consegnarla in una residenza.
+     *
+     * @param IDCorriere     ID del corriere
+     * @param negozio        Negozio dove il corriere preleva la merce
+     * @param residenza      Residenza dove il corriere consegna le merci
+     * @throws SQLException  Errore causato da una query SQL
      */
-    //todo test
     public void mandaAlert(int IDCorriere, Negozio negozio, String residenza) throws SQLException {
         updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
                 "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()

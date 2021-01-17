@@ -27,15 +27,4 @@ public class ICommesso implements JavaFXController {
         openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio));
     }
 
-
-//    /**
-//     * Imposta il negozio collegato all' interfaccia.
-//     *
-//     * @param negozio Negozio da impostare
-//     */
-//    public void setNegozio(Negozio negozio) {
-//
-//        this.negozio = negozio;
-//    }
-
 }

@@ -33,12 +33,6 @@ class SimplePuntoPrelievoTest {
         negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
     }
 
-    //    @Test
-//    static void setMagazziniere() {
-//        IMagazziniere magazziniere = new IMagazziniere(puntoPrelievo, "Alejandro", "Roberto");
-//        puntoPrelievo.setMagazziniere(magazziniere);
-//    }
-
     @Test
     void creazionePuntoPrelievo() throws SQLException {
         SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Cingoli", "Magazzino Centrale");

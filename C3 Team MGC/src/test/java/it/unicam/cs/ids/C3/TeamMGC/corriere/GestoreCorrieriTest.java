@@ -1,11 +1,15 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import org.junit.jupiter.api.*;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -16,6 +20,9 @@ class GestoreCorrieriTest {
     @BeforeAll
     static void preparaDB() throws SQLException {
         updateData("TRUNCATE sys.corrieri;");
+        updateData("TRUNCATE sys.alert_corrieri;");
+        updateData("alter table corrieri AUTO_INCREMENT = 1;");
+        updateData("alter table sys.alert_corrieri AUTO_INCREMENT = 1;");
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato) VALUES ('Clarissa', 'Albanese', 'true');");
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato) VALUES ('Matteo', 'Rondini', 'false');");
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato) VALUES ('Greta', 'Sorritelli', 'true');");
@@ -36,14 +43,6 @@ class GestoreCorrieriTest {
         assertEquals("Luigi", dettagli.get(1));
         assertEquals("Bianchi", dettagli.get(2));
         assertEquals("true", dettagli.get(3));
-    }
-
-    @Test
-    void inserisciDati() throws SQLException {
-        ArrayList<String> test = gestoreCorrieri.inserisciDati("Giuseppe", "Bianchi");
-        assertTrue(gestoreCorrieri.getItems().contains(gestoreCorrieri.getItem(Integer.parseInt(test.get(0)))));
-        assertEquals("Giuseppe", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getNome());
-        assertEquals("Bianchi", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getCognome());
     }
 
     @Test
@@ -122,6 +121,61 @@ class GestoreCorrieriTest {
 
         Exception e1 = assertThrows(IllegalArgumentException.class, gestoreCorrieri::getDettagliCorrieriDisponibili);
         assertEquals("Corrieri disponibili non presenti.", e1.getMessage());
+    }
+
+    @Test
+    void inserisciDati() throws SQLException {
+        ArrayList<String> test = gestoreCorrieri.inserisciDati("Giuseppe", "Bianchi");
+        assertTrue(gestoreCorrieri.getItems().contains(gestoreCorrieri.getItem(Integer.parseInt(test.get(0)))));
+        assertEquals("Giuseppe", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getNome());
+        assertEquals("Bianchi", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getCognome());
+    }
+
+    @Test
+    void mandaAlert() throws SQLException {
+        ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
+        Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        Negozio negozio1 = new Negozio("Sportland", "Sport", null, null, "Via delle Trombe", null);
+        Negozio negozio2 = new Negozio("King", "Sport", null, null, "Via delle Cascate", null);
+        ArrayList<Negozio> negozi = new ArrayList<>();
+        negozi.add(negozio);
+        negozi.add(negozio1);
+        negozi.add(negozio2);
+
+        SimpleCliente simpleCliente1 = new SimpleCliente("Mario", "Rossi");
+        SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio.getID());
+
+        simpleOrdine1.addResidenza("Via Giuseppe Verdi, 2");
+        gestoreCorrieri.mandaAlert(Integer.parseInt(test.get(0).get(0)),negozio, simpleOrdine1.getResidenza());
+
+        ResultSet rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 1;");
+        rs.next();
+        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
+        assertEquals(1,rs.getInt("ID"));
+        assertEquals("Andare al Negozio: Trinkets, indirizzo: Via delle Trombette, per ritirare le merci dei cliente alla residenza: Via " +
+                "Giuseppe Verdi, 2.",rs.getString("messaggio"));
+
+        gestoreCorrieri.mandaAlert(Integer.parseInt(test.get(0).get(0)),negozi);
+
+        rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 2;");
+        rs.next();
+        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
+        assertEquals(2,rs.getInt("ID"));
+        assertEquals("Andare al Negozio: Trinkets, indirizzo: Via delle Trombette, per ritirare le merci dei clienti.",rs.getString("messaggio"));
+
+        rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 3;");
+        rs.next();
+        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
+        assertEquals(3,rs.getInt("ID"));
+        assertEquals("Andare al Negozio: Sportland, indirizzo: Via delle Trombe, per ritirare le merci dei clienti.",rs.getString("messaggio"));
+
+        rs = executeQuery("Select * from sys.alert_corrieri WHERE ID = 4;");
+        rs.next();
+        assertEquals(Integer.parseInt(test.get(0).get(0)),rs.getInt("IDCorriere"));
+        assertEquals(4,rs.getInt("ID"));
+        assertEquals("Andare al Negozio: King, indirizzo: Via delle Cascate, per ritirare le merci dei clienti.",rs.getString("messaggio"));
+
+        disconnectToDB(rs);
     }
 
     @Test

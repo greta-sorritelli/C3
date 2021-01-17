@@ -74,10 +74,12 @@ public class SimpleMerce implements Merce {
         this.quantita = -1;
     }
 
+    @Override
     public String getDescrizione() {
         return descrizione;
     }
 
+    @Override
     public void setDescrizione(String descrizione) throws SQLException {
         updateData("UPDATE sys.inventario SET descrizione = '" + descrizione + "' WHERE (ID = '" + getID() + "');");
         this.descrizione = descrizione;
@@ -101,27 +103,33 @@ public class SimpleMerce implements Merce {
         return toReturn;
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
+    @Override
     public int getIDNegozio() {
         return IDNegozio;
     }
 
+    @Override
     public double getPrezzo() {
         return prezzo;
     }
 
+    @Override
     public void setPrezzo(double prezzo) throws SQLException {
         updateData("UPDATE sys.inventario SET prezzo = '" + prezzo + "' WHERE (ID = '" + getID() + "');");
         this.prezzo = prezzo;
     }
 
+    @Override
     public int getQuantita() {
         return quantita;
     }
 
+    @Override
     public void setQuantita(int quantita) throws SQLException {
         updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");
         this.quantita = quantita;

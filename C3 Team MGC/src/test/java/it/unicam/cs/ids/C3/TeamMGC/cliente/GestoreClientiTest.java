@@ -1,13 +1,17 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.*;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -18,12 +22,15 @@ class GestoreClientiTest {
     @BeforeAll
     static void clearDB() throws SQLException {
         updateData("delete from sys.clienti;");
+        updateData("delete from sys.alert_clienti;");
         updateData("alter table clienti AUTO_INCREMENT = 1;");
+        updateData("alter table sys.alert_clienti AUTO_INCREMENT = 1;");
         updateData("INSERT INTO sys.clienti (nome, cognome) VALUES ('Clarissa', 'Albanese');");
         updateData("INSERT INTO sys.clienti (nome, cognome) VALUES ('Matteo', 'Rondini');");
     }
 
     @Test
+    @Order(1)
     void getCliente() throws SQLException {
         assertEquals("Clarissa", gestoreClienti.getItem(1).getNome());
         assertEquals("Matteo", gestoreClienti.getItem(2).getNome());
@@ -63,6 +70,32 @@ class GestoreClientiTest {
         assertTrue(gestoreClienti.getItems().contains(gestoreClienti.getItem(Integer.parseInt(test.get(0)))));
         assertEquals("Sabrina",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getNome());
         assertEquals("Spellman",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getCognome());
+    }
+
+    @Test
+    void mandaAlert() throws SQLException {
+        ArrayList<SimpleCliente> test = gestoreClienti.getItems();
+        SimplePuntoPrelievo p = new SimplePuntoPrelievo("via Verdi","B1");
+        Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        SimpleOrdine simpleOrdine1 = new SimpleOrdine(test.get(0).getID(), test.get(0).getNome(), test.get(0).getCognome(), negozio.getID());
+        SimpleMerceOrdine merce1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
+
+        gestoreClienti.mandaAlertPuntoPrelievo(test.get(0).getID(),p,merce1);
+        ResultSet rs = executeQuery("Select * from sys.alert_clienti WHERE ID = 1;");
+        rs.next();
+        assertEquals(test.get(0).getID(),rs.getInt("IDCliente"));
+        assertEquals(1,rs.getInt("ID"));
+        assertEquals("Merce arrivata a destinazione. Andare al Punto di Prelievo: B1, indirizzo: via Verdi, per " +
+                "ritirare la merce: matita.",rs.getString("messaggio"));
+
+        gestoreClienti.mandaAlertResidenza(test.get(0).getID(),p,merce1);
+        rs = executeQuery("Select * from sys.alert_clienti WHERE ID = 2;");
+        rs.next();
+        assertEquals(test.get(0).getID(),rs.getInt("IDCliente"));
+        assertEquals(2,rs.getInt("ID"));
+        assertEquals("Cliente non trovato alla residenza. Andare al Punto di Prelievo: B1, indirizzo: via Verdi," +
+                " per ritirare la merce: matita.",rs.getString("messaggio"));
+        disconnectToDB(rs);
     }
 
     @Test

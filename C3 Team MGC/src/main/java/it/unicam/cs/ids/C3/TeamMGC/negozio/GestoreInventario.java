@@ -5,6 +5,24 @@ import java.util.ArrayList;
 
 public interface GestoreInventario {
 
+    String getCategoria();
+
+    int getID();
+
+    String getIndirizzo();
+
+    ArrayList<SimpleMerce> getInventario();
+
+    String getNome();
+
+    String getOrarioApertura();
+
+    String getOrarioChiusura();
+
+    String getTelefono();
+
+    void setQuantita(int IDMerce, int quantita) throws SQLException;
+
     ArrayList<String> getDettagli() throws SQLException;
 
     SimpleMerce getMerce(int ID) throws SQLException;

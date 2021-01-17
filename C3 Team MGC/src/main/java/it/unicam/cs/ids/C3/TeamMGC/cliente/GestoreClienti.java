@@ -116,7 +116,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      */
     @Override
     public SimpleCliente getItem(int ID) throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.clienti where ID='" + ID + "' ;");
+        ResultSet rs = executeQuery("SELECT ID FROM sys.clienti where ID='" + ID + "' ;");
         if (rs.next()) {
             return addCliente(rs);
         } else {
@@ -211,12 +211,12 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
     }
 
     /**
-     * todo alert per residenza cambiata a punto prelievo
-     * @param IDCliente
-     * @param puntoPrelievo
-     * @throws SQLException
+     * Manda un alert al cliente per avvisarlo che non è stato trovato dal corriere
+     * nella sua residenza, e quindi la merce verrà consegnata al punto di prelievo.
+     * @param IDCliente          ID del cliente da avvisare
+     * @param puntoPrelievo      Punto di prelievo dove verrà portata la merce
+     * @throws SQLException      Errore causato da una query SQL
      */
-    //todo test
     public void mandaAlertResidenza(int IDCliente, SimplePuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
             updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
                     "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
@@ -225,12 +225,11 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
     }
 
     /**
-     * todo alert per merce arrivata al punto prelievo
-     * @param IDCliente
-     * @param puntoPrelievo
-     * @throws SQLException
+     * Manda un alert al cliente per avvisarlo che la merce è arrivata al punto di prelievo.
+     * @param IDCliente          ID del cliente da avvisare
+     * @param puntoPrelievo      Punto di prelievo dove verrà portata la merce
+     * @throws SQLException      Errore causato da una query SQL
      */
-    //todo test
     public void mandaAlertPuntoPrelievo(int IDCliente, SimplePuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
         updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
                 "', 'Merce arrivata a destinazione. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()

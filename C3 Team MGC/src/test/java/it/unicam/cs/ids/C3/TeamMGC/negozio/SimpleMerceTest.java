@@ -12,8 +12,8 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleMerceTest {
-    static SimpleMerce simpleMerceTest;
-    static Negozio negozioTest;
+    static Merce simpleMerceTest;
+    static GestoreInventario negozioTest;
 
     @BeforeAll
     static void clearDB() throws SQLException {
@@ -27,8 +27,8 @@ class SimpleMerceTest {
 
     @Test
     void creazioneMerce() throws SQLException {
-        Negozio negozio = new Negozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
-        SimpleMerce simpleMerce = new SimpleMerce(negozio.getID(), 60, "sciarpa",3);
+        GestoreInventario negozio = new Negozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
+        Merce simpleMerce = new SimpleMerce(negozio.getID(), 60, "sciarpa",3);
 
         assertEquals(negozio.getID(), simpleMerce.getIDNegozio());
         assertEquals(60, simpleMerce.getPrezzo());
@@ -40,7 +40,7 @@ class SimpleMerceTest {
 
     @Test
     void delete() throws SQLException {
-        SimpleMerce toDelete = new SimpleMerce(1, 15, "test delete", 10);
+        Merce toDelete = new SimpleMerce(1, 15, "test delete", 10);
         int tmpID = toDelete.getID();
         toDelete.delete();
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID = '" + tmpID + "';");
@@ -54,7 +54,7 @@ class SimpleMerceTest {
 
     @Test
     void getDettagli() throws SQLException {
-        SimpleMerce simpleMerce = new SimpleMerce(1, 6.5, "test getDettagli", 2);
+        Merce simpleMerce = new SimpleMerce(1, 6.5, "test getDettagli", 2);
         int IDTest = simpleMerce.getID();
         ArrayList<String> toControl = new ArrayList<>();
         toControl.add(String.valueOf(IDTest));
@@ -110,7 +110,7 @@ class SimpleMerceTest {
 
     @Test
     void update() throws SQLException {
-        SimpleMerce simpleMerceTest = new SimpleMerce(1, 6.5, "test update", 2);
+        Merce simpleMerceTest = new SimpleMerce(1, 6.5, "test update", 2);
         int IDTest = simpleMerceTest.getID();
         assertEquals(6.5, simpleMerceTest.getPrezzo());
         assertEquals("test update", simpleMerceTest.getDescrizione());

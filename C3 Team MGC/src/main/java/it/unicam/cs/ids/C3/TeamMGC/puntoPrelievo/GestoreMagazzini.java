@@ -86,7 +86,7 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
      */
     @Override
     public SimplePuntoPrelievo getItem(int ID) throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo where ID='" + ID + "' ;");
+        ResultSet rs = executeQuery("SELECT ID FROM sys.punti_prelievo where ID='" + ID + "' ;");
         if (rs.next()) {
             SimplePuntoPrelievo toReturn = addMagazzino(rs);
             disconnectToDB(rs);

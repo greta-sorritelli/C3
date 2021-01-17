@@ -90,6 +90,7 @@ public class Negozio implements GestoreInventario {
             inventario.add(simpleMerce);
     }
 
+    @Override
     public String getCategoria() {
         return categoria;
     }
@@ -116,14 +117,17 @@ public class Negozio implements GestoreInventario {
 
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
+    @Override
     public String getIndirizzo() {
         return indirizzo;
     }
 
+    @Override
     public ArrayList<SimpleMerce> getInventario() {
         return inventario;
     }
@@ -152,15 +156,14 @@ public class Negozio implements GestoreInventario {
     }
 
     /**
-     * todo
+     * Ritorna la lista dei dettagli di tutta la {@link SimpleMerce} all' interno del {@link Negozio}.
      *
-     * @return
-     * @throws SQLException
+     * @return               ArrayList<ArrayList<String>> dei dettagli della merce
+     * @throws SQLException  Errore causato da una query SQL
      */
-    //todo test
     @Override
     public ArrayList<ArrayList<String>> getDettagliMerce() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
+        ResultSet rs = executeQuery("SELECT ID FROM sys.inventario where IDNegozio='" + ID + "';");
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         while (rs.next())
             toReturn.add(addMerceInventario(rs).getDettagli());
@@ -183,18 +186,22 @@ public class Negozio implements GestoreInventario {
         return new ArrayList<>(inventario);
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
 
+    @Override
     public String getOrarioApertura() {
         return orarioApertura;
     }
 
+    @Override
     public String getOrarioChiusura() {
         return orarioChiusura;
     }
 
+    @Override
     public String getTelefono() {
         return telefono;
     }
@@ -223,7 +230,6 @@ public class Negozio implements GestoreInventario {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo rivedere test
     @Override
     public void removeMerce(int IDMerce) throws SQLException {
         SimpleMerce toDelete = getMerce(IDMerce);
@@ -245,6 +251,7 @@ public class Negozio implements GestoreInventario {
         return getMerce(IDMerce).getDettagli();
     }
 
+    @Override
     public void setQuantita(int IDMerce, int quantita) throws SQLException {
         getMerce(IDMerce).setQuantita(quantita);
     }
