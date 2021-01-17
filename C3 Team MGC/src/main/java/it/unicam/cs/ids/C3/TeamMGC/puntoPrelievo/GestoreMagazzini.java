@@ -27,10 +27,6 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
             gestoreMagazzini = new GestoreMagazzini();
         return gestoreMagazzini;
     }
-    //todo
-//    public Magazziniere getMagazziniere(PuntoPrelievo magazzino) {
-//		return magazzino.getMagazziniere();
-//	}
 
     /**
      * Controlla se il {@link SimplePuntoPrelievo} che si vuole creare e' gia' presente nella lista dei magazzini. Se non e' presente
@@ -113,10 +109,12 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
     }
 
     /**
-     * todo alert mandato dal commesso
-     * @param negozio
+     * Manda un alert al punto di prelievo per avvisare il magazziniere che serve un corriere per
+     * ritirare le merci presso un negozio.
+     *
+     * @param IDPuntoPrelievo ID del punto prelievo in cui è presente in magazziniere
+     * @param negozio         Negozio in cui deve andare il corriere
      */
-    //todo test
     public void mandaAlert(int IDPuntoPrelievo, Negozio negozio) throws SQLException {
         updateData("INSERT INTO sys.alert_magazzinieri (IDPuntoPrelievo, messaggio) VALUES ('" + IDPuntoPrelievo +
                 "', 'Mandare un corriere al negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo() + ", per " +
@@ -129,7 +127,6 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
      * @throws SQLException Errore causato da una query SQL
      * @return              ArrayList<ArrayList<String>>
      */
-    //todo test
     public ArrayList<SimplePuntoPrelievo> ricercaMagazziniVicini() throws SQLException {
         return getItems();
     }

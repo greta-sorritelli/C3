@@ -81,22 +81,12 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         return dettagli;
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
-//    public void setMagazziniere(IMagazziniere magazziniere) {
-//        try {
-//            updateData("UPDATE sys.punti_prelievo SET magazziniere = '" + magazziniere.getID() + "' WHERE (ID = '" + this.ID + "');");
-//            this.magazziniere = magazziniere;
-//        } catch (SQLException exception) {
-//            //TODO
-//            exception.printStackTrace();
-//        }
-//        this.magazziniere = magazziniere;
-//
-//    }
-
+    @Override
     public String getIndirizzo() {
         return indirizzo;
     }
@@ -122,6 +112,7 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         return lista;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }

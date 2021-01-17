@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
@@ -16,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SimplePuntoPrelievoTest {
 
-    static SimplePuntoPrelievo simplePuntoPrelievo;
-    static Negozio negozioTest;
+    static PuntoPrelievo simplePuntoPrelievo;
+    static GestoreInventario negozioTest;
 
     @BeforeAll
     static void prepareDB() throws SQLException {
@@ -35,20 +36,20 @@ class SimplePuntoPrelievoTest {
 
     @Test
     void creazionePuntoPrelievo() throws SQLException {
-        SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Cingoli", "Magazzino Centrale");
+        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Cingoli", "Magazzino Centrale");
         assertEquals("Cingoli", simplePuntoPrelievo.getIndirizzo());
         assertEquals("Magazzino Centrale", simplePuntoPrelievo.getNome());
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimplePuntoPrelievo(1000));
         assertEquals("ID non valido.", e1.getMessage());
 
-        SimplePuntoPrelievo simplePuntoPrelievoCopia = new SimplePuntoPrelievo(simplePuntoPrelievo.getID());
+        PuntoPrelievo simplePuntoPrelievoCopia = new SimplePuntoPrelievo(simplePuntoPrelievo.getID());
         assertEquals("Cingoli", simplePuntoPrelievoCopia.getIndirizzo());
         assertEquals("Magazzino Centrale", simplePuntoPrelievoCopia.getNome());
     }
 
     @Test
     void update() throws SQLException {
-        SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Love Museum", "Bugs Bunny");
+        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Love Museum", "Bugs Bunny");
         assertEquals(simplePuntoPrelievo.getIndirizzo(), "Love Museum");
         assertEquals(simplePuntoPrelievo.getNome(), "Bugs Bunny");
         updateData("UPDATE sys.punti_prelievo SET indirizzo = 'Love Court' where ID = '" + simplePuntoPrelievo.getID() + "';");
@@ -69,7 +70,7 @@ class SimplePuntoPrelievoTest {
         dettagliMagazzino1.add("Castelraimondo");
         assertEquals(dettagliMagazzino1, simplePuntoPrelievo.getDettagli());
 
-        SimplePuntoPrelievo magazzino2 = new SimplePuntoPrelievo("Matelica", "Giardini");
+        PuntoPrelievo magazzino2 = new SimplePuntoPrelievo("Matelica", "Giardini");
         assertNotEquals(dettagliMagazzino1, magazzino2.getDettagli());
 
         dettagliMagazzino2.add(String.valueOf(magazzino2.getID()));
@@ -124,6 +125,9 @@ class SimplePuntoPrelievoTest {
         assertTrue(simplePuntoPrelievo.getOrdini(simpleCliente2.getID()).isEmpty());
 
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozioTest.getID());
+        SimpleMerceOrdine merce1_1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
+
+        simpleOrdine1.aggiungiMerce(merce1_1, 2);
         simpleOrdine1.setPuntoPrelievo(simplePuntoPrelievo.getID());
         simpleOrdine1.setStato(StatoOrdine.IN_DEPOSITO);
         lista1.add(simpleOrdine1);
@@ -142,11 +146,14 @@ class SimplePuntoPrelievoTest {
     }
 
     @Test
-    void testEquals() throws SQLException {
-        SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Roma", "Magazzino Centrale Lazio");
-        SimplePuntoPrelievo simplePuntoPrelievoCopia = new SimplePuntoPrelievo(simplePuntoPrelievo.getID());
-        SimplePuntoPrelievo simplePuntoPrelievo2 = new SimplePuntoPrelievo("Milano", "Magazzino Centrale Lombardia");
+    void testEquals_toString_hashcode() throws SQLException {
+        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Roma", "Magazzino Centrale Lazio");
+        PuntoPrelievo simplePuntoPrelievoCopia = new SimplePuntoPrelievo(simplePuntoPrelievo.getID());
+        PuntoPrelievo simplePuntoPrelievo2 = new SimplePuntoPrelievo("Milano", "Magazzino Centrale Lombardia");
         assertEquals(simplePuntoPrelievo, simplePuntoPrelievoCopia);
+        assertEquals(simplePuntoPrelievoCopia.hashCode(), simplePuntoPrelievo.hashCode());
         assertNotEquals(simplePuntoPrelievo, simplePuntoPrelievo2);
+        assertEquals("ID=" + simplePuntoPrelievo.getID() + ", indirizzo='Roma', nome='Magazzino Centrale Lazio", simplePuntoPrelievo.toString());
+        assertEquals("ID=" + simplePuntoPrelievo2.getID() + ", indirizzo='Milano', nome='Magazzino Centrale Lombardia", simplePuntoPrelievo2.toString());
     }
 }

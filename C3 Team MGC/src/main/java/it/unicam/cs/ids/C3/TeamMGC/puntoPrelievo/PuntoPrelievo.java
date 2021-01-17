@@ -8,6 +8,12 @@ import java.util.ArrayList;
 
 public interface PuntoPrelievo {
 
+    int getID();
+
+    String getIndirizzo();
+
+    String getNome();
+
     ArrayList<String> getDettagli() throws SQLException;
 
     ArrayList<SimpleMerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException;
