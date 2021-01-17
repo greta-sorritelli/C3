@@ -12,14 +12,14 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.dis
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 /**
- * Classe per la gestione di ogni {@link Negozio}
+ * Classe per la gestione di ogni {@link GestoreInventario Negozio}
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class GestoreNegozi implements Gestore<Negozio> {
+public class GestoreNegozi implements Gestore<GestoreInventario> {
 
     private static GestoreNegozi gestoreNegozi;
-    ArrayList<Negozio> negozi = new ArrayList<>();
+    ArrayList<GestoreInventario> negozi = new ArrayList<>();
 
     private GestoreNegozi() {
     }
@@ -31,33 +31,33 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * Controlla se il {@link Negozio} che si vuole creare e' gia' presente nella lista dei negozi. Se non e' presente
+     * Controlla se il {@link GestoreInventario Negozio} che si vuole creare e' gia' presente nella lista dei negozi. Se non e' presente
      * viene creato e aggiunto alla lista.
      *
      * @return Il negozio
      * @throws SQLException Errore causato da una query SQL
      */
-    private Negozio addNegozio(ResultSet rs) throws SQLException {
-        for (Negozio negozio : negozi)
+    private GestoreInventario addNegozio(ResultSet rs) throws SQLException {
+        for (GestoreInventario negozio : negozi)
             if (negozio.getID() == rs.getInt("ID"))
                 return negozio;
-        Negozio tmp = new Negozio(rs.getInt("ID"));
+        GestoreInventario tmp = new Negozio(rs.getInt("ID"));
         addNegozioToList(tmp);
         return tmp;
     }
 
     /**
-     * Aggiunge un {@link Negozio} alla lista dei negozi.
+     * Aggiunge un {@link GestoreInventario Negozio} alla lista dei negozi.
      *
      * @param negozio Negozio da aggiungere
      */
-    private void addNegozioToList(Negozio negozio) {
+    private void addNegozioToList(GestoreInventario negozio) {
         if (!negozi.contains(negozio))
             negozi.add(negozio);
     }
 
     /**
-     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} presenti nel DB.
+     * Ritorna la lista dei dettagli dei {@link GestoreInventario Negozio} presenti nel DB.
      *
      * @return ArrayList<ArrayList < String>> dei dettagli dei Negozi.
      * @throws SQLException Errore causato da una query SQL
@@ -68,14 +68,14 @@ public class GestoreNegozi implements Gestore<Negozio> {
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
         while (rs.next())
             addNegozio(rs);
-        for (Negozio negozio : negozi)
+        for (GestoreInventario negozio : negozi)
             dettagli.add(negozio.getDettagli());
         disconnectToDB(rs);
         return dettagli;
     }
 
     /**
-     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} che hanno ordini pagati da portare
+     * Ritorna la lista dei dettagli dei {@link GestoreInventario Negozio} che hanno ordini pagati da portare
      * ad un punto di prelievo.
      *
      * @param IDPuntoPrelievo ID del punto di prelievo
@@ -94,7 +94,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * Ritorna il {@link Negozio} collegato all' {@code ID}.
+     * Ritorna il {@link GestoreInventario Negozio} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Negozio
      *
@@ -102,10 +102,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public Negozio getItem(int ID) throws SQLException {
+    public GestoreInventario getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.negozi where ID='" + ID + "' ;");
         if (rs.next()) {
-            Negozio negozio = addNegozio(rs);
+            GestoreInventario negozio = addNegozio(rs);
             disconnectToDB(rs);
             return negozio;
         } else {
@@ -115,13 +115,13 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * Ritorna la lista dei {@link Negozio Negozi} presenti nel DB.
+     * Ritorna la lista dei {@link GestoreInventario Negozio} presenti nel DB.
      *
      * @return ArrayList<Negozi> dei Negozi.
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public ArrayList<Negozio> getItems() throws SQLException {
+    public ArrayList<GestoreInventario> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi;");
         while (rs.next())
             addNegozio(rs);
