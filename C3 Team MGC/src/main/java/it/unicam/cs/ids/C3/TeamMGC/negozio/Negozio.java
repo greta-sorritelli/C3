@@ -1,9 +1,11 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface Negozio {
+public interface Negozio extends Gestore<Merce> {
 
     String getCategoria();
 

@@ -115,9 +115,6 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
         }
     }
 
-    /**
-     * todo
-     */
     @FXML
     public void showMagazzini() {
         try {

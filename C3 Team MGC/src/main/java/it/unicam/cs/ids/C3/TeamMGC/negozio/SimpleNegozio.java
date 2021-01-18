@@ -13,7 +13,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class SimpleNegozio implements Negozio, Gestore<Merce> {
+public class SimpleNegozio implements Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
     private final int ID;
     private String nome;

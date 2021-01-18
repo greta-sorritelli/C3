@@ -20,7 +20,6 @@ public interface JavaFXController {
 
     /**
      * Metodo per la chiusura di una finestra
-     * //todo controllare
      *
      * @param stage stage da chiudere
      */

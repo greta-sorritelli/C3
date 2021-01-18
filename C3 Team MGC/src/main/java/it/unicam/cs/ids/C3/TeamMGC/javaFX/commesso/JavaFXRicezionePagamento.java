@@ -24,8 +24,6 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     private final Negozio negozio;
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
-    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
-    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
     public JavaFXRicezionePagamento(Negozio negozio) {
         this.negozio = negozio;
@@ -75,14 +73,11 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         QuantitaMerce.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(4)));
     }
 
-    /**
-     * todo
-     */
     @FXML
     public void showMerce() {
         try {
             merceChoiceBox.getItems().clear();
-            merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getMerceDisponibile()));
+            merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getItems()));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }

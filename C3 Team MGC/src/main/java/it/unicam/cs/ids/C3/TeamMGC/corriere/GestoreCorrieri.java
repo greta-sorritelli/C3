@@ -77,7 +77,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
             } while (rs.next());
 
         else {
-            //todo eccezione
             disconnectToDB(rs);
             throw new IllegalArgumentException("Corrieri disponibili non presenti.");
         }
@@ -100,7 +99,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
             corrieriDisponibili.add(tmp);
         }
         if (corrieriDisponibili.isEmpty()) {
-            //todo eccezione
             disconnectToDB(rs);
             throw new IllegalArgumentException("Corrieri disponibili non presenti.");
         }

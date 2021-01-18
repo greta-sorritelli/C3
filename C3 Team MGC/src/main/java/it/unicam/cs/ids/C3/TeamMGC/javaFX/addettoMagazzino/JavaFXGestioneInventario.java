@@ -79,9 +79,6 @@ public class JavaFXGestioneInventario implements JavaFXController {
         this.negozio = negozio;
     }
 
-    /**
-     * todo
-     */
     public void inserisciNuovaMerce() {
         try {
             merceCreata.add(negozio.inserisciNuovaMerce(Double.parseDouble(prezzo.getText()), descrizione.getText(), Integer.parseInt(quantita.getText())));
@@ -95,9 +92,6 @@ public class JavaFXGestioneInventario implements JavaFXController {
         }
     }
 
-    /**
-     * todo
-     */
     public void removeMerce() {
         try {
             ArrayList<ArrayList<String>> merciSelezionate = new ArrayList<>(merceTable2.getSelectionModel().getSelectedItems());
@@ -140,9 +134,6 @@ public class JavaFXGestioneInventario implements JavaFXController {
         QuantitaMerce2.setCellValueFactory(merce -> new SimpleObjectProperty<>(merce.getValue().get(4)));
     }
 
-    /**
-     * todo
-     */
     public void setQuantita() {
         try {
             negozio.setQuantita(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita1.getText()));
@@ -158,14 +149,11 @@ public class JavaFXGestioneInventario implements JavaFXController {
         }
     }
 
-    /**
-     * todo
-     */
     @FXML
     public void showMerce() {
         try {
             merceChoiceBox.getItems().clear();
-            merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getMerceDisponibile()));
+            merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getItems()));
         } catch (Exception exception) {
             errorWindow("Errore!","Error.");
         }

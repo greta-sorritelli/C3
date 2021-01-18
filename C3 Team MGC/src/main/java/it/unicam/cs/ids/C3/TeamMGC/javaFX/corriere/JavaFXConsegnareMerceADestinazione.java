@@ -67,9 +67,6 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
 
     private MerceOrdine selectedMerce;
 
-    /**
-     * todo
-     */
     @FXML
     public void showMagazzini() {
         try {

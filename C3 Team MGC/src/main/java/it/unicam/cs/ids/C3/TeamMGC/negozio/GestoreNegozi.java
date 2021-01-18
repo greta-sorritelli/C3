@@ -134,14 +134,14 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
 //    /**
-//     * todo
+//     *
 //     *
 //     * @param ID
 //     *
 //     * @return
 //     * @throws SQLException eccezione causata da una query SQL
 //     */
-//    //todo test e vedere se ritorna dettagli
+//
 //    public Negozio selezionaNegozio(int ID) throws SQLException {
 //        return getItem(ID);
 //    }
