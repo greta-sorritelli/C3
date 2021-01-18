@@ -84,7 +84,7 @@ public class GestoreOrdini {
     public void associaMerceCorriere(int IDCorriere, int IDMerce) throws SQLException {
         updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + IDMerce + "');");
         MerceOrdine tmp = getMerceOrdine(IDMerce);
-        tmp.setStato(StatoOrdine.AFFIDATO_AL_CORRIERE);
+        setStatoMerce(IDMerce,StatoOrdine.AFFIDATO_AL_CORRIERE);
         tmp.setIDCorriere(IDCorriere);
     }
 
@@ -320,7 +320,7 @@ public class GestoreOrdini {
         for (Ordine ordine : ordini)
             if (ordine.getPuntoPrelievo() == IDPuntoPrelievo)
                 for (MerceOrdine merceOrdine : ordine.getMerci())
-                    if (merceOrdine.getStato() == StatoOrdine.PAGATO)
+                    if (merceOrdine.getStato().equals(StatoOrdine.PAGATO))
                         toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }

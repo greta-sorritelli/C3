@@ -432,8 +432,6 @@ class GestoreOrdiniTest {
 
     }
 
-    //todo CAMBIARE INFORMAZIONI DEGLI OGGETTI
-
     @Test
     void setStatoMerce() throws SQLException {
         Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");

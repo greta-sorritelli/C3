@@ -73,11 +73,10 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * Aggiunge la {@link SimpleMerceOrdine} all'{@link SimpleOrdine}, prendendo i dati dal Database.
+     * Aggiunge la {@link MerceOrdine} all'{@link SimpleOrdine}.
      *
      * @param merce Merce da aggiungere
      */
-    //todo rivedere il commento e test
     @Override
     public void addMerce(MerceOrdine merce) throws SQLException {
         addMerceToOrdine(merce);
@@ -85,9 +84,11 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * @param rs
+     * Aggiunge la {@link MerceOrdine} all'{@link SimpleOrdine} prendendo i dati dal database.
      *
-     * @throws SQLException
+     * @param rs             ResultSet
+     *
+     * @throws SQLException  Errore causato da una query SQL
      */
     private void addMerce(ResultSet rs) throws SQLException {
         while (rs.next())
@@ -95,7 +96,10 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * @param simpleMerceOrdine
+     * Controlla se l' {@link Ordine} contiene la {@link MerceOrdine}.
+     * Se non è presente la aggiunge.
+     *
+     * @param simpleMerceOrdine la Merce da aggiungere
      */
     private void addMerceToOrdine(MerceOrdine simpleMerceOrdine) {
         if (!merci.contains(simpleMerceOrdine))
@@ -125,7 +129,6 @@ public class SimpleOrdine implements Ordine {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo
     @Override
     public void aggiungiMerce(MerceOrdine merce, int quantita) throws SQLException {
         merce.setQuantita(quantita);
@@ -264,7 +267,6 @@ public class SimpleOrdine implements Ordine {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo rivedere test
     @Override
     public void update() throws SQLException {
         ResultSet rs = executeQuery("select * from sys.ordini where ID= '" + this.ID + "';");

@@ -9,6 +9,7 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -89,9 +90,8 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
                 ArrayList<ArrayList<String>> merci = new ArrayList<>();
                 for (Negozio negozio : negoziSelezionati)
                     merci.addAll(gestoreOrdini.getMerciFromNegozioToMagazzino(negozio.getID(), IDPuntoPrelievo));
-                for (ArrayList<String> m : merci) {
+                for (ArrayList<String> m : merci)
                     gestoreOrdini.setStatoMerce(Integer.parseInt(m.get(0)), StatoOrdine.CORRIERE_SCELTO);
-                }
                 alert.close();
                 successWindow("Alert mandato con successo", "Il corriere e' stato avvisato.");
                 visualizzaNegozi();
@@ -180,6 +180,10 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
             negoziTable.getItems().clear();
             negoziSelezionati.clear();
             negoziTable.getItems().addAll(gestoreNegozi.getDettagliItemsConOrdini(IDPuntoPrelievo));
+            if(negoziTable.getItems().isEmpty()){
+                alertWindow("Alert!", "Non ci sono negozi in cui prelevare merci.");
+                closeWindow((Stage) negoziTable.getScene().getWindow());
+            }
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");
         }

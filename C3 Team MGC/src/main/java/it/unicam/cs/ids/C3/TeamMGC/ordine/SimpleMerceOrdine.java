@@ -45,7 +45,6 @@ public class SimpleMerceOrdine implements MerceOrdine {
     /**
      * Costruttore per importare i dati dal DB
      */
-    //todo test
     public SimpleMerceOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("select * from merci where ID ='" + ID + "';");
         if (rs.next()) {
