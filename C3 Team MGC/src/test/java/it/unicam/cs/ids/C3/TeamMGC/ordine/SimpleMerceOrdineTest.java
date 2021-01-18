@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SimpleMerceOrdineTest {
     static MerceOrdine simpleMerceOrdineTest;
@@ -100,6 +101,21 @@ class SimpleMerceOrdineTest {
         ResultSet rs = executeQuery("SELECT stato FROM sys.merci where ID = 1;");
         if (rs.next())
             assertEquals("AFFIDATO_AL_CORRIERE", rs.getString("stato"));
+    }
+
+    @Test
+    void testEquals_toString_hashCode() throws SQLException {
+        MerceOrdine merceOrdine = new SimpleMerceOrdine(800, "Collana di diamanti", StatoOrdine.DA_PAGARE, ordineTest.getID());
+        MerceOrdine merceOrdineDiversa = new SimpleMerceOrdine(100, "Collana", StatoOrdine.DA_PAGARE, ordineTest.getID());
+        MerceOrdine merceOrdineCopia = new SimpleMerceOrdine(merceOrdine.getID());
+
+        assertEquals(merceOrdine, merceOrdineCopia);
+        assertNotEquals(merceOrdine, merceOrdineDiversa);
+        assertEquals(merceOrdine.hashCode(), merceOrdineCopia.hashCode());
+        assertNotEquals(merceOrdine.hashCode(), merceOrdineDiversa.hashCode());
+
+        assertEquals("ID=" + merceOrdine.getID() + ", IDOrdine=" + ordineTest.getID() + ", prezzo=800.0, descrizione='Collana di diamanti', quantita=0, stato=DA_PAGARE", merceOrdine.toString());
+        assertEquals("ID=" + merceOrdine.getID() + ", IDOrdine=" + ordineTest.getID() + ", prezzo=800.0, descrizione='Collana di diamanti', quantita=0, stato=DA_PAGARE", merceOrdineCopia.toString());
     }
 
     @Test
