@@ -25,7 +25,7 @@ public class ICorriere implements JavaFXController {
      * Apre la finestra per consegnare la merce al punto di prelievo.
      */
     @FXML
-    private void consegnaMerce() {
+    public void consegnaMerce() {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Attendere...");
