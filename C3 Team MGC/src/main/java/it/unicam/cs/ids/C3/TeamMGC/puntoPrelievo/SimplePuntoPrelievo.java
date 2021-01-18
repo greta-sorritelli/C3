@@ -62,7 +62,7 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SimplePuntoPrelievo that = (SimplePuntoPrelievo) o;
+        PuntoPrelievo that = (SimplePuntoPrelievo) o;
         return getID() == that.getID();
     }
 

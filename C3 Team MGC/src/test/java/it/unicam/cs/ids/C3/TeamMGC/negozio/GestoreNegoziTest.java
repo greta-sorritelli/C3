@@ -4,6 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -74,7 +75,7 @@ class GestoreNegoziTest {
     void getDettagliItemsConOrdini() throws SQLException {
         Cliente simpleCliente = new SimpleCliente("Yoshi", "Haloa");
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), 1);
-        SimplePuntoPrelievo magazzino = new SimplePuntoPrelievo("Matelica", "Giardini");
+        PuntoPrelievo magazzino = new SimplePuntoPrelievo("Matelica", "Giardini");
         simpleOrdine1.setPuntoPrelievo(magazzino.getID());
         simpleOrdine1.setStato(StatoOrdine.PAGATO);
 

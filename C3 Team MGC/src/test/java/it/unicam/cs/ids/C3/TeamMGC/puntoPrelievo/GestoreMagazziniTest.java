@@ -29,7 +29,7 @@ class GestoreMagazziniTest {
 
     @Test
     void ricercaMagazziniVicini() throws SQLException {
-        ArrayList<SimplePuntoPrelievo> test = gestoreMagazzini.ricercaMagazziniVicini();
+        ArrayList<PuntoPrelievo> test = gestoreMagazzini.ricercaMagazziniVicini();
         assertEquals(test.get(0).getNome(), "B1");
         assertEquals(test.get(1).getIndirizzo(), "via Giuseppe");
         assertEquals(test.get(2).getNome(), "B3");
@@ -66,7 +66,7 @@ class GestoreMagazziniTest {
 
     @Test
     void getMagazziniDisponibili() throws SQLException {
-        ArrayList<SimplePuntoPrelievo> test = gestoreMagazzini.getItems();
+        ArrayList<PuntoPrelievo> test = gestoreMagazzini.getItems();
         assertEquals(test.get(0).getNome(), "B1");
         assertEquals(test.get(1).getIndirizzo(), "via Giuseppe");
         assertEquals(test.get(2).getNome(), "B3");

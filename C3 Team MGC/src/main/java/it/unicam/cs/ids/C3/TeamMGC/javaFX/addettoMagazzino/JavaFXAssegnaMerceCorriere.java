@@ -1,18 +1,15 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,7 +74,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     TextField residenzaTextField;
 
     private Corriere selectedSimpleCorriere = null;
-    private SimplePuntoPrelievo selectedMagazzino = null;
+    private PuntoPrelievo selectedMagazzino = null;
     private String selectedResidenza;
     private final ArrayList<SimpleMerceOrdine> selectedMerce = new ArrayList<>();
 
@@ -201,7 +198,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
         try {
             if (!magazzinoTable.getSelectionModel().isEmpty()) {
                 int id = Integer.parseInt(magazzinoTable.getSelectionModel().getSelectedItem().get(0));
-                SimplePuntoPrelievo puntoPrelievo = gestoreMagazzini.getItem(id);
+                PuntoPrelievo puntoPrelievo = gestoreMagazzini.getItem(id);
                 if (puntoPrelievo != null) {
                     this.selectedMagazzino = puntoPrelievo;
                 }

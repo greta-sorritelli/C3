@@ -3,10 +3,9 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -64,7 +63,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
     TableColumn<ArrayList<String>, String> QuantitaMerce;
 
     @FXML
-    ChoiceBox<SimplePuntoPrelievo> magazziniChoiceBox = new ChoiceBox<>();
+    ChoiceBox<PuntoPrelievo> magazziniChoiceBox = new ChoiceBox<>();
 
     private SimpleMerceOrdine selectedMerce;
 

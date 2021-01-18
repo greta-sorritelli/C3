@@ -3,7 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.cliente;
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -217,7 +217,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param puntoPrelievo      Punto di prelievo dove verrà portata la merce
      * @throws SQLException      Errore causato da una query SQL
      */
-    public void mandaAlertResidenza(int IDCliente, SimplePuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
+    public void mandaAlertResidenza(int IDCliente, PuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
             updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
                     "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
                     + ", indirizzo: " + puntoPrelievo.getIndirizzo()
@@ -230,7 +230,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param puntoPrelievo      Punto di prelievo dove verrà portata la merce
      * @throws SQLException      Errore causato da una query SQL
      */
-    public void mandaAlertPuntoPrelievo(int IDCliente, SimplePuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
+    public void mandaAlertPuntoPrelievo(int IDCliente, PuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
         updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
                 "', 'Merce arrivata a destinazione. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
                 + ", indirizzo: " + puntoPrelievo.getIndirizzo()

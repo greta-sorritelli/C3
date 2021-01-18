@@ -4,6 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
 
-    private final SimplePuntoPrelievo simplePuntoPrelievo;
+    private final PuntoPrelievo simplePuntoPrelievo;
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
 
@@ -43,7 +44,7 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> StatoMerce;
 
-    public JavaFXConsegnareMerceAlCliente(SimplePuntoPrelievo simplePuntoPrelievo) {
+    public JavaFXConsegnareMerceAlCliente(PuntoPrelievo simplePuntoPrelievo) {
         this.simplePuntoPrelievo = simplePuntoPrelievo;
     }
 

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SimpleMagazziniereTest {
 
-    static SimpleMagazziniere mag;
+    static Magazziniere mag;
     static PuntoPrelievo p;
 
     @BeforeAll
@@ -34,7 +34,7 @@ class SimpleMagazziniereTest {
 
     @Test
     void importDB() throws SQLException {
-        SimpleMagazziniere mag = new SimpleMagazziniere(1);
+        Magazziniere mag = new SimpleMagazziniere(1);
         assertEquals(1, mag.getID());
         assertEquals(p.getID(), mag.getIDPuntoPrelievo());
         assertEquals("Mario", mag.getNome());

@@ -14,10 +14,10 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
+public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
 
     private static GestoreMagazzini gestoreMagazzini;
-    ArrayList<SimplePuntoPrelievo> magazzini = new ArrayList<>();
+    ArrayList<PuntoPrelievo> magazzini = new ArrayList<>();
 
     private GestoreMagazzini() {
     }
@@ -35,11 +35,11 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
      * @return Il Punto di prelievo
      * @throws SQLException eccezione causata da una query SQL
      */
-    private SimplePuntoPrelievo addMagazzino(ResultSet rs) throws SQLException {
-        for (SimplePuntoPrelievo magazzino : magazzini)
+    private PuntoPrelievo addMagazzino(ResultSet rs) throws SQLException {
+        for (PuntoPrelievo magazzino : magazzini)
             if (magazzino.getID() == rs.getInt("ID"))
                 return magazzino;
-        SimplePuntoPrelievo toReturn = new SimplePuntoPrelievo(rs.getInt("ID"));
+        PuntoPrelievo toReturn = new SimplePuntoPrelievo(rs.getInt("ID"));
         addMagazzinoToList(toReturn);
         return toReturn;
     }
@@ -49,7 +49,7 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
      *
      * @param magazzino Punto di prelievo da aggiungere
      */
-    private void addMagazzinoToList(SimplePuntoPrelievo magazzino) {
+    private void addMagazzinoToList(PuntoPrelievo magazzino) {
         if (!magazzini.contains(magazzino))
             magazzini.add(magazzino);
     }
@@ -67,7 +67,7 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
         ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
         while (rs.next())
             addMagazzino(rs);
-        for (SimplePuntoPrelievo magazzino : magazzini)
+        for (PuntoPrelievo magazzino : magazzini)
             dettagli.add(magazzino.getDettagli());
         disconnectToDB(rs);
         return dettagli;
@@ -81,10 +81,10 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
      * @return Il Punto di prelievo desiderato
      */
     @Override
-    public SimplePuntoPrelievo getItem(int ID) throws SQLException {
+    public PuntoPrelievo getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.punti_prelievo where ID='" + ID + "' ;");
         if (rs.next()) {
-            SimplePuntoPrelievo toReturn = addMagazzino(rs);
+            PuntoPrelievo toReturn = addMagazzino(rs);
             disconnectToDB(rs);
             return toReturn;
         } else {
@@ -100,7 +100,7 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public ArrayList<SimplePuntoPrelievo> getItems() throws SQLException {
+    public ArrayList<PuntoPrelievo> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo;");
         while (rs.next())
             addMagazzino(rs);
@@ -126,7 +126,7 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
      * @throws SQLException Errore causato da una query SQL
      * @return              ArrayList<ArrayList<String>>
      */
-    public ArrayList<SimplePuntoPrelievo> ricercaMagazziniVicini() throws SQLException {
+    public ArrayList<PuntoPrelievo> ricercaMagazziniVicini() throws SQLException {
         return getItems();
     }
 

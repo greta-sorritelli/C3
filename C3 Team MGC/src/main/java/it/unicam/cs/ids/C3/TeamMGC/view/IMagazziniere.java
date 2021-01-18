@@ -5,6 +5,7 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXComunicareConCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXConsegnareMerceAlCliente;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import javafx.fxml.FXML;
 
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 public class IMagazziniere implements JavaFXController {
 
     //todo
-    private final SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(1);
+    private final PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(1);
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
     public IMagazziniere() throws SQLException {

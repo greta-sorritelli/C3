@@ -5,6 +5,7 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.*;
 
@@ -76,7 +77,7 @@ class GestoreClientiTest {
     @Test
     void mandaAlert() throws SQLException {
         ArrayList<Cliente> test = gestoreClienti.getItems();
-        SimplePuntoPrelievo p = new SimplePuntoPrelievo("via Verdi","B1");
+        PuntoPrelievo p = new SimplePuntoPrelievo("via Verdi","B1");
         GestoreInventario negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(test.get(0).getID(), test.get(0).getNome(), test.get(0).getCognome(), negozio.getID());
         SimpleMerceOrdine merce1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());

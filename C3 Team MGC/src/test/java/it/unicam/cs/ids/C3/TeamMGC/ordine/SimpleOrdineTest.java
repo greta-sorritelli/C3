@@ -4,6 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -64,7 +65,7 @@ class SimpleOrdineTest {
     void getDettagli() throws SQLException {
         SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
         SimpleMerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.PAGATO, simpleOrdine.getID());
-        SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 1");
+        PuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 1");
         simpleOrdine.aggiungiMerce(merce, 2);
         simpleOrdine.setStato(StatoOrdine.PAGATO);
         simpleOrdine.setPuntoPrelievo(p.getID());
@@ -85,7 +86,7 @@ class SimpleOrdineTest {
     @Test
     void setPuntoPrelievo() throws SQLException {
         SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        SimplePuntoPrelievo p = new SimplePuntoPrelievo("Piazza Roma", "MAG 5");
+        PuntoPrelievo p = new SimplePuntoPrelievo("Piazza Roma", "MAG 5");
         assertEquals(-1, simpleOrdine.getPuntoPrelievo());
         simpleOrdine.setPuntoPrelievo(p.getID());
         assertEquals(p.getID(), simpleOrdine.getPuntoPrelievo());
@@ -114,7 +115,7 @@ class SimpleOrdineTest {
         SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
         SimpleMerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.PAGATO, simpleOrdine.getID());
         simpleOrdine.aggiungiMerce(merce, 15);
-        SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 1");
+        PuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 1");
         simpleOrdine.setPuntoPrelievo(p.getID());
 
         assertEquals("Matteo", simpleOrdine.getNomeCliente());
@@ -125,7 +126,7 @@ class SimpleOrdineTest {
 
         simpleOrdine.aggiungiMerce(merce, 10);
         simpleOrdine.setStato(StatoOrdine.PAGATO);
-        SimplePuntoPrelievo p1 = new SimplePuntoPrelievo("Via degli Activity Diagram", "SD 2");
+        PuntoPrelievo p1 = new SimplePuntoPrelievo("Via degli Activity Diagram", "SD 2");
 
         updateData("UPDATE sys.ordini SET nomeCliente = 'Clarissa' where ID = '" + simpleOrdine.getID() + "';");
         updateData("UPDATE sys.ordini SET cognomeCliente = 'Albanese' where ID = '" + simpleOrdine.getID() + "';");

@@ -53,18 +53,22 @@ public class SimpleMagazziniere implements Magazziniere {
         disconnectToDB(rs);
     }
 
+    @Override
     public String getCognome() {
         return cognome;
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
+    @Override
     public int getIDPuntoPrelievo() {
         return IDPuntoPrelievo;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
