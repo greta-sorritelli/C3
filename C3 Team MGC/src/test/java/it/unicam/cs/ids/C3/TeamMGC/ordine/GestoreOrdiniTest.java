@@ -378,11 +378,11 @@ class GestoreOrdiniTest {
         ordine2 = gestoreOrdini.getOrdine(ID2).getDettagli();
 
         assertEquals(5.0, Double.parseDouble(ordine1.get(4)));
-        assertTrue(negozio.getMerceDisponibile().contains(negozio.getItem(IDMerce1)));
+        assertTrue(negozio.getItems().contains(negozio.getItem(IDMerce1)));
         assertEquals("[ID=" + IDMerceOrdine1 + ", IDOrdine=" + ID1 + ", prezzo=0.5, descrizione='Gomma', quantita=10, stato=PAGATO]", ordine1.get(8));
 
         assertEquals(12.0, Double.parseDouble(ordine2.get(4)));
-        assertTrue(negozio.getMerceDisponibile().contains(negozio.getItem(IDMerce2)));
+        assertTrue(negozio.getItems().contains(negozio.getItem(IDMerce2)));
 
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(IDMerce3, 6, ID1, negozio));
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(IDMerce4, 2, ID2, negozio));

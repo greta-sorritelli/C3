@@ -1,11 +1,8 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
-import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
@@ -87,8 +84,8 @@ public class GestoreOrdini {
     public void associaMerceCorriere(int IDCorriere, int IDMerce) throws SQLException {
         updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + IDMerce + "');");
         MerceOrdine tmp = getMerceOrdine(IDMerce);
-        tmp.setIDCorriere(IDCorriere);
         tmp.setStato(StatoOrdine.AFFIDATO_AL_CORRIERE);
+        tmp.setIDCorriere(IDCorriere);
     }
 
     /**

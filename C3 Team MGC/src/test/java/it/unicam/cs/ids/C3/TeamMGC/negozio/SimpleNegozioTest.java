@@ -58,28 +58,28 @@ class SimpleNegozioTest {
         merce2.setQuantita(600);
         assertEquals(merce1.getQuantita(), 500);
         assertEquals(merce2.getQuantita(), 600);
-        assertTrue(negozioTest.getMerceDisponibile().contains(merce1));
-        assertTrue(negozioTest.getMerceDisponibile().contains(merce2));
+        assertTrue(negozioTest.getItems().contains(merce1));
+        assertTrue(negozioTest.getItems().contains(merce2));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> negozioTest.getItem(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
     void getMerceDisponibile() throws SQLException {
-        ArrayList<Merce> inventario = negozioTest.getMerceDisponibile();
+        ArrayList<Merce> inventario = negozioTest.getItems();
         assertEquals(1, inventario.get(0).getID());
         assertEquals(1, inventario.get(1).getIDNegozio());
         assertEquals("test Negozio", inventario.get(2).getDescrizione());
 
         assertEquals(5, inventario.size());
-        inventario = negozioTest.getMerceDisponibile();
+        inventario = negozioTest.getItems();
         assertEquals(5, inventario.size());
     }
 
     @Test
     void inserisciNuovaMerce() throws SQLException {
         ArrayList<String> test = negozioTest.inserisciNuovaMerce(10, "jeans", 5);
-        assertTrue(negozioTest.getMerceDisponibile().contains(negozioTest.getItem(Integer.parseInt(test.get(0)))));
+        assertTrue(negozioTest.getItems().contains(negozioTest.getItem(Integer.parseInt(test.get(0)))));
         assertEquals(10, negozioTest.getItem(Integer.parseInt(test.get(0))).getPrezzo());
         assertEquals("jeans", negozioTest.getItem(Integer.parseInt(test.get(0))).getDescrizione());
         assertEquals(5, negozioTest.getItem(Integer.parseInt(test.get(0))).getQuantita());
@@ -100,9 +100,9 @@ class SimpleNegozioTest {
     @Test
     void removeMerce() throws SQLException {
         Merce simpleMerce = new SimpleMerce(negozioTest.getID(),15,"test delete",10);
-        assertTrue(negozioTest.getMerceDisponibile().contains(negozioTest.getItem(simpleMerce.getID())));
+        assertTrue(negozioTest.getItems().contains(negozioTest.getItem(simpleMerce.getID())));
         negozioTest.removeMerce(simpleMerce.getID());
-        assertFalse(negozioTest.getMerceDisponibile().contains(simpleMerce));
+        assertFalse(negozioTest.getItems().contains(simpleMerce));
     }
 
     @Test

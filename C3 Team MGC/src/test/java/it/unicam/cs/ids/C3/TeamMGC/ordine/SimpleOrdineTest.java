@@ -101,13 +101,16 @@ class SimpleOrdineTest {
     }
 
     @Test
-    void testEquals() throws SQLException {
+    void testEquals_toString_hashCode() throws SQLException {
         Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
         ordine.setStato(StatoOrdine.PAGATO);
         Ordine ordineCopia = new SimpleOrdine(ordine.getID());
         Ordine ordine2 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
         assertEquals(ordine, ordineCopia);
         assertNotEquals(ordine, ordine2);
+        assertEquals(ordine.hashCode(),ordineCopia.hashCode());
+        assertEquals("ID=" + ordine.getID() + ", IDCliente=1, nomeCliente='Matteo', cognomeCliente='Rondini', totalePrezzo=0.0, stato=PAGATO, IDPuntoPrelievo=-1, residenza='', IDNegozio=1, merci=[]",ordine.toString());
+        assertEquals("ID=" + ordine2.getID() + ", IDCliente=1, nomeCliente='Matteo', cognomeCliente='Rondini', totalePrezzo=0.0, stato=DA_PAGARE, IDPuntoPrelievo=-1, residenza='', IDNegozio=1, merci=[]",ordine2.toString());
     }
 
     @Test
