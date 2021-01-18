@@ -138,8 +138,8 @@ public class SimpleOrdine implements Ordine {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SimpleOrdine simpleOrdine = (SimpleOrdine) o;
-        return ID == simpleOrdine.ID;
+        Ordine simpleOrdine = (SimpleOrdine) o;
+        return ID == simpleOrdine.getID();
     }
 
     @Override

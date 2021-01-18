@@ -1,8 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import java.util.Random;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la gestione di ogni {@link SimpleCliente}
+ * Classe per la gestione di ogni {@link Cliente}
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -29,6 +30,11 @@ public class GestoreClienti implements Gestore<Cliente> {
     private GestoreClienti() {
     }
 
+    /**
+     * Metodo per ottenere l' istanza singleton del {@link GestoreClienti}
+     *
+     * @return l'unica istanza presente o una nuova se non è già esistente
+     */
     public static GestoreClienti getInstance() {
         if (gestoreClienti == null)
             gestoreClienti = new GestoreClienti();
@@ -36,8 +42,8 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Controlla se il {@link SimpleCliente} che si vuole creare e' gia' presente nella lista dei clienti. Se non e' presente
-     * viene creato e aggiunto alla lista.
+     * Controlla se il {@link Cliente} che si vuole creare e' gia' presente nella lista dei clienti.
+     * Se non e' presente viene creato e aggiunto alla lista.
      *
      * @return Il Cliente
      * @throws SQLException Errore causato da una query SQL
@@ -52,17 +58,17 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Aggiunge un {@link SimpleCliente} alla lista di clienti.
+     * Aggiunge un {@link Cliente} alla lista di clienti.
      *
-     * @param simpleCliente Cliente da aggiungere
+     * @param cliente Cliente da aggiungere
      */
-    private void addClienteToList(Cliente simpleCliente) {
-        if (!clienti.contains(simpleCliente))
-            clienti.add(simpleCliente);
+    private void addClienteToList(Cliente cliente) {
+        if (!clienti.contains(cliente))
+            clienti.add(cliente);
     }
 
     /**
-     * Crea il nuovo {@code Codice di Ritiro} e lo associa all' {@link SimpleOrdine} ed al {@link SimpleCliente} .
+     * Crea il nuovo {@code Codice di Ritiro} e lo associa all' {@link Ordine} ed al {@link Cliente} .
      *
      * @param IDCliente Codice Identificativo del Cliente
      * @param IDOrdine  Codice Identificativo dell' Ordine
@@ -76,7 +82,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Genera il nuovo {@code Codice di Ritiro} del {@link SimpleCliente}.
+     * Genera il nuovo {@code Codice di Ritiro} del {@link Cliente}.
      *
      * @return il Codice generato
      */
@@ -89,9 +95,9 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Ritorna la lista dei dettagli dei {@link SimpleCliente Clienti} presenti nel DB.
+     * Ritorna la lista dei dettagli dei {@link Cliente Clienti} presenti nel DB.
      *
-     * @return ArrayList<ArrayList < String>> dei dettagli dei Clienti.
+     * @return ArrayList di ArrayList dei dettagli dei Clienti.
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -107,7 +113,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Ritorna il {@link SimpleCliente} collegato all' {@code ID}.
+     * Ritorna il {@link Cliente} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Cliente
      *
@@ -126,9 +132,9 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Ritorna la lista dei {@link SimpleCliente Clienti} presenti nel DB.
+     * Ritorna la lista dei {@link Cliente Clienti} presenti nel DB.
      *
-     * @return ArrayList<Cliente> dei Clienti.
+     * @return ArrayList dei Clienti.
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -141,12 +147,12 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Crea e inserisce un nuovo {@link SimpleCliente} nella lista.
+     * Crea e inserisce un nuovo {@link Cliente} nella lista.
      *
      * @param nome    Nome del cliente da inserire
      * @param cognome Cognome del cliente da inserire
      *
-     * @return ArrayList<String> dei dettagli del cliente creato
+     * @return ArrayList dei dettagli del cliente creato
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
@@ -156,7 +162,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Verifica il codice di ritiro del cliente, cioè controlla se ha già un codice
+     * Verifica il codice di ritiro del {@link Cliente}, cioè controlla se ha già un codice
      * creato nella data odierna. In caso negativo viene generato un nuovo codice per il cliente.
      *
      * @param IDCliente ID del Cliente a cui appartiene il codice di ritiro
@@ -183,7 +189,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Verifica se il codice di ritiro è quello associato al {@link SimpleCliente}
+     * Verifica se il codice di ritiro è quello associato al {@link Cliente}
      *
      * @param IDCliente    Codice Identificativo del Cliente
      * @param codiceRitiro Codice di Ritiro comunicato dal Cliente
@@ -198,7 +204,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Verifica che il codice di ritiro comunicato dal cliente sia uguale
+     * Verifica che il codice di ritiro comunicato dal {@link Cliente} sia uguale
      * a quello presente nel database.
      *
      * @param codiceRitiroComunicato Codice comunicato dal cliente
@@ -211,7 +217,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Manda un alert al cliente per avvisarlo che non è stato trovato dal corriere
+     * Manda un alert al {@link Cliente} per avvisarlo che non è stato trovato dal {@link Corriere}
      * nella sua residenza, e quindi la merce verrà consegnata al punto di prelievo.
      *
      * @param IDCliente     ID del cliente da avvisare
@@ -227,7 +233,7 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Manda un alert al cliente per avvisarlo che la merce è arrivata al punto di prelievo.
+     * Manda un alert al {@link Cliente} per avvisarlo che la {@link MerceOrdine} è arrivata al punto di prelievo.
      *
      * @param IDCliente     ID del cliente da avvisare
      * @param puntoPrelievo Punto di prelievo dove verrà portata la merce

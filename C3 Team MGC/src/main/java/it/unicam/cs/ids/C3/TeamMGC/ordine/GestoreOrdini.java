@@ -2,7 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
@@ -359,8 +359,8 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public void registraMerce(int IDMerce, int quantita, int IDOrdine, GestoreInventario negozio) throws SQLException {
-        Merce simpleMerce = negozio.getMerce(IDMerce);
+    public void registraMerce(int IDMerce, int quantita, int IDOrdine, Negozio negozio) throws SQLException {
+        Merce simpleMerce = negozio.getItem(IDMerce);
         if (simpleMerce.getQuantita() == 0 || simpleMerce.getQuantita() < quantita)
             throw new IllegalArgumentException("Quantita non valida.");
 
@@ -381,7 +381,7 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome, GestoreInventario negozio) throws SQLException {
+    public ArrayList<String> registraOrdine(int IDCliente, String nome, String cognome, Negozio negozio) throws SQLException {
         controllaCliente(IDCliente, nome, cognome);
         Ordine ordine = new SimpleOrdine(IDCliente, nome, cognome, negozio.getID());
         addOrdineToList(ordine);

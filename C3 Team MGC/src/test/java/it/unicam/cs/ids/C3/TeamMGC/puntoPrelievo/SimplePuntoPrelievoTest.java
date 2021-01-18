@@ -2,11 +2,9 @@ package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SimplePuntoPrelievoTest {
 
     static PuntoPrelievo simplePuntoPrelievo;
-    static GestoreInventario negozioTest;
+    static Negozio negozioTest;
 
     @BeforeAll
     static void prepareDB() throws SQLException {
@@ -32,7 +30,7 @@ class SimplePuntoPrelievoTest {
         updateData("delete from sys.clienti;");
         updateData("alter table clienti AUTO_INCREMENT = 1;");
         simplePuntoPrelievo = new SimplePuntoPrelievo("Castelraimondo", "Stazione");
-        negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        negozioTest = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
     }
 
     @Test
@@ -83,18 +81,18 @@ class SimplePuntoPrelievoTest {
 
     @Test
     void getMerceMagazzino() throws SQLException {
-        ArrayList<SimpleMerceOrdine> listaMerciOrdine1 = new ArrayList<>();
-        ArrayList<SimpleMerceOrdine> listaMerciOrdine2 = new ArrayList<>();
+        ArrayList<MerceOrdine> listaMerciOrdine1 = new ArrayList<>();
+        ArrayList<MerceOrdine> listaMerciOrdine2 = new ArrayList<>();
         Cliente simpleCliente1 = new SimpleCliente("Mario", "Rossi");
         Cliente simpleCliente2 = new SimpleCliente("Mario", "Verdi");
 
-        SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozioTest.getID());
-        SimpleMerceOrdine merce1_1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
-        SimpleMerceOrdine merce2_1 = new SimpleMerceOrdine(20, "gomma", StatoOrdine.RITIRATO, simpleOrdine1.getID());
+        Ordine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozioTest.getID());
+        MerceOrdine merce1_1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
+        MerceOrdine merce2_1 = new SimpleMerceOrdine(20, "gomma", StatoOrdine.RITIRATO, simpleOrdine1.getID());
 
-        SimpleOrdine simpleOrdine2 = new SimpleOrdine(simpleCliente2.getID(), simpleCliente2.getNome(), simpleCliente2.getCognome(), negozioTest.getID());
-        SimpleMerceOrdine merce1_2 = new SimpleMerceOrdine(30, "maglietta", StatoOrdine.IN_TRANSITO, simpleOrdine2.getID());
-        SimpleMerceOrdine merce2_2 = new SimpleMerceOrdine(40, "pantalone", StatoOrdine.AFFIDATO_AL_CORRIERE, simpleOrdine2.getID());
+        Ordine simpleOrdine2 = new SimpleOrdine(simpleCliente2.getID(), simpleCliente2.getNome(), simpleCliente2.getCognome(), negozioTest.getID());
+        MerceOrdine merce1_2 = new SimpleMerceOrdine(30, "maglietta", StatoOrdine.IN_TRANSITO, simpleOrdine2.getID());
+        MerceOrdine merce2_2 = new SimpleMerceOrdine(40, "pantalone", StatoOrdine.AFFIDATO_AL_CORRIERE, simpleOrdine2.getID());
 
         listaMerciOrdine1.add(merce1_1);
         simpleOrdine1.aggiungiMerce(merce1_1, 2);
@@ -117,16 +115,16 @@ class SimplePuntoPrelievoTest {
 
     @Test
     void getOrdini() throws SQLException {
-        ArrayList<SimpleOrdine> lista1 = new ArrayList<>();
-        ArrayList<SimpleOrdine> lista2 = new ArrayList<>();
+        ArrayList<Ordine> lista1 = new ArrayList<>();
+        ArrayList<Ordine> lista2 = new ArrayList<>();
         Cliente simpleCliente1 = new SimpleCliente("Joel", "Barish");
         Cliente simpleCliente2 = new SimpleCliente("Clementine", "Kruczynski");
 
         assertTrue(simplePuntoPrelievo.getOrdini(simpleCliente1.getID()).isEmpty());
         assertTrue(simplePuntoPrelievo.getOrdini(simpleCliente2.getID()).isEmpty());
 
-        SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozioTest.getID());
-        SimpleMerceOrdine merce1_1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
+        Ordine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozioTest.getID());
+        MerceOrdine merce1_1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
 
         simpleOrdine1.aggiungiMerce(merce1_1, 2);
         simpleOrdine1.setPuntoPrelievo(simplePuntoPrelievo.getID());
@@ -136,7 +134,7 @@ class SimplePuntoPrelievoTest {
         assertEquals(simplePuntoPrelievo.getOrdini(simpleCliente1.getID()).get(0), lista1.get(0));
         assertEquals(simplePuntoPrelievo.getOrdini(simpleCliente1.getID()), lista1);
 
-        SimpleOrdine simpleOrdine2 = new SimpleOrdine(simpleCliente2.getID(), simpleCliente2.getNome(), simpleCliente2.getCognome(), negozioTest.getID());
+        Ordine simpleOrdine2 = new SimpleOrdine(simpleCliente2.getID(), simpleCliente2.getNome(), simpleCliente2.getCognome(), negozioTest.getID());
         simpleOrdine2.setPuntoPrelievo(simplePuntoPrelievo.getID());
         simpleOrdine2.setStato(StatoOrdine.IN_DEPOSITO);
         lista2.add(simpleOrdine2);

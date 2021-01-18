@@ -2,8 +2,9 @@ package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import org.junit.jupiter.api.*;
 
@@ -136,16 +137,16 @@ class GestoreCorrieriTest {
     @Test
     void mandaAlert() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
-        GestoreInventario negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        GestoreInventario negozio1 = new Negozio("Sportland", "Sport", null, null, "Via delle Trombe", null);
-        GestoreInventario negozio2 = new Negozio("King", "Sport", null, null, "Via delle Cascate", null);
-        ArrayList<GestoreInventario> negozi = new ArrayList<>();
+        Negozio negozio = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        Negozio negozio1 = new SimpleNegozio("Sportland", "Sport", null, null, "Via delle Trombe", null);
+        Negozio negozio2 = new SimpleNegozio("King", "Sport", null, null, "Via delle Cascate", null);
+        ArrayList<Negozio> negozi = new ArrayList<>();
         negozi.add(negozio);
         negozi.add(negozio1);
         negozi.add(negozio2);
 
         Cliente simpleCliente1 = new SimpleCliente("Mario", "Rossi");
-        SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio.getID());
+        Ordine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio.getID());
 
         simpleOrdine1.addResidenza("Via Giuseppe Verdi, 2");
         gestoreCorrieri.mandaAlert(Integer.parseInt(test.get(0).get(0)), negozio, simpleOrdine1.getResidenza());

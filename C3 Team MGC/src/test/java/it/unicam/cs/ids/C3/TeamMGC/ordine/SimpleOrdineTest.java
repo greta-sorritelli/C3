@@ -2,8 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleOrdineTest {
     static Cliente simpleCliente;
-    static GestoreInventario negozio;
+    static Negozio negozio;
 
     @BeforeAll
     static void clearDB() throws SQLException {
@@ -30,7 +30,7 @@ class SimpleOrdineTest {
         updateData("delete from sys.negozi;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         simpleCliente = new SimpleCliente("Matteo", "Rondini");
-        negozio = new Negozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
+        negozio = new SimpleNegozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
     }
 
     @Test

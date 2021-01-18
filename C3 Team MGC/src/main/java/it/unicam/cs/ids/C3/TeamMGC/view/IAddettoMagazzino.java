@@ -3,8 +3,8 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino.JavaFXAssegnaMerceCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino.JavaFXGestioneInventario;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class IAddettoMagazzino implements JavaFXController {
 
     //todo
-    private final GestoreInventario negozio = new Negozio(1);
+    private final Negozio negozio = new SimpleNegozio(1);
 
     public IAddettoMagazzino() throws SQLException {
     }

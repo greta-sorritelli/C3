@@ -3,7 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -23,11 +23,11 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-    private final GestoreInventario negozio;
+    private final Negozio negozio;
     private final int IDOrdine;
 
 
-    public JavaFXSelezionaPuntoPrelievo(int IDOrdine, GestoreInventario negozio) {
+    public JavaFXSelezionaPuntoPrelievo(int IDOrdine, Negozio negozio) {
         this.IDOrdine = IDOrdine;
         this.negozio = negozio;
     }

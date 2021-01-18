@@ -11,14 +11,14 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class NegozioTest {
+class SimpleNegozioTest {
 
-    static GestoreInventario negozioTest;
+    static Negozio negozioTest;
 
     @Test
     @Order(1)
     void getDettagliMerce() throws SQLException {
-        ArrayList<ArrayList<String>> merci = negozioTest.getDettagliMerce();
+        ArrayList<ArrayList<String>> merci = negozioTest.getDettagliItems();
         assertEquals(negozioTest.getID(),Integer.parseInt(merci.get(0).get(1)));
         assertEquals("10.0",merci.get(0).get(2));
         assertEquals("test Negozio",merci.get(0).get(3));
@@ -35,7 +35,7 @@ class NegozioTest {
 
     @Test
     void getDettagli() throws SQLException {
-        GestoreInventario negozio = new Negozio("Negozio1", "Sport", "09:00", "16:00", "Via degli Assert", "123456");
+        Negozio negozio = new SimpleNegozio("Negozio1", "Sport", "09:00", "16:00", "Via degli Assert", "123456");
         ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma", 10);
         ArrayList<String> test = new ArrayList<>();
         test.add(String.valueOf(negozio.getID()));
@@ -47,20 +47,20 @@ class NegozioTest {
         test.add("123456");
         test.add("[ID=" + dettagli.get(0) + ", IDNegozio=" + dettagli.get(1) + ", prezzo=52.0, descrizione='gomma', quantita=10]");
         assertEquals(test, negozio.getDettagli());
-        assertThrows(IllegalArgumentException.class, () -> new Negozio(1000));
+        assertThrows(IllegalArgumentException.class, () -> new SimpleNegozio(1000));
     }
 
     @Test
     void getMerce() throws SQLException {
-        Merce merce1 = negozioTest.getMerce(1);
-        Merce merce2 = negozioTest.getMerce(2);
+        Merce merce1 = negozioTest.getItem(1);
+        Merce merce2 = negozioTest.getItem(2);
         merce1.setQuantita(500);
         merce2.setQuantita(600);
         assertEquals(merce1.getQuantita(), 500);
         assertEquals(merce2.getQuantita(), 600);
         assertTrue(negozioTest.getMerceDisponibile().contains(merce1));
         assertTrue(negozioTest.getMerceDisponibile().contains(merce2));
-        Exception e1 = assertThrows(IllegalArgumentException.class, () -> negozioTest.getMerce(1000));
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> negozioTest.getItem(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
 
@@ -79,10 +79,10 @@ class NegozioTest {
     @Test
     void inserisciNuovaMerce() throws SQLException {
         ArrayList<String> test = negozioTest.inserisciNuovaMerce(10, "jeans", 5);
-        assertTrue(negozioTest.getMerceDisponibile().contains(negozioTest.getMerce(Integer.parseInt(test.get(0)))));
-        assertEquals(10, negozioTest.getMerce(Integer.parseInt(test.get(0))).getPrezzo());
-        assertEquals("jeans", negozioTest.getMerce(Integer.parseInt(test.get(0))).getDescrizione());
-        assertEquals(5, negozioTest.getMerce(Integer.parseInt(test.get(0))).getQuantita());
+        assertTrue(negozioTest.getMerceDisponibile().contains(negozioTest.getItem(Integer.parseInt(test.get(0)))));
+        assertEquals(10, negozioTest.getItem(Integer.parseInt(test.get(0))).getPrezzo());
+        assertEquals("jeans", negozioTest.getItem(Integer.parseInt(test.get(0))).getDescrizione());
+        assertEquals(5, negozioTest.getItem(Integer.parseInt(test.get(0))).getQuantita());
     }
 
    @BeforeAll
@@ -91,7 +91,7 @@ class NegozioTest {
         updateData("delete from sys.inventario;");
         updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
-        negozioTest = new Negozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
+        negozioTest = new SimpleNegozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
         negozioTest.inserisciNuovaMerce(10,"test Negozio",10);
         negozioTest.inserisciNuovaMerce(5,"test Negozio",1);
         negozioTest.inserisciNuovaMerce(50,"test Negozio",20);
@@ -100,7 +100,7 @@ class NegozioTest {
     @Test
     void removeMerce() throws SQLException {
         Merce simpleMerce = new SimpleMerce(negozioTest.getID(),15,"test delete",10);
-        assertTrue(negozioTest.getMerceDisponibile().contains(negozioTest.getMerce(simpleMerce.getID())));
+        assertTrue(negozioTest.getMerceDisponibile().contains(negozioTest.getItem(simpleMerce.getID())));
         negozioTest.removeMerce(simpleMerce.getID());
         assertFalse(negozioTest.getMerceDisponibile().contains(simpleMerce));
     }
@@ -115,12 +115,12 @@ class NegozioTest {
 
     @Test
     void setQuantita() throws SQLException {
-        Merce simpleMerce = negozioTest.getMerce(1);
+        Merce simpleMerce = negozioTest.getItem(1);
         assertEquals(10, simpleMerce.getQuantita());
         simpleMerce.setQuantita(100);
         assertEquals(100, simpleMerce.getQuantita());
         negozioTest.setQuantita(simpleMerce.getID(), 20);
-        assertEquals(20, negozioTest.getMerce(simpleMerce.getID()).getQuantita());
+        assertEquals(20, negozioTest.getItem(simpleMerce.getID()).getQuantita());
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = 1;");
         if (rs.next())
             assertEquals(20, rs.getInt("quantita"));
