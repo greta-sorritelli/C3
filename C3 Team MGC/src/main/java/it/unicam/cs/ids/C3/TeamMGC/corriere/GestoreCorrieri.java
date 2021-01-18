@@ -14,10 +14,10 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class GestoreCorrieri implements Gestore<SimpleCorriere> {
+public class GestoreCorrieri implements Gestore<Corriere> {
 
     private static GestoreCorrieri gestoreCorrieri;
-    ArrayList<SimpleCorriere> corrieri = new ArrayList<>();
+    ArrayList<Corriere> corrieri = new ArrayList<>();
 
     private GestoreCorrieri() {
     }
@@ -35,12 +35,12 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      * @return Il corriere
      * @throws SQLException Errore causato da una query SQL
      */
-    private SimpleCorriere addCorriere(ResultSet rs) throws SQLException {
-        for (SimpleCorriere simpleCorriere : corrieri)
+    private Corriere addCorriere(ResultSet rs) throws SQLException {
+        for (Corriere simpleCorriere : corrieri)
             if (simpleCorriere.getID() == rs.getInt("ID")) {
                 return simpleCorriere;
             }
-        SimpleCorriere toReturn = new SimpleCorriere(rs.getInt("ID"));
+        Corriere toReturn = new SimpleCorriere(rs.getInt("ID"));
         addCorriereToList(toReturn);
         return toReturn;
     }
@@ -50,7 +50,7 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      *
      * @param simpleCorriere Corriere da aggiungere
      */
-    private void addCorriereToList(SimpleCorriere simpleCorriere) {
+    private void addCorriereToList(Corriere simpleCorriere) {
         if (!corrieri.contains(simpleCorriere))
             corrieri.add(simpleCorriere);
     }
@@ -61,12 +61,12 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      * @return ArrayList<Cliente> dei Corrieri disponibili.
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<SimpleCorriere> getCorrieriDisponibili() throws SQLException {
-        ArrayList<SimpleCorriere> corrieriDisponibili = new ArrayList<>();
+    public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
+        ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri WHERE (stato = 'true');");
         if (rs.next())
             do {
-                SimpleCorriere tmp = new SimpleCorriere(rs.getInt("ID"));
+                Corriere tmp = new SimpleCorriere(rs.getInt("ID"));
                 corrieriDisponibili.add(tmp);
             } while (rs.next());
 
@@ -86,11 +86,11 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() throws SQLException {
-        ArrayList<SimpleCorriere> corrieriDisponibili = new ArrayList<>();
+        ArrayList<Corriere> corrieriDisponibili = new ArrayList<>();
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri WHERE (stato = 'true' );");
         while (rs.next()) {
-            SimpleCorriere tmp = new SimpleCorriere(rs.getInt("ID"));
+            Corriere tmp = new SimpleCorriere(rs.getInt("ID"));
             corrieriDisponibili.add(tmp);
         }
         if (corrieriDisponibili.isEmpty()) {
@@ -98,7 +98,7 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
             disconnectToDB(rs);
             throw new IllegalArgumentException("Corrieri disponibili non presenti.");
         }
-        for (SimpleCorriere simpleCorriere : corrieriDisponibili)
+        for (Corriere simpleCorriere : corrieriDisponibili)
             dettagli.add(simpleCorriere.getDettagli());
         disconnectToDB(rs);
         return dettagli;
@@ -116,8 +116,8 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
         while (rs.next())
             addCorriere(rs);
-        for (SimpleCorriere corrieri : corrieri)
-            dettagli.add(corrieri.getDettagli());
+        for (Corriere corriere : corrieri)
+            dettagli.add(corriere.getDettagli());
         disconnectToDB(rs);
         return dettagli;
     }
@@ -135,7 +135,7 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public SimpleCorriere getItem(int ID) throws SQLException {
+    public Corriere getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.corrieri where ID='" + ID + "' ;");
         if (rs.next()) {
             return addCorriere(rs);
@@ -152,7 +152,7 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public ArrayList<SimpleCorriere> getItems() throws SQLException {
+    public ArrayList<Corriere> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.corrieri;");
         while (rs.next())
             addCorriere(rs);
@@ -170,7 +170,7 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
-        SimpleCorriere simpleCorriere = new SimpleCorriere(nome, cognome, true);
+        Corriere simpleCorriere = new SimpleCorriere(nome, cognome, true);
         addCorriereToList(simpleCorriere);
         return simpleCorriere.getDettagli();
     }

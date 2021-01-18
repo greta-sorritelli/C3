@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
@@ -95,7 +96,7 @@ class GestoreOrdiniTest {
     void getDettagliMerciOfCorriere() throws SQLException {
         Cliente cliente = new SimpleCliente("Maria", "Giuseppa");
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 3");
-        SimpleCorriere corriere = new SimpleCorriere("Luca", "Blu", true);
+        Corriere corriere = new SimpleCorriere("Luca", "Blu", true);
 
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio);
         int IDOrdine = Integer.parseInt(ordine.get(0));

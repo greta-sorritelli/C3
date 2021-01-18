@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
@@ -75,7 +76,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     @FXML
     TextField residenzaTextField;
 
-    private SimpleCorriere selectedSimpleCorriere = null;
+    private Corriere selectedSimpleCorriere = null;
     private SimplePuntoPrelievo selectedMagazzino = null;
     private String selectedResidenza;
     private final ArrayList<SimpleMerceOrdine> selectedMerce = new ArrayList<>();

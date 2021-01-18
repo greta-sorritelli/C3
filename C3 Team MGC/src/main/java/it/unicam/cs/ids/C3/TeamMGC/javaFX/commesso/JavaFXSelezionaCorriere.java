@@ -1,6 +1,7 @@
 
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
@@ -21,7 +22,7 @@ public class JavaFXSelezionaCorriere implements JavaFXController {
 
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-    private SimpleCorriere selectedSimpleCorriere;
+    private Corriere selectedSimpleCorriere;
     private String residenza;
     private final GestoreInventario negozio;
 

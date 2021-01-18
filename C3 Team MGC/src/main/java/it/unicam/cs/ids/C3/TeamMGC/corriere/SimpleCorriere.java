@@ -65,10 +65,11 @@ public class SimpleCorriere implements Corriere {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SimpleCorriere simpleCorriere = (SimpleCorriere) o;
+        Corriere simpleCorriere = (SimpleCorriere) o;
         return getID() == simpleCorriere.getID();
     }
 
+    @Override
     public String getCognome() {
         return cognome;
     }
@@ -89,6 +90,7 @@ public class SimpleCorriere implements Corriere {
         return corriere;
     }
 
+    @Override
     public boolean getDisponibilita() {
         return disponibilita;
     }
@@ -98,15 +100,18 @@ public class SimpleCorriere implements Corriere {
      *
      * @throws SQLException eccezione causa da una query SQL
      */
+    @Override
     public void setDisponibilita(boolean disponibilita) throws SQLException {
         updateData("UPDATE sys.corrieri SET stato = '" + disponibilita + "' WHERE (ID = '" + this.ID + "');");
         this.disponibilita = disponibilita;
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }

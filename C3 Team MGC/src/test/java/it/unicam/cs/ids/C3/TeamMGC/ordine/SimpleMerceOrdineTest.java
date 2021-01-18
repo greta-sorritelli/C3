@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SimpleMerceOrdineTest {
     static SimpleMerceOrdine simpleMerceOrdineTest;
     static SimpleOrdine simpleOrdineTest;
-    static Negozio negozioTest;
+    static GestoreInventario negozioTest;
 
     @BeforeAll
     static void clearDB() throws SQLException {
