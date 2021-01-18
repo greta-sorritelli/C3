@@ -75,9 +75,11 @@ public class SimpleCorriere implements Corriere {
     }
 
     /**
-     * Ritorna un arraylist con i dettagli del {@link SimpleCorriere} in stringa.
+     * Ritorna un arraylist con i dettagli del {@link SimpleCorriere}.
      *
      * @return ArrayList dei dettagli
+     *
+     * @throws SQLException eccezione causa da una query SQL
      */
     @Override
     public ArrayList<String> getDettagli() throws SQLException {

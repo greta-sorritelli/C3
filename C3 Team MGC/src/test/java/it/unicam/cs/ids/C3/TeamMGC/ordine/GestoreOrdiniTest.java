@@ -4,10 +4,10 @@ import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.*;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class GestoreOrdiniTest {
     static final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
-    static GestoreInventario negozio;
+    static Negozio negozio;
 
     @BeforeAll
     static void clearDB() throws SQLException {
@@ -37,7 +37,7 @@ class GestoreOrdiniTest {
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         updateData("delete from sys.punti_prelievo;");
         updateData("alter table punti_prelievo AUTO_INCREMENT = 1;");
-        negozio = new Negozio("Merceria", "Oggettistica", "09:00", "18:30", "Via Roma, 30", "123-123-123");
+        negozio = new SimpleNegozio("Merceria", "Oggettistica", "09:00", "18:30", "Via Roma, 30", "123-123-123");
     }
 
     @Test
@@ -354,11 +354,11 @@ class GestoreOrdiniTest {
         ordine2 = gestoreOrdini.getOrdine(ID2).getDettagli();
 
         assertEquals(5.0, Double.parseDouble(ordine1.get(4)));
-        assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(IDMerce1)));
+        assertTrue(negozio.getMerceDisponibile().contains(negozio.getItem(IDMerce1)));
         assertEquals("[ID=" + IDMerceOrdine1 + ", IDOrdine=" + ID1 + ", prezzo=0.5, descrizione='Gomma', quantita=10, stato=PAGATO]", ordine1.get(8));
 
         assertEquals(12.0, Double.parseDouble(ordine2.get(4)));
-        assertTrue(negozio.getMerceDisponibile().contains(negozio.getMerce(IDMerce2)));
+        assertTrue(negozio.getMerceDisponibile().contains(negozio.getItem(IDMerce2)));
 
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(IDMerce3, 6, ID1, negozio));
         assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.registraMerce(IDMerce4, 2, ID2, negozio));

@@ -3,14 +3,14 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXComunicareCodiceRitiro;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXRicezionePagamento;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 
 import java.sql.SQLException;
 
 public class ICommesso implements JavaFXController {
     //todo
-    private final GestoreInventario negozio = new Negozio(1);
+    private final Negozio negozio = new SimpleNegozio(1);
 
     public ICommesso() throws SQLException {
     }

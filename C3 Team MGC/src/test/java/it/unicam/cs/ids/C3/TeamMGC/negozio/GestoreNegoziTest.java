@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
@@ -51,7 +52,7 @@ class GestoreNegoziTest {
 
     @Test
     void getItems() throws SQLException {
-        ArrayList<GestoreInventario> test = gestoreNegozi.getItems();
+        ArrayList<Negozio> test = gestoreNegozi.getItems();
         assertEquals(1, test.get(0).getID());
         assertEquals(2, test.get(1).getID());
         assertEquals(3, test.get(2).getID());
@@ -74,7 +75,7 @@ class GestoreNegoziTest {
     @Test
     void getDettagliItemsConOrdini() throws SQLException {
         Cliente simpleCliente = new SimpleCliente("Yoshi", "Haloa");
-        SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), 1);
+        Ordine simpleOrdine1 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), 1);
         PuntoPrelievo magazzino = new SimplePuntoPrelievo("Matelica", "Giardini");
         simpleOrdine1.setPuntoPrelievo(magazzino.getID());
         simpleOrdine1.setStato(StatoOrdine.PAGATO);

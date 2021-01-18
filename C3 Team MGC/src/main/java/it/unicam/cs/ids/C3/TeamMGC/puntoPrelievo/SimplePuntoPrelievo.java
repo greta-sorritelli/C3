@@ -1,9 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
-import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,10 +65,11 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
     }
 
     /**
-     * todo
+     * Ritorna un arraylist con i dettagli del {@link SimplePuntoPrelievo}.
      *
-     * @return ArrayList<String> dei dettagli del punto di prelievo.
-     * @throws SQLException Errore causato da una query SQL
+     * @return ArrayList dei dettagli
+     *
+     * @throws SQLException eccezione causa da una query SQL
      */
     @Override
     public ArrayList<String> getDettagli() throws SQLException {
@@ -93,20 +92,19 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
     }
 
     /**
-     * Ritorna la lista di tutte le merci appartenenti a tale ordine e presenti nel punto di prelievo
+     * Ritorna la lista di tutte le merci appartenenti a tale ordine e presenti nel {@link SimplePuntoPrelievo}.
      *
-     * @param IDOrdine id dell' ordine
+     * @param IDOrdine ID dell' ordine
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     @Override
-    public ArrayList<SimpleMerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException {
-        ArrayList<SimpleMerceOrdine> lista = new ArrayList<>();
+    public ArrayList<MerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException {
+        ArrayList<MerceOrdine> lista = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * from merci\n" +
                 "where IDOrdine = " + IDOrdine + " and stato = '" + StatoOrdine.IN_DEPOSITO.toString() + "';");
         while (rs.next()) {
-            SimpleMerceOrdine simpleMerceOrdine = new SimpleMerceOrdine(rs.getInt("ID"));
+            MerceOrdine simpleMerceOrdine = new SimpleMerceOrdine(rs.getInt("ID"));
             lista.add(simpleMerceOrdine);
         }
         disconnectToDB(rs);
@@ -119,9 +117,9 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
     }
 
     /**
-     * Ritorna l' insieme degli ordini effettuati dal cliente e presenti in tale punto di prelievo.
+     * Ritorna l' insieme degli ordini effettuati dal cliente e presenti in tale {@link SimplePuntoPrelievo}.
      *
-     * @param IDCliente id del cliente
+     * @param IDCliente ID del cliente
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -131,8 +129,8 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         ResultSet rs = executeQuery("SELECT * from ordini WHERE IDCliente = '" + IDCliente +
                 "' AND IDPuntoPrelievo = '" + this.ID + "' and stato = '" + StatoOrdine.IN_DEPOSITO + "' ;");
         while (rs.next()) {
-            SimpleOrdine simpleOrdine = new SimpleOrdine(rs.getInt("ID"));
-            for (SimpleMerceOrdine merciToAdd : getMerceMagazzino(simpleOrdine.getID()))
+            Ordine simpleOrdine = new SimpleOrdine(rs.getInt("ID"));
+            for (MerceOrdine merciToAdd : getMerceMagazzino(simpleOrdine.getID()))
                 simpleOrdine.addMerce(merciToAdd);
             lista.add(simpleOrdine);
         }

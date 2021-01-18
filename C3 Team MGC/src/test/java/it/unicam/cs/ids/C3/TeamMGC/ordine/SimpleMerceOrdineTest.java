@@ -2,8 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class SimpleMerceOrdineTest {
     static MerceOrdine simpleMerceOrdineTest;
     static Ordine ordineTest;
-    static GestoreInventario negozioTest;
+    static Negozio negozioTest;
 
     @BeforeAll
     static void clearDB() throws SQLException {
@@ -27,7 +27,7 @@ class SimpleMerceOrdineTest {
         updateData("alter table merci AUTO_INCREMENT = 1;");
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
-        negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        negozioTest = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         Cliente simpleCliente = new SimpleCliente("Marco", "Papera");
         ordineTest = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozioTest.getID());
         simpleMerceOrdineTest = new SimpleMerceOrdine(10, "test allSet", StatoOrdine.PAGATO, ordineTest.getID());

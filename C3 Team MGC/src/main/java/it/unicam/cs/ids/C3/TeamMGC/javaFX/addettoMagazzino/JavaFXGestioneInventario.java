@@ -1,10 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -15,7 +14,7 @@ import java.util.Objects;
 
 public class JavaFXGestioneInventario implements JavaFXController {
 
-    private final GestoreInventario negozio;
+    private final Negozio negozio;
 
     @FXML
     TextField prezzo;
@@ -76,7 +75,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> QuantitaMerce2;
 
-    public JavaFXGestioneInventario(GestoreInventario negozio) {
+    public JavaFXGestioneInventario(Negozio negozio) {
         this.negozio = negozio;
     }
 
@@ -149,7 +148,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
             negozio.setQuantita(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita1.getText()));
             merceChoiceBox.getValue().update();
             merceCreata.removeIf(merce -> merce.get(0).equals(String.valueOf(merceChoiceBox.getValue().getID())));
-            merceCreata.add(negozio.getMerce(merceChoiceBox.getValue().getID()).getDettagli());
+            merceCreata.add(negozio.getItem(merceChoiceBox.getValue().getID()).getDettagli());
             visualizzaMerciInserite();
             quantita1.clear();
             merceChoiceBox.getItems().clear();
@@ -187,7 +186,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
         try {
             setMerceInventarioCellValueFactory();
             merceTable2.getItems().clear();
-            for (ArrayList<String> m : negozio.getDettagliMerce()) {
+            for (ArrayList<String> m : negozio.getDettagliItems()) {
                 merceTable2.getItems().add(m);
             }
         } catch (Exception exception) {

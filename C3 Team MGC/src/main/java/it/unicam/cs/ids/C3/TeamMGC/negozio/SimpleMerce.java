@@ -88,7 +88,7 @@ public class SimpleMerce implements Merce {
     /**
      * Ritorna la lista dei dettagli della {@link SimpleMerce } presente nel DB.
      *
-     * @return ArrayList<String> dei dettagli della merce.
+     * @return ArrayList dei dettagli della merce.
      * @throws SQLException Errore causato da una query SQL
      **/
     @Override
