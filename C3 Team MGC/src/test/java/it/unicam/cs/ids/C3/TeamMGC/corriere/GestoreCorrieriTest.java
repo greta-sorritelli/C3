@@ -34,8 +34,8 @@ class GestoreCorrieriTest {
     static void setDisponibilita() throws SQLException {
         gestoreCorrieri.setDisponibilita(1, false);
         gestoreCorrieri.setDisponibilita(3, true);
-        assertFalse(gestoreCorrieri.getItem(1).getDisponibilita());
-        assertTrue(gestoreCorrieri.getItem(3).getDisponibilita());
+        assertFalse(gestoreCorrieri.getDisponibilita(1));
+        assertTrue(gestoreCorrieri.getDisponibilita(3));
     }
 
     @Test
@@ -51,7 +51,7 @@ class GestoreCorrieriTest {
     @Order(2)
     void getCorriere() throws SQLException {
         assertEquals("Matteo", gestoreCorrieri.getItem(2).getNome());
-        assertEquals("false", String.valueOf(gestoreCorrieri.getItem(2).getDisponibilita()));
+        assertEquals("false", String.valueOf(gestoreCorrieri.getDisponibilita(2)));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreCorrieri.getItem(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
@@ -80,8 +80,8 @@ class GestoreCorrieriTest {
 
         assertEquals(1, test.get(0).getID());
         assertEquals(3, test.get(1).getID());
-        assertTrue(test.get(0).getDisponibilita());
-        assertTrue(test.get(1).getDisponibilita());
+        assertTrue(gestoreCorrieri.getDisponibilita(test.get(0).getID()));
+        assertTrue(gestoreCorrieri.getDisponibilita(test.get(1).getID()));
         assertFalse(test.contains(simpleCorriere));
 
         gestoreCorrieri.setDisponibilita(test.get(0).getID(), false);

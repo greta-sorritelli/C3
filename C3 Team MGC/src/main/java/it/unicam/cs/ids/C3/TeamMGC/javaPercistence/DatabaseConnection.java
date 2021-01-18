@@ -15,7 +15,6 @@ public class DatabaseConnection {
      */
     public static Connection connectToDB() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/sys?serverTimezone=" + TimeZone.getDefault().getID();
-        //todo
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -48,7 +47,6 @@ public class DatabaseConnection {
         Statement statement = connection.createStatement();
         statement.executeUpdate(query);
         disconnectToDB(connection, statement);
-//        connectToDB().createStatement().executeUpdate(query);
     }
 
     private static void disconnectToDB(Connection connection, Statement statement) throws SQLException {

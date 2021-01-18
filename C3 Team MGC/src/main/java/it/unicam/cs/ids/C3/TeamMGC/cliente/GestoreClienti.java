@@ -2,7 +2,6 @@ package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 

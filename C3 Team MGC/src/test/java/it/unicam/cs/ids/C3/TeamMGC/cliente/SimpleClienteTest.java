@@ -70,6 +70,7 @@ class SimpleClienteTest {
         Cliente simpleCliente2 = new SimpleCliente("Tuesday", "Simmons");
         assertEquals(simpleCliente, simpleClienteCopia);
         assertNotEquals(simpleCliente, simpleCliente2);
+        assertEquals(simpleCliente.hashCode(), simpleClienteCopia.hashCode());
     }
 
     @Test

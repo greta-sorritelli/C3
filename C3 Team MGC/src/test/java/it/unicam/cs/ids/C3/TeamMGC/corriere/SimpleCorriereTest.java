@@ -56,12 +56,15 @@ class SimpleCorriereTest {
     }
 
     @Test
-    void testEquals() throws SQLException {
+    void testEquals_toString_hashCode() throws SQLException {
         Corriere simpleCorriere = new SimpleCorriere("Fry", "Philip", true);
         Corriere simpleCorriereCopia = new SimpleCorriere(simpleCorriere.getID());
         Corriere simpleCorriere2 = new SimpleCorriere("Leela", "Turanga", true);
         assertEquals(simpleCorriere, simpleCorriereCopia);
         assertNotEquals(simpleCorriere, simpleCorriere2);
+        assertEquals(simpleCorriere.hashCode(),simpleCorriereCopia.hashCode());
+        assertEquals("ID=" + simpleCorriere.getID() + ", nome='Fry', cognome='Philip', disponibilita=true",simpleCorriere.toString());
+        assertEquals("ID=" + simpleCorriere2.getID() + ", nome='Leela', cognome='Turanga', disponibilita=true",simpleCorriere2.toString());
     }
 
     @Test
