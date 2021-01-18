@@ -66,7 +66,7 @@ class NegozioTest {
 
     @Test
     void getMerceDisponibile() throws SQLException {
-        ArrayList<SimpleMerce> inventario = negozioTest.getMerceDisponibile();
+        ArrayList<Merce> inventario = negozioTest.getMerceDisponibile();
         assertEquals(1, inventario.get(0).getID());
         assertEquals(1, inventario.get(1).getIDNegozio());
         assertEquals("test Negozio", inventario.get(2).getDescrizione());

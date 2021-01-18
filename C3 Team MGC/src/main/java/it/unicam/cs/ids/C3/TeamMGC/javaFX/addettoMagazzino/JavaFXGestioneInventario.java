@@ -1,6 +1,8 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
+package it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,7 +15,7 @@ import java.util.Objects;
 
 public class JavaFXGestioneInventario implements JavaFXController {
 
-    private final Negozio negozio;
+    private final GestoreInventario negozio;
 
     @FXML
     TextField prezzo;
@@ -28,7 +30,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
     TextField quantita1;
 
     @FXML
-    ChoiceBox<SimpleMerce> merceChoiceBox = new ChoiceBox<>();
+    ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
 
     ArrayList<ArrayList<String>> merceCreata = new ArrayList<>();
 
@@ -74,7 +76,7 @@ public class JavaFXGestioneInventario implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> QuantitaMerce2;
 
-    public JavaFXGestioneInventario(Negozio negozio) {
+    public JavaFXGestioneInventario(GestoreInventario negozio) {
         this.negozio = negozio;
     }
 

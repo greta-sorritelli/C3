@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -84,8 +85,8 @@ class SimplePuntoPrelievoTest {
     void getMerceMagazzino() throws SQLException {
         ArrayList<SimpleMerceOrdine> listaMerciOrdine1 = new ArrayList<>();
         ArrayList<SimpleMerceOrdine> listaMerciOrdine2 = new ArrayList<>();
-        SimpleCliente simpleCliente1 = new SimpleCliente("Mario", "Rossi");
-        SimpleCliente simpleCliente2 = new SimpleCliente("Mario", "Verdi");
+        Cliente simpleCliente1 = new SimpleCliente("Mario", "Rossi");
+        Cliente simpleCliente2 = new SimpleCliente("Mario", "Verdi");
 
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozioTest.getID());
         SimpleMerceOrdine merce1_1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
@@ -118,8 +119,8 @@ class SimplePuntoPrelievoTest {
     void getOrdini() throws SQLException {
         ArrayList<SimpleOrdine> lista1 = new ArrayList<>();
         ArrayList<SimpleOrdine> lista2 = new ArrayList<>();
-        SimpleCliente simpleCliente1 = new SimpleCliente("Joel", "Barish");
-        SimpleCliente simpleCliente2 = new SimpleCliente("Clementine", "Kruczynski");
+        Cliente simpleCliente1 = new SimpleCliente("Joel", "Barish");
+        Cliente simpleCliente2 = new SimpleCliente("Clementine", "Kruczynski");
 
         assertTrue(simplePuntoPrelievo.getOrdini(simpleCliente1.getID()).isEmpty());
         assertTrue(simplePuntoPrelievo.getOrdini(simpleCliente2.getID()).isEmpty());

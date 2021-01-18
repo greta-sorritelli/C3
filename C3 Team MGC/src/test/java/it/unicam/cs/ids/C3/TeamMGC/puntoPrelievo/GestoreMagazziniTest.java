@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class GestoreMagazziniTest {
     @Test
     void mandaAlert() throws SQLException {
         PuntoPrelievo puntoPrelievo = gestoreMagazzini.getItem(1);
-        Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        GestoreInventario negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
 
         gestoreMagazzini.mandaAlert(puntoPrelievo.getID(), negozio);
 

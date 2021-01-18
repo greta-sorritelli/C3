@@ -21,10 +21,10 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class GestoreClienti implements Gestore<SimpleCliente> {
+public class GestoreClienti implements Gestore<Cliente> {
 
     private static GestoreClienti gestoreClienti;
-    private final ArrayList<SimpleCliente> clienti = new ArrayList<>();
+    private final ArrayList<Cliente> clienti = new ArrayList<>();
 
     private GestoreClienti() {
     }
@@ -42,11 +42,11 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      * @return Il Cliente
      * @throws SQLException Errore causato da una query SQL
      */
-    private SimpleCliente addCliente(ResultSet rs) throws SQLException {
-        for (SimpleCliente simpleCliente : clienti)
+    private Cliente addCliente(ResultSet rs) throws SQLException {
+        for (Cliente simpleCliente : clienti)
             if (simpleCliente.getID() == rs.getInt("ID"))
                 return simpleCliente;
-        SimpleCliente toReturn = new SimpleCliente(rs.getInt("ID"));
+        Cliente toReturn = new SimpleCliente(rs.getInt("ID"));
         addClienteToList(toReturn);
         return toReturn;
     }
@@ -56,7 +56,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      *
      * @param simpleCliente Cliente da aggiungere
      */
-    private void addClienteToList(SimpleCliente simpleCliente) {
+    private void addClienteToList(Cliente simpleCliente) {
         if (!clienti.contains(simpleCliente))
             clienti.add(simpleCliente);
     }
@@ -100,7 +100,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
         while (rs.next())
             addCliente(rs);
-        for (SimpleCliente simpleCliente : clienti)
+        for (Cliente simpleCliente : clienti)
             dettagli.add(simpleCliente.getDettagli());
         disconnectToDB(rs);
         return dettagli;
@@ -115,7 +115,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public SimpleCliente getItem(int ID) throws SQLException {
+    public Cliente getItem(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT ID FROM sys.clienti where ID='" + ID + "' ;");
         if (rs.next()) {
             return addCliente(rs);
@@ -132,7 +132,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public ArrayList<SimpleCliente> getItems() throws SQLException {
+    public ArrayList<Cliente> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.clienti;");
         while (rs.next())
             addCliente(rs);
@@ -150,7 +150,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente(nome, cognome);
+        Cliente simpleCliente = new SimpleCliente(nome, cognome);
         addClienteToList(simpleCliente);
         return simpleCliente.getDettagli();
     }
@@ -192,7 +192,7 @@ public class GestoreClienti implements Gestore<SimpleCliente> {
      * @throws SQLException Errore causato da una query SQL
      */
     public boolean verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
-        SimpleCliente simpleCliente = getItem(IDCliente);
+        Cliente simpleCliente = getItem(IDCliente);
         simpleCliente.update();
         return verificaCodice(codiceRitiro, simpleCliente.getCodiceRitiro());
     }

@@ -1,11 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
-import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -204,7 +200,7 @@ public class GestoreCorrieri implements Gestore<SimpleCorriere> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public void mandaAlert(int IDCorriere, Negozio negozio, String residenza) throws SQLException {
+    public void mandaAlert(int IDCorriere, GestoreInventario negozio, String residenza) throws SQLException {
         updateData("INSERT INTO sys.alert_corrieri (IDCorriere, messaggio) VALUES ('" + IDCorriere +
                 "', 'Andare al Negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo()
                 + ", per ritirare le merci dei cliente alla residenza: " + residenza + ".');");

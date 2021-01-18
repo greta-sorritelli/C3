@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -111,11 +111,10 @@ public class GestoreMagazzini implements Gestore<SimplePuntoPrelievo> {
     /**
      * Manda un alert al punto di prelievo per avvisare il magazziniere che serve un corriere per
      * ritirare le merci presso un negozio.
-     *
-     * @param IDPuntoPrelievo ID del punto prelievo in cui è presente in magazziniere
+     *  @param IDPuntoPrelievo ID del punto prelievo in cui è presente in magazziniere
      * @param negozio         Negozio in cui deve andare il corriere
      */
-    public void mandaAlert(int IDPuntoPrelievo, Negozio negozio) throws SQLException {
+    public void mandaAlert(int IDPuntoPrelievo, GestoreInventario negozio) throws SQLException {
         updateData("INSERT INTO sys.alert_magazzinieri (IDPuntoPrelievo, messaggio) VALUES ('" + IDPuntoPrelievo +
                 "', 'Mandare un corriere al negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo() + ", per " +
                 "prelevare la merce.');");

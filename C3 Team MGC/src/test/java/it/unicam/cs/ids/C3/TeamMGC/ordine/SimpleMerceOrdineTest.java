@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,7 +26,7 @@ class SimpleMerceOrdineTest {
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        SimpleCliente simpleCliente = new SimpleCliente("Marco", "Papera");
+        Cliente simpleCliente = new SimpleCliente("Marco", "Papera");
         simpleOrdineTest = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozioTest.getID());
         simpleMerceOrdineTest = new SimpleMerceOrdine(10, "test allSet", StatoOrdine.PAGATO, simpleOrdineTest.getID());
     }

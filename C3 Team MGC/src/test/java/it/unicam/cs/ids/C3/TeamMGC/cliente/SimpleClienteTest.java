@@ -22,7 +22,7 @@ class SimpleClienteTest {
 
     @Test
     void creazioneCliente() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Mario", "Rossi");
+        Cliente simpleCliente = new SimpleCliente("Mario", "Rossi");
         assertEquals("Mario", simpleCliente.getNome());
         assertEquals("Rossi", simpleCliente.getCognome());
         assertEquals("", simpleCliente.getCodiceRitiro());
@@ -33,7 +33,7 @@ class SimpleClienteTest {
 
     @Test
     void getDettagli() throws SQLException {
-        SimpleCliente simpleClienteTest = new SimpleCliente("Greta", "Sorritelli");
+        Cliente simpleClienteTest = new SimpleCliente("Greta", "Sorritelli");
         ArrayList<String> clienteLista = new ArrayList<>();
         clienteLista.add(String.valueOf(simpleClienteTest.getID()));
         clienteLista.add("Greta");
@@ -55,7 +55,7 @@ class SimpleClienteTest {
 
     @Test
     void setCodiceRitiro() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Matteo", "Rondini");
+        Cliente simpleCliente = new SimpleCliente("Matteo", "Rondini");
         String data = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
         assertEquals("", simpleCliente.getDataCreazioneCodice());
         simpleCliente.setCodiceRitiro("85963214");
@@ -65,16 +65,16 @@ class SimpleClienteTest {
 
     @Test
     void testEquals() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Carole", "Stanley");
-        SimpleCliente simpleClienteCopia = new SimpleCliente(simpleCliente.getID());
-        SimpleCliente simpleCliente2 = new SimpleCliente("Tuesday", "Simmons");
+        Cliente simpleCliente = new SimpleCliente("Carole", "Stanley");
+        Cliente simpleClienteCopia = new SimpleCliente(simpleCliente.getID());
+        Cliente simpleCliente2 = new SimpleCliente("Tuesday", "Simmons");
         assertEquals(simpleCliente, simpleClienteCopia);
         assertNotEquals(simpleCliente, simpleCliente2);
     }
 
     @Test
     void update() throws SQLException {
-        SimpleCliente simpleClienteTest = new SimpleCliente("Luigi", "Bianchi");
+        Cliente simpleClienteTest = new SimpleCliente("Luigi", "Bianchi");
         int IDTest = simpleClienteTest.getID();
         assertEquals("Luigi", simpleClienteTest.getNome());
         assertEquals("Bianchi", simpleClienteTest.getCognome());

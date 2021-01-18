@@ -1,7 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
@@ -37,7 +39,7 @@ class GestoreOrdiniTest {
 
     @Test
     void addResidenza() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordineDettagli = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
         Ordine ordine = gestoreOrdini.getOrdine(Integer.parseInt(ordineDettagli.get(0)));
         assertEquals(9, ordineDettagli.size());
@@ -60,7 +62,7 @@ class GestoreOrdiniTest {
         int IDMerce2 = Integer.parseInt(merceDettagli2.get(0));
         int IDMerce3 = Integer.parseInt(merceDettagli3.get(0));
 
-        SimpleCliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
 
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio);
         int IDOrdine = Integer.parseInt(ordine.get(0));
@@ -91,7 +93,7 @@ class GestoreOrdiniTest {
 
     @Test
     void getDettagliMerciOfCorriere() throws SQLException {
-        SimpleCliente cliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente cliente = new SimpleCliente("Maria", "Giuseppa");
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 3");
         SimpleCorriere corriere = new SimpleCorriere("Luca", "Blu", true);
 
@@ -129,7 +131,7 @@ class GestoreOrdiniTest {
 
     @Test
     void getDettagliMerciResidenza() throws SQLException {
-        SimpleCliente cliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente cliente = new SimpleCliente("Maria", "Giuseppa");
 
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio);
         int IDOrdine = Integer.parseInt(ordine.get(0));
@@ -160,7 +162,7 @@ class GestoreOrdiniTest {
 
     @Test
     void getDettagliOrdine() throws SQLException {
-        SimpleCliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 1");
         ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(1.20, "Righello", 10);
 
@@ -188,7 +190,7 @@ class GestoreOrdiniTest {
     @Test
         //todo da finire
     void getInDepositMerci() throws SQLException {
-        SimpleCliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 2");
         ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(2, "Temperino", 10);
 
@@ -210,7 +212,7 @@ class GestoreOrdiniTest {
 
     @Test
     void getMerceOrdine() throws SQLException {
-        SimpleCliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio);
         int ID1 = Integer.parseInt(ordine1.get(0));
         ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(55.5, "Gonna", 10);
@@ -230,7 +232,7 @@ class GestoreOrdiniTest {
 
     @Test
     void getMerciFromNegozioToMagazzino() throws SQLException {
-        SimpleCliente cliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente cliente = new SimpleCliente("Maria", "Giuseppa");
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 3");
 
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio);
@@ -267,7 +269,7 @@ class GestoreOrdiniTest {
 
     @Test
     void getMerciMagazzino() throws SQLException {
-        SimpleCliente cliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente cliente = new SimpleCliente("Maria", "Giuseppa");
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 3");
 
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio);
@@ -297,7 +299,7 @@ class GestoreOrdiniTest {
 
     @Test
     void getOrdine() throws SQLException {
-        SimpleCliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio);
         int IDOrdine = Integer.parseInt(ordine1.get(0));
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 4");
@@ -332,8 +334,8 @@ class GestoreOrdiniTest {
         int IDMerce3 = Integer.parseInt(merceDettagli3.get(0));
         int IDMerce4 = Integer.parseInt(merceDettagli4.get(0));
 
-        SimpleCliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
-        SimpleCliente simpleCliente2 = new SimpleCliente("Giuseppe", "Rossi");
+        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente2 = new SimpleCliente("Giuseppe", "Rossi");
 
         ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio);
         ArrayList<String> ordine2 = gestoreOrdini.registraOrdine(simpleCliente2.getID(), simpleCliente2.getNome(), simpleCliente2.getCognome(), negozio);
@@ -361,7 +363,7 @@ class GestoreOrdiniTest {
 
     @Test
     void registraOrdine() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordineDettagli = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
 
         assertEquals(simpleCliente.getID(), Integer.parseInt(ordineDettagli.get(1)));
@@ -375,7 +377,7 @@ class GestoreOrdiniTest {
     void selezionaMerce() throws SQLException {
         ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(7, "Astuccio", 10);
         int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
-        SimpleCliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
 
         ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio);
         int IDOrdine = Integer.parseInt(ordine1.get(0));
@@ -394,7 +396,7 @@ class GestoreOrdiniTest {
 
     @Test
     void setPuntoPrelievo() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
         SimplePuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Roma", "Magazzino Centrale Lazio");
         assertEquals(-1, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getPuntoPrelievo());
@@ -407,7 +409,7 @@ class GestoreOrdiniTest {
 
     @Test
     void setStatoMerce() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
 
         ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(2.4, "T-Rex", 14);
@@ -427,7 +429,7 @@ class GestoreOrdiniTest {
 
     @Test
     void setStatoOrdine() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
         assertEquals(StatoOrdine.DA_PAGARE, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
         gestoreOrdini.setStatoOrdine(Integer.parseInt(ordine.get(0)), StatoOrdine.IN_DEPOSITO);
@@ -436,9 +438,9 @@ class GestoreOrdiniTest {
 
     @Test
     void terminaOrdine() throws SQLException {
-        SimpleMerce simpleMerce = new SimpleMerce(negozio.getID(), 60.5, "Cuscino", 40);
-        SimpleMerce simpleMerce1 = new SimpleMerce(negozio.getID(), 1, "Big Bubble", 80);
-        SimpleCliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        Merce simpleMerce = new SimpleMerce(negozio.getID(), 60.5, "Cuscino", 40);
+        Merce simpleMerce1 = new SimpleMerce(negozio.getID(), 1, "Big Bubble", 80);
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
 
         gestoreOrdini.registraMerce(simpleMerce.getID(), 5, Integer.parseInt(ordine.get(0)), negozio);

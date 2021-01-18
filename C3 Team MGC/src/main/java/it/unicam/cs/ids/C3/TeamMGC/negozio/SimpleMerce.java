@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per rappresentare la Merce all' interno dell' Inventario di un {@link Negozio}.
+ * Classe per rappresentare la {@link SimpleMerce} all' interno dell' Inventario di un {@link Negozio}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -60,7 +60,7 @@ public class SimpleMerce implements Merce {
     }
 
     /**
-     * Elimina la merce dal db e aggiorna i dati dell'oggetto
+     * Elimina la {@link SimpleMerce} dal db e aggiorna i dati dell' oggetto.
      *
      * @throws SQLException Errore causato da una query SQL
      */

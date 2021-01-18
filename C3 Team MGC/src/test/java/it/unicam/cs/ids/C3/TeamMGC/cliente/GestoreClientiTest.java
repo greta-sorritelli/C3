@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
@@ -43,7 +44,7 @@ class GestoreClientiTest {
     @Test
     @Order(2)
     void getClienti() throws SQLException {
-        ArrayList<SimpleCliente> test = gestoreClienti.getItems();
+        ArrayList<Cliente> test = gestoreClienti.getItems();
         assertEquals(1,test.get(0).getID());
         assertEquals(2,test.get(1).getID());
         assertEquals("Clarissa", test.get(0).getNome());
@@ -74,9 +75,9 @@ class GestoreClientiTest {
 
     @Test
     void mandaAlert() throws SQLException {
-        ArrayList<SimpleCliente> test = gestoreClienti.getItems();
+        ArrayList<Cliente> test = gestoreClienti.getItems();
         SimplePuntoPrelievo p = new SimplePuntoPrelievo("via Verdi","B1");
-        Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        GestoreInventario negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(test.get(0).getID(), test.get(0).getNome(), test.get(0).getCognome(), negozio.getID());
         SimpleMerceOrdine merce1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
 
@@ -101,7 +102,7 @@ class GestoreClientiTest {
     @Test
     void verificaCodice() throws SQLException {
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
-        Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        GestoreInventario negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         SimpleOrdine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
         assertTrue(gestoreClienti.verificaCodice(Integer.parseInt(dettagli.get(0)),codice));
@@ -112,10 +113,10 @@ class GestoreClientiTest {
     @Test
     void verificaEsistenzaCodiceTest() throws SQLException {
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
-        Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        GestoreInventario negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         SimpleOrdine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
-        SimpleCliente simpleCliente = gestoreClienti.getItem(Integer.parseInt(dettagli.get(0)));
+        Cliente simpleCliente = gestoreClienti.getItem(Integer.parseInt(dettagli.get(0)));
         assertNotEquals("", simpleCliente.getCodiceRitiro());
         assertEquals(codice, simpleCliente.getCodiceRitiro());
         assertTrue(gestoreClienti.verificaCodice(simpleCliente.getID(), codice));

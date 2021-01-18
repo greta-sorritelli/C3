@@ -3,6 +3,8 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
@@ -20,13 +22,13 @@ import java.util.Objects;
 
 public class JavaFXRicezionePagamento implements JavaFXController {
 
-    private final Negozio negozio;
+    private final GestoreInventario negozio;
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
 
-    public JavaFXRicezionePagamento(Negozio negozio) {
+    public JavaFXRicezionePagamento(GestoreInventario negozio) {
         this.negozio = negozio;
     }
 
@@ -37,7 +39,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     TextField ordineTextField;
 
     @FXML
-    ChoiceBox<SimpleMerce> merceChoiceBox = new ChoiceBox<>();
+    ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
 
     @FXML
     TextField quantita;

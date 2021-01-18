@@ -11,7 +11,7 @@ public interface GestoreInventario {
 
     String getIndirizzo();
 
-    ArrayList<SimpleMerce> getInventario();
+    ArrayList<Merce> getInventario();
 
     String getNome();
 
@@ -25,11 +25,11 @@ public interface GestoreInventario {
 
     ArrayList<String> getDettagli() throws SQLException;
 
-    SimpleMerce getMerce(int ID) throws SQLException;
+    Merce getMerce(int ID) throws SQLException;
 
     ArrayList<ArrayList<String>> getDettagliMerce() throws SQLException;
 
-    ArrayList<SimpleMerce> getMerceDisponibile() throws SQLException;
+    ArrayList<Merce> getMerceDisponibile() throws SQLException;
 
     ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException;
 

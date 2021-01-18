@@ -62,18 +62,21 @@ public class SimpleCliente implements Cliente{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SimpleCliente simpleCliente = (SimpleCliente) o;
+        Cliente simpleCliente = (SimpleCliente) o;
         return getID() == simpleCliente.getID();
     }
 
+    @Override
     public String getCodiceRitiro() {
         return codiceRitiro;
     }
 
+    @Override
     public String getCognome() {
         return cognome;
     }
 
+    @Override
     public String getDataCreazioneCodice() {
         return dataCreazioneCodice;
     }
@@ -96,10 +99,12 @@ public class SimpleCliente implements Cliente{
         return toReturn;
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
@@ -114,6 +119,7 @@ public class SimpleCliente implements Cliente{
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    @Override
     public String setCodiceRitiro(String codiceRitiro) throws SQLException {
         dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
         this.codiceRitiro = codiceRitiro;

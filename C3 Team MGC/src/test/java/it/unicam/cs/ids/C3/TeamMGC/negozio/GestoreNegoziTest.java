@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
@@ -71,7 +72,7 @@ class GestoreNegoziTest {
 
     @Test
     void getDettagliItemsConOrdini() throws SQLException {
-        SimpleCliente simpleCliente = new SimpleCliente("Yoshi", "Haloa");
+        Cliente simpleCliente = new SimpleCliente("Yoshi", "Haloa");
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), 1);
         SimplePuntoPrelievo magazzino = new SimplePuntoPrelievo("Matelica", "Giardini");
         simpleOrdine1.setPuntoPrelievo(magazzino.getID());

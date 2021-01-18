@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -135,15 +136,15 @@ class GestoreCorrieriTest {
     @Test
     void mandaAlert() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
-        Negozio negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        Negozio negozio1 = new Negozio("Sportland", "Sport", null, null, "Via delle Trombe", null);
-        Negozio negozio2 = new Negozio("King", "Sport", null, null, "Via delle Cascate", null);
+        GestoreInventario negozio = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        GestoreInventario negozio1 = new Negozio("Sportland", "Sport", null, null, "Via delle Trombe", null);
+        GestoreInventario negozio2 = new Negozio("King", "Sport", null, null, "Via delle Cascate", null);
         ArrayList<GestoreInventario> negozi = new ArrayList<>();
         negozi.add(negozio);
         negozi.add(negozio1);
         negozi.add(negozio2);
 
-        SimpleCliente simpleCliente1 = new SimpleCliente("Mario", "Rossi");
+        Cliente simpleCliente1 = new SimpleCliente("Mario", "Rossi");
         SimpleOrdine simpleOrdine1 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio.getID());
 
         simpleOrdine1.addResidenza("Via Giuseppe Verdi, 2");

@@ -12,7 +12,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class Negozio implements GestoreInventario {
-    private final ArrayList<SimpleMerce> inventario = new ArrayList<>();
+    private final ArrayList<Merce> inventario = new ArrayList<>();
     private final int ID;
     private String nome;
     private String categoria;
@@ -71,11 +71,11 @@ public class Negozio implements GestoreInventario {
      * @return la Merce
      * @throws SQLException Errore causato da una query SQL
      */
-    private SimpleMerce addMerceInventario(ResultSet rs) throws SQLException {
-        for (SimpleMerce simpleMerce : inventario)
+    private Merce addMerceInventario(ResultSet rs) throws SQLException {
+        for (Merce simpleMerce : inventario)
             if (simpleMerce.getID() == rs.getInt("ID"))
                 return simpleMerce;
-        SimpleMerce toReturn = new SimpleMerce(rs.getInt("ID"));
+        Merce toReturn = new SimpleMerce(rs.getInt("ID"));
         addMerceToList(toReturn);
         return toReturn;
     }
@@ -85,7 +85,7 @@ public class Negozio implements GestoreInventario {
      *
      * @param simpleMerce Merce da aggiungere
      */
-    private void addMerceToList(SimpleMerce simpleMerce) {
+    private void addMerceToList(Merce simpleMerce) {
         if (!inventario.contains(simpleMerce))
             inventario.add(simpleMerce);
     }
@@ -128,7 +128,7 @@ public class Negozio implements GestoreInventario {
     }
 
     @Override
-    public ArrayList<SimpleMerce> getInventario() {
+    public ArrayList<Merce> getInventario() {
         return inventario;
     }
 
@@ -141,11 +141,11 @@ public class Negozio implements GestoreInventario {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public SimpleMerce getMerce(int ID) throws SQLException {
+    public Merce getMerce(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where ID='" + ID + "' and IDNegozio = '" +
                 this.ID + "' ;");
         if (rs.next()) {
-            SimpleMerce simpleMerce = addMerceInventario(rs);
+            Merce simpleMerce = addMerceInventario(rs);
             disconnectToDB(rs);
             return simpleMerce;
         }
@@ -178,7 +178,7 @@ public class Negozio implements GestoreInventario {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public ArrayList<SimpleMerce> getMerceDisponibile() throws SQLException {
+    public ArrayList<Merce> getMerceDisponibile() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.inventario where IDNegozio='" + ID + "';");
         while (rs.next())
             addMerceInventario(rs);
@@ -218,7 +218,7 @@ public class Negozio implements GestoreInventario {
      */
     @Override
     public ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException {
-        SimpleMerce simpleMerce = new SimpleMerce(this.ID, prezzo, descrizione, quantita);
+        Merce simpleMerce = new SimpleMerce(this.ID, prezzo, descrizione, quantita);
         addMerceToList(simpleMerce);
         return simpleMerce.getDettagli();
     }
@@ -232,7 +232,7 @@ public class Negozio implements GestoreInventario {
      */
     @Override
     public void removeMerce(int IDMerce) throws SQLException {
-        SimpleMerce toDelete = getMerce(IDMerce);
+        Merce toDelete = getMerce(IDMerce);
         inventario.remove(toDelete);
         toDelete.delete();
 
