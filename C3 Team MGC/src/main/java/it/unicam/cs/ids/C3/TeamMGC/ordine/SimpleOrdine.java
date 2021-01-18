@@ -16,7 +16,7 @@ public class SimpleOrdine implements Ordine {
     private final int ID;
     private final int IDCliente;
     private final int IDNegozio;
-    private final ArrayList<SimpleMerceOrdine> merci = new ArrayList<>();
+    private final ArrayList<MerceOrdine> merci = new ArrayList<>();
     private String nomeCliente;
     private String cognomeCliente;
     private double totalePrezzo;
@@ -79,7 +79,7 @@ public class SimpleOrdine implements Ordine {
      */
     //todo rivedere il commento e test
     @Override
-    public void addMerce(SimpleMerceOrdine merce) throws SQLException {
+    public void addMerce(MerceOrdine merce) throws SQLException {
         addMerceToOrdine(merce);
         update();
     }
@@ -97,7 +97,7 @@ public class SimpleOrdine implements Ordine {
     /**
      * @param simpleMerceOrdine
      */
-    private void addMerceToOrdine(SimpleMerceOrdine simpleMerceOrdine) {
+    private void addMerceToOrdine(MerceOrdine simpleMerceOrdine) {
         if (!merci.contains(simpleMerceOrdine))
             merci.add(simpleMerceOrdine);
     }
@@ -127,7 +127,7 @@ public class SimpleOrdine implements Ordine {
      */
     //todo
     @Override
-    public void aggiungiMerce(SimpleMerceOrdine merce, int quantita) throws SQLException {
+    public void aggiungiMerce(MerceOrdine merce, int quantita) throws SQLException {
         merce.setQuantita(quantita);
         merci.add(merce);
         this.totalePrezzo += (merce.getPrezzo() * quantita);
@@ -171,7 +171,7 @@ public class SimpleOrdine implements Ordine {
 
         ordini.add(String.valueOf(IDNegozio));
 
-        for (SimpleMerceOrdine merce : merci)
+        for (MerceOrdine merce : merci)
             merce.update();
 
         ordini.add(String.valueOf(getMerci()));
@@ -194,7 +194,7 @@ public class SimpleOrdine implements Ordine {
     }
 
     @Override
-    public ArrayList<SimpleMerceOrdine> getMerci() throws SQLException {
+    public ArrayList<MerceOrdine> getMerci() throws SQLException {
         return new ArrayList<>(merci);
     }
 
@@ -278,7 +278,7 @@ public class SimpleOrdine implements Ordine {
             this.residenza = rs.getString("residenza");
 
             addMerce(executeQuery("select ID from merci where IDOrdine ='" + ID + "';"));
-            for (SimpleMerceOrdine simpleMerceOrdine : merci)
+            for (MerceOrdine simpleMerceOrdine : merci)
                 simpleMerceOrdine.update();
         }
         disconnectToDB(rs);

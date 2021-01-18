@@ -10,8 +10,8 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la creazione di una {@link SimpleMerce} all'interno di un {@link SimpleOrdine}
- * L'oggetto diventa di tipo {@link SimpleMerceOrdine}
+ * Classe per la creazione di una {@link SimpleMerce} all' interno di un {@link SimpleOrdine}.
+ * L' oggetto diventa di tipo {@link SimpleMerceOrdine}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -71,10 +71,12 @@ public class SimpleMerceOrdine implements MerceOrdine {
                 getIDOrdine() == that.getIDOrdine();
     }
 
+    @Override
     public String getDescrizione() {
         return descrizione;
     }
 
+    @Override
     public void setDescrizione(String descrizione) throws SQLException {
         updateData("UPDATE sys.merci SET descrizione = '" + descrizione + "' WHERE (ID = '" + ID + "');");
         this.descrizione = descrizione;
@@ -97,45 +99,55 @@ public class SimpleMerceOrdine implements MerceOrdine {
         return toReturn;
     }
 
+    @Override
     public int getID() {
         return ID;
     }
 
+    @Override
     public int getIDCorriere() {
         return IDCorriere;
     }
 
+    @Override
     public void setIDCorriere(int IDCorriere) throws SQLException {
         updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + ID + "');");
         this.IDCorriere = IDCorriere;
     }
 
+    @Override
     public int getIDOrdine() {
         return IDOrdine;
     }
 
+    @Override
     public double getPrezzo() {
         return prezzo;
     }
 
+    @Override
     public void setPrezzo(double prezzo) throws SQLException {
         updateData("UPDATE sys.merci SET prezzo = '" + prezzo + "' WHERE (ID = '" + ID + "');");
         this.prezzo = prezzo;
     }
 
+    @Override
     public int getQuantita() {
         return quantita;
     }
 
+    @Override
     public void setQuantita(int quantita) throws SQLException {
         updateData("UPDATE sys.merci SET quantita = '" + quantita + "' WHERE (ID = '" + ID + "');");
         this.quantita = quantita;
     }
 
+    @Override
     public StatoOrdine getStato() {
         return stato;
     }
 
+    @Override
     public void setStato(StatoOrdine stato) throws SQLException {
         updateData("UPDATE sys.merci SET stato = '" + stato + "' WHERE (ID = '" + ID + "');");
         this.stato = stato;

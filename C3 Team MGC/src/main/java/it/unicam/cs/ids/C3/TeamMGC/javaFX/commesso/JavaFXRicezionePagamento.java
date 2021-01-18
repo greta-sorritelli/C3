@@ -5,9 +5,8 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreInventario;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import javafx.beans.property.SimpleObjectProperty;
@@ -170,7 +169,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         try {
             setMerceCellValueFactory();
             merceTable.getItems().clear();
-            for (SimpleMerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
+            for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
                 merceTable.getItems().add(m.getDettagli());
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

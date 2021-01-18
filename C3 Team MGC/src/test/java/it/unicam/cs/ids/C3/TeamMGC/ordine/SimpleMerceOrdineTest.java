@@ -16,8 +16,8 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SimpleMerceOrdineTest {
-    static SimpleMerceOrdine simpleMerceOrdineTest;
-    static SimpleOrdine simpleOrdineTest;
+    static MerceOrdine simpleMerceOrdineTest;
+    static Ordine ordineTest;
     static GestoreInventario negozioTest;
 
     @BeforeAll
@@ -28,29 +28,29 @@ class SimpleMerceOrdineTest {
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         negozioTest = new Negozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
         Cliente simpleCliente = new SimpleCliente("Marco", "Papera");
-        simpleOrdineTest = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozioTest.getID());
-        simpleMerceOrdineTest = new SimpleMerceOrdine(10, "test allSet", StatoOrdine.PAGATO, simpleOrdineTest.getID());
+        ordineTest = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozioTest.getID());
+        simpleMerceOrdineTest = new SimpleMerceOrdine(10, "test allSet", StatoOrdine.PAGATO, ordineTest.getID());
     }
 
     @Test
     void getDettagli() throws SQLException {
-        SimpleMerceOrdine merceTest = new SimpleMerceOrdine(26, "Test Dettagli", StatoOrdine.DA_PAGARE, simpleOrdineTest.getID());
+        MerceOrdine merceTest = new SimpleMerceOrdine(26, "Test Dettagli", StatoOrdine.DA_PAGARE, ordineTest.getID());
         ArrayList<String> dettagli = new ArrayList<>();
         dettagli.add(String.valueOf(merceTest.getID()));
-        dettagli.add(String.valueOf(simpleOrdineTest.getID()));
+        dettagli.add(String.valueOf(ordineTest.getID()));
         dettagli.add("26.0");
         dettagli.add("Test Dettagli");
         dettagli.add("0");
         dettagli.add(StatoOrdine.DA_PAGARE.toString());
         assertEquals(dettagli, merceTest.getDettagli());
 
-        simpleOrdineTest.aggiungiMerce(merceTest, 15);
+        ordineTest.aggiungiMerce(merceTest, 15);
         merceTest.setPrezzo(42.0);
         merceTest.setStato(StatoOrdine.PAGATO);
 
         dettagli.clear();
         dettagli.add(String.valueOf(merceTest.getID()));
-        dettagli.add(String.valueOf(simpleOrdineTest.getID()));
+        dettagli.add(String.valueOf(ordineTest.getID()));
         dettagli.add("42.0");
         dettagli.add("Test Dettagli");
         dettagli.add("15");
@@ -104,7 +104,7 @@ class SimpleMerceOrdineTest {
 
     @Test
     void update() throws SQLException {
-        SimpleMerceOrdine simpleMerceOrdine = new SimpleMerceOrdine(12, "Upload", StatoOrdine.DA_PAGARE, simpleOrdineTest.getID());
+        MerceOrdine simpleMerceOrdine = new SimpleMerceOrdine(12, "Upload", StatoOrdine.DA_PAGARE, ordineTest.getID());
         simpleMerceOrdine.setQuantita(1);
         assertEquals(1, simpleMerceOrdine.getQuantita());
         assertEquals(12, simpleMerceOrdine.getPrezzo());

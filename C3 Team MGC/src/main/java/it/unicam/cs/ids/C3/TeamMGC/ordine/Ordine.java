@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public interface Ordine {
 
-    void addMerce(SimpleMerceOrdine merce) throws SQLException;
+    void addMerce(MerceOrdine merce) throws SQLException;
 
     void addResidenza(String indirizzo) throws SQLException;
 
-    void aggiungiMerce(SimpleMerceOrdine merce, int quantita) throws SQLException;
+    void aggiungiMerce(MerceOrdine merce, int quantita) throws SQLException;
 
     String getCognomeCliente();
 
@@ -21,7 +21,7 @@ public interface Ordine {
 
     int getIDNegozio();
 
-    ArrayList<SimpleMerceOrdine> getMerci() throws SQLException;
+    ArrayList<MerceOrdine> getMerci() throws SQLException;
 
     String getNomeCliente();
 

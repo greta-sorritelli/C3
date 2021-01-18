@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
@@ -213,24 +214,28 @@ public class GestoreClienti implements Gestore<Cliente> {
     /**
      * Manda un alert al cliente per avvisarlo che non è stato trovato dal corriere
      * nella sua residenza, e quindi la merce verrà consegnata al punto di prelievo.
-     * @param IDCliente          ID del cliente da avvisare
-     * @param puntoPrelievo      Punto di prelievo dove verrà portata la merce
-     * @throws SQLException      Errore causato da una query SQL
+     *
+     * @param IDCliente     ID del cliente da avvisare
+     * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
-    public void mandaAlertResidenza(int IDCliente, PuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
-            updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
-                    "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
-                    + ", indirizzo: " + puntoPrelievo.getIndirizzo()
-                    + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
+    public void mandaAlertResidenza(int IDCliente, PuntoPrelievo puntoPrelievo, MerceOrdine merceOrdine) throws SQLException {
+        updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
+                "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
+                + ", indirizzo: " + puntoPrelievo.getIndirizzo()
+                + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
     }
 
     /**
      * Manda un alert al cliente per avvisarlo che la merce è arrivata al punto di prelievo.
-     * @param IDCliente          ID del cliente da avvisare
-     * @param puntoPrelievo      Punto di prelievo dove verrà portata la merce
-     * @throws SQLException      Errore causato da una query SQL
+     *
+     * @param IDCliente     ID del cliente da avvisare
+     * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
-    public void mandaAlertPuntoPrelievo(int IDCliente, PuntoPrelievo puntoPrelievo, SimpleMerceOrdine merceOrdine) throws SQLException {
+    public void mandaAlertPuntoPrelievo(int IDCliente, PuntoPrelievo puntoPrelievo, MerceOrdine merceOrdine) throws SQLException {
         updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
                 "', 'Merce arrivata a destinazione. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
                 + ", indirizzo: " + puntoPrelievo.getIndirizzo()

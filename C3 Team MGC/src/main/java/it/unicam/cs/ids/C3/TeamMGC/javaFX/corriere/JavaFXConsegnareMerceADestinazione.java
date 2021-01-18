@@ -65,7 +65,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
     @FXML
     ChoiceBox<PuntoPrelievo> magazziniChoiceBox = new ChoiceBox<>();
 
-    private SimpleMerceOrdine selectedMerce;
+    private MerceOrdine selectedMerce;
 
     /**
      * todo

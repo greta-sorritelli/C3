@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -48,8 +49,8 @@ public interface JavaFXController {
             stage.setTitle(b);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
-//            Image icon = new Image("/icon.png");
-//            stage.getIcons().add(icon);
+            Image icon = new Image("/icon.png");
+            stage.getIcons().add(icon);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

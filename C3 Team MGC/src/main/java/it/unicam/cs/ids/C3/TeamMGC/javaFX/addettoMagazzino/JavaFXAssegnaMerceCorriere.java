@@ -4,6 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
@@ -76,7 +77,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     private Corriere selectedSimpleCorriere = null;
     private PuntoPrelievo selectedMagazzino = null;
     private String selectedResidenza;
-    private final ArrayList<SimpleMerceOrdine> selectedMerce = new ArrayList<>();
+    private final ArrayList<MerceOrdine> selectedMerce = new ArrayList<>();
 
 
     @FXML
@@ -114,7 +115,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     private void confermaAssegnazioneMerce(Alert alert) {
         try {
             if (!merceOrdineTable.getSelectionModel().isEmpty()) {
-                for (SimpleMerceOrdine merce : selectedMerce) {
+                for (MerceOrdine merce : selectedMerce) {
                     if (merce != null) {
                         gestoreOrdini.associaMerceCorriere(selectedSimpleCorriere.getID(), merce.getID());
                     }

@@ -35,43 +35,43 @@ class SimpleOrdineTest {
 
     @Test
     void addResidenza() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        assertEquals("", simpleOrdine.getResidenza());
-        simpleOrdine.addResidenza("Piazza degli Assert");
-        assertEquals("Piazza degli Assert", simpleOrdine.getResidenza());
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        assertEquals("", ordine.getResidenza());
+        ordine.addResidenza("Piazza degli Assert");
+        assertEquals("Piazza degli Assert", ordine.getResidenza());
     }
 
     @Test
     void aggiungiMerce() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        SimpleMerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine.getID());
-        simpleOrdine.aggiungiMerce(merce, 15);
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        MerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.IN_DEPOSITO, ordine.getID());
+        ordine.aggiungiMerce(merce, 15);
         assertEquals(15, merce.getQuantita());
-        assertTrue(simpleOrdine.getMerci().contains(merce));
+        assertTrue(ordine.getMerci().contains(merce));
     }
 
     @Test
     void creazioneOrdine() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        assertEquals(simpleCliente.getID(), simpleOrdine.getIDCliente());
-        assertEquals(simpleCliente.getNome(), simpleOrdine.getNomeCliente());
-        assertEquals(simpleCliente.getCognome(), simpleOrdine.getCognomeCliente());
-        assertEquals(negozio.getID(), simpleOrdine.getIDNegozio());
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        assertEquals(simpleCliente.getID(), ordine.getIDCliente());
+        assertEquals(simpleCliente.getNome(), ordine.getNomeCliente());
+        assertEquals(simpleCliente.getCognome(), ordine.getCognomeCliente());
+        assertEquals(negozio.getID(), ordine.getIDNegozio());
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimpleOrdine(1000));
         assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
     void getDettagli() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        SimpleMerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.PAGATO, simpleOrdine.getID());
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        MerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
         PuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 1");
-        simpleOrdine.aggiungiMerce(merce, 2);
-        simpleOrdine.setStato(StatoOrdine.PAGATO);
-        simpleOrdine.setPuntoPrelievo(p.getID());
+        ordine.aggiungiMerce(merce, 2);
+        ordine.setStato(StatoOrdine.PAGATO);
+        ordine.setPuntoPrelievo(p.getID());
 
         ArrayList<String> ordineLista = new ArrayList<>();
-        ordineLista.add(String.valueOf(simpleOrdine.getID()));
+        ordineLista.add(String.valueOf(ordine.getID()));
         ordineLista.add(String.valueOf(simpleCliente.getID()));
         ordineLista.add("Matteo");
         ordineLista.add("Rondini");
@@ -79,68 +79,67 @@ class SimpleOrdineTest {
         ordineLista.add(StatoOrdine.PAGATO.toString());
         ordineLista.add(String.valueOf(p.getID()));
         ordineLista.add(String.valueOf(negozio.getID()));
-        ordineLista.add(simpleOrdine.getMerci().toString());
-        assertEquals(ordineLista, simpleOrdine.getDettagli());
+        ordineLista.add(ordine.getMerci().toString());
+        assertEquals(ordineLista, ordine.getDettagli());
     }
 
     @Test
     void setPuntoPrelievo() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
         PuntoPrelievo p = new SimplePuntoPrelievo("Piazza Roma", "MAG 5");
-        assertEquals(-1, simpleOrdine.getPuntoPrelievo());
-        simpleOrdine.setPuntoPrelievo(p.getID());
-        assertEquals(p.getID(), simpleOrdine.getPuntoPrelievo());
+        assertEquals(-1, ordine.getPuntoPrelievo());
+        ordine.setPuntoPrelievo(p.getID());
+        assertEquals(p.getID(), ordine.getPuntoPrelievo());
     }
 
     @Test
     void setStato() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        assertEquals(StatoOrdine.DA_PAGARE, simpleOrdine.getStato());
-        simpleOrdine.setStato(StatoOrdine.RITIRATO);
-        assertEquals(simpleOrdine.getStato(), StatoOrdine.RITIRATO);
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        assertEquals(StatoOrdine.DA_PAGARE, ordine.getStato());
+        ordine.setStato(StatoOrdine.RITIRATO);
+        assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
     }
 
     @Test
     void testEquals() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        simpleOrdine.setStato(StatoOrdine.PAGATO);
-        SimpleOrdine simpleOrdineCopia = new SimpleOrdine(simpleOrdine.getID());
-        SimpleOrdine simpleOrdine2 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        assertEquals(simpleOrdine, simpleOrdineCopia);
-        assertNotEquals(simpleOrdine, simpleOrdine2);
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        ordine.setStato(StatoOrdine.PAGATO);
+        Ordine ordineCopia = new SimpleOrdine(ordine.getID());
+        Ordine ordine2 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        assertEquals(ordine, ordineCopia);
+        assertNotEquals(ordine, ordine2);
     }
 
     @Test
     void update() throws SQLException {
-        SimpleOrdine simpleOrdine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
-        SimpleMerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.PAGATO, simpleOrdine.getID());
-        simpleOrdine.aggiungiMerce(merce, 15);
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        MerceOrdine merce = new SimpleMerceOrdine(12, "matita", StatoOrdine.PAGATO, ordine.getID());
+        ordine.aggiungiMerce(merce, 15);
         PuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 1");
-        simpleOrdine.setPuntoPrelievo(p.getID());
+        ordine.setPuntoPrelievo(p.getID());
 
-        assertEquals("Matteo", simpleOrdine.getNomeCliente());
-        assertEquals("Rondini", simpleOrdine.getCognomeCliente());
-        assertEquals(180, simpleOrdine.getTotalePrezzo());
-        assertEquals(StatoOrdine.DA_PAGARE, simpleOrdine.getStato());
-        assertEquals(p.getID(), simpleOrdine.getPuntoPrelievo());
+        assertEquals("Matteo", ordine.getNomeCliente());
+        assertEquals("Rondini", ordine.getCognomeCliente());
+        assertEquals(180, ordine.getTotalePrezzo());
+        assertEquals(StatoOrdine.DA_PAGARE, ordine.getStato());
+        assertEquals(p.getID(), ordine.getPuntoPrelievo());
 
-        simpleOrdine.aggiungiMerce(merce, 10);
-        simpleOrdine.setStato(StatoOrdine.PAGATO);
+        ordine.aggiungiMerce(merce, 10);
+        ordine.setStato(StatoOrdine.PAGATO);
         PuntoPrelievo p1 = new SimplePuntoPrelievo("Via degli Activity Diagram", "SD 2");
 
-        updateData("UPDATE sys.ordini SET nomeCliente = 'Clarissa' where ID = '" + simpleOrdine.getID() + "';");
-        updateData("UPDATE sys.ordini SET cognomeCliente = 'Albanese' where ID = '" + simpleOrdine.getID() + "';");
-        updateData("UPDATE sys.ordini SET totalePrezzo = '300' where ID = '" + simpleOrdine.getID() + "';");
-        updateData("UPDATE sys.ordini SET stato = 'PAGATO' where ID = '" + simpleOrdine.getID() + "';");
-        updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + p1.getID() + " where ID = '" + simpleOrdine.getID() + "';");
+        updateData("UPDATE sys.ordini SET nomeCliente = 'Clarissa' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET cognomeCliente = 'Albanese' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET totalePrezzo = '300' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET stato = 'PAGATO' where ID = '" + ordine.getID() + "';");
+        updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + p1.getID() + " where ID = '" + ordine.getID() + "';");
 
-        simpleOrdine.update();
-        assertEquals("Clarissa", simpleOrdine.getNomeCliente());
-        assertEquals("Albanese", simpleOrdine.getCognomeCliente());
-        assertEquals(300, simpleOrdine.getTotalePrezzo());
-        assertEquals(StatoOrdine.PAGATO, simpleOrdine.getStato());
-        assertEquals(p1.getID(), simpleOrdine.getPuntoPrelievo());
-
+        ordine.update();
+        assertEquals("Clarissa", ordine.getNomeCliente());
+        assertEquals("Albanese", ordine.getCognomeCliente());
+        assertEquals(300, ordine.getTotalePrezzo());
+        assertEquals(StatoOrdine.PAGATO, ordine.getStato());
+        assertEquals(p1.getID(), ordine.getPuntoPrelievo());
     }
 
 }

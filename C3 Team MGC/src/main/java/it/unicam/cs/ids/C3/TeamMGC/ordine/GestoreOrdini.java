@@ -70,7 +70,7 @@ public class GestoreOrdini {
     //todo test
     public void associaMerceCorriere(int IDCorriere, int IDMerce) throws SQLException {
         updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + IDMerce + "');");
-        SimpleMerceOrdine tmp = getMerceOrdine(IDMerce);
+        MerceOrdine tmp = getMerceOrdine(IDMerce);
         tmp.setIDCorriere(IDCorriere);
         tmp.setStato(StatoOrdine.AFFIDATO_AL_CORRIERE);
     }
@@ -121,7 +121,7 @@ public class GestoreOrdini {
     //todo rivedere test
     public ArrayList<ArrayList<String>> getDettagliMerce(StatoOrdine statoOrdine) throws SQLException {
         update();
-        ArrayList<SimpleMerceOrdine> merci = new ArrayList<>();
+        ArrayList<MerceOrdine> merci = new ArrayList<>();
 
         for (Ordine ordine : ordini) {
             ordine.update();
@@ -129,9 +129,9 @@ public class GestoreOrdini {
         }
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
 
-        for (SimpleMerceOrdine simpleMerceOrdine : merci)
-            if (simpleMerceOrdine.getStato().equals(statoOrdine))
-                dettagli.add(simpleMerceOrdine.getDettagli());
+        for (MerceOrdine merceOrdine : merci)
+            if (merceOrdine.getStato().equals(statoOrdine))
+                dettagli.add(merceOrdine.getDettagli());
 
         return dettagli;
     }
@@ -145,9 +145,9 @@ public class GestoreOrdini {
         disconnectToDB(rs);
 
         for (Ordine ordine : ordini)
-            for (SimpleMerceOrdine simpleMerceOrdine : ordine.getMerci())
-                if (simpleMerceOrdine.getIDCorriere() == IDCorriere && simpleMerceOrdine.getStato().equals(statoOrdine))
-                    toReturn.add(simpleMerceOrdine.getDettagli());
+            for (MerceOrdine merceOrdine : ordine.getMerci())
+                if (merceOrdine.getIDCorriere() == IDCorriere && merceOrdine.getStato().equals(statoOrdine))
+                    toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
 
@@ -161,9 +161,9 @@ public class GestoreOrdini {
 
         for (Ordine ordine : ordini)
             if (ordine.getResidenza().equals(residenza))
-                for (SimpleMerceOrdine simpleMerceOrdine : ordine.getMerci())
-                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
-                        toReturn.add(simpleMerceOrdine.getDettagli());
+                for (MerceOrdine merceOrdine : ordine.getMerci())
+                    if (merceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
 
@@ -211,7 +211,7 @@ public class GestoreOrdini {
     public ArrayList<ArrayList<String>> getInDepositMerci(ArrayList<Ordine> ordini) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         for (Ordine ordine : ordini)
-            for (SimpleMerceOrdine m : ordine.getMerci())
+            for (MerceOrdine m : ordine.getMerci())
                 if (m.getStato() == StatoOrdine.IN_DEPOSITO)
                     toReturn.add(m.getDettagli());
         return toReturn;
@@ -225,14 +225,14 @@ public class GestoreOrdini {
      * @return La merce desiderata
      * @throws SQLException Errore causato da una query SQL
      */
-    public SimpleMerceOrdine getMerceOrdine(int ID) throws SQLException {
+    public MerceOrdine getMerceOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("SELECT * from merci where ID ='" + ID + "';");
         if (rs.next()) {
             Ordine ordine = getOrdine(rs.getInt("IDOrdine"));
-            for (SimpleMerceOrdine simpleMerceOrdine : ordine.getMerci())
-                if (simpleMerceOrdine.getID() == ID) {
+            for (MerceOrdine merceOrdine : ordine.getMerci())
+                if (merceOrdine.getID() == ID) {
                     disconnectToDB(rs);
-                    return simpleMerceOrdine;
+                    return merceOrdine;
                 } else {
                     SimpleMerceOrdine tmp = creaMerceFromDB(rs, ordine);
                     disconnectToDB(rs);
@@ -254,9 +254,9 @@ public class GestoreOrdini {
 
         for (Ordine ordine : ordini)
             if (ordine.getIDNegozio() == IDNegozio && ordine.getPuntoPrelievo() == IDPuntoPrelievo)
-                for (SimpleMerceOrdine simpleMerceOrdine : ordine.getMerci())
-                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
-                        toReturn.add(simpleMerceOrdine.getDettagli());
+                for (MerceOrdine merceOrdine : ordine.getMerci())
+                    if (merceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
 
@@ -270,9 +270,9 @@ public class GestoreOrdini {
 
         for (Ordine ordine : ordini)
             if (ordine.getPuntoPrelievo() == IDPuntoPrelievo)
-                for (SimpleMerceOrdine simpleMerceOrdine : ordine.getMerci())
-                    if (simpleMerceOrdine.getStato() == StatoOrdine.PAGATO)
-                        toReturn.add(simpleMerceOrdine.getDettagli());
+                for (MerceOrdine merceOrdine : ordine.getMerci())
+                    if (merceOrdine.getStato() == StatoOrdine.PAGATO)
+                        toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
 
@@ -354,7 +354,7 @@ public class GestoreOrdini {
         getMerceOrdine(IDMerce).setStato(statoOrdine);
         Ordine ordine = getOrdine(getMerceOrdine(IDMerce).getIDOrdine());
         boolean toControl = true;
-        for (SimpleMerceOrdine m : ordine.getMerci()) {
+        for (MerceOrdine m : ordine.getMerci()) {
             if (m.getStato() != statoOrdine) {
                 toControl = false;
                 break;
@@ -367,8 +367,8 @@ public class GestoreOrdini {
     //todo controllare test
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
-        for (SimpleMerceOrdine simpleMerceOrdine : getOrdine(IDOrdine).getMerci())
-            simpleMerceOrdine.setStato(statoOrdine);
+        for (MerceOrdine merceOrdine : getOrdine(IDOrdine).getMerci())
+            merceOrdine.setStato(statoOrdine);
     }
 
     /**
@@ -381,8 +381,8 @@ public class GestoreOrdini {
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> terminaOrdine(int IDOrdine) throws SQLException {
-        ArrayList<SimpleMerceOrdine> mercePagata = new ArrayList<>();
-        for (SimpleMerceOrdine m : getOrdine(IDOrdine).getMerci()) {
+        ArrayList<MerceOrdine> mercePagata = new ArrayList<>();
+        for (MerceOrdine m : getOrdine(IDOrdine).getMerci()) {
             if (m.getStato() == StatoOrdine.PAGATO)
                 mercePagata.add(m);
         }
