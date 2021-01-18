@@ -56,6 +56,20 @@ class GestoreOrdiniTest {
     }
 
     @Test
+    void associaMerceCorriere() throws SQLException {
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        ArrayList<String> ordineDettagli = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
+        Ordine ordine = gestoreOrdini.getOrdine(Integer.parseInt(ordineDettagli.get(0)));
+        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(100, "Borsa", 15);
+        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
+        gestoreOrdini.registraMerce(IDMerce1, 5, ordine.getID(), negozio);
+        assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getMerceOrdine(IDMerce1).getStato());
+        Corriere corriere = new SimpleCorriere("Giulio", "Bartolini", true);
+        gestoreOrdini.associaMerceCorriere(corriere.getID(), IDMerce1);
+        assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE, gestoreOrdini.getMerceOrdine(IDMerce1).getStato());
+    }
+
+    @Test
     void getDettagliMerce() throws SQLException {
         ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(100, "Borsa", 15);
         ArrayList<String> merceDettagli2 = negozio.inserisciNuovaMerce(20, "Cuffie", 20);
@@ -191,7 +205,6 @@ class GestoreOrdiniTest {
     }
 
     @Test
-        //todo da finire
     void getInDepositMerci() throws SQLException {
         Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
         PuntoPrelievo p = new SimplePuntoPrelievo("Via dei Sequence Diagram", "SD 2");
@@ -211,6 +224,13 @@ class GestoreOrdiniTest {
 
         ArrayList<ArrayList<String>> merciInDeposito = gestoreOrdini.getInDepositMerci(ordini);
 
+        assertFalse(merciInDeposito.isEmpty());
+        assertEquals(String.valueOf(IDMerceOrdine1), merciInDeposito.get(0).get(0));
+        assertEquals(String.valueOf(IDOrdine), merciInDeposito.get(0).get(1));
+        assertEquals("2.0", merciInDeposito.get(0).get(2));
+        assertEquals("Temperino", merciInDeposito.get(0).get(3));
+        assertEquals("5", merciInDeposito.get(0).get(4));
+        assertEquals(StatoOrdine.IN_DEPOSITO.toString(), merciInDeposito.get(0).get(5));
     }
 
     @Test
@@ -323,6 +343,10 @@ class GestoreOrdiniTest {
         assertEquals(gestoreOrdini.getMerceOrdine(IDMerceOrdine1), gestoreOrdini.getOrdine(IDOrdine).getMerci().get(0));
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> gestoreOrdini.getOrdine(1000));
         assertEquals("ID ordine non valido.", e1.getMessage());
+
+        Ordine ordine2 = new SimpleOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio.getID());
+        Ordine ordineTest = gestoreOrdini.getOrdine(ordine2.getID());
+        assertEquals(ordine2, ordineTest);
     }
 
     @Test
