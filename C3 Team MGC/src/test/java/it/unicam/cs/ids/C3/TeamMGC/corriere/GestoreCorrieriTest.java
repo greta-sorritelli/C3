@@ -180,11 +180,4 @@ class GestoreCorrieriTest {
 
         disconnectToDB(rs);
     }
-
-    @Test
-    @Order(3)
-    void selezionaCorriere() throws SQLException {
-        assertEquals("Clarissa", gestoreCorrieri.selezionaCorriere(1).get(1));
-        assertEquals("true", gestoreCorrieri.selezionaCorriere(3).get(3));
-    }
 }

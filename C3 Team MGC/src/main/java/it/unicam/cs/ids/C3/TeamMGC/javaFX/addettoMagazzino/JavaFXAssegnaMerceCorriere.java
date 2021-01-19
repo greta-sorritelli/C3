@@ -271,7 +271,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             setMerceOrdineCellValueFactory();
             merceOrdineTable.getItems().clear();
             if (selectedMagazzino != null)
-                merceOrdineTable.getItems().addAll(gestoreOrdini.getMerciMagazzino(selectedMagazzino.getID()));
+                merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciMagazzino(selectedMagazzino.getID()));
             if (selectedResidenza != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciResidenza(residenzaTextField.getText()));
         } catch (SQLException exception) {

@@ -210,18 +210,6 @@ public class GestoreCorrieri implements Gestore<Corriere> {
                 + ", per ritirare le merci dei cliente alla residenza: " + residenza + ".');");
     }
 
-    /**
-     * Seleziona il {@link Corriere} desiderato.
-     *
-     * @param ID Codice Identificativo del Corriere
-     *
-     * @return Le informazioni del Corriere
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<String> selezionaCorriere(int ID) throws SQLException {
-        return getItem(ID).getDettagli();
-    }
-
     public void setDisponibilita(int IDCorriere, boolean disponibilita) throws SQLException {
         getItem(IDCorriere).setDisponibilita(disponibilita);
     }

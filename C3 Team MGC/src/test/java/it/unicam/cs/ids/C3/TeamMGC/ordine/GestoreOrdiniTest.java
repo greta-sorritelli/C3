@@ -308,7 +308,7 @@ class GestoreOrdiniTest {
         gestoreOrdini.terminaOrdine(IDOrdine);
         gestoreOrdini.getOrdine(IDOrdine).setPuntoPrelievo(p.getID());
 
-        ArrayList<ArrayList<String>> toTest = gestoreOrdini.getMerciMagazzino(p.getID());
+        ArrayList<ArrayList<String>> toTest = gestoreOrdini.getDettagliMerciMagazzino(p.getID());
         assertFalse(toTest.isEmpty());
         assertEquals(String.valueOf(IDOrdine), toTest.get(0).get(1));
         assertEquals(String.valueOf(IDOrdine), toTest.get(1).get(1));

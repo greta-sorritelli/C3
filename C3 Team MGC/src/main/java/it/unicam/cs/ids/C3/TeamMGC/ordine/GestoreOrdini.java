@@ -310,7 +310,7 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<ArrayList<String>> getMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
+    public ArrayList<ArrayList<String>> getDettagliMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
         while (rs.next())

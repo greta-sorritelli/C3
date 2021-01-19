@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -60,7 +61,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> TelefonoNegozio;
 
-    private ArrayList<String> dettagliCorriereSelezionato;
+    private Corriere corriereSelezionato;
 
     public JavaFXComunicareConCorriere(int IDPuntoPrelievo) {
         this.IDPuntoPrelievo = IDPuntoPrelievo;
@@ -86,7 +87,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     private void confermaAssegnazione(Alert alert) {
         try {
             if (!negoziTable.getSelectionModel().isEmpty()) {
-                gestoreCorrieri.mandaAlert(Integer.parseInt(dettagliCorriereSelezionato.get(0)), negoziSelezionati);
+                gestoreCorrieri.mandaAlert(corriereSelezionato.getID(), negoziSelezionati);
                 ArrayList<ArrayList<String>> merci = new ArrayList<>();
                 for (Negozio negozio : negoziSelezionati)
                     merci.addAll(gestoreOrdini.getMerciFromNegozioToMagazzino(negozio.getID(), IDPuntoPrelievo));
@@ -107,7 +108,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
             if (!corrieriTable.getSelectionModel().isEmpty()) {
                 int id = Integer.parseInt(corrieriTable.getSelectionModel().getSelectedItem().get(0));
                 if (gestoreCorrieri.getItem(id) != null) {
-                    this.dettagliCorriereSelezionato = gestoreCorrieri.selezionaCorriere(id);
+                    this.corriereSelezionato = gestoreCorrieri.getItem(id);
                     tabNegozi.setDisable(false);
                     tab.getSelectionModel().select(tabNegozi);
                     tabCorriere.setDisable(true);
