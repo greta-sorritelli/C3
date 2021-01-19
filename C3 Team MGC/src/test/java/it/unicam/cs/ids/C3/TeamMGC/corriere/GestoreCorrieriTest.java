@@ -22,8 +22,8 @@ class GestoreCorrieriTest {
 
     @BeforeAll
     static void preparaDB() throws SQLException {
-        updateData("TRUNCATE sys.corrieri;");
-        updateData("TRUNCATE sys.alert_corrieri;");
+        updateData("DELETE from sys.corrieri;");
+        updateData("DELETE from sys.alert_corrieri;");
         updateData("alter table corrieri AUTO_INCREMENT = 1;");
         updateData("alter table sys.alert_corrieri AUTO_INCREMENT = 1;");
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato) VALUES ('Clarissa', 'Albanese', 'true');");

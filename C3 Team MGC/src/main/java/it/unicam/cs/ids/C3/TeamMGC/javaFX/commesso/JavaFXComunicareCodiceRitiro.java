@@ -28,7 +28,6 @@ public class JavaFXComunicareCodiceRitiro implements JavaFXController {
             if (IDCliente.getText().isEmpty() || IDOrdine.getText().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
             String vecchioCodice = gestoreClienti.getItem(Integer.parseInt(IDCliente.getText())).getCodiceRitiro();
-            gestoreOrdini.getOrdine(Integer.parseInt(IDOrdine.getText()));
             String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(IDCliente.getText()), Integer.parseInt(IDOrdine.getText()));
             if (vecchioCodice.equals(codice))
                 informationWindow("Il cliente ha gia' un codice", "Codice cliente : " + codice);

@@ -360,8 +360,7 @@ public class GestoreOrdini {
         Merce simpleMerce = negozio.getItem(IDMerce);
         if (simpleMerce.getQuantita() == 0 || simpleMerce.getQuantita() < quantita)
             throw new IllegalArgumentException("Quantita non valida.");
-
-        simpleMerce.setQuantita(simpleMerce.getQuantita() - quantita);
+        negozio.setQuantita(IDMerce,simpleMerce.getQuantita() - quantita);
         SimpleMerceOrdine simpleMerceOrdine = new SimpleMerceOrdine(simpleMerce.getPrezzo(), simpleMerce.getDescrizione(), StatoOrdine.PAGATO, IDOrdine);
         getOrdine(IDOrdine).aggiungiMerce(simpleMerceOrdine, quantita);
     }

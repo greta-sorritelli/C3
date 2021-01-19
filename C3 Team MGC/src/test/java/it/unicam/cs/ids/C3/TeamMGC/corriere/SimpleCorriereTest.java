@@ -13,7 +13,8 @@ class SimpleCorriereTest {
 
     @BeforeAll
     static void clearDB() throws SQLException {
-        updateData("TRUNCATE sys.corrieri;");
+        updateData("DELETE from sys.corrieri;");
+        updateData("alter table corrieri AUTO_INCREMENT = 1;");
     }
 
     @BeforeAll

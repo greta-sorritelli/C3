@@ -185,7 +185,7 @@ public class GestoreClienti implements Gestore<Cliente> {
             return getItem(IDCliente).getCodiceRitiro();
         }
         disconnectToDB(rs);
-        return getItem(IDCliente).getCodiceRitiro();
+        throw new IllegalArgumentException("ID non valido.");
     }
 
     /**

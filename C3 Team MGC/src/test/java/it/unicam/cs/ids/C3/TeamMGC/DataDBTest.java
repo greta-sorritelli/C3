@@ -88,6 +88,5 @@ public class DataDBTest {
         //Magazzinieri
         updateData("INSERT INTO sys.magazzinieri (IDPuntoPrelievo, nome, cognome) VALUES ('1', 'Silvio', 'Marzocco');");
 
-        clearDB();
     }
 }

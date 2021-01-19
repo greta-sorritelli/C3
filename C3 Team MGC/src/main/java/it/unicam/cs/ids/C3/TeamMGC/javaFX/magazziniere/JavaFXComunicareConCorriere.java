@@ -80,7 +80,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Attendere...");
         alert.setContentText("Invio Alert in corso.");
-        selezionaNegozi(alert);
+        selezionaNegozio(alert);
         confermaAssegnazione(alert);
     }
 
@@ -121,7 +121,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
         }
     }
 
-    private void selezionaNegozi(Alert alert) {
+    private void selezionaNegozio(Alert alert) {
         try {
             if (!negoziTable.getSelectionModel().isEmpty()) {
                 alert.show();

@@ -20,7 +20,6 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
 
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
-    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
     private final ArrayList<ArrayList<String>> merceSelezionata = new ArrayList<>();
     private final int IDCorriere;
