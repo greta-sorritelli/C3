@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 
 import java.sql.ResultSet;

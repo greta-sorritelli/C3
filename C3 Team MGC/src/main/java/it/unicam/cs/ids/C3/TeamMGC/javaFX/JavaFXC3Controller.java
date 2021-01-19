@@ -2,7 +2,6 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXLoginCliente;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXLoginCorriere;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXLoginMagazziniere;
 import it.unicam.cs.ids.C3.TeamMGC.view.*;
 
 import java.sql.SQLException;

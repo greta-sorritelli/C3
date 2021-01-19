@@ -1,14 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 

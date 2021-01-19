@@ -1,9 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere;
 
-import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
-import it.unicam.cs.ids.C3.TeamMGC.view.ICorriere;
 import it.unicam.cs.ids.C3.TeamMGC.view.IMagazziniere;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
