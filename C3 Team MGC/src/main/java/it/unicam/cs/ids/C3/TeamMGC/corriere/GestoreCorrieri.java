@@ -164,6 +164,10 @@ public class GestoreCorrieri implements Gestore<Corriere> {
         return new ArrayList<>(corrieri);
     }
 
+    public String getNomeCorriere(int IDCorriere) throws SQLException{
+        return getItem(IDCorriere).getNome();
+    }
+
     /**
      * Crea e inserisce un nuovo {@link Corriere} nella lista.
      *

@@ -197,7 +197,7 @@ public class SimpleOrdine implements Ordine {
     }
 
     @Override
-    public ArrayList<MerceOrdine> getMerci() throws SQLException {
+    public ArrayList<MerceOrdine> getMerci(){
         return new ArrayList<>(merci);
     }
 

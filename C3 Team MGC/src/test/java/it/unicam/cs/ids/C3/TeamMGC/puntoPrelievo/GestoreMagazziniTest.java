@@ -80,16 +80,5 @@ class GestoreMagazziniTest {
         assertThrows(IllegalArgumentException.class, () -> gestoreMagazzini.getItem(1000));
     }
 
-    @Test
-    void sceltaPuntoPrelievo() throws SQLException {
-        ArrayList<String> prova = new ArrayList<>();
-        prova.add("1");
-        prova.add("B1");
-        prova.add("via Giacinto");
-        assertEquals(prova, gestoreMagazzini.sceltaPuntoPrelievo(1));
-        assertEquals("B1", gestoreMagazzini.sceltaPuntoPrelievo(1).get(1));
-        assertEquals("via Giuseppe", gestoreMagazzini.sceltaPuntoPrelievo(2).get(2));
-        assertEquals("via Paolo", gestoreMagazzini.sceltaPuntoPrelievo(3).get(2));
-    }
 
 }

@@ -133,16 +133,4 @@ public class GestoreNegozi implements Gestore<Negozio> {
         return new ArrayList<>(negozi);
     }
 
-//    /**
-//     *
-//     *
-//     * @param ID
-//     *
-//     * @return
-//     * @throws SQLException eccezione causata da una query SQL
-//     */
-//
-//    public Negozio selezionaNegozio(int ID) throws SQLException {
-//        return getItem(ID);
-//    }
 }

@@ -19,6 +19,8 @@ public interface MerceOrdine {
 
     int getIDOrdine();
 
+    void setIDOrdine(int IDOrdine) throws SQLException;
+
     double getPrezzo();
 
     void setPrezzo(double prezzo) throws SQLException;

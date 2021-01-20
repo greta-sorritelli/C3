@@ -136,10 +136,10 @@ public class JavaFXGestioneInventario implements JavaFXController {
 
     public void setQuantita() {
         try {
-            negozio.setQuantita(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita1.getText()));
+            negozio.setQuantitaMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita1.getText()));
             merceChoiceBox.getValue().update();
             merceCreata.removeIf(merce -> merce.get(0).equals(String.valueOf(merceChoiceBox.getValue().getID())));
-            merceCreata.add(negozio.getItem(merceChoiceBox.getValue().getID()).getDettagli());
+            merceCreata.add(negozio.getDettagliItem(merceChoiceBox.getValue().getID()));
             visualizzaMerciInserite();
             quantita1.clear();
             merceChoiceBox.getItems().clear();

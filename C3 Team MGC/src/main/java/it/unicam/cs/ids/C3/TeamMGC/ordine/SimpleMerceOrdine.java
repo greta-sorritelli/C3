@@ -120,6 +120,12 @@ public class SimpleMerceOrdine implements MerceOrdine {
     }
 
     @Override
+    public void setIDOrdine(int IDOrdine) throws SQLException {
+        updateData("UPDATE sys.merci SET IDOrdine = '" + IDOrdine + "' WHERE (ID = '" + ID + "');");
+        this.IDOrdine = IDOrdine;
+    }
+
+    @Override
     public double getPrezzo() {
         return prezzo;
     }

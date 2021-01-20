@@ -243,25 +243,15 @@ public class SimpleNegozio implements Negozio {
 
     }
 
-    /**
-     * Seleziona la {@link Merce} tramite l' {@code ID}.
-     *
-     * @param IDMerce ID della merce da selezionare
-     *
-     * @return ArrayList dei dettagli della merce
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
     @Override
-    public ArrayList<String> selezionaMerce(int IDMerce) throws SQLException {
-        return getItem(IDMerce).getDettagli();
-    }
-
-    @Override
-    public void setQuantita(int IDMerce, int quantita) throws SQLException {
+    public void setQuantitaMerce(int IDMerce, int quantita) throws SQLException {
         getItem(IDMerce).setQuantita(quantita);
     }
 
+    @Override
+    public ArrayList<String> getDettagliItem(int IDMerce) throws SQLException{
+        return getItem(IDMerce).getDettagli();
+    }
     /**
      * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
      *

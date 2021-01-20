@@ -94,8 +94,8 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     public void registraOrdine() {
         try {
             int ID = Integer.parseInt(IDCliente.getText());
-            ArrayList<String> dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getItem(ID).getNome(),
-                    gestoreClienti.getItem(ID).getCognome(), negozio);
+            ArrayList<String> dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getNomeCliente(ID),
+                    gestoreClienti.getCognomeCliente(ID), negozio);
             ordineTextField.setText(dettagliOrdine.get(0));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
@@ -163,7 +163,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         try {
             setMerceCellValueFactory();
             merceTable.getItems().clear();
-            for (MerceOrdine m : gestoreOrdini.getOrdine(Integer.parseInt(ordineTextField.getText())).getMerci())
+            for (MerceOrdine m : gestoreOrdini.getMerciOrdine(Integer.parseInt(ordineTextField.getText())))
                 merceTable.getItems().add(m.getDettagli());
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

@@ -15,7 +15,11 @@ public interface Corriere {
 
     void setDisponibilita(boolean disponibilita) throws SQLException;
 
+    void setCognome(String cognome) throws SQLException;
+
     ArrayList<String> getDettagli() throws SQLException;
+
+    void setNome(String nome) throws SQLException;
 
     void update() throws SQLException;
 }

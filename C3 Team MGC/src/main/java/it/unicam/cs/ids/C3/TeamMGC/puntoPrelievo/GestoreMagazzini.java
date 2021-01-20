@@ -140,15 +140,4 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
         return getItems();
     }
 
-    /**
-     * Ritorna i dettagli del {@link PuntoPrelievo}.
-     *
-     * @param ID Codice identificativo del punto di prelievo
-     *
-     * @return ArrayList dei dettagli
-     */
-    public ArrayList<String> sceltaPuntoPrelievo(int ID) throws SQLException {
-        return getItem(ID).getDettagli();
-    }
-
 }

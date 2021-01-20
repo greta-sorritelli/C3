@@ -69,6 +69,12 @@ public class SimpleCorriere implements Corriere {
         return cognome;
     }
 
+    @Override
+    public void setCognome(String cognome) throws SQLException {
+        updateData("UPDATE sys.corrieri SET cognome = '" + cognome + "' WHERE (ID = '" + this.ID + "');");
+        this.cognome = cognome;
+    }
+
     /**
      * Ritorna un arraylist con i dettagli del {@link SimpleCorriere}.
      *
@@ -111,6 +117,12 @@ public class SimpleCorriere implements Corriere {
     @Override
     public String getNome() {
         return nome;
+    }
+
+    @Override
+    public void setNome(String nome) throws SQLException {
+        updateData("UPDATE sys.corrieri SET nome = '" + nome + "' WHERE (ID = '" + this.ID + "');");
+        this.nome = nome;
     }
 
     @Override

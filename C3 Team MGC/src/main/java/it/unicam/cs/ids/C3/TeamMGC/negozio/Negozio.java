@@ -23,7 +23,7 @@ public interface Negozio extends Gestore<Merce> {
 
     String getTelefono();
 
-    void setQuantita(int IDMerce, int quantita) throws SQLException;
+    void setQuantitaMerce(int IDMerce, int quantita) throws SQLException;
 
     ArrayList<String> getDettagli() throws SQLException;
 
@@ -31,7 +31,7 @@ public interface Negozio extends Gestore<Merce> {
 
     void removeMerce(int IDMerce) throws SQLException;
 
-    ArrayList<String> selezionaMerce(int IDMerce) throws SQLException;
+    ArrayList<String> getDettagliItem(int IDMerce) throws SQLException;
 
     void update() throws SQLException;
 }

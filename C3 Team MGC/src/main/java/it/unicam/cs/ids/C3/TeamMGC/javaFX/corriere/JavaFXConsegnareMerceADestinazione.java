@@ -99,10 +99,8 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
         selezionaMerce();
         try {
             if (selectedMerce != null) {
-                if (gestoreOrdini.getOrdine(selectedMerce.getIDOrdine()).getResidenza() == null) {
-                    Ordine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
-                    gestoreOrdini.setStatoMerce(selectedMerce.getID(), StatoOrdine.IN_DEPOSITO);
-                    gestoreClienti.mandaAlertPuntoPrelievo(ordine.getIDCliente(), gestoreMagazzini.getItem(ordine.getPuntoPrelievo()), selectedMerce);
+                if (gestoreOrdini.getResidenzaOrdine(selectedMerce.getIDOrdine()) == null) {
+                   mandaAlertPuntoPrelievo();
                     successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al punto di prelievo.");
                 } else {
                     gestoreOrdini.setStatoMerce(selectedMerce.getID(), StatoOrdine.RITIRATO);
@@ -116,7 +114,14 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }
+    }
 
+    private void mandaAlertPuntoPrelievo() throws SQLException {
+        Ordine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
+        int IDCliente = gestoreOrdini.getIDClienteOrdine(ordine.getID());
+        int IDPuntoPrelievo = gestoreOrdini.getIDPuntoPrelievoOrdine((ordine.getID()));
+        gestoreOrdini.setStatoMerce(selectedMerce.getID(), StatoOrdine.IN_DEPOSITO);
+        gestoreClienti.mandaAlertPuntoPrelievo(IDCliente, gestoreMagazzini.getItem(IDPuntoPrelievo), selectedMerce);
     }
 
     private void selezionaMerce() {
@@ -145,7 +150,8 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
         try {
             if (magazziniChoiceBox.getValue() != null) {
                 Ordine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
-                gestoreClienti.mandaAlertResidenza(ordine.getIDCliente(), magazziniChoiceBox.getValue(), selectedMerce);
+                int IDCliente = gestoreOrdini.getIDClienteOrdine(ordine.getID());
+                gestoreClienti.mandaAlertResidenza(IDCliente, magazziniChoiceBox.getValue(), selectedMerce);
                 successWindow("Destinazione cambiata con successo!", "La merce dovra' essere consegnata al punto di prelievo.");
                 magazziniChoiceBox.getItems().clear();
                 merceSelezionata.add(selectedMerce.getDettagli());

@@ -46,6 +46,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * Se non e' presente viene creato e aggiunto alla lista.
      *
      * @return Il Cliente
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     private Cliente addCliente(ResultSet rs) throws SQLException {
@@ -94,10 +95,20 @@ public class GestoreClienti implements Gestore<Cliente> {
         return tmp;
     }
 
+    public String getCodiceRitiroCliente(int IDCliente) throws SQLException {
+
+        return getItem(IDCliente).getCodiceRitiro();
+    }
+
+    public String getCognomeCliente(int IDCliente) throws SQLException {
+        return getItem(IDCliente).getCognome();
+    }
+
     /**
      * Ritorna la lista dei dettagli dei {@link Cliente Clienti} presenti nel DB.
      *
      * @return ArrayList di ArrayList dei dettagli dei Clienti.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -118,6 +129,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param ID Codice Identificativo del Cliente
      *
      * @return Il Cliente desiderato
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -135,6 +147,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * Ritorna la lista dei {@link Cliente Clienti} presenti nel DB.
      *
      * @return ArrayList dei Clienti.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -146,6 +159,10 @@ public class GestoreClienti implements Gestore<Cliente> {
         return new ArrayList<>(clienti);
     }
 
+    public String getNomeCliente(int IDCliente) throws SQLException {
+        return getItem(IDCliente).getNome();
+    }
+
     /**
      * Crea e inserisce un nuovo {@link Cliente} nella lista.
      *
@@ -153,6 +170,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param cognome Cognome del cliente da inserire
      *
      * @return ArrayList dei dettagli del cliente creato
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
@@ -162,30 +180,34 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Verifica il codice di ritiro del {@link Cliente}, cioè controlla se ha già un codice
-     * creato nella data odierna. In caso negativo viene generato un nuovo codice per il cliente.
+     * Manda un alert al {@link Cliente} per avvisarlo che la {@link MerceOrdine} è arrivata al punto di prelievo.
      *
-     * @param IDCliente ID del Cliente a cui appartiene il codice di ritiro
-     * @param IDOrdine  ID dell' Ordine del cliente
+     * @param IDCliente     ID del cliente da avvisare
+     * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
      *
-     * @return Il codice di ritiro
      * @throws SQLException Errore causato da una query SQL
      */
-    public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) throws SQLException {
-        ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
-        if (rs.next()) {
-            String date = rs.getString("dataCreazione");
-            String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
-            if (Objects.isNull(date) || !date.equals(dataOdierna)) {
-                creazioneCodice(IDCliente, IDOrdine);
-                disconnectToDB(rs);
-                return getItem(IDCliente).getCodiceRitiro();
-            }
-            disconnectToDB(rs);
-            return getItem(IDCliente).getCodiceRitiro();
-        }
-        disconnectToDB(rs);
-        throw new IllegalArgumentException("ID non valido.");
+    public void mandaAlertPuntoPrelievo(int IDCliente, PuntoPrelievo puntoPrelievo, MerceOrdine merceOrdine) throws SQLException {
+        updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
+                "', 'Merce arrivata a destinazione. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
+                + ", indirizzo: " + puntoPrelievo.getIndirizzo()
+                + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
+    }
+
+    /**
+     * Manda un alert al {@link Cliente} per avvisarlo che non è stato trovato dal {@link Corriere}
+     * nella sua residenza, e quindi la merce verrà consegnata al punto di prelievo.
+     *
+     * @param IDCliente     ID del cliente da avvisare
+     * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public void mandaAlertResidenza(int IDCliente, PuntoPrelievo puntoPrelievo, MerceOrdine merceOrdine) throws SQLException {
+        updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
+                "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
+                + ", indirizzo: " + puntoPrelievo.getIndirizzo()
+                + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
     }
 
     /**
@@ -195,6 +217,7 @@ public class GestoreClienti implements Gestore<Cliente> {
      * @param codiceRitiro Codice di Ritiro comunicato dal Cliente
      *
      * @return true se il codice è giusto, false altrimenti
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public boolean verificaCodice(int IDCliente, String codiceRitiro) throws SQLException {
@@ -217,33 +240,30 @@ public class GestoreClienti implements Gestore<Cliente> {
     }
 
     /**
-     * Manda un alert al {@link Cliente} per avvisarlo che non è stato trovato dal {@link Corriere}
-     * nella sua residenza, e quindi la merce verrà consegnata al punto di prelievo.
+     * Verifica il codice di ritiro del {@link Cliente}, cioè controlla se ha già un codice
+     * creato nella data odierna. In caso negativo viene generato un nuovo codice per il cliente.
      *
-     * @param IDCliente     ID del cliente da avvisare
-     * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
+     * @param IDCliente ID del Cliente a cui appartiene il codice di ritiro
+     * @param IDOrdine  ID dell' Ordine del cliente
      *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public void mandaAlertResidenza(int IDCliente, PuntoPrelievo puntoPrelievo, MerceOrdine merceOrdine) throws SQLException {
-        updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
-                "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
-                + ", indirizzo: " + puntoPrelievo.getIndirizzo()
-                + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
-    }
-
-    /**
-     * Manda un alert al {@link Cliente} per avvisarlo che la {@link MerceOrdine} è arrivata al punto di prelievo.
-     *
-     * @param IDCliente     ID del cliente da avvisare
-     * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
+     * @return Il codice di ritiro
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public void mandaAlertPuntoPrelievo(int IDCliente, PuntoPrelievo puntoPrelievo, MerceOrdine merceOrdine) throws SQLException {
-        updateData("INSERT INTO sys.alert_clienti (IDCliente, messaggio) VALUES ('" + IDCliente +
-                "', 'Merce arrivata a destinazione. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
-                + ", indirizzo: " + puntoPrelievo.getIndirizzo()
-                + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
+    public String verificaEsistenzaCodice(int IDCliente, int IDOrdine) throws SQLException {
+        ResultSet rs = executeQuery("select dataCreazione from sys.clienti where ID = " + IDCliente + ";");
+        if (rs.next()) {
+            String date = rs.getString("dataCreazione");
+            String dataOdierna = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
+            if (Objects.isNull(date) || !date.equals(dataOdierna)) {
+                creazioneCodice(IDCliente, IDOrdine);
+                disconnectToDB(rs);
+                return getItem(IDCliente).getCodiceRitiro();
+            }
+            disconnectToDB(rs);
+            return getItem(IDCliente).getCodiceRitiro();
+        }
+        disconnectToDB(rs);
+        throw new IllegalArgumentException("ID non valido.");
     }
 }

@@ -106,20 +106,12 @@ class SimpleNegozioTest {
     }
 
     @Test
-    void selezionaMerce() throws SQLException {
-        ArrayList<String> dettagli = negozioTest.inserisciNuovaMerce(52, "gomma", 10);
-        assertEquals("52.0", negozioTest.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(2));
-        assertEquals("gomma", negozioTest.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(3));
-        assertEquals("10", negozioTest.selezionaMerce(Integer.parseInt(dettagli.get(0))).get(4));
-    }
-
-    @Test
     void setQuantita() throws SQLException {
         Merce simpleMerce = negozioTest.getItem(1);
         assertEquals(10, simpleMerce.getQuantita());
         simpleMerce.setQuantita(100);
         assertEquals(100, simpleMerce.getQuantita());
-        negozioTest.setQuantita(simpleMerce.getID(), 20);
+        negozioTest.setQuantitaMerce(simpleMerce.getID(), 20);
         assertEquals(20, negozioTest.getItem(simpleMerce.getID()).getQuantita());
         ResultSet rs = executeQuery("SELECT quantita FROM sys.inventario where ID = 1;");
         if (rs.next())

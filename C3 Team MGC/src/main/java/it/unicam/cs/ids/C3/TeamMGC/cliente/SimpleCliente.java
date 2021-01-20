@@ -77,6 +77,24 @@ public class SimpleCliente implements Cliente{
     }
 
     @Override
+    public void setCognome(String cognome) throws SQLException {
+        updateData("UPDATE sys.clienti SET cognome = '" + cognome + "' WHERE (ID = '" + this.ID + "');");
+        this.cognome = cognome;
+    }
+
+    @Override
+    public void setNome(String nome) throws SQLException {
+        updateData("UPDATE sys.clienti SET nome = '" + nome + "' WHERE (ID = '" + this.ID + "');");
+        this.nome = nome;
+    }
+
+    @Override
+    public void setDataCreazioneCodice(String dataCreazioneCodice) throws SQLException {
+        updateData("UPDATE sys.clienti SET dataCreazioneCodice = '" + dataCreazioneCodice + "' WHERE (ID = '" + this.ID + "');");
+        this.dataCreazioneCodice = dataCreazioneCodice;
+    }
+
+    @Override
     public String getDataCreazioneCodice() {
         return dataCreazioneCodice;
     }

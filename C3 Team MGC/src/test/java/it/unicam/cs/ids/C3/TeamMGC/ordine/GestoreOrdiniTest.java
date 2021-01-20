@@ -401,27 +401,6 @@ class GestoreOrdiniTest {
     }
 
     @Test
-    void selezionaMerce() throws SQLException {
-        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(7, "Astuccio", 10);
-        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
-        Cliente simpleCliente1 = new SimpleCliente("Maria", "Giuseppa");
-
-        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(simpleCliente1.getID(), simpleCliente1.getNome(), simpleCliente1.getCognome(), negozio);
-        int IDOrdine = Integer.parseInt(ordine1.get(0));
-
-        gestoreOrdini.registraMerce(IDMerce1, 5, IDOrdine, negozio);
-        int IDMerceOrdine1 = gestoreOrdini.getOrdine(IDOrdine).getMerci().get(0).getID();
-
-        ArrayList<String> dettagliMerce = gestoreOrdini.selezionaMerce(IDMerceOrdine1);
-
-        assertEquals(IDOrdine, Integer.parseInt(dettagliMerce.get(1)));
-        assertEquals("7.0", dettagliMerce.get(2));
-        assertEquals("Astuccio", dettagliMerce.get(3));
-        assertEquals("5", dettagliMerce.get(4));
-        assertEquals("PAGATO", dettagliMerce.get(5));
-    }
-
-    @Test
     void setPuntoPrelievo() throws SQLException {
         Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
