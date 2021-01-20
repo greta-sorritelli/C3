@@ -89,12 +89,6 @@ public class SimpleCliente implements Cliente{
     }
 
     @Override
-    public void setDataCreazioneCodice(String dataCreazioneCodice) throws SQLException {
-        updateData("UPDATE sys.clienti SET dataCreazioneCodice = '" + dataCreazioneCodice + "' WHERE (ID = '" + this.ID + "');");
-        this.dataCreazioneCodice = dataCreazioneCodice;
-    }
-
-    @Override
     public String getDataCreazioneCodice() {
         return dataCreazioneCodice;
     }

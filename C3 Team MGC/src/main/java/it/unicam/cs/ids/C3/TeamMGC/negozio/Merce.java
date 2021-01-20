@@ -21,7 +21,6 @@ public interface Merce {
 
     void setQuantita(int quantita) throws SQLException;
 
-
     void delete() throws SQLException;
 
     ArrayList<String> getDettagli() throws SQLException;

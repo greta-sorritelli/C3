@@ -13,8 +13,6 @@ public interface Cliente {
 
      void setNome(String nome) throws SQLException;
 
-     void setDataCreazioneCodice(String dataCreazioneCodice) throws SQLException;
-
      String getDataCreazioneCodice();
 
      int getID();
