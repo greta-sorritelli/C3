@@ -9,10 +9,6 @@ public interface Cliente {
 
      String getCognome();
 
-     void setCognome(String cognome) throws SQLException;
-
-     void setNome(String nome) throws SQLException;
-
      String getDataCreazioneCodice();
 
      int getID();
