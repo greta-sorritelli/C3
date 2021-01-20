@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class JavaFXSelezionaCorriere implements JavaFXController {
 
-    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private Corriere selectedSimpleCorriere;
     private String residenza;

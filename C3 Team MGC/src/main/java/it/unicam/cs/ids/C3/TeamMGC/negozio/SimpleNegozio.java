@@ -248,10 +248,6 @@ public class SimpleNegozio implements Negozio {
         getItem(IDMerce).setQuantita(quantita);
     }
 
-    @Override
-    public ArrayList<String> getDettagliItem(int IDMerce) throws SQLException{
-        return getItem(IDMerce).getDettagli();
-    }
     /**
      * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.
      *
