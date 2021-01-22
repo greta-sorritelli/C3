@@ -4,10 +4,7 @@ import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.*;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.*;
@@ -37,7 +34,7 @@ class GestoreOrdiniTest {
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         updateData("delete from sys.punti_prelievo;");
         updateData("alter table punti_prelievo AUTO_INCREMENT = 1;");
-        negozio = new SimpleNegozio("Merceria", "Oggettistica", "09:00", "18:30", "Via Roma, 30", "123-123-123");
+        negozio = new SimpleNegozio("Bazar", CategoriaNegozio.MERCERIA, "09:00", "18:30", "Via Roma, 30", "123-123-123");
     }
 
     @Test

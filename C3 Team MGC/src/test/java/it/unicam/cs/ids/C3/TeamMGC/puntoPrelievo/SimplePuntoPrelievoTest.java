@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
@@ -30,7 +31,7 @@ class SimplePuntoPrelievoTest {
         updateData("delete from sys.clienti;");
         updateData("alter table clienti AUTO_INCREMENT = 1;");
         simplePuntoPrelievo = new SimplePuntoPrelievo("Castelraimondo", "Stazione");
-        negozioTest = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        negozioTest = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
     }
 
     @Test

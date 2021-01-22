@@ -21,13 +21,13 @@ class SimpleMerceTest {
         updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("delete from sys.negozi;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
-        negozioTest = new SimpleNegozio("merceria", "oggettistica", null, null, "via roma", null);
+        negozioTest = new SimpleNegozio("Bazar", CategoriaNegozio.MERCERIA, null, null, "via roma", null);
         simpleMerceTest = new SimpleMerce(1, 12, "test allSet", 10);
     }
 
     @Test
     void creazioneMerce() throws SQLException {
-        Negozio negozio = new SimpleNegozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
+        Negozio negozio = new SimpleNegozio("Negozio di Bici", CategoriaNegozio.SPORT, "09:00", "16:00", "Via dei Test", "12345");
         Merce simpleMerce = new SimpleMerce(negozio.getID(), 60, "sciarpa",3);
 
         assertEquals(negozio.getID(), simpleMerce.getIDNegozio());

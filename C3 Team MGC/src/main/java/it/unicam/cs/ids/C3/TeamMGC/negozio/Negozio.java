@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface Negozio extends Gestore<Merce> {
 
-    String getCategoria();
+    CategoriaNegozio getCategoria();
 
     int getID();
 

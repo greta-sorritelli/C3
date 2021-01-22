@@ -35,12 +35,12 @@ class SimpleNegozioTest {
 
     @Test
     void getDettagli() throws SQLException {
-        Negozio negozio = new SimpleNegozio("Negozio1", "Sport", "09:00", "16:00", "Via degli Assert", "123456");
+        Negozio negozio = new SimpleNegozio("Negozio1", CategoriaNegozio.SPORT, "09:00", "16:00", "Via degli Assert", "123456");
         ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma", 10);
         ArrayList<String> test = new ArrayList<>();
         test.add(String.valueOf(negozio.getID()));
         test.add("Negozio1");
-        test.add("Sport");
+        test.add("SPORT");
         test.add("09:00");
         test.add("16:00");
         test.add("Via degli Assert");
@@ -66,14 +66,16 @@ class SimpleNegozioTest {
 
     @Test
     void getMerceDisponibile() throws SQLException {
-        ArrayList<Merce> inventario = negozioTest.getItems();
-        assertEquals(1, inventario.get(0).getID());
-        assertEquals(1, inventario.get(1).getIDNegozio());
-        assertEquals("test Negozio", inventario.get(2).getDescrizione());
+        Negozio negozio = new SimpleNegozio("Negozio2", CategoriaNegozio.ABBIGLIAMENTO, "09:00", "16:00", "Via degli Assert,56", "5644");
+        ArrayList<String> merce = negozio.inserisciNuovaMerce(15,"test Negozio",10);
+        ArrayList<Merce> inventario = negozio.getItems();
+        assertEquals(Integer.parseInt(merce.get(0)), inventario.get(0).getID());
+        assertEquals(negozio.getID(), inventario.get(0).getIDNegozio());
+        assertEquals("test Negozio", inventario.get(0).getDescrizione());
 
-        assertEquals(5, inventario.size());
-        inventario = negozioTest.getItems();
-        assertEquals(5, inventario.size());
+        assertEquals(1, inventario.size());
+        inventario = negozio.getItems();
+        assertEquals(1, inventario.size());
     }
 
     @Test
@@ -91,7 +93,7 @@ class SimpleNegozioTest {
         updateData("delete from sys.inventario;");
         updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
-        negozioTest = new SimpleNegozio("Negozio di Bici", "Sport", "09:00", "16:00", "Via dei Test", "12345");
+        negozioTest = new SimpleNegozio("Negozio di Bici", CategoriaNegozio.SPORT, "09:00", "16:00", "Via dei Test", "12345");
         negozioTest.inserisciNuovaMerce(10,"test Negozio",10);
         negozioTest.inserisciNuovaMerce(5,"test Negozio",1);
         negozioTest.inserisciNuovaMerce(50,"test Negozio",20);
@@ -122,14 +124,14 @@ class SimpleNegozioTest {
     void update() throws SQLException {
         int IDTest = negozioTest.getID();
         assertEquals("Negozio di Bici", negozioTest.getNome());
-        assertEquals("Sport", negozioTest.getCategoria());
+        assertEquals(CategoriaNegozio.SPORT, negozioTest.getCategoria());
         assertEquals("09:00", negozioTest.getOrarioApertura());
         assertEquals("16:00", negozioTest.getOrarioChiusura());
         assertEquals("Via dei Test", negozioTest.getIndirizzo());
         assertEquals("12345", negozioTest.getTelefono());
 
         updateData("UPDATE sys.negozi SET nome = 'Negozio di scarpe' WHERE (ID = '" + IDTest + "');");
-        updateData("UPDATE sys.negozi SET categoria = 'Scarpe' WHERE (ID = '" + IDTest + "');");
+        updateData("UPDATE sys.negozi SET categoria = 'ABBIGLIAMENTO' WHERE (ID = '" + IDTest + "');");
         updateData("UPDATE sys.negozi SET orarioApertura = '08:00' WHERE (ID = '" + IDTest + "');");
         updateData("UPDATE sys.negozi SET orarioChiusura = '15:00' WHERE (ID = '" + IDTest + "');");
         updateData("UPDATE sys.negozi SET indirizzo = 'Via degli assert' WHERE (ID = '" + IDTest + "');");
@@ -137,7 +139,7 @@ class SimpleNegozioTest {
 
         negozioTest.update();
         assertEquals("Negozio di scarpe", negozioTest.getNome());
-        assertEquals("Scarpe", negozioTest.getCategoria());
+        assertEquals(CategoriaNegozio.ABBIGLIAMENTO, negozioTest.getCategoria());
         assertEquals("08:00", negozioTest.getOrarioApertura());
         assertEquals("15:00", negozioTest.getOrarioChiusura());
         assertEquals("Via degli assert", negozioTest.getIndirizzo());

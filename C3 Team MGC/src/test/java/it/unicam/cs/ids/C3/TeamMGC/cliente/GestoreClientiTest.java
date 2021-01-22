@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
@@ -76,7 +77,7 @@ class GestoreClientiTest {
     void mandaAlert() throws SQLException {
         ArrayList<Cliente> test = gestoreClienti.getItems();
         PuntoPrelievo p = new SimplePuntoPrelievo("via Verdi","B1");
-        Negozio negozio = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        Negozio negozio = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
         Ordine simpleOrdine1 = new SimpleOrdine(test.get(0).getID(), test.get(0).getNome(), test.get(0).getCognome(), negozio.getID());
         MerceOrdine merce1 = new SimpleMerceOrdine(10, "matita", StatoOrdine.IN_DEPOSITO, simpleOrdine1.getID());
 
@@ -101,7 +102,7 @@ class GestoreClientiTest {
     @Test
     void verificaCodice() throws SQLException {
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
-        Negozio negozio = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        Negozio negozio = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
         Ordine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
         assertTrue(gestoreClienti.verificaCodice(Integer.parseInt(dettagli.get(0)),codice));
@@ -112,7 +113,7 @@ class GestoreClientiTest {
     @Test
     void verificaEsistenzaCodiceTest() throws SQLException {
         ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
-        Negozio negozio = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
+        Negozio negozio = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
         Ordine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
         Cliente simpleCliente = gestoreClienti.getItem(Integer.parseInt(dettagli.get(0)));

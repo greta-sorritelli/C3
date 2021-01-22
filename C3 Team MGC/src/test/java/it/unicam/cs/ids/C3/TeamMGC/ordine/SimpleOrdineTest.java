@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
@@ -30,7 +31,7 @@ class SimpleOrdineTest {
         updateData("delete from sys.negozi;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         simpleCliente = new SimpleCliente("Matteo", "Rondini");
-        negozio = new SimpleNegozio("Negozio di Bici", "Sport", "09:00-16:00", "", "Via dei Test", "12345");
+        negozio = new SimpleNegozio("Negozio di Bici", CategoriaNegozio.SPORT, "09:00-16:00", "", "Via dei Test", "12345");
     }
 
     @Test

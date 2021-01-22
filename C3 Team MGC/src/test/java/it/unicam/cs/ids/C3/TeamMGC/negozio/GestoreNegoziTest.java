@@ -27,9 +27,9 @@ class GestoreNegoziTest {
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
-        updateData("INSERT INTO sys.negozi (nome, indirizzo, categoria, orarioApertura, orarioChiusura, telefono) VALUES ('Emporio', 'Via Culmone', 'Sport', '08:00', '18:00', 36985214);");
-        updateData("INSERT INTO sys.negozi (nome, indirizzo, categoria, orarioApertura, orarioChiusura, telefono) VALUES ('Burrobirra', 'Via Hagrid', 'Bevande', '08:30', '18:30', 5775588);");
-        updateData("INSERT INTO sys.negozi (nome, indirizzo, categoria, orarioApertura, orarioChiusura, telefono) VALUES ('Ollivander', 'Via Vol de Mort', 'Abbigliamento', '09:00', '17:00', 7854169);");
+        updateData("INSERT INTO sys.negozi (nome, indirizzo, categoria, orarioApertura, orarioChiusura, telefono) VALUES ('Emporio', 'Via Culmone', 'SPORT', '08:00', '18:00', 36985214);");
+        updateData("INSERT INTO sys.negozi (nome, indirizzo, categoria, orarioApertura, orarioChiusura, telefono) VALUES ('Burrobirra', 'Via Hagrid', 'ALIMENTARI', '08:30', '18:30', 5775588);");
+        updateData("INSERT INTO sys.negozi (nome, indirizzo, categoria, orarioApertura, orarioChiusura, telefono) VALUES ('Ollivander', 'Via Vol de Mort', 'ABBIGLIAMENTO', '09:00', '17:00', 7854169);");
     }
 
     @Test
@@ -38,7 +38,7 @@ class GestoreNegoziTest {
         ArrayList<String> prova = new ArrayList<>();
         prova.add("1");
         prova.add("Emporio");
-        prova.add("Sport");
+        prova.add("SPORT");
         prova.add("08:00");
         prova.add("18:00");
         prova.add("Via Culmone");

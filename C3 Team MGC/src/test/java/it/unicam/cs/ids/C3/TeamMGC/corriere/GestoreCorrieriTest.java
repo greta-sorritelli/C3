@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
@@ -137,9 +138,9 @@ class GestoreCorrieriTest {
     @Test
     void mandaAlert() throws SQLException {
         ArrayList<ArrayList<String>> test = gestoreCorrieri.getDettagliCorrieriDisponibili();
-        Negozio negozio = new SimpleNegozio("Trinkets", "Cleptomania", null, null, "Via delle Trombette", null);
-        Negozio negozio1 = new SimpleNegozio("Sportland", "Sport", null, null, "Via delle Trombe", null);
-        Negozio negozio2 = new SimpleNegozio("King", "Sport", null, null, "Via delle Cascate", null);
+        Negozio negozio = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
+        Negozio negozio1 = new SimpleNegozio("Sportland", CategoriaNegozio.SPORT, null, null, "Via delle Trombe", null);
+        Negozio negozio2 = new SimpleNegozio("King", CategoriaNegozio.SPORT, null, null, "Via delle Cascate", null);
         ArrayList<Negozio> negozi = new ArrayList<>();
         negozi.add(negozio);
         negozi.add(negozio1);
