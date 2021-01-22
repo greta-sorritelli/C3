@@ -10,9 +10,11 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -91,6 +93,10 @@ class SimpleOrdineTest {
         assertEquals(-1, ordine.getPuntoPrelievo());
         ordine.setPuntoPrelievo(p.getID());
         assertEquals(p.getID(), ordine.getPuntoPrelievo());
+
+        ResultSet rs = executeQuery("SELECT IDPuntoPrelievo FROM sys.ordini where ID = " + ordine.getID() + ";");
+        if (rs.next())
+            assertEquals(p.getID(), rs.getInt("IDPuntoPrelievo"));
     }
 
     @Test
@@ -99,6 +105,10 @@ class SimpleOrdineTest {
         assertEquals(StatoOrdine.DA_PAGARE, ordine.getStato());
         ordine.setStato(StatoOrdine.RITIRATO);
         assertEquals(ordine.getStato(), StatoOrdine.RITIRATO);
+
+        ResultSet rs = executeQuery("SELECT stato FROM sys.ordini where ID = " + ordine.getID() + ";");
+        if (rs.next())
+            assertEquals(StatoOrdine.RITIRATO, StatoOrdine.valueOf(rs.getString("stato")));
     }
 
     @Test

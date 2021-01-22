@@ -81,12 +81,6 @@ public class SimpleNegozio implements Negozio {
         return toReturn;
     }
 
-    //todo test
-    public void setCategoria(CategoriaNegozio categoria) throws SQLException {
-        updateData("UPDATE sys.negozi SET categoria = '" + categoria + "' WHERE (ID = '" + getID() + "');");
-        this.categoria = categoria;
-    }
-
     /**
      * Aggiunge un {@link Merce} all' inventario.
      *
@@ -100,6 +94,13 @@ public class SimpleNegozio implements Negozio {
     @Override
     public CategoriaNegozio getCategoria() {
         return categoria;
+    }
+
+    //todo test
+    @Override
+    public void setCategoria(CategoriaNegozio categoria) throws SQLException {
+        updateData("UPDATE sys.negozi SET categoria = '" + categoria + "' WHERE (ID = '" + getID() + "');");
+        this.categoria = categoria;
     }
 
     /**
@@ -123,6 +124,23 @@ public class SimpleNegozio implements Negozio {
         toReturn.add(String.valueOf(getInventario()));
         return toReturn;
 
+    }
+
+    /**
+     * Ritorna la lista dei dettagli di tutta la {@link Merce} all' interno del {@link SimpleNegozio}.
+     *
+     * @return ArrayList di ArrayList dei dettagli della merce
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
+    public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
+        ResultSet rs = executeQuery("SELECT ID FROM sys.inventario where IDNegozio='" + ID + "';");
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        while (rs.next())
+            toReturn.add(addMerceInventario(rs).getDettagli());
+        disconnectToDB(rs);
+        return toReturn;
     }
 
     @Override
@@ -161,23 +179,6 @@ public class SimpleNegozio implements Negozio {
             disconnectToDB(rs);
             throw new IllegalArgumentException("ID non valido.");
         }
-    }
-
-    /**
-     * Ritorna la lista dei dettagli di tutta la {@link Merce} all' interno del {@link SimpleNegozio}.
-     *
-     * @return ArrayList di ArrayList dei dettagli della merce
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    @Override
-    public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
-        ResultSet rs = executeQuery("SELECT ID FROM sys.inventario where IDNegozio='" + ID + "';");
-        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        while (rs.next())
-            toReturn.add(addMerceInventario(rs).getDettagli());
-        disconnectToDB(rs);
-        return toReturn;
     }
 
     /**

@@ -25,6 +25,8 @@ public interface Negozio extends Gestore<Merce> {
 
     void setQuantitaMerce(int IDMerce, int quantita) throws SQLException;
 
+    void setCategoria(CategoriaNegozio categoria) throws SQLException;
+
     ArrayList<String> getDettagli() throws SQLException;
 
     ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException;

@@ -1,11 +1,14 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,6 +57,10 @@ class SimpleCorriereTest {
         assertTrue(simpleCorriereTest.getDisponibilita());
         simpleCorriereTest.setDisponibilita(false);
         assertFalse(simpleCorriereTest.getDisponibilita());
+
+        ResultSet rs = executeQuery("SELECT stato FROM sys.corrieri where ID = " + simpleCorriereTest.getID() + ";");
+        if (rs.next())
+            assertEquals("false", rs.getString("stato"));
     }
 
     @Test

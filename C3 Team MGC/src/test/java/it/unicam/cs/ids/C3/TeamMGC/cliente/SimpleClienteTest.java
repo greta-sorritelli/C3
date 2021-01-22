@@ -1,14 +1,17 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,6 +64,10 @@ class SimpleClienteTest {
         simpleCliente.setCodiceRitiro("85963214");
         assertEquals("85963214", simpleCliente.getCodiceRitiro());
         assertEquals(data, simpleCliente.getDataCreazioneCodice());
+
+        ResultSet rs = executeQuery("SELECT codiceRitiro FROM sys.clienti where ID = " + simpleCliente.getID() + ";");
+        if (rs.next())
+            assertEquals("85963214", rs.getString("codiceRitiro"));
     }
 
     @Test

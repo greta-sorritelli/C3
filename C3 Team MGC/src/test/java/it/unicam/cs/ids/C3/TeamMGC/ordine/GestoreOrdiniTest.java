@@ -9,9 +9,11 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.SimplePuntoPrelievo;
 import org.junit.jupiter.api.*;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -426,6 +428,10 @@ class GestoreOrdiniTest {
         gestoreOrdini.setStatoMerce(IDMerceOrdine, StatoOrdine.AFFIDATO_AL_CORRIERE);
         assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE, gestoreOrdini.getMerceOrdine(IDMerceOrdine).getStato());
         assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
+
+        ResultSet rs = executeQuery("SELECT stato FROM sys.merci where ID = " + IDMerceOrdine + ";");
+        if (rs.next())
+            assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE,StatoOrdine.valueOf(rs.getString("stato")));
     }
 
     @Test
@@ -435,6 +441,10 @@ class GestoreOrdiniTest {
         assertEquals(StatoOrdine.DA_PAGARE, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
         gestoreOrdini.setStatoOrdine(Integer.parseInt(ordine.get(0)), StatoOrdine.IN_DEPOSITO);
         assertEquals(StatoOrdine.IN_DEPOSITO, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
+
+        ResultSet rs = executeQuery("SELECT stato FROM sys.ordini where ID = " + Integer.parseInt(ordine.get(0)) + ";");
+        if (rs.next())
+            assertEquals(StatoOrdine.IN_DEPOSITO,StatoOrdine.valueOf(rs.getString("stato")));
     }
 
     @Test
