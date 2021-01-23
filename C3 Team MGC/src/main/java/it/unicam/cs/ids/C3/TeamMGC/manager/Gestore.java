@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.C3.TeamMGC;
+package it.unicam.cs.ids.C3.TeamMGC.manager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
