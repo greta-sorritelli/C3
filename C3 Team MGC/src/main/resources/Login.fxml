@@ -7,22 +7,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#updateUtentiChoiceBox" prefHeight="330.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox layoutX="209.0" layoutY="81.0" prefHeight="25.0" prefWidth="200.0" />
+      <ChoiceBox fx:id="utentiChoiceBox" layoutX="209.0" layoutY="81.0" onMouseClicked="#showUtenti" prefHeight="25.0" prefWidth="200.0" />
       <Label layoutX="86.0" layoutY="85.0" text="Tipologia utente" />
-      <Label layoutX="121.0" layoutY="134.0" text="ID" />
-      <Label disable="true" layoutX="113.0" layoutY="188.0" opacity="0.0" text="Nome" />
-      <Label disable="true" layoutX="104.0" layoutY="240.0" opacity="0.0" text="Cognome" />
-      <TextField layoutX="234.0" layoutY="130.0" />
-      <TextField disable="true" layoutX="234.0" layoutY="184.0" opacity="0.0" />
-      <TextField disable="true" layoutX="234.0" layoutY="236.0" opacity="0.0" />
-      <Button layoutX="394.0" layoutY="270.0" mnemonicParsing="false" text="Login" />
+      <Label layoutX="124.0" layoutY="126.0" text="ID*" />
+      <Label layoutX="113.0" layoutY="168.0" text="Nome*" />
+      <Label layoutX="104.0" layoutY="207.0" text="Cognome*" />
+      <TextField fx:id="ID" layoutX="235.0" layoutY="122.0" />
+      <TextField fx:id="nome" layoutX="234.0" layoutY="164.0" />
+      <TextField fx:id="cognome" layoutX="234.0" layoutY="203.0" />
+      <Button layoutX="433.0" layoutY="284.0" mnemonicParsing="false" text="Login" />
       <Label layoutX="51.0" layoutY="28.0" text="Login" AnchorPane.leftAnchor="51.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
+      <Label layoutX="105.0" layoutY="250.0" text="Password*" />
+      <TextField fx:id="password" layoutX="234.0" layoutY="246.0" />
    </children>
 </AnchorPane>

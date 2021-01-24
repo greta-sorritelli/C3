@@ -15,6 +15,10 @@ public class JavaFXC3Controller implements JavaFXController {
         openWindow("/SignIn.fxml", "SignIn", new JavaFXSignIn());
     }
 
+    public void login(){
+        openWindow("/Login.fxml", "Login", new JavaFXLogin());
+    }
+
     public void visualizzaHomeAddetto() throws SQLException {
         openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto Magazzino", new IAddettoMagazzino());
     }

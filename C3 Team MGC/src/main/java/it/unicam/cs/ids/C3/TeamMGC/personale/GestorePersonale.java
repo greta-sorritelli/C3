@@ -7,14 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 public class GestorePersonale implements Gestore<Personale> {
 
     private final int IDNegozio;
     ArrayList<Personale> personale = new ArrayList<>();
 
+    //todo test tutto
     public GestorePersonale(int IDNegozio) {
         this.IDNegozio = IDNegozio;
     }
@@ -171,8 +171,10 @@ public class GestorePersonale implements Gestore<Personale> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> inserisciAddetto(int IDNegozio, String nome, String cognome) throws SQLException {
+    //todo commento
+    public ArrayList<String> inserisciAddetto(String nome, String cognome, String password) throws SQLException {
         Personale addetto = new AddettoMagazzinoNegozio(IDNegozio, nome, cognome);
+        updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + addetto.getID() + ");");
         addPersonaleToList(addetto);
         return addetto.getDettagli();
     }
@@ -187,11 +189,13 @@ public class GestorePersonale implements Gestore<Personale> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> inserisciCommerciante(int IDNegozio, String nome, String cognome) throws SQLException {
+    //todo commento
+    public ArrayList<String> inserisciCommerciante(String nome, String cognome, String password) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.COMMERCIANTE + "';");
         if (rs.next())
             throw new IllegalArgumentException("Commerciante già presente.");
         Personale commerciante = new Commerciante(IDNegozio, nome, cognome);
+        updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + commerciante.getID() + ");");
         addPersonaleToList(commerciante);
         return commerciante.getDettagli();
     }
@@ -206,8 +210,10 @@ public class GestorePersonale implements Gestore<Personale> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> inserisciCommesso(int IDNegozio, String nome, String cognome) throws SQLException {
+    //todo commento
+    public ArrayList<String> inserisciCommesso( String nome, String cognome, String password) throws SQLException {
         Personale commesso = new Commesso(IDNegozio, nome, cognome);
+        updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + commesso.getID() + ");");
         addPersonaleToList(commesso);
         return commesso.getDettagli();
     }

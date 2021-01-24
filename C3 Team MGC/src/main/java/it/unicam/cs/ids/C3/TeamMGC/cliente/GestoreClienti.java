@@ -173,8 +173,10 @@ public class GestoreClienti implements Gestore<Cliente> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
+    public ArrayList<String> inserisciDati(String nome, String cognome, String password) throws SQLException {
+        //todo commento
         Cliente simpleCliente = new SimpleCliente(nome, cognome);
+        updateData("UPDATE sys.clienti SET password = '" + password + "' WHERE (ID =" + simpleCliente.getID() + ");");
         addClienteToList(simpleCliente);
         return simpleCliente.getDettagli();
     }

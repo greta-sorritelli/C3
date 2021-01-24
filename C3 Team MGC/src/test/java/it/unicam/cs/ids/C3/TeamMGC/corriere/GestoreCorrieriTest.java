@@ -42,7 +42,7 @@ class GestoreCorrieriTest {
 
     @Test
     void addCorriere() throws SQLException {
-        ArrayList<String> dettagli = gestoreCorrieri.inserisciDati("Luigi", "Bianchi");
+        ArrayList<String> dettagli = gestoreCorrieri.inserisciDati("Luigi", "Bianchi", "15426358");
 
         assertEquals("Luigi", dettagli.get(1));
         assertEquals("Bianchi", dettagli.get(2));
@@ -129,7 +129,7 @@ class GestoreCorrieriTest {
 
     @Test
     void inserisciDati() throws SQLException {
-        ArrayList<String> test = gestoreCorrieri.inserisciDati("Giuseppe", "Bianchi");
+        ArrayList<String> test = gestoreCorrieri.inserisciDati("Giuseppe", "Bianchi", "15426358");
         assertTrue(gestoreCorrieri.getItems().contains(gestoreCorrieri.getItem(Integer.parseInt(test.get(0)))));
         assertEquals("Giuseppe", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getNome());
         assertEquals("Bianchi", gestoreCorrieri.getItem(Integer.parseInt(test.get(0))).getCognome());

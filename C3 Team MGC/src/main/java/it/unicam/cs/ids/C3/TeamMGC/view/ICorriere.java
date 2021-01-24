@@ -56,15 +56,6 @@ public class ICorriere implements JavaFXController {
      * Apre la finestra registrarsi sulla piattaforma.
      */
     @FXML
-    //todo creare fxml
-    public void avviaRegistrazione() {
-        openWindow("/RegistrazionePiattaforma.fxml", "Registrazione Piattaforma", new JavaFXRegistrazionePiattaforma());
-    }
-
-    /**
-     * Apre la finestra registrarsi sulla piattaforma.
-     */
-    @FXML
     public void trasportoMerce() {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

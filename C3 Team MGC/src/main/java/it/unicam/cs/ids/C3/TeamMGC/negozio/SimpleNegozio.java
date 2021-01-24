@@ -42,6 +42,14 @@ public class SimpleNegozio implements Negozio {
         disconnectToDB(rs);
     }
 
+    @Override
+    public String toString() {
+        return "ID=" + ID +
+                ", nome='" + nome + '\'' +
+                ", categoria=" + categoria +
+                ", indirizzo='" + indirizzo + '\'';
+    }
+
     /**
      * Costruttore per importare i dati dal DB
      *

@@ -177,8 +177,10 @@ public class GestoreCorrieri implements Gestore<Corriere> {
      * @return ArrayList dei dettagli del corriere creato
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> inserisciDati(String nome, String cognome) throws SQLException {
+    //todo commento
+    public ArrayList<String> inserisciDati(String nome, String cognome,String password) throws SQLException {
         Corriere simpleCorriere = new SimpleCorriere(nome, cognome, true);
+        updateData("UPDATE sys.corrieri SET password = '" + password + "' WHERE (ID =" + simpleCorriere.getID() + ");");
         addCorriereToList(simpleCorriere);
         return simpleCorriere.getDettagli();
     }

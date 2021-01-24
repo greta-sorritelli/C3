@@ -140,4 +140,24 @@ public class GestoreMagazzini implements Gestore<PuntoPrelievo> {
         return getItems();
     }
 
+    /**
+     * todo
+     *
+     * @param IDPuntoPrelievo
+     * @param nome
+     * @param cognome
+     * @param password
+     *
+     * @throws SQLException
+     */
+    //todo test
+    public ArrayList<String> inserisciMagazziniere(int IDPuntoPrelievo, String nome, String cognome, String password) throws SQLException {
+        ArrayList<String> dettagli = new ArrayList<>();
+        dettagli.add(String.valueOf(IDPuntoPrelievo));
+        dettagli.add(nome);
+        dettagli.add(cognome);
+        updateData("INSERT INTO sys.magazzinieri (IDPuntoPrelievo,nome,cognome,password) VALUES ('" + IDPuntoPrelievo + "', '" + nome + "', '" + cognome + "', '" + password + "');");
+        return dettagli;
+    }
+
 }

@@ -67,7 +67,7 @@ class GestoreClientiTest {
 
     @Test
     void inserisciDati() throws SQLException {
-        ArrayList<String> test = gestoreClienti.inserisciDati("Sabrina","Spellman");
+        ArrayList<String> test = gestoreClienti.inserisciDati("Sabrina","Spellman","12564");
         assertTrue(gestoreClienti.getItems().contains(gestoreClienti.getItem(Integer.parseInt(test.get(0)))));
         assertEquals("Sabrina",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getNome());
         assertEquals("Spellman",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getCognome());
@@ -101,7 +101,7 @@ class GestoreClientiTest {
 
     @Test
     void verificaCodice() throws SQLException {
-        ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
+        ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi", "48752");
         Negozio negozio = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
         Ordine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
@@ -112,7 +112,7 @@ class GestoreClientiTest {
 
     @Test
     void verificaEsistenzaCodiceTest() throws SQLException {
-        ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi");
+        ArrayList<String> dettagli = gestoreClienti.inserisciDati("Mario", "Rossi","85236");
         Negozio negozio = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
         Ordine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
