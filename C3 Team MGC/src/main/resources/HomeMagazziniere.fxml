@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane minHeight="300.0" minWidth="500.0" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="425.0" layoutY="315.0" mnemonicParsing="false" onAction="#consegnaMerceCliente" text="Consegnare Merce" />
-      <Button layoutX="199.0" layoutY="315.0" mnemonicParsing="false" onAction="#avvisaCorriere" text="Comunicare con il Corriere" />
+      <Button layoutX="279.0" layoutY="235.0" mnemonicParsing="false" onAction="#consegnaMerceCliente" text="Consegnare Merce" />
+      <Button layoutX="77.0" layoutY="235.0" mnemonicParsing="false" onAction="#avvisaCorriere" text="Comunicare con il Corriere" />
+      <Label layoutX="42.0" layoutY="43.0" text="Home Magazziniere" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
-</Pane>
+</AnchorPane>

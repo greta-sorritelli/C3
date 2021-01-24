@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class JavaFXC3Controller implements JavaFXController {
 
     public void registrazionePiattaforma(){
-        //todo
+        openWindow("/SignIn.fxml", "SignIn", new JavaFXSignIn());
     }
 
     public void visualizzaHomeAddetto() throws SQLException {

@@ -21,7 +21,7 @@ public class JavaFXC3 extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/HomeApp.fxml"));
         stage.setTitle("C3 Home");
         Image ico = new Image("/icon.png");
         stage.getIcons().add(ico);
