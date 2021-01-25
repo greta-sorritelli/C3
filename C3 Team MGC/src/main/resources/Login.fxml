@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#updateUtentiChoiceBox" prefHeight="330.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox fx:id="utentiChoiceBox" layoutX="209.0" layoutY="81.0" onMouseClicked="#showUtenti" prefHeight="25.0" prefWidth="200.0" />
+      <ChoiceBox fx:id="utentiChoiceBox" layoutX="209.0" layoutY="81.0" onAction="#setUtenteLogin" onMouseClicked="#showUtenti" onMouseMoved="#updateUtentiChoiceBox" prefHeight="25.0" prefWidth="200.0" />
       <Label layoutX="86.0" layoutY="85.0" text="Tipologia utente" />
       <Label layoutX="121.0" layoutY="134.0" prefHeight="18.0" prefWidth="17.0" text="ID*" />
       <TextField fx:id="ID" layoutX="209.0" layoutY="130.0" prefHeight="26.0" prefWidth="200.0" />
-      <Button layoutX="433.0" layoutY="284.0" mnemonicParsing="false" text="Login" />
+      <Button layoutX="433.0" layoutY="284.0" mnemonicParsing="false" onAction="#loginUtente" text="Login" />
       <Label layoutX="51.0" layoutY="28.0" text="Login" AnchorPane.leftAnchor="51.0">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -22,7 +22,7 @@
       </Label>
       <Label layoutX="102.0" layoutY="181.0" text="Password*" />
       <PasswordField fx:id="password" layoutX="209.0" layoutY="177.0" prefHeight="26.0" prefWidth="200.0" />
-      <Label fx:id="IDSedeLavoro" layoutX="80.0" layoutY="230.0" text="ID Sede di Lavoro*" />
-      <TextField fx:id="IDSede" layoutX="209.0" layoutY="226.0" prefHeight="26.0" prefWidth="200.0" />
+      <Label fx:id="IDSedeLavoro" layoutX="80.0" layoutY="230.0" text="ID Sede di Lavoro*" visible="false" />
+      <TextField fx:id="IDSede" layoutX="209.0" layoutY="226.0" prefHeight="26.0" prefWidth="200.0" visible="false" />
    </children>
 </AnchorPane>

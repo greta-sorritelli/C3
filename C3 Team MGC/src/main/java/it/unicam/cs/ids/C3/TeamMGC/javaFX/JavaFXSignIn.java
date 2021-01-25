@@ -7,6 +7,7 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.personale.GestorePersonale;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+import it.unicam.cs.ids.C3.TeamMGC.view.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -264,6 +265,7 @@ public class JavaFXSignIn implements JavaFXController {
             successWindow("Sign in successful!", "Addetto registrato con successo!\n" +
                     "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordAddetto.getText() + ".");
             closeWindow((Stage) nomeAddetto.getScene().getWindow());
+            openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto magazzino del negozio", new IAddettoMagazzino(Integer.parseInt(dettagli.get(0)), Integer.parseInt(dettagli.get(2))));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -283,6 +285,7 @@ public class JavaFXSignIn implements JavaFXController {
             successWindow("Sign in successful!", "Cliente registrato con successo!\n" +
                     "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordCliente.getText() + ".");
             closeWindow((Stage) nomeCliente.getScene().getWindow());
+            openWindow("/HomeCliente.fxml", "Home Cliente", new ICliente(Integer.parseInt(dettagli.get(0))));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -303,6 +306,7 @@ public class JavaFXSignIn implements JavaFXController {
             successWindow("Sign in successful!", "Commerciante registrato con successo!\n" +
                     "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordCommerciante.getText() + ".");
             closeWindow((Stage) nomeCommerciante.getScene().getWindow());
+            openWindow("/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante(Integer.parseInt(dettagli.get(0)), Integer.parseInt(dettagli.get(2))));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -329,6 +333,7 @@ public class JavaFXSignIn implements JavaFXController {
             successWindow("Sign in successful!", "Commesso registrato con successo.!\n" +
                     "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordCommesso.getText() + ".");
             closeWindow((Stage) nomeCommesso.getScene().getWindow());
+            openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso(Integer.parseInt(dettagli.get(0)), Integer.parseInt(dettagli.get(2))));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -348,6 +353,7 @@ public class JavaFXSignIn implements JavaFXController {
             successWindow("Sign in successful!", "Corriere registrato con successo!\n" +
                     "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordCorriere.getText() + ".");
             closeWindow((Stage) nomeCorriere.getScene().getWindow());
+            openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere(Integer.parseInt(dettagli.get(0))));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -367,6 +373,7 @@ public class JavaFXSignIn implements JavaFXController {
             successWindow("Sign in successful!", "Magazziniere registrato con successo!\n" +
                     "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordMagazziniere.getText() + ".");
             closeWindow((Stage) nomeMagazziniere.getScene().getWindow());
+            openWindow("/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere(Integer.parseInt(dettagli.get(0))));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {

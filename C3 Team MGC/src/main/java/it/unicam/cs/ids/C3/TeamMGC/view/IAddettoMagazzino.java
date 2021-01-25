@@ -3,20 +3,21 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino.JavaFXAssegnaMerceCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino.JavaFXGestioneInventario;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
 
 public class IAddettoMagazzino implements JavaFXController {
 
-    //todo
-    private final Negozio negozio = new SimpleNegozio(1);
+    private GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
+    private final Negozio negozio;
     private int ID;
 
-    public IAddettoMagazzino(int id) throws SQLException {
-        this.ID = id;
+    public IAddettoMagazzino(int ID, int IDNegozio) throws SQLException {
+        this.ID = ID;
+        this.negozio = gestoreNegozi.getItem(IDNegozio);
     }
 
     /**

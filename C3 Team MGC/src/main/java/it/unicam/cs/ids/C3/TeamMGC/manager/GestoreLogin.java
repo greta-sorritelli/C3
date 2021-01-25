@@ -7,7 +7,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 public abstract class GestoreLogin {
 
-    public boolean checkInfoUtente(String tipologiaUtente, int ID, String password) throws SQLException {
+    public boolean checkInfo(String tipologiaUtente, int ID, String password) throws SQLException {
         String query;
         switch (tipologiaUtente) {
             case "CLIENTE":
@@ -15,6 +15,9 @@ public abstract class GestoreLogin {
                 break;
             case "CORRIERE":
                 query = "SELECT ID FROM sys.corrieri WHERE ID = " + ID + " AND password = '" + password + "';";
+                break;
+            case "MAGAZZINIERE":
+                query = "SELECT ID FROM sys.magazzinieri WHERE IDPuntoPrelievo = " + ID + " AND password = '" + password + "';";
                 break;
             default:
                 throw new IllegalStateException("Valore non corretto: " + tipologiaUtente);
@@ -25,12 +28,9 @@ public abstract class GestoreLogin {
         return check;
     }
 
-    public boolean checkInfoPersonale(String tipologiaUtente, int ID, String password, int IDSedeLavoro) throws SQLException {
+    public boolean checkInfo(String tipologiaUtente, int ID, String password, int IDSedeLavoro) throws SQLException {
         String query;
         switch (tipologiaUtente) {
-            case "MAGAZZINIERE":
-                query = "SELECT ID FROM sys.magazzinieri WHERE ID = " + ID + " AND IDPuntoPrelievo = " + IDSedeLavoro + " AND password = '" + password + "';";
-                break;
             case "COMMERCIANTE":
             case "COMMESSO":
             case "ADDETTO_MAGAZZINO":
