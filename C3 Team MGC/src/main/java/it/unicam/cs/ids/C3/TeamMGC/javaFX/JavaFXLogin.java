@@ -43,6 +43,170 @@ public class JavaFXLogin implements JavaFXController {
         return t.getText();
     }
 
+    private void loginAddettoMagazzino() {
+        try {
+            if (ID.getText().isEmpty() || getPassword(password).isEmpty() || IDSede.getText().isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            int id = Integer.parseInt(ID.getText());
+            int idNegozio = Integer.parseInt(IDSede.getText());
+            gestorePersonale = new GestorePersonale(idNegozio);
+            if (gestorePersonale.checkInfo("ADDETTO_MAGAZZINO", id, password.getText(), idNegozio)) {
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                openWindow("/addettoMagazzino/HomeAddettoMagazzino.fxml", "Home Addetto magazzino del negozio", new IAddettoMagazzino(id, idNegozio));
+                closeWindow((Stage) ID.getScene().getWindow());
+            } else
+                errorWindow("Login non effettuato.", "ID o password errati.");
+        } catch (IllegalArgumentException e) {
+            errorWindow("Dati errati.", "ID o password errati.");
+        } catch (NullPointerException exception) {
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalStateException e) {
+            errorWindow("Valore non corretto", "Inserire un valore valido.");
+        }
+    }
+
+    private void loginCliente() {
+        try {
+            if (ID.getText().isEmpty() || getPassword(password).isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            int id = Integer.parseInt(ID.getText());
+            if (gestoreClienti.checkInfo("CLIENTE", id, password.getText())) {
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                openWindow("/cliente/HomeCliente.fxml", "Home Cliente", new ICliente(id));
+                closeWindow((Stage) ID.getScene().getWindow());
+            } else
+                errorWindow("Login non effettuato.", "ID o password errati.");
+        } catch (IllegalArgumentException e) {
+            errorWindow("Dati errati.", "ID o password errati.");
+        } catch (NullPointerException exception) {
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalStateException e) {
+            errorWindow("Valore non corretto", "Inserire un valore valido.");
+        }
+    }
+
+    private void loginCommerciante() {
+        try {
+            if (ID.getText().isEmpty() || getPassword(password).isEmpty() || IDSede.getText().isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            int id = Integer.parseInt(ID.getText());
+            int idNegozio = Integer.parseInt(IDSede.getText());
+            gestorePersonale = new GestorePersonale(idNegozio);
+            if (gestorePersonale.checkInfo("COMMERCIANTE", id, password.getText(), idNegozio)) {
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                openWindow("/commerciante/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante(id, idNegozio));
+                closeWindow((Stage) ID.getScene().getWindow());
+            } else
+                errorWindow("Login non effettuato.", "ID o password errati.");
+        } catch (IllegalArgumentException e) {
+            errorWindow("Dati errati.", "ID o password errati.");
+        } catch (NullPointerException exception) {
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalStateException e) {
+            errorWindow("Valore non corretto", "Inserire un valore valido.");
+        }
+    }
+
+    private void loginCommesso() {
+        try {
+            if (ID.getText().isEmpty() || getPassword(password).isEmpty() || IDSede.getText().isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            int id = Integer.parseInt(ID.getText());
+            int idNegozio = Integer.parseInt(IDSede.getText());
+            gestorePersonale = new GestorePersonale(idNegozio);
+            if (gestorePersonale.checkInfo("COMMESSO", id, password.getText(), idNegozio)) {
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                openWindow("/commesso/HomeCommesso.fxml", "Home Commesso", new ICommesso(id, idNegozio));
+                closeWindow((Stage) ID.getScene().getWindow());
+            } else
+                errorWindow("Login non effettuato.", "ID o password errati.");
+        } catch (IllegalArgumentException e) {
+            errorWindow("Dati errati.", "ID o password errati.");
+        } catch (NullPointerException exception) {
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalStateException e) {
+            errorWindow("Valore non corretto", "Inserire un valore valido.");
+        }
+    }
+
+    private void loginCorriere() {
+        try {
+            if (ID.getText().isEmpty() || getPassword(password).isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            int id = Integer.parseInt(ID.getText());
+            if (gestoreCorrieri.checkInfo("CORRIERE", id, password.getText())) {
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                openWindow("/corriere/HomeCorriere.fxml", "Home Corriere", new ICorriere(id));
+                closeWindow((Stage) ID.getScene().getWindow());
+            } else
+                errorWindow("Login non effettuato.", "ID o password errati.");
+        } catch (IllegalArgumentException e) {
+            errorWindow("Dati errati.", "ID o password errati.");
+        } catch (NullPointerException exception) {
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalStateException e) {
+            errorWindow("Valore non corretto", "Inserire un valore valido.");
+        }
+    }
+
+    private void loginMagazziniere() {
+        try {
+            if (getPassword(password).isEmpty() || IDSede.getText().isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            int idMagazzino = Integer.parseInt(IDSede.getText());
+            if (gestoreMagazzini.checkInfo("MAGAZZINIERE", idMagazzino, password.getText())) {
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                openWindow("/magazziniere/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere(idMagazzino));
+                closeWindow((Stage) ID.getScene().getWindow());
+            } else
+                errorWindow("Login non effettuato.", "ID o password errati.");
+        } catch (IllegalArgumentException e) {
+            errorWindow("Dati errati.", "ID o password errati.");
+        } catch (NullPointerException exception) {
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalStateException e) {
+            errorWindow("Valore non corretto", "Inserire un valore valido.");
+        }
+    }
+
+    @FXML
+    public void loginUtente() {
+        if (!Objects.isNull(utentiChoiceBox.getValue())) {
+            switch (utentiChoiceBox.getValue()) {
+                case "CLIENTE":
+                    loginCliente();
+                    break;
+                case "CORRIERE":
+                    loginCorriere();
+                    break;
+                case "MAGAZZINIERE":
+                    loginMagazziniere();
+                    break;
+                case "ADDETTO MAGAZZINO":
+                    loginAddettoMagazzino();
+                    break;
+                case "COMMERCIANTE":
+                    loginCommerciante();
+                    break;
+                case "COMMESSO":
+                    loginCommesso();
+                    break;
+            }
+        }
+    }
+
     @FXML
     public void setUtenteLogin() {
         if (utentiChoiceBox.getValue() != null)
@@ -69,170 +233,6 @@ public class JavaFXLogin implements JavaFXController {
                     Id.setVisible(false);
                     break;
             }
-    }
-
-    private void loginAddettoMagazzino() {
-        try {
-            if (ID.getText().isEmpty() || getPassword(password).isEmpty() || IDSede.getText().isEmpty())
-                throw new NullPointerException("Dati non presenti.");
-            int id = Integer.parseInt(ID.getText());
-            int idNegozio = Integer.parseInt(IDSede.getText());
-            gestorePersonale = new GestorePersonale(idNegozio);
-            if (gestorePersonale.checkInfo("ADDETTO_MAGAZZINO", id, password.getText(), idNegozio)) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
-                openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto magazzino del negozio", new IAddettoMagazzino(id, idNegozio));
-                closeWindow((Stage) ID.getScene().getWindow());
-            } else
-                errorWindow("Login non effettuato.", "ID o password errati.");
-        } catch (IllegalArgumentException e) {
-            errorWindow("Dati errati.", "ID o password errati.");
-        } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalStateException e) {
-            errorWindow("Valore non corretto", "Inserire un valore valido.");
-        }
-    }
-
-    private void loginCliente() {
-        try {
-            if (ID.getText().isEmpty() || getPassword(password).isEmpty())
-                throw new NullPointerException("Dati non presenti.");
-            int id = Integer.parseInt(ID.getText());
-            if (gestoreClienti.checkInfo("CLIENTE", id, password.getText())) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
-                openWindow("/HomeCliente.fxml", "Home Cliente", new ICliente(id));
-                closeWindow((Stage) ID.getScene().getWindow());
-            } else
-                errorWindow("Login non effettuato.", "ID o password errati.");
-        } catch (IllegalArgumentException e) {
-            errorWindow("Dati errati.", "ID o password errati.");
-        } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalStateException e) {
-            errorWindow("Valore non corretto", "Inserire un valore valido.");
-        }
-    }
-
-    private void loginCommerciante() {
-        try {
-            if (ID.getText().isEmpty() || getPassword(password).isEmpty() || IDSede.getText().isEmpty())
-                throw new NullPointerException("Dati non presenti.");
-            int id = Integer.parseInt(ID.getText());
-            int idNegozio = Integer.parseInt(IDSede.getText());
-            gestorePersonale = new GestorePersonale(idNegozio);
-            if (gestorePersonale.checkInfo("COMMERCIANTE", id, password.getText(), idNegozio)) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
-                openWindow("/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante(id, idNegozio));
-                closeWindow((Stage) ID.getScene().getWindow());
-            } else
-                errorWindow("Login non effettuato.", "ID o password errati.");
-        } catch (IllegalArgumentException e) {
-            errorWindow("Dati errati.", "ID o password errati.");
-        } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalStateException e) {
-            errorWindow("Valore non corretto", "Inserire un valore valido.");
-        }
-    }
-
-    private void loginCommesso() {
-        try {
-            if (ID.getText().isEmpty() || getPassword(password).isEmpty() || IDSede.getText().isEmpty())
-                throw new NullPointerException("Dati non presenti.");
-            int id = Integer.parseInt(ID.getText());
-            int idNegozio = Integer.parseInt(IDSede.getText());
-            gestorePersonale = new GestorePersonale(idNegozio);
-            if (gestorePersonale.checkInfo("COMMESSO", id, password.getText(), idNegozio)) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
-                openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso(id, idNegozio));
-                closeWindow((Stage) ID.getScene().getWindow());
-            } else
-                errorWindow("Login non effettuato.", "ID o password errati.");
-        } catch (IllegalArgumentException e) {
-            errorWindow("Dati errati.", "ID o password errati.");
-        } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalStateException e) {
-            errorWindow("Valore non corretto", "Inserire un valore valido.");
-        }
-    }
-
-    private void loginCorriere() {
-        try {
-            if (ID.getText().isEmpty() || getPassword(password).isEmpty())
-                throw new NullPointerException("Dati non presenti.");
-            int id = Integer.parseInt(ID.getText());
-            if (gestoreCorrieri.checkInfo("CORRIERE", id, password.getText())) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
-                openWindow("/HomeCorriere.fxml", "Home Corriere", new ICorriere(id));
-                closeWindow((Stage) ID.getScene().getWindow());
-            } else
-                errorWindow("Login non effettuato.", "ID o password errati.");
-        } catch (IllegalArgumentException e) {
-            errorWindow("Dati errati.", "ID o password errati.");
-        } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalStateException e) {
-            errorWindow("Valore non corretto", "Inserire un valore valido.");
-        }
-    }
-
-    private void loginMagazziniere() {
-        try {
-            if (getPassword(password).isEmpty() || IDSede.getText().isEmpty())
-                throw new NullPointerException("Dati non presenti.");
-            int idMagazzino = Integer.parseInt(IDSede.getText());
-            if (gestoreMagazzini.checkInfo("MAGAZZINIERE", idMagazzino, password.getText())) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
-                openWindow("/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere(idMagazzino));
-                closeWindow((Stage) ID.getScene().getWindow());
-            } else
-                errorWindow("Login non effettuato.", "ID o password errati.");
-        } catch (IllegalArgumentException e) {
-            errorWindow("Dati errati.", "ID o password errati.");
-        } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalStateException e) {
-            errorWindow("Valore non corretto", "Inserire un valore valido.");
-        }
-    }
-
-    @FXML
-    public void loginUtente() {
-        if(!Objects.isNull(utentiChoiceBox.getValue())) {
-            switch (utentiChoiceBox.getValue()) {
-                case "CLIENTE":
-                    loginCliente();
-                    break;
-                case "CORRIERE":
-                    loginCorriere();
-                    break;
-                case "MAGAZZINIERE":
-                    loginMagazziniere();
-                    break;
-                case "ADDETTO MAGAZZINO":
-                    loginAddettoMagazzino();
-                    break;
-                    case "COMMERCIANTE":
-                    loginCommerciante();
-                    break;
-                case "COMMESSO":
-                    loginCommesso();
-                    break;
-            }
-        }
     }
 
     @FXML

@@ -48,7 +48,7 @@ public interface JavaFXController {
             stage.setTitle(b);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
-            Image icon = new Image("/icon.png");
+            Image icon = new Image("/png/icon.png");
             stage.getIcons().add(icon);
             stage.showAndWait();
         } catch (IOException e) {

@@ -34,11 +34,6 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="34.0" fitWidth="36.0" layoutX="726.0" layoutY="24.0" onMouseClicked="#visualizzaCorrieri" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@update.png" />
-                     </image>
-                  </ImageView>
                </children></AnchorPane>
       </content>
     </Tab>

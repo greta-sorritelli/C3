@@ -36,7 +36,7 @@ public class ICorriere implements JavaFXController {
                 throw new IllegalArgumentException("Merci non presenti.");
             }
             alert.close();
-            openWindow("/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(IDCorriere));
+            openWindow("/corriere/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(IDCorriere));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -49,7 +49,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     public void modificaDisponibilita() {
-        openWindow("/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(IDCorriere));
+        openWindow("/corriere/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(IDCorriere));
     }
 
     /**
@@ -67,7 +67,7 @@ public class ICorriere implements JavaFXController {
                 throw new IllegalArgumentException("Merci non presenti.");
             }
             alert.close();
-            openWindow("/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(IDCorriere));
+            openWindow("/corriere/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(IDCorriere));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {

@@ -76,7 +76,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     }
 
     public void sceltaCorriere() {
-        openWindow("/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(residenza.getText(), negozio));
+        openWindow("/commesso/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(residenza.getText(), negozio));
     }
 
 

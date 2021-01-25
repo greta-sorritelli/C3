@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino.JavaFXAssegnaMerceCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.addettoMagazzino.JavaFXGestioneInventario;
@@ -11,7 +12,8 @@ import java.sql.SQLException;
 
 public class IAddettoMagazzino implements JavaFXController {
 
-    private GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
+    private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
+    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final Negozio negozio;
     private int ID;
 
@@ -25,8 +27,15 @@ public class IAddettoMagazzino implements JavaFXController {
      */
     @FXML
     private void assegnaMerceCorriere() {
-        openWindow("/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere());
-
+        try {
+            if (gestoreCorrieri.getCorrieriDisponibili().isEmpty())
+                throw new IllegalArgumentException("Corrieri non disponibili.");
+            openWindow("/addettoMagazzino/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere());
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalArgumentException e) {
+            alertWindow("Corrieri non disponibili.", "Aggiorna piu' tardi.");
+        }
     }
 
     /**
@@ -34,7 +43,7 @@ public class IAddettoMagazzino implements JavaFXController {
      */
     @FXML
     private void modificaInventario() {
-        openWindow("/GestioneInventario.fxml", "GestioneInventario", new JavaFXGestioneInventario(negozio));
+        openWindow("/addettoMagazzino/GestioneInventario.fxml", "GestioneInventario", new JavaFXGestioneInventario(negozio));
     }
 
 }

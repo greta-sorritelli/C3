@@ -22,7 +22,7 @@
       </Label>
       <Label layoutX="101.0" layoutY="230.0" text="Password*" AnchorPane.topAnchor="232.0" />
       <PasswordField fx:id="password" layoutX="209.0" layoutY="227.0" prefHeight="26.0" prefWidth="200.0" />
-      <Label fx:id="IDSedeLavoro" layoutX="80.0" layoutY="189.0" prefHeight="18.0" prefWidth="98.0" text="ID Sede di Lavoro*" visible="false" AnchorPane.topAnchor="183.0" />
+      <Label fx:id="IDSedeLavoro" layoutX="74.0" layoutY="189.0" prefHeight="18.0" prefWidth="113.0" text="ID Sede di Lavoro*" visible="false" AnchorPane.topAnchor="183.0" />
       <TextField fx:id="IDSede" layoutX="209.0" layoutY="179.0" prefHeight="26.0" prefWidth="200.0" visible="false" />
    </children>
 </AnchorPane>

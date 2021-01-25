@@ -23,7 +23,7 @@ public class JavaFXC3 extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/HomeApp.fxml"));
         stage.setTitle("C3 Home");
-        Image ico = new Image("/icon.png");
+        Image ico = new Image("/png/icon.png");
         stage.getIcons().add(ico);
         stage.setScene(new Scene(root));
         stage.show();

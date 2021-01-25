@@ -24,11 +24,10 @@ public class IMagazziniere implements JavaFXController {
      * Apre la finestra per comunicare con il corriere.
      */
     @FXML
-    //todo creare fxml
     public void avvisaCorriere() {
         try {
             if(!gestoreCorrieri.getCorrieriDisponibili().isEmpty())
-            openWindow("/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(puntoPrelievo.getID()));
+            openWindow("/magazziniere/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(puntoPrelievo.getID()));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }catch (IllegalArgumentException exception){
@@ -41,7 +40,7 @@ public class IMagazziniere implements JavaFXController {
      */
     @FXML
     public void consegnaMerceCliente() {
-        openWindow("/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(puntoPrelievo));
+        openWindow("/magazziniere/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(puntoPrelievo));
     }
 
 

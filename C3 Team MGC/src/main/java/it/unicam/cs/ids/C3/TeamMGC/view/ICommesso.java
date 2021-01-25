@@ -19,11 +19,11 @@ public class ICommesso implements JavaFXController {
     }
 
     public void comunicaCodiceRitiro() {
-        openWindow("/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro());
+        openWindow("/commesso/ComunicareCodiceRitiro.fxml", "ComunicareCodiceRitiro", new JavaFXComunicareCodiceRitiro());
     }
 
     public void ricezionePagamento() {
-        openWindow("/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio));
+        openWindow("/commesso/RicezionePagamento.fxml", "RicezionePagamento", new JavaFXRicezionePagamento(negozio));
     }
 
 }

@@ -7,11 +7,15 @@ import java.util.ArrayList;
 
 public interface Negozio extends Gestore<Merce> {
 
-    CategoriaNegozio getCategoria();
+    ArrayList<CategoriaNegozio> getCategorie();
 
     int getID();
 
     String getIndirizzo();
+
+    void addCategoria(CategoriaNegozio categoria);
+
+    void removeCategoria(CategoriaNegozio categoria);
 
     ArrayList<Merce> getInventario();
 
@@ -24,8 +28,6 @@ public interface Negozio extends Gestore<Merce> {
     String getTelefono();
 
     void setQuantitaMerce(int IDMerce, int quantita) throws SQLException;
-
-    void setCategoria(CategoriaNegozio categoria) throws SQLException;
 
     ArrayList<String> getDettagli() throws SQLException;
 
