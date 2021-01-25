@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
@@ -22,7 +23,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class GestoreClienti implements Gestore<Cliente> {
+public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
 
     private static GestoreClienti gestoreClienti;
     private final ArrayList<Cliente> clienti = new ArrayList<>();

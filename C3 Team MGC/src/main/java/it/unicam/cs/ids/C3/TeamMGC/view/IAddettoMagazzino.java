@@ -13,8 +13,10 @@ public class IAddettoMagazzino implements JavaFXController {
 
     //todo
     private final Negozio negozio = new SimpleNegozio(1);
+    private int ID;
 
-    public IAddettoMagazzino() throws SQLException {
+    public IAddettoMagazzino(int id) throws SQLException {
+        this.ID = id;
     }
 
     /**

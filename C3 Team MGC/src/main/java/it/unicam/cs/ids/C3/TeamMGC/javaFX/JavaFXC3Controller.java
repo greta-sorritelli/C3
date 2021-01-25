@@ -20,16 +20,16 @@ public class JavaFXC3Controller implements JavaFXController {
     }
 
     public void visualizzaHomeAddetto() throws SQLException {
-        openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto Magazzino", new IAddettoMagazzino());
+//        openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto Magazzino", new IAddettoMagazzino());
     }
 
     public void visualizzaHomeCommesso() throws SQLException {
-        openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso());
+//        openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso(id));
     }
 
-    public void visualizzaHomeMagazziniere() throws SQLException {
-        openWindow("/HomeMagazziniere.fxml", "Login Magazziniere", new IMagazziniere());
-    }
+//    public void visualizzaHomeMagazziniere() throws SQLException {
+//        openWindow("/HomeMagazziniere.fxml", "Login Magazziniere", new IMagazziniere());
+//    }
 
     public void visualizzaHomeCorriere()  {
         openWindow("/LoginCorriere.fxml", "Login Corriere", new JavaFXLoginCorriere());
@@ -42,7 +42,7 @@ public class JavaFXC3Controller implements JavaFXController {
 
     //todo fxml
     public void visualizzaHomeCommerciante() {
-        openWindow("/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante());
+//        openWindow("/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante());
     }
 
 }

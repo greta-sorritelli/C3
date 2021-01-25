@@ -15,8 +15,10 @@ public class IMagazziniere implements JavaFXController {
     //todo
     private final PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(1);
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
+    private int ID;
 
-    public IMagazziniere() throws SQLException {
+    public IMagazziniere(int ID) throws SQLException {
+        this.ID = ID;
     }
 
     /**

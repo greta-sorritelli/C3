@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 
@@ -15,7 +16,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class GestoreCorrieri implements Gestore<Corriere> {
+public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
 
     private static GestoreCorrieri gestoreCorrieri;
     ArrayList<Corriere> corrieri = new ArrayList<>();

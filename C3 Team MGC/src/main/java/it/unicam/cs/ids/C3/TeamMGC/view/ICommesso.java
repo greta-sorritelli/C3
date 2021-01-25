@@ -11,8 +11,10 @@ import java.sql.SQLException;
 public class ICommesso implements JavaFXController {
     //todo
     private final Negozio negozio = new SimpleNegozio(1);
+    private int ID;
 
-    public ICommesso() throws SQLException {
+    public ICommesso(int id) throws SQLException {
+        this.ID = id;
     }
 
     public void comunicaCodiceRitiro() {

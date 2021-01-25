@@ -24,7 +24,7 @@ public class JavaFXLoginMagazziniere implements JavaFXController {
             this.ID = id;
             gestoreMagazzini.getItem(id);
             Stage stage = (Stage) IDMagazziniere.getScene().getWindow();
-            openWindow("/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere());
+//            openWindow("/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere());
             closeWindow(stage);
         } catch (IllegalArgumentException e) {
             errorWindow("ID errato", "Inserire un ID valido.");

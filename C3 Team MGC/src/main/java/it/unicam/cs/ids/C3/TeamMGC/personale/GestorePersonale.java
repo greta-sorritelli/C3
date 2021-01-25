@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.personale;
 
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
+import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
-public class GestorePersonale implements Gestore<Personale> {
+public class GestorePersonale extends GestoreLogin implements Gestore<Personale> {
 
     private final int IDNegozio;
     ArrayList<Personale> personale = new ArrayList<>();
