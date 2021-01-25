@@ -1,9 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXLoginCliente;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXLoginCorriere;
-import it.unicam.cs.ids.C3.TeamMGC.view.*;
-
 import java.sql.SQLException;
 
 /**
@@ -32,12 +28,12 @@ public class JavaFXC3Controller implements JavaFXController {
 //    }
 
     public void visualizzaHomeCorriere()  {
-        openWindow("/LoginCorriere.fxml", "Login Corriere", new JavaFXLoginCorriere());
+//        openWindow("/LoginCorriere.fxml", "Login Corriere", new JavaFXLoginCorriere());
     }
 
     //todo fxml home cliente
     public void visualizzaHomeCliente() {
-        openWindow("/LoginCliente.fxml", "Login Cliente", new JavaFXLoginCliente());
+//        openWindow("/LoginCliente.fxml", "Login Cliente", new JavaFXLoginCliente());
     }
 
     //todo fxml
