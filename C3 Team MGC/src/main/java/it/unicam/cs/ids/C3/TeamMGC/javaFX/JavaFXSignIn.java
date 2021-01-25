@@ -9,10 +9,7 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -53,7 +50,7 @@ public class JavaFXSignIn implements JavaFXController {
     @FXML
     TextField cognomeCliente;
     @FXML
-    TextField passwordCliente;
+    PasswordField passwordCliente;
     /**
      * TextFields corriere
      */
@@ -62,7 +59,7 @@ public class JavaFXSignIn implements JavaFXController {
     @FXML
     TextField cognomeCorriere;
     @FXML
-    TextField passwordCorriere;
+    PasswordField passwordCorriere;
     /**
      * TextFields commesso
      */
@@ -73,7 +70,7 @@ public class JavaFXSignIn implements JavaFXController {
     @FXML
     TextField cognomeCommesso;
     @FXML
-    TextField passwordCommesso;
+    PasswordField passwordCommesso;
     /**
      * TextFields addetto
      */
@@ -84,7 +81,7 @@ public class JavaFXSignIn implements JavaFXController {
     @FXML
     TextField cognomeAddetto;
     @FXML
-    TextField passwordAddetto;
+    PasswordField passwordAddetto;
     /**
      * TextFields commerciante
      */
@@ -95,7 +92,7 @@ public class JavaFXSignIn implements JavaFXController {
     @FXML
     TextField cognomeCommerciante;
     @FXML
-    TextField passwordCommerciante;
+    PasswordField passwordCommerciante;
     /**
      * TextFields magazziniere
      */
@@ -106,7 +103,7 @@ public class JavaFXSignIn implements JavaFXController {
     @FXML
     TextField cognomeMagazziniere;
     @FXML
-    TextField passwordMagazziniere;
+    PasswordField passwordMagazziniere;
     @FXML
     ChoiceBox<String> utentiChoiceBox = new ChoiceBox<>();
 

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -35,14 +36,14 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="passwordCliente" layoutX="234.0" layoutY="193.0" />
-                  <Label layoutX="134.0" layoutY="100.0" text="Nome*" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="100.0" />
-                  <Label layoutX="124.0" layoutY="150.0" text="Cognome*" />
-                  <TextField fx:id="nomeCliente" layoutX="247.0" layoutY="100.0" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="96.0" />
-                  <Label layoutX="125.0" layoutY="197.0" text="Password*" />
-                  <TextField fx:id="cognomeCliente" layoutX="234.0" layoutY="146.0" prefHeight="23.0" prefWidth="149.0" />
+                  <Label layoutX="46.0" layoutY="104.0" text="Nome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="104.0" />
+                  <Label layoutX="45.0" layoutY="154.0" text="Cognome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="154.0" />
+                  <TextField fx:id="nomeCliente" layoutX="125.0" layoutY="96.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="100.0" />
+                  <Label layoutX="125.0" layoutY="197.0" text="Password*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="204.0" />
+                  <TextField fx:id="cognomeCliente" layoutX="234.0" layoutY="146.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="150.0" />
                   <Button defaultButton="true" layoutX="486.0" layoutY="292.0" mnemonicParsing="false" onAction="#signInCliente" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="292.0" />
                   <Button layoutX="405.0" layoutY="292.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="292.0" />
+                  <PasswordField fx:id="passwordCliente" layoutX="184.0" layoutY="254.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="200.0" />
                </children>
             </AnchorPane>
         </content>
@@ -56,23 +57,19 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="600.0">
-                     <children>
-                        <Label text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="passwordCorriere" layoutX="234.0" layoutY="193.0" />
-                        <Label layoutX="163.0" layoutY="104.0" text="Nome*" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="100.0" />
-                        <Label layoutX="124.0" layoutY="150.0" text="Cognome*" />
-                        <TextField fx:id="nomeCorriere" layoutX="247.0" layoutY="100.0" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="96.0" />
-                        <Label layoutX="125.0" layoutY="197.0" text="Password*" />
-                        <TextField fx:id="cognomeCorriere" layoutX="234.0" layoutY="146.0" prefHeight="23.0" prefWidth="149.0" />
-                        <Button defaultButton="true" layoutX="468.0" layoutY="247.0" mnemonicParsing="false" onAction="#signInCorriere" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="292.0" />
-                        <Button layoutX="408.0" layoutY="292.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="292.0" />
-                     </children>
-                  </AnchorPane>
+                  <Label layoutX="46.0" layoutY="30.0" text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="134.0" layoutY="100.0" text="Nome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="104.0" />
+                  <Label layoutX="124.0" layoutY="150.0" text="Cognome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="154.0" />
+                  <TextField fx:id="nomeCorriere" layoutX="234.0" layoutY="96.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="100.0" />
+                  <Label layoutX="125.0" layoutY="197.0" text="Password*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="204.0" />
+                  <TextField fx:id="cognomeCorriere" layoutX="234.0" layoutY="146.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="150.0" />
+                  <Button defaultButton="true" layoutX="486.20001220703125" layoutY="292.0" mnemonicParsing="false" onAction="#signInCorriere" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="292.0" />
+                  <Button layoutX="405.20001220703125" layoutY="292.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="292.0" />
+                  <PasswordField fx:id="passwordCorriere" layoutX="170.0" layoutY="248.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="200.0" />
                </children>
             </AnchorPane>
         </content>
@@ -86,16 +83,16 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="passwordCommesso" layoutX="234.0" layoutY="252.0" />
-                  <Label layoutX="162.0" layoutY="97.0" text="IDNegozio*" AnchorPane.leftAnchor="133.0" AnchorPane.topAnchor="100.0" />
-                  <Label layoutX="145.0" layoutY="153.0" text="Nome*" AnchorPane.topAnchor="154.0" />
-                  <Label layoutX="136.0" layoutY="203.0" text="Cognome*" AnchorPane.topAnchor="207.0" />
-                  <TextField fx:id="nomeCommesso" layoutX="234.0" layoutY="149.0" AnchorPane.topAnchor="150.0" />
-                  <Label layoutX="137.0" layoutY="256.0" text="Password*" />
-                  <TextField fx:id="cognomeCommesso" layoutX="234.0" layoutY="199.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.topAnchor="203.0" />
-                  <Button defaultButton="true" layoutX="509.0" layoutY="306.0" mnemonicParsing="false" onAction="#signInCommesso" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="292.0" />
-                  <Button layoutX="474.0" layoutY="216.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="292.0" />
-                  <ChoiceBox fx:id="IDNegozioCommesso" layoutX="234.0" layoutY="96.0" prefWidth="150.0" />
+                  <Label layoutX="162.0" layoutY="97.0" text="IDNegozio*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="104.0" />
+                  <Label layoutX="145.0" layoutY="153.0" text="Nome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="154.0" />
+                  <Label layoutX="136.0" layoutY="203.0" text="Cognome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="204.0" />
+                  <TextField fx:id="nomeCommesso" layoutX="234.0" layoutY="149.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="150.0" />
+                  <Label layoutX="137.0" layoutY="256.0" text="Password*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="254.0" />
+                  <TextField fx:id="cognomeCommesso" layoutX="234.0" layoutY="199.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="200.0" />
+                  <Button defaultButton="true" layoutX="509.0" layoutY="306.0" mnemonicParsing="false" onAction="#signInCommesso" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="300.0" />
+                  <Button layoutX="474.0" layoutY="216.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="300.0" />
+                  <ChoiceBox fx:id="IDNegozioCommesso" layoutX="234.0" layoutY="96.0" prefWidth="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="100.0" />
+                  <PasswordField fx:id="passwordCommesso" layoutX="151.0" layoutY="287.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="250.0" />
                </children>
             </AnchorPane>
         </content>
@@ -104,30 +101,26 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="600.0">
-                     <children>
-                        <Label layoutX="40.0" layoutY="44.0" text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="passwordAddetto" layoutX="234.0" layoutY="252.0" />
-                        <Label layoutX="162.0" layoutY="97.0" text="IDNegozio*" AnchorPane.leftAnchor="133.0" AnchorPane.topAnchor="100.0" />
-                        <Label layoutX="145.0" layoutY="153.0" text="Nome*" AnchorPane.topAnchor="154.0" />
-                        <Label layoutX="136.0" layoutY="203.0" text="Cognome*" AnchorPane.topAnchor="207.0" />
-                        <TextField fx:id="nomeAddetto" layoutX="234.0" layoutY="149.0" AnchorPane.topAnchor="150.0" />
-                        <Label layoutX="137.0" layoutY="256.0" text="Password*" />
-                        <TextField fx:id="cognomeAddetto" layoutX="234.0" layoutY="199.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.topAnchor="203.0" />
-                        <Label text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Button defaultButton="true" layoutX="413.0" layoutY="240.0" mnemonicParsing="false" onAction="#signInAddetto" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="292.0" />
-                        <Button layoutX="440.0" layoutY="195.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="292.0" />
-                        <ChoiceBox fx:id="IDNegozioAddetto" layoutX="234.0" layoutY="96.0" prefWidth="150.0" />
-                     </children>
-                  </AnchorPane>
+                  <Label layoutX="46.0" layoutY="30.0" text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="133.0" layoutY="100.0" text="IDNegozio*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="104.0" />
+                  <Label layoutX="145.0" layoutY="154.0" text="Nome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="154.0" />
+                  <Label layoutX="136.0" layoutY="207.0" text="Cognome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="204.0" />
+                  <TextField fx:id="nomeAddetto" layoutX="234.0" layoutY="150.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="150.0" />
+                  <Label layoutX="137.0" layoutY="256.0" text="Password*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="254.0" />
+                  <TextField fx:id="cognomeAddetto" layoutX="234.0" layoutY="203.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="200.0" />
+                  <Label layoutX="46.0" layoutY="30.0" text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button defaultButton="true" layoutX="486.20001220703125" layoutY="292.0" mnemonicParsing="false" onAction="#signInAddetto" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="300.0" />
+                  <Button layoutX="405.20001220703125" layoutY="292.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="300.0" />
+                  <ChoiceBox fx:id="IDNegozioAddetto" layoutX="234.0" layoutY="96.0" prefWidth="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="100.0" />
+                  <PasswordField fx:id="passwordAddetto" layoutX="159.0" layoutY="300.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="250.0" />
                </children>
             </AnchorPane>
         </content>
@@ -141,16 +134,16 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="133.0" layoutY="100.0" text="IDNegozio*" AnchorPane.leftAnchor="133.0" AnchorPane.topAnchor="100.0" />
-                  <Label layoutX="145.0" layoutY="154.0" text="Nome*" AnchorPane.topAnchor="154.0" />
-                  <Label layoutX="136.0" layoutY="207.0" text="Cognome*" AnchorPane.topAnchor="207.0" />
-                  <TextField fx:id="nomeCommerciante" layoutX="234.0" layoutY="150.0" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="150.0" />
-                  <TextField fx:id="cognomeCommerciante" layoutX="234.0" layoutY="203.0" AnchorPane.topAnchor="203.0" />
-                  <Label layoutX="137.0" layoutY="256.0" text="Password*" />
-                  <TextField fx:id="passwordCommerciante" layoutX="234.0" layoutY="252.0" />
-                  <Button defaultButton="true" layoutX="464.0" layoutY="283.0" mnemonicParsing="false" onAction="#signInCommerciante" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="292.0" />
-                  <Button layoutX="487.0" layoutY="228.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="292.0" />
-                  <ChoiceBox fx:id="IDNegozioCommerciante" layoutX="234.0" layoutY="96.0" prefWidth="150.0" />
+                  <Label layoutX="133.0" layoutY="100.0" text="IDNegozio*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="104.0" />
+                  <Label layoutX="145.0" layoutY="154.0" text="Nome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="154.0" />
+                  <Label layoutX="136.0" layoutY="207.0" text="Cognome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="204.0" />
+                  <TextField fx:id="nomeCommerciante" layoutX="234.0" layoutY="150.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="150.0" />
+                  <TextField fx:id="cognomeCommerciante" layoutX="234.0" layoutY="203.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="200.0" />
+                  <Label layoutX="137.0" layoutY="256.0" text="Password*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="254.0" />
+                  <Button defaultButton="true" layoutX="464.0" layoutY="283.0" mnemonicParsing="false" onAction="#signInCommerciante" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="300.0" />
+                  <Button layoutX="487.0" layoutY="228.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="300.0" />
+                  <ChoiceBox fx:id="IDNegozioCommerciante" layoutX="234.0" layoutY="96.0" prefWidth="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="100.0" />
+                  <PasswordField fx:id="passwordCommerciante" layoutX="170.0" layoutY="288.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="250.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -163,25 +156,21 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="600.0">
-                     <children>
-                        <Label layoutX="40.0" layoutY="44.0" text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="passwordMagazziniere" layoutX="234.0" layoutY="252.0" />
-                        <Label layoutX="119.0" layoutY="100.0" text="IDPuntoPrelievo*" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="100.0" />
-                        <Label layoutX="145.0" layoutY="153.0" text="Nome*" AnchorPane.topAnchor="154.0" />
-                        <Label layoutX="136.0" layoutY="203.0" text="Cognome*" AnchorPane.topAnchor="207.0" />
-                        <TextField fx:id="nomeMagazziniere" layoutX="234.0" layoutY="149.0" AnchorPane.topAnchor="150.0" />
-                        <Label layoutX="137.0" layoutY="256.0" text="Password*" />
-                        <TextField fx:id="cognomeMagazziniere" layoutX="234.0" layoutY="199.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.topAnchor="203.0" />
-                        <Button defaultButton="true" layoutX="402.0" layoutY="277.0" mnemonicParsing="false" onAction="#signInMagazziniere" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="292.0" />
-                        <Button layoutX="429.0" layoutY="252.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="292.0" />
-                        <ChoiceBox fx:id="IDPPMagazziniere" layoutX="234.0" layoutY="96.0" prefWidth="150.0" />
-                     </children>
-                  </AnchorPane>
+                  <Label layoutX="46.0" layoutY="30.0" text="Inserisci i tuoi dati" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="119.0" layoutY="100.0" text="IDPuntoPrelievo*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="104.0" />
+                  <Label layoutX="145.0" layoutY="154.0" text="Nome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="154.0" />
+                  <Label layoutX="136.0" layoutY="207.0" text="Cognome*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="204.0" />
+                  <TextField fx:id="nomeMagazziniere" layoutX="234.0" layoutY="150.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="150.0" />
+                  <Label layoutX="137.0" layoutY="256.0" text="Password*" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="254.0" />
+                  <TextField fx:id="cognomeMagazziniere" layoutX="234.0" layoutY="203.0" prefHeight="23.0" prefWidth="149.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="200.0" />
+                  <Button defaultButton="true" layoutX="486.20001220703125" layoutY="292.0" mnemonicParsing="false" onAction="#signInMagazziniere" text="Sign in" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="300.0" />
+                  <Button layoutX="405.20001220703125" layoutY="292.0" mnemonicParsing="false" onAction="#backToSignIn" text="&lt;&lt;Back " AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="300.0" />
+                  <ChoiceBox fx:id="IDPPMagazziniere" layoutX="234.0" layoutY="96.0" prefWidth="150.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="100.0" />
+                  <PasswordField fx:id="passwordMagazziniere" layoutX="161.0" layoutY="287.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="250.0" />
                </children>
             </AnchorPane>
         </content>
