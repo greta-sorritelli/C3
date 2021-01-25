@@ -22,8 +22,11 @@ public class JavaFXLogin implements JavaFXController {
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
+
     @FXML
     Label IDSedeLavoro;
+    @FXML
+    Label Id;
     @FXML
     TextField ID;
     @FXML
@@ -48,25 +51,25 @@ public class JavaFXLogin implements JavaFXController {
                 case "CORRIERE":
                     IDSedeLavoro.setVisible(false);
                     IDSede.setVisible(false);
+                    ID.setVisible(true);
+                    Id.setVisible(true);
                     break;
                 case "COMMESSO":
-                case "ADDETTO":
+                case "ADDETTO MAGAZZINO":
                 case "COMMERCIANTE":
+                    IDSedeLavoro.setVisible(true);
+                    IDSede.setVisible(true);
+                    ID.setVisible(true);
+                    Id.setVisible(true);
+                    break;
                 case "MAGAZZINIERE":
                     IDSedeLavoro.setVisible(true);
                     IDSede.setVisible(true);
+                    ID.setVisible(false);
+                    Id.setVisible(false);
                     break;
             }
     }
-
-//    @FXML
-//    public void login() {
-//        ID.setOnKeyReleased(event -> {
-//            if (event.getCode() == KeyCode.ENTER){
-//                loginUtente();
-//            }
-//        });
-//    }
 
     private void loginAddettoMagazzino() {
         try {
@@ -74,6 +77,7 @@ public class JavaFXLogin implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             int id = Integer.parseInt(ID.getText());
             int idNegozio = Integer.parseInt(IDSede.getText());
+            gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("ADDETTO_MAGAZZINO", id, password.getText(), idNegozio)) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
                 openWindow("/HomeAddettoMagazzino.fxml", "Home Addetto magazzino del negozio", new IAddettoMagazzino(id, idNegozio));
@@ -119,6 +123,7 @@ public class JavaFXLogin implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             int id = Integer.parseInt(ID.getText());
             int idNegozio = Integer.parseInt(IDSede.getText());
+            gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("COMMERCIANTE", id, password.getText(), idNegozio)) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
                 openWindow("/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante(id, idNegozio));
@@ -142,6 +147,7 @@ public class JavaFXLogin implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             int id = Integer.parseInt(ID.getText());
             int idNegozio = Integer.parseInt(IDSede.getText());
+            gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("COMMESSO", id, password.getText(), idNegozio)) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
                 openWindow("/HomeCommesso.fxml", "Home Commesso", new ICommesso(id, idNegozio));
@@ -183,9 +189,8 @@ public class JavaFXLogin implements JavaFXController {
 
     private void loginMagazziniere() {
         try {
-            if (ID.getText().isEmpty() || getPassword(password).isEmpty() || IDSede.getText().isEmpty())
+            if (getPassword(password).isEmpty() || IDSede.getText().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
-            int id = Integer.parseInt(ID.getText());
             int idMagazzino = Integer.parseInt(IDSede.getText());
             if (gestoreMagazzini.checkInfo("MAGAZZINIERE", idMagazzino, password.getText())) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
