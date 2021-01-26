@@ -8,24 +8,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="39.0" layoutY="36.0" text="Home Corriere" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
+      <Label layoutX="28.0" layoutY="36.0" text="Home Corriere" textFill="#ed8040" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="36.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <ImageView fitHeight="174.0" fitWidth="174.0" layoutX="214.0" layoutY="114.0" onMouseClicked="#trasportoMerce" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Trasporta%20merce.png" />
+            <Image url="@../png/Trasporta%20merce.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="174.0" fitWidth="174.0" layoutX="402.0" layoutY="114.0" onMouseClicked="#consegnaMerce" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Consegna%20merce.png" />
+            <Image url="@../png/Consegna%20merce.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="177.0" fitWidth="174.0" layoutX="28.0" layoutY="114.0" onMouseClicked="#modificaDisponibilita" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Modifica%20disponibilita.png" />
+            <Image url="@../png/Modifica%20disponibilita.png" />
          </image>
       </ImageView>
    </children>

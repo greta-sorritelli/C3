@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="458.0" layoutY="285.0" mnemonicParsing="false" onAction="#assegnaMerceCorriere" text="Assegna Merce" />
-      <Button layoutX="291.0" layoutY="285.0" mnemonicParsing="false" onAction="#modificaInventario" text="Gestione inventario" />
+      <ImageView fitHeight="167.0" fitWidth="167.0" layoutX="275.0" layoutY="88.0" onMouseClicked="#assegnaMerceCorriere" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="54.0">
+         <image>
+            <Image url="@../png/Assegna%20merce.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="169.0" fitWidth="167.0" layoutX="54.0" layoutY="88.0" onMouseClicked="#modificaInventario" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="54.0">
+         <image>
+            <Image url="@../png/Gestione%20inventario.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="27.0" layoutY="25.0" text="Home Addetto magazzino del negozio" textFill="#219227" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
-</Pane>
+</AnchorPane>
