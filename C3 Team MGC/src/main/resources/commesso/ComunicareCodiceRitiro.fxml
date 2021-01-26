@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="330.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="IDCliente" layoutX="302.0" layoutY="97.0" />
-      <TextField fx:id="IDOrdine" layoutX="302.0" layoutY="164.0" />
-      <Label layoutX="169.0" layoutY="101.0" text="IDCliente" />
-      <Label layoutX="169.0" layoutY="168.0" text="IDOrdine" />
-      <Button layoutX="451.0" layoutY="209.0" mnemonicParsing="false" onAction="#verificaEsistenzaCodice" text="Verifica codice" />
-      <Label layoutX="137.0" layoutY="362.0" text="Codice Cliente attuale" />
-      <TextField fx:id="CodiceRitiroAttuale" editable="false" layoutX="302.0" layoutY="358.0" />
+      <TextField fx:id="IDCliente" layoutX="185.0" layoutY="106.0" />
+      <TextField fx:id="IDOrdine" layoutX="185.0" layoutY="151.0" />
+      <Label layoutX="52.0" layoutY="110.0" text="IDCliente" />
+      <Label layoutX="52.0" layoutY="155.0" text="IDOrdine" />
+      <Button layoutX="334.0" layoutY="209.0" mnemonicParsing="false" onAction="#verificaEsistenzaCodice" text="Verifica codice" />
+      <Label layoutX="52.0" layoutY="266.0" text="Codice Cliente attuale" />
+      <TextField fx:id="CodiceRitiroAttuale" editable="false" layoutX="185.0" layoutY="262.0" />
       <Label layoutX="52.0" layoutY="41.0" text="Verifica codice di ritiro ">
          <font>
             <Font name="System Bold" size="20.0" />
