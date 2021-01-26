@@ -15,7 +15,7 @@ public class SimpleNegozio implements Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
     private final int ID;
     private String nome;
-    private ArrayList<CategoriaNegozio> categorie;
+    private CategoriaNegozio categoria;
     private String orarioApertura;
     private String orarioChiusura;
     private String indirizzo;
@@ -26,15 +26,15 @@ public class SimpleNegozio implements Negozio {
      *
      * @throws SQLException eccezione causata da una query SQL
      */
-    public SimpleNegozio(String nome, ArrayList<CategoriaNegozio> categorie, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) throws SQLException {
+    public SimpleNegozio(String nome, CategoriaNegozio categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) throws SQLException {
         updateData("INSERT INTO sys.negozi (nome, categorie, orarioApertura, orarioChiusura, indirizzo, telefono) " +
-                "VALUES ('" + nome + "', '" + categorie + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
+                "VALUES ('" + nome + "', '" + categoria + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
                 indirizzo + "', '" + telefono + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from negozi;");
         rs.next();
         ID = rs.getInt("ID");
         this.nome = nome;
-        this.categorie = categorie;
+        this.categoria = categoria;
         this.orarioApertura = orarioApertura;
         this.orarioChiusura = orarioChiusura;
         this.indirizzo = indirizzo;
@@ -46,19 +46,9 @@ public class SimpleNegozio implements Negozio {
     public String toString() {
         return "ID=" + ID +
                 ", nome='" + nome + '\'' +
-                ", categorie=" + categorie +
+                ", categorie=" + categoria +
                 ", indirizzo='" + indirizzo + '\'';
     }
-
-    /**
-     * @param input
-     */
-    private void aggiungiCategoria(String input) {
-        String[] categorie = input.split(" - ");
-        for (String categoria : categorie)
-            this.categorie.add(CategoriaNegozio.valueOf(categoria));
-    }
-
     /**
      * Costruttore per importare i dati dal DB
      *
@@ -69,7 +59,7 @@ public class SimpleNegozio implements Negozio {
         if (rs.next()) {
             this.ID = ID;
             this.nome = rs.getString("nome");
-            aggiungiCategoria(rs.getString("categorie"));
+            this.categoria = CategoriaNegozio.valueOf(rs.getString("categoria"));
             this.orarioApertura = rs.getString("orarioApertura");
             this.orarioChiusura = rs.getString("orarioChiusura");
             this.indirizzo = rs.getString("indirizzo");
@@ -109,23 +99,15 @@ public class SimpleNegozio implements Negozio {
     }
 
     @Override
-    public ArrayList<CategoriaNegozio> getCategorie() {
-        return categorie;
+    public void setCategoria(CategoriaNegozio categoria) throws SQLException {
+        updateData("UPDATE sys.negozi SET categoria = '" + categoria + "' WHERE (ID = '" + getID() + "');");
+        this.categoria = categoria;
     }
 
-    //todo test
     @Override
-    public void addCategoria(CategoriaNegozio categoria){
-        if(!categorie.contains(categoria))
-        categorie.add(categoria);
+    public CategoriaNegozio getCategoria() {
+        return categoria;
     }
-
-    //todo test
-    @Override
-    public void removeCategoria(CategoriaNegozio categoria){
-        categorie.remove(categoria);
-    }
-
     /**
      * Ritorna la lista dei dettagli del {@link SimpleNegozio} presente nel DB.
      *
@@ -139,7 +121,7 @@ public class SimpleNegozio implements Negozio {
         ArrayList<String> toReturn = new ArrayList<>();
         toReturn.add(String.valueOf(getID()));
         toReturn.add(getNome());
-        toReturn.add(String.valueOf(getCategorie()));
+        toReturn.add(String.valueOf(getCategoria()));
         toReturn.add(getOrarioApertura());
         toReturn.add(getOrarioChiusura());
         toReturn.add(getIndirizzo());
@@ -288,7 +270,7 @@ public class SimpleNegozio implements Negozio {
         ResultSet rs = executeQuery("select * from sys.negozi where ID= '" + this.ID + "';");
         if (rs.next()) {
             this.nome = rs.getString("nome");
-            aggiungiCategoria(rs.getString("categorie"));
+            this.categoria = CategoriaNegozio.valueOf(rs.getString("categoria"));
             this.orarioApertura = rs.getString("orarioApertura");
             this.orarioChiusura = rs.getString("orarioChiusura");
             this.indirizzo = rs.getString("indirizzo");

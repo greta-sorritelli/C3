@@ -44,7 +44,6 @@ public class JavaFXComunicareCodiceRitiro implements JavaFXController {
                 errorWindow("Errore!", "ID ordine non valido.");
                 IDOrdine.clear();
             }
-
         } catch (SQLException exception) {
             errorWindow("Errore!", "Error DB.");
         }

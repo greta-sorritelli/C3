@@ -81,8 +81,8 @@ public class DataDBTest {
         updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '60.0', 'Felpa', '10');");
         updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '45.0', 'Jeans', '10');");
 
-//        //Corrieri
-//        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, password) VALUES ('Luigi', 'Bianchi', 'true', '12345678');");
+        //Corrieri
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, password) VALUES ('Luigi', 'Bianchi', 'true', '12345678');");
 
         //Magazzinieri
         updateData("INSERT INTO sys.magazzinieri (IDPuntoPrelievo, nome, cognome, password) VALUES ('1', 'Silvio', 'Marzocco', '12345678');");

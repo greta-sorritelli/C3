@@ -59,6 +59,12 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
         StatoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(5)));
     }
 
+    public String getCodiceRitiro() {
+        if (codiceRitiro.getText().length() != 12)
+            throw new IllegalArgumentException("Codice non valido.");
+        return codiceRitiro.getText();
+    }
+
     public void setStatoMerce() {
         try {
             if (!merceOrdineTable.getItems().isEmpty()) {
@@ -67,7 +73,7 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
                 merceOrdineTable.getItems().clear();
                 IDCliente.clear();
                 codiceRitiro.clear();
-                successWindow("Consegna merce eseguita con successo!","La merce e' stata consegnata al cliente.");
+                successWindow("Consegna merce eseguita con successo!", "La merce e' stata consegnata al cliente.");
             } else
                 throw new IllegalArgumentException("Merce non presente nella tabella.");
         } catch (Exception exception) {
@@ -78,25 +84,31 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
     @FXML
     public void verificaCodice() {
         try {
-            if (IDCliente.getText().isEmpty() ||  codiceRitiro.getText().isEmpty())
+            if (IDCliente.getText().isEmpty() || codiceRitiro.getText().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
 
-            if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), codiceRitiro.getText())) {
+            if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), getCodiceRitiro())) {
                 ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(simplePuntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
                 visualizzaMerci(merci);
-                successWindow("Verifica codice eseguita con successo!","Il codice inserito appartiene al cliente.");
-                if(merci.isEmpty()) {
-                    informationWindow("Verifica codice eseguita con successo!","Il codice inserito appartiene al cliente.");
+                successWindow("Verifica codice eseguita con successo!", "Il codice inserito appartiene al cliente.");
+                if (merci.isEmpty()) {
+                    informationWindow("Riprovare piu' tardi!", "Non ci sono merci da consegnare al cliente.");
                     IDCliente.clear();
                     codiceRitiro.clear();
                 }
             } else
                 throw new IllegalStateException("Codice non valido.");
         } catch (NullPointerException e) {
-            errorWindow("Errore!","Inserisci tutti i dati richiesti!");
+            errorWindow("Errore!", "Inserisci tutti i dati richiesti!");
         } catch (IllegalArgumentException exception) {
-            errorWindow("Errore!","ID cliente non valido.");
-            IDCliente.clear();
+            if (exception.getMessage().equals("ID cliente non valido.")) {
+                errorWindow("Errore!", "ID cliente non valido.");
+                IDCliente.clear();
+            }
+            if (exception.getMessage().equals("Codice non valido.")) {
+                errorWindow("Codice ritiro non valido!", "Inserire un codice di 12 caratteri.");
+                codiceRitiro.clear();
+            }
         } catch (IllegalStateException exception) {
             errorWindow("Errore!", "Il codice non appartiene al cliente!");
             IDCliente.clear();
@@ -108,10 +120,10 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
     }
 
     public void visualizzaMerci(ArrayList<ArrayList<String>> merci) {
-            setMerceOrdineCellValueFactory();
-            merceOrdineTable.getItems().clear();
-            for (ArrayList<String> m : merci)
-                merceOrdineTable.getItems().add(m);
+        setMerceOrdineCellValueFactory();
+        merceOrdineTable.getItems().clear();
+        for (ArrayList<String> m : merci)
+            merceOrdineTable.getItems().add(m);
 
     }
 
