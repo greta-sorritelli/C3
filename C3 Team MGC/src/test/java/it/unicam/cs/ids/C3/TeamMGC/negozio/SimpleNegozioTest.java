@@ -1,5 +1,8 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import org.junit.jupiter.api.*;
 
 import java.sql.ResultSet;
@@ -15,16 +18,26 @@ class SimpleNegozioTest {
 
     static Negozio negozioTest;
 
-   @BeforeAll
-     static void preparaDB() throws SQLException {
+    @BeforeAll
+    static void preparaDB() throws SQLException {
         updateData("delete from sys.negozi;");
         updateData("delete from sys.inventario;");
         updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         negozioTest = new SimpleNegozio("Negozio di Bici", CategoriaNegozio.SPORT, "09:00", "16:00", "Via dei Test", "12345");
-        negozioTest.inserisciNuovaMerce(10,"test Negozio",10);
-        negozioTest.inserisciNuovaMerce(5,"test Negozio",1);
-        negozioTest.inserisciNuovaMerce(50,"test Negozio",20);
+        negozioTest.inserisciNuovaMerce(10, "test Negozio", 10);
+        negozioTest.inserisciNuovaMerce(5, "test Negozio", 1);
+        negozioTest.inserisciNuovaMerce(50, "test Negozio", 20);
+    }
+
+    @AfterAll
+    static void setCategoria() throws SQLException {
+        negozioTest.setCategoria(CategoriaNegozio.CASA);
+        assertEquals(CategoriaNegozio.CASA, negozioTest.getCategoria());
+
+        ResultSet rs = executeQuery("SELECT categoria FROM sys.negozi where ID = 1;");
+        if (rs.next())
+            assertEquals(CategoriaNegozio.CASA, CategoriaNegozio.valueOf(rs.getString("categoria")));
     }
 
     @Test
@@ -48,18 +61,18 @@ class SimpleNegozioTest {
     @Order(1)
     void getDettagliMerce() throws SQLException {
         ArrayList<ArrayList<String>> merci = negozioTest.getDettagliItems();
-        assertEquals(negozioTest.getID(),Integer.parseInt(merci.get(0).get(1)));
-        assertEquals("10.0",merci.get(0).get(2));
-        assertEquals("test Negozio",merci.get(0).get(3));
-        assertEquals("10",merci.get(0).get(4));
-        assertEquals(negozioTest.getID(),Integer.parseInt(merci.get(1).get(1)));
-        assertEquals("5.0",merci.get(1).get(2));
-        assertEquals("test Negozio",merci.get(1).get(3));
-        assertEquals("1",merci.get(1).get(4));
-        assertEquals(negozioTest.getID(),Integer.parseInt(merci.get(2).get(1)));
-        assertEquals("50.0",merci.get(2).get(2));
-        assertEquals("test Negozio",merci.get(2).get(3));
-        assertEquals("20",merci.get(2).get(4));
+        assertEquals(negozioTest.getID(), Integer.parseInt(merci.get(0).get(1)));
+        assertEquals("10.0", merci.get(0).get(2));
+        assertEquals("test Negozio", merci.get(0).get(3));
+        assertEquals("10", merci.get(0).get(4));
+        assertEquals(negozioTest.getID(), Integer.parseInt(merci.get(1).get(1)));
+        assertEquals("5.0", merci.get(1).get(2));
+        assertEquals("test Negozio", merci.get(1).get(3));
+        assertEquals("1", merci.get(1).get(4));
+        assertEquals(negozioTest.getID(), Integer.parseInt(merci.get(2).get(1)));
+        assertEquals("50.0", merci.get(2).get(2));
+        assertEquals("test Negozio", merci.get(2).get(3));
+        assertEquals("20", merci.get(2).get(4));
     }
 
     @Test
@@ -79,7 +92,7 @@ class SimpleNegozioTest {
     @Test
     void getMerceDisponibile() throws SQLException {
         Negozio negozio = new SimpleNegozio("Negozio2", CategoriaNegozio.ABBIGLIAMENTO, "09:00", "16:00", "Via degli Assert,56", "5644");
-        ArrayList<String> merce = negozio.inserisciNuovaMerce(15,"test Negozio",10);
+        ArrayList<String> merce = negozio.inserisciNuovaMerce(15, "test Negozio", 10);
         ArrayList<Merce> inventario = negozio.getItems();
         assertEquals(Integer.parseInt(merce.get(0)), inventario.get(0).getID());
         assertEquals(negozio.getID(), inventario.get(0).getIDNegozio());
@@ -88,6 +101,23 @@ class SimpleNegozioTest {
         assertEquals(1, inventario.size());
         inventario = negozio.getItems();
         assertEquals(1, inventario.size());
+    }
+
+    @Test
+    void getMerceVenduta() throws SQLException {
+        Negozio negozio = new SimpleNegozio("Da Borsini", CategoriaNegozio.GIARDINAGGIO, "09:00", "16:00", "Via delle Probabilita, 100", "5644");
+        GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+
+        Merce simpleMerce = new SimpleMerce(negozio.getID(), 14, "Cuscino", 10);
+        Merce simpleMerce1 = new SimpleMerce(negozio.getID(), 18, "Big Bubble", 5);
+        Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
+        ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
+
+        gestoreOrdini.registraMerce(simpleMerce.getID(), 5, Integer.parseInt(ordine.get(0)), negozio);
+        gestoreOrdini.registraMerce(simpleMerce1.getID(), 1, Integer.parseInt(ordine.get(0)), negozio);
+        gestoreOrdini.terminaOrdine(Integer.parseInt(ordine.get(0)));
+
+        assertEquals(40, negozio.getMerceVenduta());
     }
 
     @Test
@@ -101,21 +131,10 @@ class SimpleNegozioTest {
 
     @Test
     void removeMerce() throws SQLException {
-        Merce simpleMerce = new SimpleMerce(negozioTest.getID(),15,"test delete",10);
+        Merce simpleMerce = new SimpleMerce(negozioTest.getID(), 15, "test delete", 10);
         assertTrue(negozioTest.getItems().contains(negozioTest.getItem(simpleMerce.getID())));
         negozioTest.removeMerce(simpleMerce.getID());
         assertFalse(negozioTest.getItems().contains(simpleMerce));
-    }
-
-    @AfterAll
-    static void setCategoria() throws SQLException {
-        assertEquals(CategoriaNegozio.ABBIGLIAMENTO, negozioTest.getCategoria());
-        negozioTest.setCategoria(CategoriaNegozio.CASA);
-        assertEquals(CategoriaNegozio.CASA, negozioTest.getCategoria());
-
-        ResultSet rs = executeQuery("SELECT categoria FROM sys.negozi where ID = 1;");
-        if (rs.next())
-            assertEquals(CategoriaNegozio.CASA, CategoriaNegozio.valueOf(rs.getString("categoria")));
     }
 
     @Test
@@ -156,7 +175,5 @@ class SimpleNegozioTest {
         assertEquals("15:00", negozioTest.getOrarioChiusura());
         assertEquals("Via degli assert", negozioTest.getIndirizzo());
         assertEquals("338599", negozioTest.getTelefono());
-
-
     }
 }

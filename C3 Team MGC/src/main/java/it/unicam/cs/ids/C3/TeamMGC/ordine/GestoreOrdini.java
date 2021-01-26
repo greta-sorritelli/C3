@@ -149,6 +149,32 @@ public class GestoreOrdini {
         return dettagli;
     }
 
+
+    /**
+     * todo rivedere commento e test
+     * Ritorna i dettagli della merce che si trova in un determinato {@link PuntoPrelievo}.
+     *
+     * @param IDNegozio ID del punto di prelievo in cui si trova la merce della quale si vogliono conoscere i dettagli
+     *
+     * @return la descrizione della merce
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<ArrayList<String>> getDettagliMerciNegozio(int IDNegozio) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (Ordine ordine : ordini)
+            if (ordine.getIDNegozio() == IDNegozio)
+                for (MerceOrdine merceOrdine : ordine.getMerci())
+                    if (merceOrdine.getStato().equals(StatoOrdine.PAGATO))
+                        toReturn.add(merceOrdine.getDettagli());
+        return toReturn;
+    }
+
     /**
      * Ritorna i dettagli della merce che si trova in un determinato {@link PuntoPrelievo}.
      *
