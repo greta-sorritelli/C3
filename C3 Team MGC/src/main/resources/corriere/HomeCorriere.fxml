@@ -15,5 +15,6 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
+      <Button layoutX="39.0" layoutY="176.0" mnemonicParsing="false" onAction="#controllaAlert" prefHeight="25.0" prefWidth="133.0" text="Controlla notifiche" />
    </children>
 </AnchorPane>

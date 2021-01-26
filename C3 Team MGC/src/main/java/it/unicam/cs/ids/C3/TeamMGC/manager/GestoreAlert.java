@@ -33,7 +33,7 @@ public class GestoreAlert {
                 getMessaggi(toReturn, "select * from alert_clienti where IDCliente ='" + ID + "';");
                 break;
             case "MAGAZZINIERE":
-                getMessaggi(toReturn, "select * from alert_magazzinieri where IDMagazziniere ='" + ID + "';");
+                getMessaggi(toReturn, "select * from alert_magazzinieri where IDPuntoPrelievo ='" + ID + "';");
                 break;
             case "CORRIERE":
                 getMessaggi(toReturn, "select * from alert_corrieri where IDCorriere ='" + ID + "';");

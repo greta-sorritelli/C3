@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.*;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXControllareAlert;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXConsegnareMerceADestinazione;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXModificareDisponibilita;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXTrasportareMerce;
@@ -16,13 +17,14 @@ public class ICorriere implements JavaFXController {
     GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
 
     private final int IDCorriere;
+    private final String tipologiaUtente = "CORRIERE";
 
     public ICorriere(int ID) {
         this.IDCorriere = ID;
     }
 
     /**
-     * Apre la finestra per consegnare la merce al punto di prelievo.
+     * Apre la finestra per consegnare la merce alla destinazione.
      */
     @FXML
     public void consegnaMerce() {
@@ -53,7 +55,7 @@ public class ICorriere implements JavaFXController {
     }
 
     /**
-     * Apre la finestra registrarsi sulla piattaforma.
+     * Apre la finestra per registrare la merce come in transito.
      */
     @FXML
     public void trasportoMerce() {
@@ -73,6 +75,14 @@ public class ICorriere implements JavaFXController {
         } catch (IllegalArgumentException exception) {
             alertWindow("Riprovare piu' tardi.", "Non ci sono merci da trasportare.");
         }
+    }
+
+    /**
+     * Apre la finestra per controllare le notifiche.
+     */
+    @FXML
+    public void controllaAlert() {
+        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(IDCorriere,tipologiaUtente));
     }
 
 }

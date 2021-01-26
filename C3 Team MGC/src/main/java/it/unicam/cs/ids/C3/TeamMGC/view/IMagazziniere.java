@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXControllareAlert;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXComunicareConCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXConsegnareMerceAlCliente;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -15,6 +16,7 @@ public class IMagazziniere implements JavaFXController {
     private final PuntoPrelievo puntoPrelievo;
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
+    private final String tipologiaUtente = "MAGAZZINIERE";
 
     public IMagazziniere(int IDMagazzino) throws SQLException {
         this.puntoPrelievo = gestoreMagazzini.getItem(IDMagazzino);
@@ -41,6 +43,14 @@ public class IMagazziniere implements JavaFXController {
     @FXML
     public void consegnaMerceCliente() {
         openWindow("/magazziniere/ConsegnareMerceCliente.fxml", "ConsegnareMerceCliente", new JavaFXConsegnareMerceAlCliente(puntoPrelievo));
+    }
+
+    /**
+     * Apre la finestra per controllare le notifiche.
+     */
+    @FXML
+    public void controllaAlert() {
+        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(puntoPrelievo.getID(), tipologiaUtente));
     }
 
 

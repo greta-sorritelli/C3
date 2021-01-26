@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente;
+package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreAlert;
@@ -12,10 +12,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class JavaFXControllareAlertCliente implements JavaFXController {
-    private final String tipologiaUtente = "CLIENTE";
-    private final int IDCliente;
-    private GestoreAlert gestoreAlert = GestoreAlert.getInstance();
+public class JavaFXControllareAlert implements JavaFXController {
+
+    private final String tipologiaUtente;
+    private final int ID;
+    private final GestoreAlert gestoreAlert = GestoreAlert.getInstance();
 
     @FXML
     TableView<ArrayList<String>> alertTable;
@@ -24,8 +25,9 @@ public class JavaFXControllareAlertCliente implements JavaFXController {
     @FXML
     TableColumn<ArrayList<String>, String> messaggio;
 
-    public JavaFXControllareAlertCliente(int IDCliente) {
-        this.IDCliente = IDCliente;
+    public JavaFXControllareAlert(int ID, String tipologiaUtente) {
+        this.tipologiaUtente = tipologiaUtente;
+        this.ID = ID;
     }
 
     /**
@@ -41,8 +43,14 @@ public class JavaFXControllareAlertCliente implements JavaFXController {
     public void deleteAlert() {
         try {
             if (!alertTable.getSelectionModel().isEmpty()) {
-                int id = Integer.parseInt(alertTable.getSelectionModel().getSelectedItem().get(0));
-                gestoreAlert.deleteAlert(id, tipologiaUtente);
+                ArrayList<ArrayList<String>> sel = new ArrayList<>(alertTable.getSelectionModel().getSelectedItems());
+                for (ArrayList<String> alert : sel) {
+                    int ID = Integer.parseInt(alert.get(0));
+                    gestoreAlert.deleteAlert(ID, tipologiaUtente);
+                }
+                successWindow("Success!", "Notifiche eliminate con successo.");
+                sel.clear();
+                visualizzaAlert();
             } else {
                 alertWindow("Impossibile proseguire", "Selezionare una notifica.");
             }
@@ -54,15 +62,17 @@ public class JavaFXControllareAlertCliente implements JavaFXController {
     @FXML
     public void visualizzaAlert() {
         try {
-            if (gestoreAlert.getDettagliAlert(IDCliente, tipologiaUtente).isEmpty())
+            if (gestoreAlert.getDettagliAlert(ID, tipologiaUtente).isEmpty()) {
+                alertTable.getItems().clear();
                 throw new NullPointerException("No notifiche");
+            }
             setAlertTableCellValueFactory();
             alertTable.getItems().clear();
-            alertTable.getItems().addAll(gestoreAlert.getDettagliAlert(IDCliente, tipologiaUtente));
+            alertTable.getItems().addAll(gestoreAlert.getDettagliAlert(ID, tipologiaUtente));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB." + exception.getMessage());
         } catch (NullPointerException e) {
-            alertWindow("Notifiche non disponibili.", "Aggiorna piu' tardi.");
+            alertWindow("Non ci sono notifiche.", "Aggiornare piu' tardi.");
             closeWindow((Stage) alertTable.getScene().getWindow());
         }
     }
