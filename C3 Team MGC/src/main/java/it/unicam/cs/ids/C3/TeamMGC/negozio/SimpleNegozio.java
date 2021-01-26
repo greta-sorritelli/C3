@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class SimpleNegozio implements Negozio {
      * @throws SQLException eccezione causata da una query SQL
      */
     public SimpleNegozio(String nome, CategoriaNegozio categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) throws SQLException {
-        updateData("INSERT INTO sys.negozi (nome, categorie, orarioApertura, orarioChiusura, indirizzo, telefono) " +
+        updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) " +
                 "VALUES ('" + nome + "', '" + categoria + "', '" + orarioApertura + "', '" + orarioChiusura + "', '" +
                 indirizzo + "', '" + telefono + "');");
         ResultSet rs = executeQuery("SELECT MAX(ID) as ID from negozi;");
@@ -229,8 +231,20 @@ public class SimpleNegozio implements Negozio {
         return prezzo / contatore;
     }
 
-    public int getMerceVenduta(){
-        return 0;
+    public int getMerceVenduta() throws SQLException {
+        ArrayList<ArrayList<String>> tmp = GestoreOrdini.getInstance().getDettagliMerciNegozio(ID);
+        int merceVenduta = 0;
+        int merceInventario;
+
+        for (ArrayList<String> merce : tmp)
+            merceVenduta += Integer.parseInt(merce.get(4));
+
+        merceInventario = merceVenduta;
+
+        for (Merce merce : getInventario())
+            merceInventario += merce.getQuantita();
+
+        return (merceVenduta * 100) / merceInventario;
     }
 
     @Override
