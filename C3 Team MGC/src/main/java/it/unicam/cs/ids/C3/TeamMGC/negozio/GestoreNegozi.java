@@ -6,6 +6,7 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
@@ -39,6 +40,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * Se non e' presente viene creato e aggiunto alla lista.
      *
      * @return Il negozio
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     private Negozio addNegozio(ResultSet rs) throws SQLException {
@@ -61,9 +63,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * Ritorna la lista dei dettagli dei {@link Negozio} presenti nel DB.
+     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} presenti nel DB.
      *
      * @return ArrayList di ArrayList dei dettagli dei Negozi.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -79,12 +82,34 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
+     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} con una certa categoria presenti nel DB.
+     *
+     * @param categoria Categoria del negozio.
+     *
+     * @return ArrayList di ArrayList dei dettagli dei Negozi.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<ArrayList<String>> getDettagliItems(CategoriaNegozio categoria) throws SQLException {
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT * FROM sys.negozi WHERE categoria= '" + categoria + "';");
+        while (rs.next())
+            addNegozio(rs);
+        ArrayList<Negozio> tmp = negozi.stream().filter(negozio -> negozio.getCategoria().equals(categoria)).collect(Collectors.toCollection(ArrayList::new));
+        for (Negozio negozio : tmp)
+            dettagli.add(negozio.getDettagli());
+        disconnectToDB(rs);
+        return dettagli;
+    }
+
+    /**
      * Ritorna la lista dei dettagli dei {@link Negozio} che hanno ordini pagati da portare
      * ad un punto di prelievo.
      *
      * @param IDPuntoPrelievo ID del punto di prelievo
      *
      * @return ArrayList di ArrayList dei dettagli dei Negozi con ordini da ritirare.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<ArrayList<String>> getDettagliItemsConOrdini(int IDPuntoPrelievo) throws SQLException {
@@ -103,6 +128,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @param ID Codice Identificativo del Negozio
      *
      * @return Il Negozio desiderato
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -122,6 +148,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * Ritorna la lista dei {@link Negozio Negozio} presenti nel DB.
      *
      * @return ArrayList dei Negozi.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override

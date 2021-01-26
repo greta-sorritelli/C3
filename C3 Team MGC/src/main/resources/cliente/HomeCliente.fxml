@@ -13,5 +13,6 @@
          </font>
       </Label>
       <Button layoutX="330.0" layoutY="210.0" mnemonicParsing="false" onAction="#controllaAlert" text="Controlla notifiche" />
+      <Button layoutX="192.0" layoutY="210.0" mnemonicParsing="false" onAction="#filtrareNegozi" text="Filtra punti vendita" />
    </children>
 </AnchorPane>
