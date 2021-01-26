@@ -9,6 +9,10 @@ public interface Negozio extends Gestore<Merce> {
 
     CategoriaNegozio getCategoria();
 
+    void setCategoria(CategoriaNegozio categoria) throws SQLException;
+
+    ArrayList<String> getDettagli() throws SQLException;
+
     int getID();
 
     String getIndirizzo();
@@ -21,17 +25,15 @@ public interface Negozio extends Gestore<Merce> {
 
     String getOrarioChiusura();
 
+    Double getPrezzoMedio() throws SQLException;
+
     String getTelefono();
-
-    void setQuantitaMerce(int IDMerce, int quantita) throws SQLException;
-
-    void setCategoria(CategoriaNegozio categoria) throws SQLException;
-
-    ArrayList<String> getDettagli() throws SQLException;
 
     ArrayList<String> inserisciNuovaMerce(double prezzo, String descrizione, int quantita) throws SQLException;
 
     void removeMerce(int IDMerce) throws SQLException;
+
+    void setQuantitaMerce(int IDMerce, int quantita) throws SQLException;
 
     void update() throws SQLException;
 }

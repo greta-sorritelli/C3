@@ -42,13 +42,6 @@ public class SimpleNegozio implements Negozio {
         disconnectToDB(rs);
     }
 
-    @Override
-    public String toString() {
-        return "ID=" + ID +
-                ", nome='" + nome + '\'' +
-                ", categorie=" + categoria +
-                ", indirizzo='" + indirizzo + '\'';
-    }
     /**
      * Costruttore per importare i dati dal DB
      *
@@ -99,15 +92,16 @@ public class SimpleNegozio implements Negozio {
     }
 
     @Override
+    public CategoriaNegozio getCategoria() {
+        return categoria;
+    }
+
+    @Override
     public void setCategoria(CategoriaNegozio categoria) throws SQLException {
         updateData("UPDATE sys.negozi SET categoria = '" + categoria + "' WHERE (ID = '" + getID() + "');");
         this.categoria = categoria;
     }
 
-    @Override
-    public CategoriaNegozio getCategoria() {
-        return categoria;
-    }
     /**
      * Ritorna la lista dei dettagli del {@link SimpleNegozio} presente nel DB.
      *
@@ -217,6 +211,28 @@ public class SimpleNegozio implements Negozio {
         return orarioChiusura;
     }
 
+    /**
+     * Calcola il prezzo medio della merce del {@link Negozio};
+     *
+     * @return Prezzo medio.
+     */
+    //todo test
+    @Override
+    public Double getPrezzoMedio() throws SQLException {
+        update();
+        double prezzo = 0;
+        int contatore = 0;
+        for (Merce merce : getInventario()) {
+            prezzo += merce.getPrezzo();
+            contatore++;
+        }
+        return prezzo / contatore;
+    }
+
+    public int getMerceVenduta(){
+        return 0;
+    }
+
     @Override
     public String getTelefono() {
         return telefono;
@@ -258,6 +274,14 @@ public class SimpleNegozio implements Negozio {
     @Override
     public void setQuantitaMerce(int IDMerce, int quantita) throws SQLException {
         getItem(IDMerce).setQuantita(quantita);
+    }
+
+    @Override
+    public String toString() {
+        return "ID=" + ID +
+                ", nome='" + nome + '\'' +
+                ", categorie=" + categoria +
+                ", indirizzo='" + indirizzo + '\'';
     }
 
     /**

@@ -50,6 +50,8 @@ public class DataDBTest {
 
         //Negozi
         updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) VALUES ('Sportland', 'SPORT', '09:00', '20:00', 'via Giuseppe Garibaldi 1', '0733 809070');");
+        updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) VALUES ('CiaoCiao', 'ABBIGLIAMENTO', '09:00', '20:00', 'via Giuseppe Garibaldi 3', '0733 589644');");
+        updateData("INSERT INTO sys.negozi (nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono) VALUES ('BurroBirra', 'ALIMENTARI', '09:00', '20:00', 'via Giuseppe Garibaldi 4', '0733 784521');");
 
         //Punti di Prelievo
         updateData("INSERT INTO sys.punti_prelievo (nome, indirizzo) VALUES ('Magazzino Centrale', 'Camerino, via Madonna delle Carceri, 9');");
