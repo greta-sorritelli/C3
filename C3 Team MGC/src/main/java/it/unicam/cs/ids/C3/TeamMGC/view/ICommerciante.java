@@ -25,6 +25,6 @@ public class ICommerciante implements JavaFXController {
      */
     @FXML
     public void visualizzaStatistiche() {
-        openWindow("/VisualizzaStatistiche.fxml", "Visualizza le statistiche", new JavaFXVisualizzaStatistiche(negozio.getID()));
+        openWindow("/commerciante/VisualizzaStatistiche.fxml", "Visualizza le statistiche", new JavaFXVisualizzaStatistiche(negozio));
     }
 }

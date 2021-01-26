@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -155,7 +156,8 @@ public class SimpleNegozio implements Negozio {
     }
 
     @Override
-    public ArrayList<Merce> getInventario() {
+    public ArrayList<Merce> getInventario() throws SQLException {
+        update();
         return inventario;
     }
 
@@ -214,11 +216,10 @@ public class SimpleNegozio implements Negozio {
     }
 
     /**
-     * Calcola il prezzo medio della merce del {@link Negozio};
+     * Calcola il prezzo medio della merce del {@link Negozio}.
      *
      * @return Prezzo medio.
      */
-    //todo test
     @Override
     public Double getPrezzoMedio() throws SQLException {
         update();
@@ -231,6 +232,14 @@ public class SimpleNegozio implements Negozio {
         return prezzo / contatore;
     }
 
+    /**
+     * Calcola la percentuale della merce venduta rispetto all' inventario del {@link Negozio}.
+     *
+     * @return La percentuale della merce venduta.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
     public int getMerceVenduta() throws SQLException {
         ArrayList<ArrayList<String>> tmp = GestoreOrdini.getInstance().getDettagliMerciNegozio(ID);
         int merceVenduta = 0;
@@ -313,6 +322,10 @@ public class SimpleNegozio implements Negozio {
             this.orarioChiusura = rs.getString("orarioChiusura");
             this.indirizzo = rs.getString("indirizzo");
             this.telefono = rs.getString("telefono");
+
+            rs = executeQuery("select ID from inventario where IDNegozio ='" + ID + "';");
+            while (rs.next())
+                addMerceInventario(rs);
         }
         disconnectToDB(rs);
     }

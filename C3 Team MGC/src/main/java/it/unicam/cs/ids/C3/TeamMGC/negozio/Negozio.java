@@ -17,7 +17,7 @@ public interface Negozio extends Gestore<Merce> {
 
     String getIndirizzo();
 
-    ArrayList<Merce> getInventario();
+    ArrayList<Merce> getInventario() throws SQLException;
 
     int getMerceVenduta() throws SQLException;
 

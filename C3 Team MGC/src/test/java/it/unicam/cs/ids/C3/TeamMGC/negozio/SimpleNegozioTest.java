@@ -41,6 +41,14 @@ class SimpleNegozioTest {
     }
 
     @Test
+    void getPrezzoMedio() throws SQLException {
+        Negozio n = new SimpleNegozio("Negozio2", CategoriaNegozio.ABBIGLIAMENTO, "09:00", "16:00", "Via dei Test", "12345");
+        n.inserisciNuovaMerce(10, "test Negozio", 10);
+        n.inserisciNuovaMerce(5, "test Negozio", 1);
+        assertEquals(7.5,n.getPrezzoMedio());
+    }
+
+    @Test
     void getDettagli() throws SQLException {
         Negozio negozio = new SimpleNegozio("Negozio1", CategoriaNegozio.SPORT, "09:00", "16:00", "Via degli Assert", "123456");
         ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma", 10);
