@@ -15,17 +15,17 @@
       </Label>
       <ImageView fitHeight="174.0" fitWidth="174.0" layoutX="214.0" layoutY="114.0" onMouseClicked="#trasportoMerce" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Trasporta%20merce.png" />
+            <Image url="@../png/Trasporta%20merce.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="174.0" fitWidth="174.0" layoutX="402.0" layoutY="114.0" onMouseClicked="#consegnaMerce" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Consegna%20merce.png" />
+            <Image url="@../png/Consegna%20merce.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="177.0" fitWidth="174.0" layoutX="28.0" layoutY="114.0" onMouseClicked="#modificaDisponibilita" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Modifica%20disponibilita.png" />
+            <Image url="@../png/Modifica%20disponibilita.png" />
          </image>
       </ImageView>
    </children>

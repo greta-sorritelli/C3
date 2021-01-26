@@ -6,17 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="167.0" fitWidth="167.0" layoutX="275.0" layoutY="88.0" onMouseClicked="#assegnaMerceCorriere" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="54.0">
          <image>
-            <Image url="@Assegna%20merce.png" />
+            <Image url="@../png/Assegna%20merce.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="169.0" fitWidth="167.0" layoutX="54.0" layoutY="88.0" onMouseClicked="#modificaInventario" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="54.0">
          <image>
-            <Image url="@Gestione%20inventario.png" />
+            <Image url="@../png/Gestione%20inventario.png" />
          </image>
       </ImageView>
       <Label layoutX="27.0" layoutY="25.0" text="Home Addetto magazzino del negozio" textFill="#219227" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="25.0">

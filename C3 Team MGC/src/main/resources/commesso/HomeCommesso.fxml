@@ -15,12 +15,12 @@
       </Label>
       <ImageView fitHeight="170.0" fitWidth="165.0" layoutX="46.0" layoutY="89.0" onMouseClicked="#ricezionePagamento" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="89.0">
          <image>
-            <Image url="@Pagamento%20ordine.png" />
+            <Image url="@../png/Pagamento%20ordine.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="165.0" fitWidth="165.0" layoutX="281.0" layoutY="89.0" onMouseClicked="#ricezionePagamento" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="46.0">
          <image>
-            <Image url="@Comunica%20codice.png" />
+            <Image url="@../png/Comunica%20codice.png" />
          </image>
       </ImageView>
    </children>
