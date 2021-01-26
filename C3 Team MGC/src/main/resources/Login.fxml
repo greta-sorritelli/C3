@@ -14,14 +14,14 @@
       <Label layoutX="86.0" layoutY="85.0" text="Tipologia utente" AnchorPane.bottomAnchor="227.4" AnchorPane.topAnchor="85.0" />
       <Label fx:id="Id" layoutX="121.0" layoutY="134.0" prefHeight="18.0" prefWidth="17.0" text="ID*" AnchorPane.topAnchor="134.0" />
       <TextField fx:id="ID" layoutX="209.0" layoutY="130.0" prefHeight="26.0" prefWidth="200.0" />
-      <Button layoutX="433.0" layoutY="284.0" mnemonicParsing="false" onAction="#loginUtente" text="Login" />
+      <PasswordField fx:id="password" layoutX="209.0" layoutY="227.0" prefHeight="26.0" prefWidth="200.0" />
+      <Button defaultButton="true" layoutX="433.0" layoutY="284.0" mnemonicParsing="false" onAction="#loginUtente" text="Login" />
       <Label layoutX="51.0" layoutY="28.0" text="Login" AnchorPane.leftAnchor="51.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <Label layoutX="101.0" layoutY="230.0" text="Password*" AnchorPane.topAnchor="232.0" />
-      <PasswordField fx:id="password" layoutX="209.0" layoutY="227.0" prefHeight="26.0" prefWidth="200.0" />
       <Label fx:id="IDSedeLavoro" layoutX="74.0" layoutY="189.0" prefHeight="18.0" prefWidth="113.0" text="ID Sede di Lavoro*" visible="false" AnchorPane.topAnchor="183.0" />
       <TextField fx:id="IDSede" layoutX="209.0" layoutY="179.0" prefHeight="26.0" prefWidth="200.0" visible="false" />
    </children>
