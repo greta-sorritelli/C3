@@ -5,8 +5,17 @@ import java.sql.SQLException;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
-public abstract class GestoreLogin {
+public abstract  class GestoreLogin {
 
+    /**
+     *
+     * @param tipologiaUtente
+     * @param ID
+     * @param password
+     * @return
+     * @throws SQLException
+     */
+    //todo test e commento
     public boolean checkInfo(String tipologiaUtente, int ID, String password) throws SQLException {
         String query;
         switch (tipologiaUtente) {
@@ -28,6 +37,16 @@ public abstract class GestoreLogin {
         return check;
     }
 
+    /**
+     *
+     * @param tipologiaUtente
+     * @param ID
+     * @param password
+     * @param IDSedeLavoro
+     * @return
+     * @throws SQLException
+     */
+    //todo test e commento
     public boolean checkInfo(String tipologiaUtente, int ID, String password, int IDSedeLavoro) throws SQLException {
         String query;
         switch (tipologiaUtente) {
@@ -44,4 +63,20 @@ public abstract class GestoreLogin {
         disconnectToDB(rs);
         return check;
     }
+
+    /**
+     *
+     * @param nomeUtente
+     * @param password
+     * @return
+     * @throws SQLException
+     */
+    //todo test e commento
+    public static boolean checkInfo(String nomeUtente, String password) throws SQLException {
+        ResultSet rs = executeQuery("SELECT nomeUtente FROM sys.amministratore WHERE nomeUtente = '" + nomeUtente + "' AND password = '" + password + "';");
+        boolean check = rs.next();
+        disconnectToDB(rs);
+        return check;
+    }
+
 }

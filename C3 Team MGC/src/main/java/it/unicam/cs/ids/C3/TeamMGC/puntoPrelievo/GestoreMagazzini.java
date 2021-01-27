@@ -2,7 +2,9 @@ package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -149,7 +151,7 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      * @param cognome
      * @param password
      *
-     * @throws SQLException
+     * @throws SQLException Errore causato da una query SQL
      */
     //todo test
     public ArrayList<String> inserisciMagazziniere(int IDPuntoPrelievo, String nome, String cognome, String password) throws SQLException {
@@ -159,6 +161,37 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
         dettagli.add(cognome);
         updateData("INSERT INTO sys.magazzinieri (IDPuntoPrelievo,nome,cognome,password) VALUES ('" + IDPuntoPrelievo + "', '" + nome + "', '" + cognome + "', '" + password + "');");
         return dettagli;
+    }
+
+    /**
+     * Crea e inserisce un nuovo {@link PuntoPrelievo} nella lista.
+     *
+     * @param nome       Nome del punto di prelievo
+     * @param indirizzo  Indirizzo del punto di prelievo
+     *
+     * @return ArrayList dei dettagli del Punto di prelievo
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public ArrayList<String> inserisciPuntoPrelievo(String nome, String indirizzo) throws SQLException {
+        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(nome, indirizzo);
+        addMagazzinoToList(simplePuntoPrelievo);
+        return simplePuntoPrelievo.getDettagli();
+    }
+
+    /**
+     * Rimuove il {@link PuntoPrelievo} dalla lista di punti di prelievo.
+     *
+     * @param IDPuntoPrelievo ID del punto di prelievo da rimuovere.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public void removePuntoPrelievo(int IDPuntoPrelievo) throws SQLException {
+        PuntoPrelievo simplePuntoPrelievo = getItem(IDPuntoPrelievo);
+        magazzini.remove(simplePuntoPrelievo);
+        simplePuntoPrelievo.delete();
     }
 
 }

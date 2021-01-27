@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 
 import java.sql.ResultSet;
@@ -53,6 +54,20 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         this.nome = nome;
         this.indirizzo = indirizzo;
         disconnectToDB(rs);
+    }
+
+    /**
+     * Elimina il {@link SimplePuntoPrelievo} dal db e aggiorna i dati dell' oggetto.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
+    //todo test
+    public void delete() throws SQLException {
+        updateData("DELETE FROM sys.punti_prelievo WHERE (ID = '" + ID + "');");
+        this.ID = -1;
+        this.nome = "";
+        this.indirizzo = "";
     }
 
     @Override

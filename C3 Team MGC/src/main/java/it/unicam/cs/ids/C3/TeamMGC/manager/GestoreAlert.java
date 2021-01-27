@@ -26,6 +26,14 @@ public class GestoreAlert {
         return gestoreAlert;
     }
 
+    /**
+     *
+     * @param ID
+     * @param tipologiaUtente
+     * @return
+     * @throws SQLException
+     */
+    //todo test e commento
     public ArrayList<ArrayList<String>> getDettagliAlert(int ID, String tipologiaUtente) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         switch (tipologiaUtente) {
@@ -42,6 +50,13 @@ public class GestoreAlert {
         return toReturn;
     }
 
+    /**
+     *
+     * @param IDAlert
+     * @param tipologiaUtente
+     * @throws SQLException
+     */
+    //todo test e commento
     public void deleteAlert(int IDAlert, String tipologiaUtente) throws SQLException {
         switch (tipologiaUtente) {
             case "CLIENTE":
@@ -56,6 +71,13 @@ public class GestoreAlert {
         }
     }
 
+    /**
+     *
+     * @param tmp
+     * @param query
+     * @throws SQLException
+     */
+    //todo test e commento
     private void getMessaggi(ArrayList<ArrayList<String>> tmp, String query) throws SQLException {
         ResultSet rs = executeQuery(query);
         while (rs.next()) {

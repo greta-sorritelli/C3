@@ -16,7 +16,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class SimpleNegozio implements Negozio {
     private final ArrayList<Merce> inventario = new ArrayList<>();
-    private final int ID;
+    private int ID;
     private String nome;
     private CategoriaNegozio categoria;
     private String orarioApertura;
@@ -291,7 +291,24 @@ public class SimpleNegozio implements Negozio {
         Merce toDelete = getItem(IDMerce);
         inventario.remove(toDelete);
         toDelete.delete();
+    }
 
+    /**
+     * Elimina il {@link SimpleNegozio} dal db e aggiorna i dati dell' oggetto.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
+    //todo test
+    public void delete() throws SQLException {
+        updateData("DELETE FROM sys.negozi WHERE (ID = '" + ID + "');");
+        this.ID = -1;
+        this.nome = "";
+        this.categoria = null;
+        this.telefono = "";
+        this.indirizzo = "";
+        this.orarioApertura= "";
+        this.orarioChiusura= "";
     }
 
     @Override

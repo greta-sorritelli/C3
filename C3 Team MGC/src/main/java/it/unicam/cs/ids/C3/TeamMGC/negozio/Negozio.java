@@ -35,6 +35,8 @@ public interface Negozio extends Gestore<Merce> {
 
     void removeMerce(int IDMerce) throws SQLException;
 
+    void delete() throws SQLException;
+
     void setQuantitaMerce(int IDMerce, int quantita) throws SQLException;
 
     void update() throws SQLException;

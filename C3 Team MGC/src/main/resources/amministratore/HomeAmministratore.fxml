@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="39.0" layoutY="40.0" text="Home Administrator " textFill="#8a8686">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="126.0" layoutY="206.0" mnemonicParsing="false" onAction="#gestioneNegozi" text="Gestione negozi" />
+      <Button layoutX="319.0" layoutY="206.0" mnemonicParsing="false" onAction="#gestionePuntiPrelievo" text="Gestione punti di prelievo" />
+   </children>
+</AnchorPane>

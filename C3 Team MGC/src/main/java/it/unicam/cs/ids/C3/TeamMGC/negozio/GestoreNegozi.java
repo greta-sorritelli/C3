@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 
@@ -8,8 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.disconnectToDB;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
  * Classe per la gestione di ogni {@link Negozio}
@@ -158,6 +159,41 @@ public class GestoreNegozi implements Gestore<Negozio> {
             addNegozio(rs);
         disconnectToDB(rs);
         return new ArrayList<>(negozi);
+    }
+
+    /**
+     * Crea e inserisce un nuovo {@link Negozio} nella lista.
+     *
+     * @param nome           Nome del negozio
+     * @param categoria      Categoria del negozio
+     * @param indirizzo      Indirizzo del negozio
+     * @param telefono       Recapito del negozio
+     * @param orarioApertura Orario di apertura del negozio
+     * @param orarioChiusura Orario di chiusura del negozio
+     *
+     * @return ArrayList dei dettagli del Negozio.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public ArrayList<String> inserisciNegozio(String nome, CategoriaNegozio categoria, String indirizzo, String telefono, String orarioApertura, String orarioChiusura) throws SQLException {
+        Negozio simpleNegozio = new SimpleNegozio(nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono);
+        addNegozioToList(simpleNegozio);
+        return simpleNegozio.getDettagli();
+    }
+
+    /**
+     * Rimuove il {@link Negozio} dalla lista di negozi.
+     *
+     * @param IDNegozio ID del Negozio da rimuovere.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public void removeNegozio(int IDNegozio) throws SQLException {
+        Negozio simpleNegozio = getItem(IDNegozio);
+        negozi.remove(simpleNegozio);
+        simpleNegozio.delete();
     }
 
 }

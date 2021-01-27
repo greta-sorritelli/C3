@@ -8,15 +8,17 @@ import java.util.ArrayList;
 
 public interface PuntoPrelievo {
 
+    void delete() throws SQLException;
+
+    ArrayList<String> getDettagli() throws SQLException;
+
     int getID();
 
     String getIndirizzo();
 
-    String getNome();
-
-    ArrayList<String> getDettagli() throws SQLException;
-
     ArrayList<MerceOrdine> getMerceMagazzino(int IDOrdine) throws SQLException;
+
+    String getNome();
 
     ArrayList<Ordine> getOrdini(int IDCliente) throws SQLException;
 
