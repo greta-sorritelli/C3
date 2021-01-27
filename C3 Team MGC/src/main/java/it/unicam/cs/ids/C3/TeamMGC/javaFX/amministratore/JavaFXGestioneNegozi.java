@@ -19,6 +19,10 @@ public class JavaFXGestioneNegozi implements JavaFXController {
     private final ArrayList<Negozio> negoziSelezionati = new ArrayList<>();
 
     @FXML
+    TabPane tab = new TabPane();
+    @FXML
+    Tab registra = new Tab();
+    @FXML
     TextField nome;
     @FXML
     TextField indirizzo;
@@ -170,6 +174,7 @@ public class JavaFXGestioneNegozi implements JavaFXController {
             negoziSelezionati.clear();
             negoziTable.getItems().addAll(gestoreNegozi.getDettagliItems());
             if (negoziTable.getItems().isEmpty()) {
+                tab.getSelectionModel().select(registra);
                 alertWindow("Alert!", "Non ci sono negozi.");
             }
         } catch (SQLException e) {

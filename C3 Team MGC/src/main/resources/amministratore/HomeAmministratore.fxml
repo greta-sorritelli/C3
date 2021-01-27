@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="39.0" layoutY="40.0" text="Home Administrator " textFill="#8a8686">
+      <Label layoutX="36.0" layoutY="39.0" text="Home Administrator " textFill="#8a8686" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="126.0" layoutY="206.0" mnemonicParsing="false" onAction="#gestioneNegozi" text="Gestione negozi" />
-      <Button layoutX="319.0" layoutY="206.0" mnemonicParsing="false" onAction="#gestionePuntiPrelievo" text="Gestione punti di prelievo" />
+      <ImageView fitHeight="169.0" fitWidth="167.0" layoutX="50.0" layoutY="90.0" onMouseClicked="#gestioneNegozi" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="52.0">
+         <image>
+            <Image url="@../png/Gestione%20negozi.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="169.0" fitWidth="167.0" layoutX="250.0" layoutY="90.0" onMouseClicked="#gestionePuntiPrelievo" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="54.0">
+         <image>
+            <Image url="@../png/Gestione%20punti%20prelievo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

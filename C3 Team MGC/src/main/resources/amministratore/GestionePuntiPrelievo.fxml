@@ -30,7 +30,7 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="elimina" closable="false" onSelectionChanged="#visualizzaPuntiPrelievo" text="Elimina punto di prelievo">
+      <Tab closable="false" onSelectionChanged="#visualizzaPuntiPrelievo" text="Elimina punto di prelievo">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
