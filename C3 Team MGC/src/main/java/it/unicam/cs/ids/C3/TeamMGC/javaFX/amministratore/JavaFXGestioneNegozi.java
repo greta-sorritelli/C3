@@ -78,8 +78,6 @@ public class JavaFXGestioneNegozi implements JavaFXController {
     }
 
     public String getOrario(TextField t) {
-        if (t.getText().isEmpty())
-            throw new IllegalArgumentException("Orario non presente.");
         if (t.getText().length() == 5) {
             if (t.getText().contains(":")) {
                 String[] tmp = t.getText().split(":");
@@ -115,7 +113,7 @@ public class JavaFXGestioneNegozi implements JavaFXController {
     @FXML
     public void registraNegozio() {
         try {
-            if (nome.getText().isEmpty() || categorieChoiceBox.getValue() == null || getTelefono().isEmpty() || indirizzo.getText().isEmpty())
+            if (nome.getText().isEmpty() || categorieChoiceBox.getValue() == null || getTelefono().isEmpty() || indirizzo.getText().isEmpty() || orarioA.getText().isEmpty() || orarioC.getText().isEmpty())
                 throw new IllegalArgumentException("Dati non presenti");
             gestoreNegozi.inserisciNegozio(nome.getText(), categorieChoiceBox.getValue(), indirizzo.getText(), getTelefono(), getOrario(orarioA), getOrario(orarioC));
             successWindow("Success!", "Negozio registrato con successo.");
