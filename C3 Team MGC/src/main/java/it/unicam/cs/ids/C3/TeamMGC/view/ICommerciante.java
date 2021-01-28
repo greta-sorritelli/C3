@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.commerciante.JavaFXGestireVenditePromozionali;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.commerciante.JavaFXGestioneVenditePromozionali;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commerciante.JavaFXVisualizzaStatistiche;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
@@ -33,6 +33,6 @@ public class ICommerciante implements JavaFXController {
      */
     @FXML
     public void gestioneVenditePromozionali() {
-        openWindow("/commerciante/GestioneVenditePromozionali.fxml", "Gestione vendite promozionali", new JavaFXGestireVenditePromozionali(negozio));
+        openWindow("/commerciante/GestioneVenditePromozionali.fxml", "Gestione vendite promozionali", new JavaFXGestioneVenditePromozionali(negozio));
     }
 }

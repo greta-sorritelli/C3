@@ -29,7 +29,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="689.0" layoutY="505.0" mnemonicParsing="false" text="Lancia" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="61.0" />
+                  <Button layoutX="689.0" layoutY="505.0" mnemonicParsing="false" onAction="#lanciaPromozione" text="Lancia" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="61.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -54,7 +54,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Modifica promozione">
+      <Tab onSelectionChanged="#updatePromozioniChoiceBox" text="Modifica promozione">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -63,13 +63,13 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="promozioneChoiceBox" layoutX="305.0" layoutY="140.0" prefWidth="150.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="140.0" />
+                  <ChoiceBox fx:id="promozioneChoiceBox" layoutX="305.0" layoutY="140.0" onMouseClicked="#showPromozioni" prefWidth="150.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="140.0" />
                   <TextField fx:id="prezzoModificato" layoutX="305.0" layoutY="202.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="200.0" />
                   <Label layoutX="115.0" layoutY="144.0" text="Promozione da Modificare" AnchorPane.leftAnchor="115.0" />
                   <Label layoutX="135.0" layoutY="204.0" text="Nuovo Prezzo" AnchorPane.leftAnchor="135.0" />
-                  <Button defaultButton="true" layoutX="612.0" layoutY="429.0" mnemonicParsing="false" text="Modifica" AnchorPane.rightAnchor="125.60000000000002" AnchorPane.topAnchor="420.0" />
+                  <Button defaultButton="true" layoutX="612.0" layoutY="429.0" mnemonicParsing="false" onAction="#modificaPromozione" text="Modifica" AnchorPane.rightAnchor="125.60000000000002" AnchorPane.topAnchor="420.0" />
                   <Label layoutX="143.0" layoutY="285.0" text="Messaggio" AnchorPane.leftAnchor="143.0" />
-                  <TextArea fx:id="messaggioModficato" layoutX="305.0" layoutY="276.0" prefHeight="128.0" prefWidth="346.0" promptText="Promotional message..." AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="260.0" />
+                  <TextArea fx:id="messaggioModificato" layoutX="305.0" layoutY="276.0" onMouseClicked="#caricaMessaggio" prefHeight="128.0" prefWidth="346.0" promptText="Promotional message..." AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="260.0" />
                </children>
             </AnchorPane>
         </content>
