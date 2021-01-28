@@ -25,34 +25,38 @@ public class JavaFXGestireVenditePromozionali implements JavaFXController {
     TextField prezzoNuovo;
     @FXML
     TextArea messaggio;
+    @FXML
+    TextField prezzoModificato;
+    @FXML
+    TextArea messaggioModificato;
 
     /**
      * Tabella delle promozioni.
      */
     @FXML
     TableView<ArrayList<String>> promozioniTable;
-
-    @FXML
-    TableColumn<ArrayList<String>, String> IDPromozione;
     @FXML
     TableColumn<ArrayList<String>, String> IDMercePromozione;
     @FXML
     TableColumn<ArrayList<String>, String> messaggioPromozione;
     @FXML
+    TableColumn<ArrayList<String>, String> prezzoAttuale;
+    @FXML
     TableColumn<ArrayList<String>, String> prezzoPrecedente;
 
     @FXML
     ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
-
-    //todo vedere il setPromozioneCell
+    @FXML
+    ChoiceBox<String> promozioneChoiceBox = new ChoiceBox<>();
 
     /**
      * Collega i campi delle promozioni alle colonne della tabella.
      */
     private void setPromozioneCellValueFactory() {
-        IDPromozione.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().get(0)));
-        IDMercePromozione.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().get(1)));
-        messaggioPromozione.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().get(2)));
+        promozioniTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        IDMercePromozione.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().get(0)));
+        messaggioPromozione.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().get(1)));
+        prezzoAttuale.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().get(2)));
         prezzoPrecedente.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().get(3)));
     }
 
@@ -75,6 +79,37 @@ public class JavaFXGestireVenditePromozionali implements JavaFXController {
     public void updateMerceChoiceBox() {
         if (Objects.isNull(merceChoiceBox.getValue())) {
             showMerce();
+        }
+    }
+
+    @FXML
+    public void eliminaPromozione() {
+        try {
+            if (!promozioniTable.getSelectionModel().isEmpty()) {
+                ArrayList<ArrayList<String>> sel = new ArrayList<>(promozioniTable.getSelectionModel().getSelectedItems());
+                for (ArrayList<String> promozione : sel)
+                    if (promozione != null)
+                        negozio.eliminaPromozione(Integer.parseInt(promozione.get(0)));
+                sel.clear();
+            } else
+                alertWindow("Impossibile proseguire", "Selezionare la promozione da eliminare.");
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
+    @FXML
+    public void visualizzaPromozioni() {
+        try {
+            setPromozioneCellValueFactory();
+            promozioniTable.getItems().clear();
+            promozioniTable.getItems().addAll(negozio.getDettagliPromozioni());
+            if (promozioniTable.getItems().isEmpty())
+                throw new IllegalArgumentException("Promozioni non presenti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalArgumentException e) {
+            alertWindow("Promozioni non presenti.", "Aggiorna piu' tardi.");
         }
     }
 }

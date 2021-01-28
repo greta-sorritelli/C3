@@ -12,18 +12,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab onSelectionChanged="#updateMerceChoiceBox" text="Lancia una nuova vendita promozionale">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="164.0" layoutY="115.0" text="Prodotto" />
+                  <Label layoutX="164.0" layoutY="115.0" text="Prodotto" AnchorPane.leftAnchor="164.0" />
                   <Label layoutX="151.0" layoutY="197.0" text="Nuovo prezzo" />
                   <Label layoutX="159.0" layoutY="277.0" text="Messaggio" />
-                  <ChoiceBox layoutX="305.0" layoutY="111.0" onMouseClicked="#showMerce" prefHeight="25.0" prefWidth="340.0" />
-                  <TextField layoutX="305.0" layoutY="193.0" prefHeight="25.0" prefWidth="341.0" />
-                  <TextArea layoutX="305.0" layoutY="271.0" prefHeight="128.0" prefWidth="346.0" promptText="Promotional message..." />
+                  <ChoiceBox fx:id="merceChoiceBox" layoutX="305.0" layoutY="111.0" onMouseClicked="#showMerce" prefHeight="25.0" prefWidth="340.0" />
+                  <TextField fx:id="prezzoNuovo" layoutX="305.0" layoutY="193.0" prefHeight="25.0" prefWidth="341.0" />
+                  <TextArea fx:id="messaggio" layoutX="305.0" layoutY="271.0" prefHeight="128.0" prefWidth="346.0" promptText="Promotional message..." />
                   <Label layoutX="38.0" layoutY="30.0" text="Inserisci i dati di una nuova promozione" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="30.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
@@ -33,24 +33,24 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Elimina promozione">
+    <Tab onSelectionChanged="#visualizzaPromozioni" text="Elimina promozione">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <TableView fx:id="promozioniTable" layoutX="42.0" layoutY="80.0" prefHeight="406.0" prefWidth="716.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
                     <columns>
-                      <TableColumn fx:id="IDPromozione" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="IDMercePromozione" prefWidth="75.0" text="IDMerce" />
-                        <TableColumn fx:id="messaggioPromozione" prefWidth="430.0" text="Messaggio" />
-                        <TableColumn fx:id="prezzoPrecedente" prefWidth="135.0" text="PrezzoPrecedente" />
+                        <TableColumn fx:id="messaggioPromozione" prefWidth="384.00006103515625" text="Messaggio" />
+                        <TableColumn fx:id="prezzoAttuale" prefWidth="128.7999267578125" text="PrezzoAttuale" />
+                        <TableColumn fx:id="prezzoPrecedente" prefWidth="131.20001220703125" text="PrezzoPrecedente" />
                     </columns>
                   </TableView>
-                  <Label layoutX="42.0" layoutY="29.0" text="Seleziona le promozioni da eliminare" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="30.0">
+                  <Label layoutX="42.0" layoutY="29.0" text="Seleziona la promozione da eliminare" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="30.0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="691.0" layoutY="512.0" mnemonicParsing="false" text="Elimina" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="61.0" />
+                  <Button defaultButton="true" layoutX="691.0" layoutY="512.0" mnemonicParsing="false" onAction="#eliminaPromozione" text="Elimina" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="61.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -63,6 +63,13 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
+                  <ChoiceBox fx:id="promozioneChoiceBox" layoutX="305.0" layoutY="140.0" prefWidth="150.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="140.0" />
+                  <TextField fx:id="prezzoModificato" layoutX="305.0" layoutY="202.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="200.0" />
+                  <Label layoutX="115.0" layoutY="144.0" text="Promozione da Modificare" AnchorPane.leftAnchor="115.0" />
+                  <Label layoutX="135.0" layoutY="204.0" text="Nuovo Prezzo" AnchorPane.leftAnchor="135.0" />
+                  <Button defaultButton="true" layoutX="612.0" layoutY="429.0" mnemonicParsing="false" text="Modifica" AnchorPane.rightAnchor="125.60000000000002" AnchorPane.topAnchor="420.0" />
+                  <Label layoutX="143.0" layoutY="285.0" text="Messaggio" AnchorPane.leftAnchor="143.0" />
+                  <TextArea fx:id="messaggioModficato" layoutX="305.0" layoutY="276.0" prefHeight="128.0" prefWidth="346.0" promptText="Promotional message..." AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="260.0" />
                </children>
             </AnchorPane>
         </content>

@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -94,6 +93,37 @@ public class SimpleNegozio implements Negozio {
             inventario.add(simpleMerce);
     }
 
+    /**
+     * Elimina il {@link SimpleNegozio} dal db e aggiorna i dati dell' oggetto.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
+    //todo test
+    public void delete() throws SQLException {
+        updateData("DELETE FROM sys.negozi WHERE (ID = '" + ID + "');");
+        this.ID = -1;
+        this.nome = "";
+        this.categoria = null;
+        this.telefono = "";
+        this.indirizzo = "";
+        this.orarioApertura = "";
+        this.orarioChiusura = "";
+    }
+
+    //todo test e commento
+    @Override
+    public void eliminaPromozione(int IDMerce) throws SQLException {
+        ResultSet rs = executeQuery("SELECT prezzoPrecedente FROM sys.promozioni where IDMerce = " + IDMerce + ";");
+        double prezzoPrecedente;
+        if (rs.next())
+            prezzoPrecedente = rs.getInt("prezzoPrecedente");
+        else
+            throw new IllegalArgumentException("IDMerce non valido.");
+        updateData("DELETE FROM sys.promozioni WHERE (IDNegozio = '" + ID + "') and (IDMerce = '" + IDMerce + "');");
+        getItem(IDMerce).setPrezzo(prezzoPrecedente);
+    }
+
     @Override
     public CategoriaNegozio getCategoria() {
         return categoria;
@@ -142,6 +172,22 @@ public class SimpleNegozio implements Negozio {
         while (rs.next())
             toReturn.add(addMerceInventario(rs).getDettagli());
         disconnectToDB(rs);
+        return toReturn;
+    }
+
+    //todo test e commento
+    @Override
+    public ArrayList<ArrayList<String>> getDettagliPromozioni() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.promozioni where IDNegozio = " + ID + ";");
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        while (rs.next()) {
+            ArrayList<String> tmp = new ArrayList<>();
+            tmp.add(rs.getString("IDMerce"));
+            tmp.add(rs.getString("messaggio"));
+            tmp.add(rs.getString("prezzoAttuale"));
+            tmp.add(rs.getString("prezzoPrecedente"));
+            toReturn.add(tmp);
+        }
         return toReturn;
     }
 
@@ -200,6 +246,30 @@ public class SimpleNegozio implements Negozio {
         return new ArrayList<>(inventario);
     }
 
+    /**
+     * Calcola la percentuale della merce venduta rispetto all' inventario del {@link Negozio}.
+     *
+     * @return La percentuale della merce venduta.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    @Override
+    public int getMerceVenduta() throws SQLException {
+        ArrayList<ArrayList<String>> tmp = GestoreOrdini.getInstance().getDettagliMerciNegozio(ID);
+        int merceVenduta = 0;
+        int merceInventario;
+
+        for (ArrayList<String> merce : tmp)
+            merceVenduta += Integer.parseInt(merce.get(4));
+
+        merceInventario = merceVenduta;
+
+        for (Merce merce : getInventario())
+            merceInventario += merce.getQuantita();
+
+        return (merceVenduta * 100) / merceInventario;
+    }
+
     @Override
     public String getNome() {
         return nome;
@@ -232,28 +302,19 @@ public class SimpleNegozio implements Negozio {
         return prezzo / contatore;
     }
 
-    /**
-     * Calcola la percentuale della merce venduta rispetto all' inventario del {@link Negozio}.
-     *
-     * @return La percentuale della merce venduta.
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
+    //todo test e commento
     @Override
-    public int getMerceVenduta() throws SQLException {
-        ArrayList<ArrayList<String>> tmp = GestoreOrdini.getInstance().getDettagliMerciNegozio(ID);
-        int merceVenduta = 0;
-        int merceInventario;
-
-        for (ArrayList<String> merce : tmp)
-            merceVenduta += Integer.parseInt(merce.get(4));
-
-        merceInventario = merceVenduta;
-
-        for (Merce merce : getInventario())
-            merceInventario += merce.getQuantita();
-
-        return (merceVenduta * 100) / merceInventario;
+    public ArrayList<String> getPromozione(int IDMerce) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.promozioni where IDMerce = " + IDMerce + ";");
+        ArrayList<String> toReturn = new ArrayList<>();
+        if (rs.next()) {
+            toReturn.add(rs.getString("IDMerce"));
+            toReturn.add(rs.getString("messaggio"));
+            toReturn.add(rs.getString("prezzoAttuale"));
+            toReturn.add(rs.getString("prezzoPrecedente"));
+        } else
+            throw new IllegalArgumentException("IDMerce non valido.");
+        return toReturn;
     }
 
     @Override
@@ -279,6 +340,15 @@ public class SimpleNegozio implements Negozio {
         return simpleMerce.getDettagli();
     }
 
+    //todo test e commento
+    @Override
+    public void lanciaPromozione(int IDMerce, double nuovoPrezzo, String messaggio) throws SQLException {
+        Merce tmp = getItem(IDMerce);
+        updateData("INSERT INTO sys.promozioni (IDNegozio, IDMerce, Messaggio, prezzoAttuale, prezzoPrecedente) VALUES ('" + ID + "', '" + IDMerce
+                + "', '" + messaggio + "', '" + nuovoPrezzo + "', '" + tmp.getPrezzo() + "');");
+        tmp.setPrezzo(nuovoPrezzo);
+    }
+
     /**
      * Rimuove la {@link Merce} dall' inventario.
      *
@@ -293,22 +363,10 @@ public class SimpleNegozio implements Negozio {
         toDelete.delete();
     }
 
-    /**
-     * Elimina il {@link SimpleNegozio} dal db e aggiorna i dati dell' oggetto.
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
+    //todo test e commento
     @Override
-    //todo test
-    public void delete() throws SQLException {
-        updateData("DELETE FROM sys.negozi WHERE (ID = '" + ID + "');");
-        this.ID = -1;
-        this.nome = "";
-        this.categoria = null;
-        this.telefono = "";
-        this.indirizzo = "";
-        this.orarioApertura= "";
-        this.orarioChiusura= "";
+    public void setNuoviDatiPromozione(int IDMerce, double prezzo, String messaggio) throws SQLException {
+        updateData("UPDATE sys.promozioni SET messaggio = '" + messaggio + "', prezzoAttuale = '" + prezzo + "' WHERE (IDNegozio = '" + ID + "') and (IDMerce = '" + IDMerce + "');");
     }
 
     @Override

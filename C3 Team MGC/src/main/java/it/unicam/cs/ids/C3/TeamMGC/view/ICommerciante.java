@@ -11,9 +11,9 @@ import java.sql.SQLException;
 
 public class ICommerciante implements JavaFXController {
 
-    private GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
+    private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
     private final Negozio negozio;
-    private int ID;
+    private final int ID;
 
     public ICommerciante(int ID, int IDNegozio) throws SQLException {
         this.ID = ID;
@@ -33,6 +33,6 @@ public class ICommerciante implements JavaFXController {
      */
     @FXML
     public void gestioneVenditePromozionali() {
-        openWindow("/commerciante/GestireVenditePromozionali.fxml", "Gestione vendite promozionali", new JavaFXGestireVenditePromozionali(negozio));
+        openWindow("/commerciante/GestioneVenditePromozionali.fxml", "Gestione vendite promozionali", new JavaFXGestireVenditePromozionali(negozio));
     }
 }
