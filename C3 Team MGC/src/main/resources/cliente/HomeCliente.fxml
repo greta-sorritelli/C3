@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="36.0" layoutY="39.0" text="Home Cliente" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="30.0">
+      <Label layoutX="26.0" layoutY="37.0" text="Home Cliente" textFill="#ffc300" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="37.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="330.0" layoutY="210.0" mnemonicParsing="false" onAction="#controllaAlert" text="Controlla notifiche" />
-      <Button layoutX="192.0" layoutY="210.0" mnemonicParsing="false" onAction="#filtrareNegozi" text="Filtra punti vendita" />
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="26.0" layoutY="100.0" onMouseClicked="#filtrareNegozi" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="100.0">
+         <image>
+            <Image url="@../png/Filtra%20negozi.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="404.0" layoutY="100.0" onMouseClicked="#controllaAlert" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="26.0">
+         <image>
+            <Image url="@../png/Notifiche%20cliente.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="215.0" layoutY="106.0" onMouseClicked="#filtrarePromozioni" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0">
+         <image>
+            <Image url="@../png/filtra%20promozioni.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

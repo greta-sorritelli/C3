@@ -6,26 +6,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="28.0" layoutY="36.0" text="Home Corriere" textFill="#ed8040" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="36.0">
+      <Label layoutX="50.0" layoutY="39.0" text="Home Corriere" textFill="#ed8040" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="31.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <ImageView fitHeight="174.0" fitWidth="174.0" layoutX="214.0" layoutY="114.0" onMouseClicked="#trasportoMerce" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="50.0" layoutY="80.0" onMouseClicked="#trasportoMerce" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="280.0">
          <image>
             <Image url="@../png/Trasporta%20merce.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="174.0" fitWidth="174.0" layoutX="402.0" layoutY="114.0" onMouseClicked="#consegnaMerce" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="28.0">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="280.0" layoutY="80.0" onMouseClicked="#consegnaMerce" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="50.0">
          <image>
             <Image url="@../png/Consegna%20merce.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="177.0" fitWidth="174.0" layoutX="28.0" layoutY="114.0" onMouseClicked="#modificaDisponibilita" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="28.0">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="50.0" layoutY="287.0" onMouseClicked="#modificaDisponibilita" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="50.0">
          <image>
             <Image url="@../png/Modifica%20disponibilita.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="270.0" layoutY="287.0" onMouseClicked="#controllaAlert" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="43.0" AnchorPane.rightAnchor="50.0">
+         <image>
+            <Image url="@../png/Notifiche%20corriere.png" />
          </image>
       </ImageView>
    </children>

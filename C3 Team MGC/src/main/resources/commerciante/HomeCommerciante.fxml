@@ -8,18 +8,18 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="36.0" layoutY="39.0" text="Home Commerciante" textFill="#7432b5" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="25.0">
+      <Label layoutX="50.0" layoutY="31.0" text="Home Commerciante" textFill="#7432b5" AnchorPane.leftAnchor="52.0" AnchorPane.topAnchor="31.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="177.0" fitWidth="174.0" layoutX="54.0" layoutY="90.0" onMouseClicked="#visualizzaStatistiche" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="52.0">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="53.0" layoutY="96.0" onMouseClicked="#visualizzaStatistiche" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0">
          <image>
             <Image url="@../png/Statistiche.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="177.0" fitWidth="174.0" layoutX="214.0" layoutY="96.0" onMouseClicked="#gestioneVenditePromozionali" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="54.0">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="272.0" layoutY="96.0" onMouseClicked="#gestioneVenditePromozionali" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="52.0">
          <image>
             <Image url="@../png/Vendita%20promozionale.png" />
          </image>

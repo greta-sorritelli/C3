@@ -30,4 +30,9 @@ public class ICliente implements JavaFXController {
     public void filtrareNegozi() {
         openWindow("/cliente/FiltrarePuntiVendita.fxml", "Filtra i punti vendita", new JavaFXFiltrarePuntiVendita());
     }
+
+    @FXML
+    public void filtrarePromozioni() {
+        //todo
+    }
 }
