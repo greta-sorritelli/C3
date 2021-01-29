@@ -19,7 +19,7 @@ import java.util.Random;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la gestione di ogni {@link Cliente}
+ * Classe per la gestione di ogni {@link Cliente}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -32,7 +32,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
     }
 
     /**
-     * Metodo per ottenere l' istanza singleton del {@link GestoreClienti}
+     * Metodo per ottenere l' istanza singleton del {@link GestoreClienti}.
      *
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
@@ -96,11 +96,28 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
         return tmp;
     }
 
+    /**
+     * Ritorna il Codice di Ritiro collegato al {@link Cliente}.
+     *
+     * @param IDCliente Codice Identificativo del Cliente
+     *
+     * @return Il codice di ritiro del Cliente
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public String getCodiceRitiroCliente(int IDCliente) throws SQLException {
-
         return getItem(IDCliente).getCodiceRitiro();
     }
 
+    /**
+     * Ritorna il Cognome collegato al {@link Cliente}.
+     *
+     * @param IDCliente Codice Identificativo del Cliente
+     *
+     * @return Il cognome del Cliente
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public String getCognomeCliente(int IDCliente) throws SQLException {
         return getItem(IDCliente).getCognome();
     }
@@ -160,22 +177,31 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
         return new ArrayList<>(clienti);
     }
 
+    /**
+     * Ritorna il Nome collegato al {@link Cliente}.
+     *
+     * @param IDCliente Codice Identificativo del Cliente
+     *
+     * @return Il nome del Cliente
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public String getNomeCliente(int IDCliente) throws SQLException {
         return getItem(IDCliente).getNome();
     }
 
     /**
-     * Crea e inserisce un nuovo {@link Cliente} nella lista.
+     * Crea un nuovo {@link Cliente} e ne salva le informazioni.
      *
-     * @param nome    Nome del cliente da inserire
-     * @param cognome Cognome del cliente da inserire
+     * @param nome     Nome del cliente da inserire
+     * @param cognome  Cognome del cliente da inserire
+     * @param password Password del cliente da inserire
      *
      * @return ArrayList dei dettagli del cliente creato
      *
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<String> inserisciDati(String nome, String cognome, String password) throws SQLException {
-        //todo commento
         Cliente simpleCliente = new SimpleCliente(nome, cognome);
         updateData("UPDATE sys.clienti SET password = '" + password + "' WHERE (ID =" + simpleCliente.getID() + ");");
         addClienteToList(simpleCliente);

@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la creazione di un {@link SimpleNegozio}
+ * La classe implementa l' interfaccia {@link Negozio} ed ha la responsabilità di gestire un Negozio. Gestisce il suo
+ * inventario e gestisce le Promozioni collegate ad una {@link Merce}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -24,7 +25,7 @@ public class SimpleNegozio implements Negozio {
     private String telefono;
 
     /**
-     * Costruttore per inserire i dati nel DB
+     * Costruttore per inserire i dati nel DB.
      *
      * @throws SQLException eccezione causata da una query SQL
      */
@@ -45,7 +46,7 @@ public class SimpleNegozio implements Negozio {
     }
 
     /**
-     * Costruttore per importare i dati dal DB
+     * Costruttore per importare i dati dal DB.
      *
      * @throws SQLException eccezione causata da una query SQL
      */
@@ -94,7 +95,7 @@ public class SimpleNegozio implements Negozio {
     }
 
     /**
-     * Elimina il {@link SimpleNegozio} dal db e aggiorna i dati dell' oggetto.
+     * Elimina il {@link SimpleNegozio} dal DB e aggiorna i dati dell' oggetto.
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -111,7 +112,14 @@ public class SimpleNegozio implements Negozio {
         this.orarioChiusura = "";
     }
 
-    //todo test e commento
+    /**
+     * Elimina la Promozione collegata alla {@link Merce}.
+     *
+     * @param IDMerce Codice Identificativo della Merce
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
     @Override
     public void eliminaPromozione(int IDMerce) throws SQLException {
         ResultSet rs = executeQuery("SELECT prezzoPrecedente FROM sys.promozioni where IDMerce = " + IDMerce + ";");
@@ -124,6 +132,11 @@ public class SimpleNegozio implements Negozio {
         getItem(IDMerce).setPrezzo(prezzoPrecedente);
     }
 
+    /**
+     * Ritorna la Categoria del {@link SimpleNegozio}.
+     *
+     * @return la categoria del Negozio
+     */
     @Override
     public CategoriaNegozio getCategoria() {
         return categoria;
@@ -175,7 +188,14 @@ public class SimpleNegozio implements Negozio {
         return toReturn;
     }
 
-    //todo test e commento
+    /**
+     * Ritorna la lista dei dettagli di tutte le {@code Promozione} collegate alla {@link Merce} del {@link SimpleNegozio}.
+     *
+     * @return ArrayList di ArrayList dei dettagli delle Promozioni
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
     @Override
     public ArrayList<ArrayList<String>> getDettagliPromozioni() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.promozioni where IDNegozio = " + ID + ";");
@@ -191,16 +211,33 @@ public class SimpleNegozio implements Negozio {
         return toReturn;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link SimpleNegozio}.
+     *
+     * @return il Codice Identificativo del Negozio
+     */
     @Override
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna l' Indirizzo del {@link SimpleNegozio}.
+     *
+     * @return l' Indirizzo del Negozio
+     */
     @Override
     public String getIndirizzo() {
         return indirizzo;
     }
 
+    /**
+     * Ritorna la lista della {@link Merce} presente nell' inventario del {@link SimpleNegozio}.
+     *
+     * @return la lista della Merce nell' inventario
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     @Override
     public ArrayList<Merce> getInventario() throws SQLException {
         update();
@@ -279,16 +316,31 @@ public class SimpleNegozio implements Negozio {
         return 0;
     }
 
+    /**
+     * Ritorna il Nome del {@link SimpleNegozio}.
+     *
+     * @return il Nome del Negozio
+     */
     @Override
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Ritorna l'Orario d'Apertura del {@link SimpleNegozio}.
+     *
+     * @return l'Orario d'Apertura del Negozio
+     */
     @Override
     public String getOrarioApertura() {
         return orarioApertura;
     }
 
+    /**
+     * Ritorna l'Orario di Chiusura del {@link SimpleNegozio}.
+     *
+     * @return l'Orario di Chiusura del Negozio
+     */
     @Override
     public String getOrarioChiusura() {
         return orarioChiusura;
@@ -311,7 +363,16 @@ public class SimpleNegozio implements Negozio {
         return prezzo / contatore;
     }
 
-    //todo test e commento
+    /**
+     * Ritorna la Promozione  collegata alla {@link Merce}.
+     *
+     * @param IDMerce Codice Identificativo della Merce
+     *
+     * @return la Promozione collegata alla Merce
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
     @Override
     public ArrayList<String> getPromozione(int IDMerce) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.promozioni where IDMerce = " + IDMerce + ";");
@@ -326,13 +387,18 @@ public class SimpleNegozio implements Negozio {
         return toReturn;
     }
 
+    /**
+     * Ritorna il telefono del {@link SimpleNegozio}.
+     *
+     * @return il telefono del Negozio
+     */
     @Override
     public String getTelefono() {
         return telefono;
     }
 
     /**
-     * Crea e inserisce una nuova {@link Merce} all 'interno dell' inventario.
+     * Crea e inserisce una nuova {@link Merce} all' interno dell' inventario.
      *
      * @param prezzo      Prezzo della merce da inserire
      * @param descrizione Descrizione della merce da inserire
@@ -349,7 +415,16 @@ public class SimpleNegozio implements Negozio {
         return simpleMerce.getDettagli();
     }
 
-    //todo test e commento
+    /**
+     * Crea una nuova {@code Promozione} e la collega alla {@link Merce}.
+     *
+     * @param IDMerce     Codice Identificativo della Merce
+     * @param nuovoPrezzo Nuovo Prezzo della Merce
+     * @param messaggio   Messaggio della Promozione
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
     @Override
     public void lanciaPromozione(int IDMerce, double nuovoPrezzo, String messaggio) throws SQLException {
         Merce tmp = getItem(IDMerce);
@@ -372,12 +447,29 @@ public class SimpleNegozio implements Negozio {
         toDelete.delete();
     }
 
-    //todo test e commento
+    /**
+     * Imposta i nuovi dati della {@code Promozione}.
+     *
+     * @param IDMerce   Codice Identificato della Merce con la Promozione da modificare
+     * @param prezzo    Prezzo da impostare
+     * @param messaggio Messaggio da impostare
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
     @Override
     public void setNuoviDatiPromozione(int IDMerce, double prezzo, String messaggio) throws SQLException {
         updateData("UPDATE sys.promozioni SET messaggio = '" + messaggio + "', prezzoAttuale = '" + prezzo + "' WHERE (IDNegozio = '" + ID + "') and (IDMerce = '" + IDMerce + "');");
     }
 
+    /**
+     * Imposta la nuova Quantità della {@link Merce}.
+     *
+     * @param IDMerce  Codice Identificativo della Merce
+     * @param quantita Nuova Quantità da impostare
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     @Override
     public void setQuantitaMerce(int IDMerce, int quantita) throws SQLException {
         getItem(IDMerce).setQuantita(quantita);

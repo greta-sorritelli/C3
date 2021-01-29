@@ -1,7 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+/**
+ * Enumerazione che definisce la {@code Tipologia} di un {@link Negozio}.
+ */
 public enum CategoriaNegozio {
-
     ABBIGLIAMENTO,
     ALIMENTARI,
     CALZATURE,
@@ -16,5 +18,4 @@ public enum CategoriaNegozio {
     PROFUMERIA,
     SALUTE,
     SPORT
-
 }

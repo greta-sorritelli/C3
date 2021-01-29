@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per rappresentare la {@link SimpleMerce} all' interno dell' Inventario di un {@link Negozio}.
+ * La classe implementa l' interfaccia {@link Merce} ed ha la responsabilità di gestire una Merce all' interno
+ * dell' inventario di un {@link Negozio}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -60,7 +61,7 @@ public class SimpleMerce implements Merce {
     }
 
     /**
-     * Elimina la {@link SimpleMerce} dal db e aggiorna i dati dell' oggetto.
+     * Elimina la {@link SimpleMerce} dal DB e aggiorna i dati dell' oggetto.
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -74,11 +75,23 @@ public class SimpleMerce implements Merce {
         this.quantita = -1;
     }
 
+    /**
+     * Ritorna la Descrizione della {@link SimpleMerce}.
+     *
+     * @return la descrizione della Merce
+     */
     @Override
     public String getDescrizione() {
         return descrizione;
     }
 
+    /**
+     * Imposta la nuova Descrizione della {@link SimpleMerce}.
+     *
+     * @param descrizione Nuova descrizione
+     *
+     * @throws SQLException eccezione causa da una query SQL
+     */
     @Override
     public void setDescrizione(String descrizione) throws SQLException {
         updateData("UPDATE sys.inventario SET descrizione = '" + descrizione + "' WHERE (ID = '" + getID() + "');");
@@ -89,6 +102,7 @@ public class SimpleMerce implements Merce {
      * Ritorna la lista dei dettagli della {@link SimpleMerce } presente nel DB.
      *
      * @return ArrayList dei dettagli della merce.
+     *
      * @throws SQLException Errore causato da una query SQL
      **/
     @Override
@@ -103,32 +117,66 @@ public class SimpleMerce implements Merce {
         return toReturn;
     }
 
+    /**
+     * Ritorna il Codice Identificativo della {@link SimpleMerce}.
+     *
+     * @return il Codice Identificativo
+     */
     @Override
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link Negozio} della {@link SimpleMerce}.
+     *
+     * @return il Codice Identificativo del Negozio
+     */
     @Override
     public int getIDNegozio() {
         return IDNegozio;
     }
 
+    /**
+     * Ritorna il Prezzo della {@link SimpleMerce}.
+     *
+     * @return il Prezzo
+     */
     @Override
     public double getPrezzo() {
         return prezzo;
     }
 
+    /**
+     * Imposta il nuovo Prezzo della {@link SimpleMerce}.
+     *
+     * @param prezzo Nuovo prezzo
+     *
+     * @throws SQLException eccezione causa da una query SQL
+     */
     @Override
     public void setPrezzo(double prezzo) throws SQLException {
         updateData("UPDATE sys.inventario SET prezzo = '" + prezzo + "' WHERE (ID = '" + getID() + "');");
         this.prezzo = prezzo;
     }
 
+    /**
+     * Ritorna la Quantità della {@link SimpleMerce}.
+     *
+     * @return la Quantità
+     */
     @Override
     public int getQuantita() {
         return quantita;
     }
 
+    /**
+     * Imposta la nuova Quantità della {@link SimpleMerce}.
+     *
+     * @param quantita Nuova quantità
+     *
+     * @throws SQLException eccezione causa da una query SQL
+     */
     @Override
     public void setQuantita(int quantita) throws SQLException {
         updateData("UPDATE sys.inventario SET quantita = '" + quantita + "' WHERE (ID = '" + getID() + "');");

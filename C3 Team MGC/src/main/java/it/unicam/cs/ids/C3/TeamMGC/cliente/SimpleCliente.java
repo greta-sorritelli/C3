@@ -11,11 +11,11 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la creazione di un {@link SimpleCliente}
+ * La classe implementa l' interfaccia {@link Cliente} ed ha la responsabilità di gestire un Cliente.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class SimpleCliente implements Cliente{
+public class SimpleCliente implements Cliente {
     private final int ID;
     private String nome;
     private String cognome;
@@ -26,6 +26,7 @@ public class SimpleCliente implements Cliente{
      * Costruttore per importare i dati dal DB.
      *
      * @param ID ID del Cliente
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public SimpleCliente(int ID) throws SQLException {
@@ -66,16 +67,31 @@ public class SimpleCliente implements Cliente{
         return getID() == simpleCliente.getID();
     }
 
+    /**
+     * Ritorna il Codice di Ritiro collegato al {@link SimpleCliente}.
+     *
+     * @return il Codice di Ritiro
+     */
     @Override
     public String getCodiceRitiro() {
         return codiceRitiro;
     }
 
+    /**
+     * Ritorna il Cognome del {@link SimpleCliente}.
+     *
+     * @return il Cognome
+     */
     @Override
     public String getCognome() {
         return cognome;
     }
 
+    /**
+     * Ritorna la Data di Creazione del {@code Codice di Ritiro} collegato al {@link SimpleCliente}.
+     *
+     * @return la data di creazione del Codice
+     */
     @Override
     public String getDataCreazioneCodice() {
         return dataCreazioneCodice;
@@ -85,6 +101,7 @@ public class SimpleCliente implements Cliente{
      * Ritorna un arraylist con i dettagli del {@link SimpleCliente}.
      *
      * @return ArrayList dei dettagli
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -99,11 +116,21 @@ public class SimpleCliente implements Cliente{
         return toReturn;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link SimpleCliente}.
+     *
+     * @return il Codice Identificativo
+     */
     @Override
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna il Nome del {@link SimpleCliente}.
+     *
+     * @return il Nome
+     */
     @Override
     public String getNome() {
         return nome;

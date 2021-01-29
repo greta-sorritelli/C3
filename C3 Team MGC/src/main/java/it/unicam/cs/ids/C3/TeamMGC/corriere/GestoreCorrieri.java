@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la gestione di ogni {@link Corriere}
+ * Classe per la gestione di ogni {@link Corriere}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -25,7 +25,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
     }
 
     /**
-     * Metodo per ottenere l' istanza singleton del {@link GestoreCorrieri}
+     * Metodo per ottenere l' istanza singleton del {@link GestoreCorrieri}.
      *
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
@@ -40,6 +40,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * Se non e' presente viene creato e aggiunto alla lista.
      *
      * @return Il corriere
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     private Corriere addCorriere(ResultSet rs) throws SQLException {
@@ -66,6 +67,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * Ritorna la lista dei {@link Corriere Corrieri} {@code disponibili} presenti nel DB.
      *
      * @return ArrayList dei Corrieri disponibili.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<Corriere> getCorrieriDisponibili() throws SQLException {
@@ -89,6 +91,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * Ritorna la lista dei dettagli dei {@link Corriere Corrieri} {@code disponibili} presenti nel DB.
      *
      * @return ArrayList di ArrayList dei dettagli dei Corrieri disponibili.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public ArrayList<ArrayList<String>> getDettagliCorrieriDisponibili() throws SQLException {
@@ -113,6 +116,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * Ritorna la lista dei dettagli dei {@link Corriere Corrieri} presenti nel DB.
      *
      * @return ArrayList di ArrayList dei dettagli dei Corrieri.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -127,6 +131,15 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
         return dettagli;
     }
 
+    /**
+     * Ritorna la Disponibilità del {@link Corriere} collegato all' {@code ID}.
+     *
+     * @param IDCorriere Codice Identificativo del Corriere
+     *
+     * @return la disponibilità del corriere
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public boolean getDisponibilita(int IDCorriere) throws SQLException {
         return getItem(IDCorriere).getDisponibilita();
     }
@@ -137,6 +150,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * @param ID Codice Identificativo del Corriere
      *
      * @return Il Corriere desiderato
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -154,6 +168,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * Ritorna la lista dei {@link Corriere Corrieri} presenti nel DB.
      *
      * @return ArrayList dei Corrieri.
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -165,7 +180,16 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
         return new ArrayList<>(corrieri);
     }
 
-    public String getNomeCorriere(int IDCorriere) throws SQLException{
+    /**
+     * Ritorna il Nome del {@link Corriere} collegato all' {@code ID}.
+     *
+     * @param IDCorriere Codice Identificativo del Corriere
+     *
+     * @return il nome del corriere
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public String getNomeCorriere(int IDCorriere) throws SQLException {
         return getItem(IDCorriere).getNome();
     }
 
@@ -176,10 +200,11 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * @param cognome Cognome del corriere da inserire
      *
      * @return ArrayList dei dettagli del corriere creato
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     //todo commento
-    public ArrayList<String> inserisciDati(String nome, String cognome,String password) throws SQLException {
+    public ArrayList<String> inserisciDati(String nome, String cognome, String password) throws SQLException {
         Corriere simpleCorriere = new SimpleCorriere(nome, cognome, true);
         updateData("UPDATE sys.corrieri SET password = '" + password + "' WHERE (ID =" + simpleCorriere.getID() + ");");
         addCorriereToList(simpleCorriere);

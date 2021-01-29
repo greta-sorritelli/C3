@@ -8,7 +8,7 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la creazione di un {@link SimpleCorriere}
+ * La classe implementa l' interfaccia {@link Corriere} ed ha la responsabilità di gestire un Corriere.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -64,11 +64,23 @@ public class SimpleCorriere implements Corriere {
         return getID() == simpleCorriere.getID();
     }
 
+    /**
+     * Ritorna il Cognome del {@link SimpleCorriere}.
+     *
+     * @return il Cognome
+     */
     @Override
     public String getCognome() {
         return cognome;
     }
 
+    /**
+     * Imposta il nuovo Cognome del {@link SimpleCorriere}.
+     *
+     * @param cognome Nuovo cognome
+     *
+     * @throws SQLException eccezione causa da una query SQL
+     */
     @Override
     public void setCognome(String cognome) throws SQLException {
         updateData("UPDATE sys.corrieri SET cognome = '" + cognome + "' WHERE (ID = '" + this.ID + "');");
@@ -93,13 +105,20 @@ public class SimpleCorriere implements Corriere {
         return corriere;
     }
 
+    /**
+     * Ritorna la Disponibilità del {@link SimpleCorriere}.
+     *
+     * @return lo stato del corriere
+     */
     @Override
     public boolean getDisponibilita() {
         return disponibilita;
     }
 
     /**
-     * Imposta la nuova disponibilità del {@link SimpleCorriere}
+     * Imposta la nuova Disponibilità del {@link SimpleCorriere}.
+     *
+     * @param disponibilita Nuovo valore della disponibilità
      *
      * @throws SQLException eccezione causa da una query SQL
      */
@@ -109,16 +128,33 @@ public class SimpleCorriere implements Corriere {
         this.disponibilita = disponibilita;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link SimpleCorriere}.
+     *
+     * @return il Codice Identificativo
+     */
     @Override
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna il Nome del {@link SimpleCorriere}.
+     *
+     * @return il Nome
+     */
     @Override
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Imposta il nuovo Nome del {@link SimpleCorriere}.
+     *
+     * @param nome Nuovo nome
+     *
+     * @throws SQLException eccezione causa da una query SQL
+     */
     @Override
     public void setNome(String nome) throws SQLException {
         updateData("UPDATE sys.corrieri SET nome = '" + nome + "' WHERE (ID = '" + this.ID + "');");

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la gestione di ogni {@link Negozio}
+ * Classe per la gestione di ogni {@link Negozio}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
