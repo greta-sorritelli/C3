@@ -41,7 +41,7 @@ public class JavaFXVisualizzaStatistiche implements JavaFXController {
         }
     }
 
-    public void reset(){
+    public void reset() {
         prezzoMedio.clear();
         percentuale.clear();
     }

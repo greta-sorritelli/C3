@@ -21,13 +21,24 @@ public class JavaFXComunicareCodiceRitiro implements JavaFXController {
     @FXML
     TextField CodiceRitiroAttuale;
 
+    public String getIDCliente() {
+        if (IDCliente.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("ID cliente non valido.");
+        return IDCliente.getText();
+    }
+
+    public String getIDOrdine() {
+        if (IDOrdine.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("ID ordine non valido.");
+        return IDOrdine.getText();
+    }
 
     public void verificaEsistenzaCodice() {
         try {
-            if (IDCliente.getText().isEmpty() || IDOrdine.getText().isEmpty())
+            if (getIDCliente().isEmpty() || IDOrdine.getText().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
-            String vecchioCodice = gestoreClienti.getCodiceRitiroCliente(Integer.parseInt(IDCliente.getText()));
-            String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(IDCliente.getText()), Integer.parseInt(IDOrdine.getText()));
+            String vecchioCodice = gestoreClienti.getCodiceRitiroCliente(Integer.parseInt(getIDCliente()));
+            String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(getIDCliente()), Integer.parseInt(getIDOrdine()));
             if (vecchioCodice.equals(codice))
                 informationWindow("Il cliente ha gia' un codice", "Codice cliente : " + codice);
             else
@@ -36,7 +47,7 @@ public class JavaFXComunicareCodiceRitiro implements JavaFXController {
         } catch (NullPointerException exception) {
             errorWindow("Errore!", "Inserire tutti i dati richiesti.");
         } catch (IllegalArgumentException exception) {
-            if (exception.getMessage().equals("ID non valido.")) {
+            if (exception.getMessage().equals("ID cliente non valido.")) {
                 errorWindow("Errore!", "ID cliente non valido.");
                 IDCliente.clear();
             }

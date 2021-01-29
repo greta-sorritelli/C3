@@ -59,7 +59,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
             if (!residenza.getText().isEmpty()) {
                 gestoreCorrieri.getCorrieriDisponibili();
                 gestoreOrdini.addResidenza(IDOrdine, residenza.getText());
-                gestoreOrdini.setStatoOrdine(IDOrdine,StatoOrdine.CORRIERE_SCELTO);
+                gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.CORRIERE_SCELTO);
                 successWindow("Residenza salvata con successo!", "Ora potrai scegliere il corriere da avvisare.");
                 sceltaCorriere();
                 closeWindow((Stage) residenza.getScene().getWindow());
@@ -97,8 +97,8 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
 
     public void mandaAlert() {
         try {
-            if(!gestoreCorrieri.getCorrieriDisponibili().isEmpty())
-            gestoreMagazzini.mandaAlert(choicePuntoPrelievo.getValue().getID(), negozio);
+            if (!gestoreCorrieri.getCorrieriDisponibili().isEmpty())
+                gestoreMagazzini.mandaAlert(choicePuntoPrelievo.getValue().getID(), negozio);
             successWindow("Alert mandato con successo!", "L' alert e' stato inviato al magazziniere.");
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
@@ -127,8 +127,12 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
 
     @FXML
     public void updateMagazziniChoiceBox() {
-        if (Objects.isNull(choicePuntoPrelievo.getValue())) {
-            showMagazzini();
-        }
+        showMagazzini();
+        choicePuntoPrelievo.getItems().clear();
+    }
+
+    @FXML
+    public void clearText(){
+        residenza.clear();
     }
 }

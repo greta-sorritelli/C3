@@ -16,7 +16,7 @@
          </font>
       </Label>
       <Label layoutX="104.0" layoutY="165.0" text="Password*" />
-      <Label layoutX="96.0" layoutY="115.0" text="Nome utente" />
+      <Label layoutX="96.0" layoutY="115.0" text="Nome utente*" />
       <PasswordField fx:id="password" layoutX="203.0" layoutY="161.0" prefHeight="26.0" prefWidth="195.0" />
       <Button defaultButton="true" layoutX="404.0" layoutY="262.0" mnemonicParsing="false" onAction="#loginAdmin" text="Login" />
    </children>

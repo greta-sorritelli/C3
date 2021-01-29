@@ -9,12 +9,17 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class JavaFXGestioneInventario implements JavaFXController {
 
     private final Negozio negozio;
+
+    @FXML
+    TabPane tab = new TabPane();
+    @FXML
+    Tab aggiunta = new Tab();
 
     @FXML
     TextField prezzo;
@@ -79,35 +84,66 @@ public class JavaFXGestioneInventario implements JavaFXController {
         this.negozio = negozio;
     }
 
+    public String getPrezzo() {
+        if (prezzo.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("Formato prezzo non valido.");
+        return prezzo.getText();
+    }
+
+    public String getQuantita(TextField t) {
+        if (t.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("Formato quantita non valido.");
+        return t.getText();
+    }
+
+
     public void inserisciNuovaMerce() {
         try {
-            merceCreata.add(negozio.inserisciNuovaMerce(Double.parseDouble(prezzo.getText()), descrizione.getText(), Integer.parseInt(quantita.getText())));
+            if (getPrezzo().isEmpty() || descrizione.getText().isEmpty() || getQuantita(quantita).isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            merceCreata.add(negozio.inserisciNuovaMerce(Double.parseDouble(getPrezzo()), descrizione.getText(), Integer.parseInt(getQuantita(quantita))));
             prezzo.clear();
             descrizione.clear();
             quantita.clear();
             visualizzaMerciInserite();
-            successWindow("Aggiunta prodotto eseguita con successo!","La merce e' stata inserita correttamente nell' inventario.");
-        } catch (Exception exception) {
-            errorWindow("Errore!","Inserire i dati richiesti.");
+            successWindow("Aggiunta prodotto eseguita con successo!", "La merce e' stata inserita correttamente nell' inventario.");
+        } catch (NullPointerException exception) {
+            errorWindow("Impossibile inserire la merce!", "Inserire i dati richiesti.");
+        } catch (IllegalArgumentException exception) {
+            if (exception.getMessage().equals("Formato prezzo non valido.")) {
+                errorWindow("Formato prezzo non valido!", "Inserire di nuovo il prezzo.");
+                prezzo.clear();
+            }
+            if (exception.getMessage().equals("Formato quantita non valido.")) {
+                errorWindow("Formato quantita' non valido!", "Inserire di nuovo la quantita'.");
+                quantita.clear();
+            }
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
     public void removeMerce() {
         try {
             ArrayList<ArrayList<String>> merciSelezionate = new ArrayList<>(merceTable2.getSelectionModel().getSelectedItems());
-            if(!merciSelezionate.isEmpty()) {
+            if (!merciSelezionate.isEmpty()) {
                 for (ArrayList<String> merce : merciSelezionate) {
                     int merceID = Integer.parseInt(merce.get(0));
                     negozio.removeMerce(merceID);
                     merceCreata.removeIf(merce1 -> merce1.get(0).equals(String.valueOf(merceID)));
                 }
-                visualizzaMerci();
+                successWindow("Rimozione prodotto eseguita con successo!", "La merce selezionata e' stata rimossa dall' inventario.");
+                if (!negozio.getDettagliItems().isEmpty())
+                    visualizzaMerci();
+                else
+                    tab.getSelectionModel().select(aggiunta);
                 visualizzaMerciInserite();
-                successWindow("Rimozione prodotto eseguita con successo!","La merce selezionata e' stata rimossa dall' inventario.");
-            }else
+            } else
                 throw new IllegalArgumentException("Merci non selezionate.");
-        } catch (Exception exception) {
-            errorWindow("Errore!","Selezionare la merce.");
+        } catch (IllegalArgumentException exception) {
+            errorWindow("Errore!", "Selezionare la merce.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -136,6 +172,8 @@ public class JavaFXGestioneInventario implements JavaFXController {
 
     public void setQuantita() {
         try {
+            if (merceChoiceBox.getValue() == null || getQuantita(quantita1).isEmpty())
+                throw new NullPointerException("Dati non presenti.");
             negozio.setQuantitaMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita1.getText()));
             merceChoiceBox.getValue().update();
             merceCreata.removeIf(merce -> merce.get(0).equals(String.valueOf(merceChoiceBox.getValue().getID())));
@@ -143,9 +181,14 @@ public class JavaFXGestioneInventario implements JavaFXController {
             visualizzaMerciInserite();
             quantita1.clear();
             merceChoiceBox.getItems().clear();
-            successWindow("Modifica prodotto eseguita con successo!","La quantita' della merce e' stata modificata.");
-        } catch (Exception exception) {
-            errorWindow("Errore!","Inserire i dati richiesti.");
+            successWindow("Modifica prodotto eseguita con successo!", "La quantita' della merce e' stata modificata.");
+        } catch (NullPointerException exception) {
+            errorWindow("Errore!", "Inserire i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalArgumentException exception) {
+            errorWindow("Formato quantita' non valido!", "Inserire di nuovo la quantita.");
+            quantita1.clear();
         }
     }
 
@@ -154,16 +197,27 @@ public class JavaFXGestioneInventario implements JavaFXController {
         try {
             merceChoiceBox.getItems().clear();
             merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getItems()));
+            if (merceChoiceBox.getItems().isEmpty()) {
+                alertWindow("Merci non presenti.", "Aggiorna piu' tardi.");
+                tab.getSelectionModel().select(aggiunta);
+            }
         } catch (Exception exception) {
-            errorWindow("Errore!","Error.");
+            errorWindow("Errore!", "Error.");
         }
     }
 
     @FXML
     public void updateMerceChoiceBox() {
-        if (Objects.isNull(merceChoiceBox.getValue())) {
-            showMerce();
-        }
+        showMerce();
+        merceChoiceBox.getItems().clear();
+        quantita1.clear();
+    }
+
+    @FXML
+    public void clearText() {
+        prezzo.clear();
+        descrizione.clear();
+        quantita.clear();
     }
 
     /**
@@ -174,11 +228,14 @@ public class JavaFXGestioneInventario implements JavaFXController {
         try {
             setMerceInventarioCellValueFactory();
             merceTable2.getItems().clear();
-            for (ArrayList<String> m : negozio.getDettagliItems()) {
+            for (ArrayList<String> m : negozio.getDettagliItems())
                 merceTable2.getItems().add(m);
+            if (merceTable2.getItems().isEmpty()) {
+                alertWindow("Prodotti non presenti.", "Aggiorna piu' tardi.");
+                tab.getSelectionModel().select(aggiunta);
             }
         } catch (Exception exception) {
-            errorWindow("Errore!","Error.");
+            errorWindow("Errore!", "Error.");
         }
     }
 

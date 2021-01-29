@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane fx:id="tab" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab text="Aggiunta prodotto">
+    <Tab fx:id="aggiunta" onSelectionChanged="#clearText" text="Aggiunta prodotto">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -46,9 +46,9 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Modifica quantita prodotto">
+    <Tab onSelectionChanged="#updateMerceChoiceBox" text="Modifica quantita prodotto">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#updateMerceChoiceBox" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Label layoutX="42.0" layoutY="31.0" text="Inserisci dati per modificare un prodotto" AnchorPane.leftAnchor="42.0">
                      <font>
@@ -59,7 +59,7 @@
                   <Label layoutX="183.0" layoutY="199.0" text="Nuova quantita" AnchorPane.leftAnchor="42.0" />
                   <TextField fx:id="quantita1" layoutX="171.0" layoutY="195.0" prefHeight="26.0" prefWidth="123.0" />
                   <Button layoutX="486.0" layoutY="273.0" mnemonicParsing="false" onAction="#setQuantita" text="Modifica quantita" />
-                  <ChoiceBox fx:id="merceChoiceBox" layoutX="171.0" layoutY="103.0" onMouseClicked="#showMerce" prefHeight="26.0" prefWidth="570.0" />
+                  <ChoiceBox fx:id="merceChoiceBox" layoutX="171.0" layoutY="103.0" onMousePressed="#showMerce" prefHeight="26.0" prefWidth="570.0" />
                </children></AnchorPane>
       </content>
     </Tab>

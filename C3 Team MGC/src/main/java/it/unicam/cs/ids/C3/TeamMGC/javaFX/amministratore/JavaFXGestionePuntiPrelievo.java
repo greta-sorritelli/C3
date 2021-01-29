@@ -48,6 +48,12 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
     }
 
     @FXML
+    public void clearText() {
+        nome.clear();
+        indirizzo.clear();
+    }
+
+    @FXML
     public void registraPuntoPrelievo() {
         try {
             if (nome.getText().isEmpty() || indirizzo.getText().isEmpty())
@@ -77,7 +83,10 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
                     gestoreMagazzini.removePuntoPrelievo(p.getID());
                 successWindow("Success!", "Punti prelievo eliminati con successo.");
                 sel.clear();
-                visualizzaPuntiPrelievo();
+                if (!gestoreMagazzini.getDettagliItems().isEmpty())
+                    visualizzaPuntiPrelievo();
+                else
+                    tab.getSelectionModel().select(registra);
             } else
                 alertWindow("Impossibile proseguire", "Selezionare uno o piu' punti di prelievo.");
         } catch (SQLException e) {
@@ -93,8 +102,8 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
             puntiSelezionati.clear();
             puntiPrelievoTable.getItems().addAll(gestoreMagazzini.getDettagliItems());
             if (puntiPrelievoTable.getItems().isEmpty()) {
-                tab.getSelectionModel().select(registra);
                 alertWindow("Alert!", "Non ci sono punti di prelievo.");
+                tab.getSelectionModel().select(registra);
             }
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");

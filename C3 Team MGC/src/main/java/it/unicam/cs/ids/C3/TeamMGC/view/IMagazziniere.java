@@ -28,7 +28,7 @@ public class IMagazziniere implements JavaFXController {
     @FXML
     public void avvisaCorriere() {
         try {
-            if(!gestoreCorrieri.getCorrieriDisponibili().isEmpty())
+            gestoreCorrieri.getCorrieriDisponibili();
             openWindow("/magazziniere/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(puntoPrelievo.getID()));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

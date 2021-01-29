@@ -84,8 +84,8 @@ public class GestoreOrdini {
     public void associaMerceCorriere(int IDCorriere, int IDMerce) throws SQLException {
         updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + IDMerce + "');");
         MerceOrdine tmp = getMerceOrdine(IDMerce);
-        setStatoMerce(IDMerce,StatoOrdine.AFFIDATO_AL_CORRIERE);
-        setIDCorriereMerce(tmp.getID(),IDCorriere);
+        setStatoMerce(IDMerce, StatoOrdine.AFFIDATO_AL_CORRIERE);
+        setIDCorriereMerce(tmp.getID(), IDCorriere);
     }
 
     /**
@@ -170,7 +170,7 @@ public class GestoreOrdini {
         for (Ordine ordine : ordini)
             if (ordine.getIDNegozio() == IDNegozio)
                 for (MerceOrdine merceOrdine : ordine.getMerci())
-                    if (merceOrdine.getStato().equals(StatoOrdine.PAGATO))
+                    if (merceOrdine.getStato() != StatoOrdine.DA_PAGARE)
                         toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
@@ -337,7 +337,7 @@ public class GestoreOrdini {
     /**
      * Ritorna la descrizione delle {@link MerceOrdine merci} di un singolo {@link Negozio} verso un unico {@link PuntoPrelievo}.
      *
-     * @param IDNegozio ID del negozio da cui proviene la merce
+     * @param IDNegozio       ID del negozio da cui proviene la merce
      * @param IDPuntoPrelievo ID del punto di prelievo in cui viene spedita la merce
      *
      * @return i dettagli della merce
@@ -360,7 +360,7 @@ public class GestoreOrdini {
         return toReturn;
     }
 
-    public ArrayList<MerceOrdine> getMerciOrdine(int IDOrdine) throws SQLException{
+    public ArrayList<MerceOrdine> getMerciOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getMerci();
     }
 
@@ -395,7 +395,7 @@ public class GestoreOrdini {
      * @param IDMerce  ID della merce
      * @param quantita Quantita della merce
      * @param IDOrdine Ordine in cui registrare la merce
-     * @param negozio negozio dal quale viene acquistata la merce
+     * @param negozio  negozio dal quale viene acquistata la merce
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -403,7 +403,7 @@ public class GestoreOrdini {
         Merce simpleMerce = negozio.getItem(IDMerce);
         if (simpleMerce.getQuantita() == 0 || simpleMerce.getQuantita() < quantita)
             throw new IllegalArgumentException("Quantita non valida.");
-        negozio.setQuantitaMerce(IDMerce,simpleMerce.getQuantita() - quantita);
+        negozio.setQuantitaMerce(IDMerce, simpleMerce.getQuantita() - quantita);
         SimpleMerceOrdine simpleMerceOrdine = new SimpleMerceOrdine(simpleMerce.getPrezzo(), simpleMerce.getDescrizione(), StatoOrdine.PAGATO, IDOrdine);
         getOrdine(IDOrdine).aggiungiMerce(simpleMerceOrdine, quantita);
     }
@@ -427,14 +427,14 @@ public class GestoreOrdini {
         return ordine.getDettagli();
     }
 
-    public void setIDCorriereMerce(int IDMerce, int IDCorriere) throws SQLException{
+    public void setIDCorriereMerce(int IDMerce, int IDCorriere) throws SQLException {
         getMerceOrdine(IDMerce).setIDCorriere(IDCorriere);
     }
 
     /**
      * Associa un {@link PuntoPrelievo} ad un {@link Ordine}.
      *
-     * @param IDOrdine ID dell' ordine
+     * @param IDOrdine        ID dell' ordine
      * @param IDPuntoPrelievo ID del punto di prelievo
      *
      * @throws SQLException Errore causato da una query SQL
@@ -443,14 +443,14 @@ public class GestoreOrdini {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
 
-    public void setResidenzaOrdine(int IDOrdine, String residenza) throws SQLException{
-       getOrdine(IDOrdine).setResidenza(residenza);
+    public void setResidenzaOrdine(int IDOrdine, String residenza) throws SQLException {
+        getOrdine(IDOrdine).setResidenza(residenza);
     }
 
     /**
      * Imposta ad una {@link MerceOrdine} uno {@link StatoOrdine}
      *
-     * @param IDMerce ID della merce
+     * @param IDMerce     ID della merce
      * @param statoOrdine lo stato da impostare
      *
      * @throws SQLException Errore causato da una query SQL
@@ -472,7 +472,7 @@ public class GestoreOrdini {
     /**
      * Imposta ad una {@link Ordine} uno {@link StatoOrdine}
      *
-     * @param IDOrdine ID dell'ordine
+     * @param IDOrdine    ID dell'ordine
      * @param statoOrdine stato dell'ordine
      *
      * @throws SQLException Errore causato da una query SQL
@@ -518,4 +518,4 @@ public class GestoreOrdini {
         disconnectToDB(rs);
     }
 
-    }
+}

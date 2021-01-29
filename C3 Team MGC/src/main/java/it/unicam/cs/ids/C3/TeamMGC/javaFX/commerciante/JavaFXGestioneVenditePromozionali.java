@@ -18,6 +18,11 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
     private final Negozio negozio;
 
     @FXML
+    TabPane tab = new TabPane();
+    @FXML
+    Tab lancia = new Tab();
+
+    @FXML
     TextField prezzoNuovo;
     @FXML
     TextArea messaggio;
@@ -63,7 +68,10 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
                         negozio.eliminaPromozione(Integer.parseInt(promozione.get(0)));
                 successWindow("Success!", "Promozioni eliminate con successo.");
                 sel.clear();
-                visualizzaPromozioni();
+                if (!negozio.getDettagliPromozioni().isEmpty())
+                    visualizzaPromozioni();
+                else
+                    tab.getSelectionModel().select(lancia);
             } else
                 alertWindow("Impossibile proseguire", "Selezionare la promozione da eliminare.");
         } catch (SQLException e) {
@@ -71,12 +79,18 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
         }
     }
 
+    public String getPrezzo(TextField t) {
+        if (t.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("Formato prezzo non valido.");
+        return t.getText();
+    }
+
     @FXML
     public void lanciaPromozione() throws SQLException {
         try {
-            if (merceChoiceBox.getValue() == null || prezzoNuovo.getText().isEmpty() || messaggio.getText().isEmpty())
+            if (merceChoiceBox.getValue() == null || getPrezzo(prezzoNuovo).isEmpty() || messaggio.getText().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
-            negozio.lanciaPromozione(merceChoiceBox.getValue().getID(), Double.parseDouble(prezzoNuovo.getText()), messaggio.getText());
+            negozio.lanciaPromozione(merceChoiceBox.getValue().getID(), Double.parseDouble(getPrezzo(prezzoNuovo)), messaggio.getText());
             successWindow("Success!", "Promozione lanciata con successo.");
             merceChoiceBox.getItems().clear();
             prezzoNuovo.clear();
@@ -84,20 +98,22 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
         } catch (NullPointerException exception) {
             alertWindow("Alert!", "Inserire tutti i dati richiesti.");
         } catch (SQLException exception) {
-            alertWindow("Alert!", "Questa merce è già in promozione.");
+            alertWindow("Alert!", "Questa merce e' gia' in promozione.");
             merceChoiceBox.getItems().clear();
             prezzoNuovo.clear();
             messaggio.clear();
+        } catch (IllegalArgumentException exception) {
+            alertWindow("Formato prezzo non valido!", "Inserire di nuovo il prezzo.");
+            prezzoNuovo.clear();
         }
-
     }
 
     @FXML
     public void modificaPromozione() {
         try {
-            if (promozioneChoiceBox.getValue() == null || prezzoModificato.getText().isEmpty())
+            if (promozioneChoiceBox.getValue() == null || getPrezzo(prezzoModificato).isEmpty())
                 throw new NullPointerException("Dati non presenti.");
-            negozio.setNuoviDatiPromozione(Integer.parseInt(promozioneChoiceBox.getValue().get(0)), Double.parseDouble(prezzoModificato.getText()), messaggioModificato.getText());
+            negozio.setNuoviDatiPromozione(Integer.parseInt(promozioneChoiceBox.getValue().get(0)), Double.parseDouble(getPrezzo(prezzoModificato)), messaggioModificato.getText());
             successWindow("Success!", "Promozione modificata con successo.");
             promozioneChoiceBox.getItems().clear();
             prezzoModificato.clear();
@@ -106,6 +122,9 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
             alertWindow("Alert!", "Inserire tutti i dati richiesti.");
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
+        } catch (IllegalArgumentException exception) {
+            alertWindow("Formato prezzo non valido!", "Inserire di nuovo il prezzo.");
+            prezzoModificato.clear();
         }
     }
 
@@ -125,13 +144,12 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
         try {
             merceChoiceBox.getItems().clear();
             merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getInventario()));
-            if (negozio.getInventario().isEmpty())
-                throw new IllegalArgumentException("Merci non presenti.");
+            if (negozio.getInventario().isEmpty()) {
+                alertWindow("Alert!", "Merci non presenti.");
+                closeWindow((Stage) prezzoNuovo.getScene().getWindow());
+            }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalArgumentException exception) {
-            alertWindow("Alert!", "Merci non presenti.");
-            closeWindow((Stage) prezzoNuovo.getScene().getWindow());
         }
     }
 
@@ -140,28 +158,30 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
         try {
             promozioneChoiceBox.getItems().clear();
             promozioneChoiceBox.setItems(FXCollections.observableArrayList(negozio.getDettagliPromozioni()));
-            if (promozioneChoiceBox.getItems().isEmpty())
-                throw new IllegalArgumentException("Promozioni non presenti.");
+            if (promozioneChoiceBox.getItems().isEmpty()) {
+                alertWindow("Promozioni non presenti.", "Aggiorna piu' tardi.");
+                tab.getSelectionModel().select(lancia);
+            }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalArgumentException exception) {
-            alertWindow("Alert!", "Promozioni non presenti.");
         }
     }
 
     @FXML
     public void updateMerceChoiceBox() {
-        if (Objects.isNull(merceChoiceBox.getValue())) {
-            showMerce();
-        }
+        showMerce();
+        merceChoiceBox.getItems().clear();
+        prezzoNuovo.clear();
+        messaggio.clear();
     }
 
     @FXML
     public void updatePromozioniChoiceBox() {
-        if (Objects.isNull(promozioneChoiceBox.getValue())) {
-            showPromozioni();
-        }
+        showPromozioni();
+        messaggioModificato.clear();
+        prezzoModificato.clear();
     }
+
 
     @FXML
     public void visualizzaPromozioni() {
@@ -169,12 +189,12 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
             setPromozioneCellValueFactory();
             promozioniTable.getItems().clear();
             promozioniTable.getItems().addAll(negozio.getDettagliPromozioni());
-            if (promozioniTable.getItems().isEmpty())
-                throw new IllegalArgumentException("Promozioni non presenti.");
+            if (promozioniTable.getItems().isEmpty()) {
+                alertWindow("Promozioni non presenti.", "Aggiorna piu' tardi.");
+                tab.getSelectionModel().select(lancia);
+            }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
-        } catch (IllegalArgumentException e) {
-            alertWindow("Promozioni non presenti.", "Aggiorna piu' tardi.");
         }
     }
 }

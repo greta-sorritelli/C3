@@ -69,7 +69,10 @@ public class JavaFXGestioneNegozi implements JavaFXController {
                     gestoreNegozi.removeNegozio(negozio.getID());
                 successWindow("Success!", "Negozi eliminati con successo.");
                 sel.clear();
-                visualizzaNegozi();
+                if (!gestoreNegozi.getDettagliItems().isEmpty())
+                    visualizzaNegozi();
+                else
+                    tab.getSelectionModel().select(registra);
             } else
                 alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.");
         } catch (SQLException e) {
@@ -159,9 +162,13 @@ public class JavaFXGestioneNegozi implements JavaFXController {
 
     @FXML
     public void updateCategorieChoiceBox() {
-        if (Objects.isNull(categorieChoiceBox.getValue())) {
-            showCategorie();
-        }
+        showCategorie();
+        nome.clear();
+        categorieChoiceBox.getItems().clear();
+        telefono.clear();
+        indirizzo.clear();
+        orarioA.clear();
+        orarioC.clear();
     }
 
     @FXML
@@ -172,8 +179,8 @@ public class JavaFXGestioneNegozi implements JavaFXController {
             negoziSelezionati.clear();
             negoziTable.getItems().addAll(gestoreNegozi.getDettagliItems());
             if (negoziTable.getItems().isEmpty()) {
-                tab.getSelectionModel().select(registra);
                 alertWindow("Alert!", "Non ci sono negozi.");
+                tab.getSelectionModel().select(registra);
             }
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");

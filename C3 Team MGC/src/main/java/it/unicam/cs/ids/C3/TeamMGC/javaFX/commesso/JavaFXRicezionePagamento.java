@@ -22,43 +22,97 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     private final Negozio negozio;
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
-
-    public JavaFXRicezionePagamento(Negozio negozio) {
-        this.negozio = negozio;
-    }
-
     @FXML
     TextField IDCliente;
-
     @FXML
     TextField ordineTextField;
-
     @FXML
     ChoiceBox<Merce> merceChoiceBox = new ChoiceBox<>();
-
     @FXML
     TextField quantita;
-
     /**
      * Tabella della merce inserita.
      */
     @FXML
     TableView<ArrayList<String>> merceTable;
-
     @FXML
     TableColumn<ArrayList<String>, String> IDMerce;
-
     @FXML
     TableColumn<ArrayList<String>, String> IDOrdineMerce;
-
     @FXML
     TableColumn<ArrayList<String>, String> PrezzoMerce;
-
     @FXML
     TableColumn<ArrayList<String>, String> DescrizioneMerce;
-
     @FXML
     TableColumn<ArrayList<String>, String> QuantitaMerce;
+
+    public JavaFXRicezionePagamento(Negozio negozio) {
+        this.negozio = negozio;
+    }
+
+    public String getIDCliente() {
+        if (IDCliente.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("ID non valido.");
+        return IDCliente.getText();
+    }
+
+    public String getQuantita() {
+        if (quantita.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("Formato quantita' non valido.");
+        return quantita.getText();
+    }
+
+    @FXML
+    public void registraMerce() {
+        try {
+            if (getIDCliente().isEmpty() || merceChoiceBox.getValue() == null || getQuantita().isEmpty())
+                throw new NullPointerException("Dati non presenti.");
+            if (ordineTextField.getText().isEmpty()) {
+                registraOrdine();
+            }
+            gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(ordineTextField.getText()), negozio);
+            visualizzaMerci();
+            quantita.clear();
+            merceChoiceBox.getItems().clear();
+            IDCliente.setEditable(false);
+            successWindow("Merce aggiunta con successo!", "La merce e' stata aggiunta all'ordine creato.");
+            merceChoiceBox.getItems().clear();
+            quantita.clear();
+        } catch (IllegalArgumentException exception) {
+            if (exception.getMessage().equals("Quantita non valida.")) {
+                errorWindow("Quantita' non corretta!", "La quantita' inserita e' maggiore di quella presente in negozio.");
+                quantita.clear();
+            }
+            if (exception.getMessage().equals("ID non valido.")) {
+                errorWindow("Errore!", "ID del cliente non valido.");
+                IDCliente.clear();
+            }
+            if (exception.getMessage().equals("Formato quantita' non valido.")) {
+                errorWindow("Formato quantita' non valido!", "Inserire di nuovo la quantita'.");
+                quantita.clear();
+            }
+        } catch (NullPointerException exception) {
+            alertWindow("Alert!", "Inserire tutti i dati richiesti.");
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
+    @FXML
+    public void registraOrdine() {
+        try {
+            int ID = Integer.parseInt(getIDCliente());
+            ArrayList<String> dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getNomeCliente(ID),
+                    gestoreClienti.getCognomeCliente(ID), negozio);
+            ordineTextField.setText(dettagliOrdine.get(0));
+        } catch (SQLException exception) {
+            errorWindow("Error!", "Errore nel DB.");
+        }
+    }
+
+    public void selezionaPuntoPrelievo() {
+        openWindow("/commesso/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(Integer.parseInt(ordineTextField.getText()), negozio));
+    }
 
     /**
      * Collega i campi della Merce inserita alle colonne della tabella.
@@ -82,57 +136,6 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     }
 
     @FXML
-    public void updateMerceChoiceBox() {
-        if (Objects.isNull(merceChoiceBox.getValue())) {
-            showMerce();
-        }
-    }
-
-    @FXML
-    public void registraOrdine() {
-        try {
-            int ID = Integer.parseInt(IDCliente.getText());
-            ArrayList<String> dettagliOrdine = gestoreOrdini.registraOrdine(ID, gestoreClienti.getNomeCliente(ID),
-                    gestoreClienti.getCognomeCliente(ID), negozio);
-            ordineTextField.setText(dettagliOrdine.get(0));
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        }
-    }
-
-    @FXML
-    public void registraMerce() {
-        try {
-            if (IDCliente.getText().isEmpty() || merceChoiceBox.getValue() == null || quantita.getText().isEmpty())
-               throw new NullPointerException("Dati non presenti.");
-            if (ordineTextField.getText().isEmpty()) {
-                registraOrdine();
-            }
-            gestoreOrdini.registraMerce(merceChoiceBox.getValue().getID(), Integer.parseInt(quantita.getText()), Integer.parseInt(ordineTextField.getText()), negozio );
-            visualizzaMerci();
-            quantita.clear();
-            merceChoiceBox.getItems().clear();
-            IDCliente.setEditable(false);
-            successWindow("Merce aggiunta con successo!", "La merce e' stata aggiunta all'ordine creato.");
-            merceChoiceBox.getItems().clear();
-            quantita.clear();
-        } catch (IllegalArgumentException exception) {
-            if (exception.getMessage().equals("Quantita non valida.")) {
-                errorWindow("Quantita non corretta!", "La quantita inserita e' maggiore di quella presente in negozio.");
-                quantita.clear();
-            }
-            if (exception.getMessage().equals("ID non valido.")) {
-                errorWindow("Errore!", "ID del cliente non valido.");
-                IDCliente.clear();
-            }
-        } catch (NullPointerException exception) {
-            alertWindow("Alert!", "Inserire tutti i dati richiesti.");
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        }
-    }
-
-    @FXML
     public void terminaOrdine() {
         try {
             if (!merceTable.getItems().isEmpty()) {
@@ -149,8 +152,11 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         }
     }
 
-    public void selezionaPuntoPrelievo() {
-        openWindow("/commesso/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(Integer.parseInt(ordineTextField.getText()), negozio));
+    @FXML
+    public void updateMerceChoiceBox() {
+        if (Objects.isNull(merceChoiceBox.getValue())) {
+            showMerce();
+        }
     }
 
     /**

@@ -13,9 +13,9 @@
 
 <TabPane fx:id="tab" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <tabs>
-      <Tab fx:id="registra" closable="false" text="Registra negozio">
+      <Tab fx:id="registra" closable="false" onSelectionChanged="#updateCategorieChoiceBox" text="Registra negozio">
          <content>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#updateCategorieChoiceBox" prefHeight="600.0" prefWidth="800.0">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
                <children>
                   <Label layoutX="37.0" layoutY="29.0" text="Registra un nuovo negozio" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="29.0">
                      <font>
@@ -25,7 +25,7 @@
                   <Label layoutX="201.0" layoutY="117.0" text="Nome" />
                   <TextField fx:id="nome" layoutX="430.0" layoutY="113.0" />
                   <Label layoutX="192.0" layoutY="179.0" text="Categoria" />
-                  <ChoiceBox fx:id="categorieChoiceBox" layoutX="430.0" layoutY="175.0" onMouseClicked="#showCategorie" prefWidth="150.0" />
+                  <ChoiceBox fx:id="categorieChoiceBox" layoutX="430.0" layoutY="175.0" onMousePressed="#showCategorie" prefWidth="150.0" />
                   <Label layoutX="171.0" layoutY="366.0" text="Orario di apertura" />
                   <Label layoutX="171.0" layoutY="436.0" text="Orario di chiusura" />
                   <TextField fx:id="orarioC" layoutX="432.0" layoutY="432.0" prefHeight="25.0" prefWidth="148.0" promptText="ex : 08:00" />

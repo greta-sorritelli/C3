@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,9 +59,13 @@ public class JavaFXTrasportareMerce implements JavaFXController {
         try {
             setCorriereCellValueFactory();
             merceTable.getItems().clear();
-            merceTable.getItems().addAll(Objects.requireNonNull(getDettagliMerce()));
-        } catch (NullPointerException e) {
-            alertWindow("Merci non disponibili.", "Nessuna merce affidata.");
+            merceTable.getItems().addAll(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.AFFIDATO_AL_CORRIERE));
+            if (merceTable.getItems().isEmpty()) {
+                alertWindow("Merci non presenti.", "Aggiorna piu' tardi.");
+                closeWindow((Stage) merceTable.getScene().getWindow());
+            }
+        } catch (SQLException e) {
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -77,15 +82,6 @@ public class JavaFXTrasportareMerce implements JavaFXController {
         } catch (SQLException e) {
             errorWindow("Error!", "Errore nel DB.");
         }
-    }
-
-    private ArrayList<ArrayList<String>> getDettagliMerce() {
-        try {
-            return new ArrayList<>(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.AFFIDATO_AL_CORRIERE));
-        } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
-        }
-        return null;
     }
 
     private void setStatoMerce(int IDMerce) throws SQLException {

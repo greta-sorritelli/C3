@@ -256,18 +256,27 @@ public class SimpleNegozio implements Negozio {
     @Override
     public int getMerceVenduta() throws SQLException {
         ArrayList<ArrayList<String>> tmp = GestoreOrdini.getInstance().getDettagliMerciNegozio(ID);
-        int merceVenduta = 0;
-        int merceInventario;
+        if (tmp.isEmpty() && getInventario().isEmpty())
+            return 0;
+        if (tmp.isEmpty() && !getInventario().isEmpty())
+            return 0;
+        if (!tmp.isEmpty() && getInventario().isEmpty())
+            return 100;
+        if (!tmp.isEmpty() && !getInventario().isEmpty()) {
+            int merceVenduta = 0;
+            int merceInventario;
 
-        for (ArrayList<String> merce : tmp)
-            merceVenduta += Integer.parseInt(merce.get(4));
+            for (ArrayList<String> merce : tmp)
+                merceVenduta += Integer.parseInt(merce.get(4));
 
-        merceInventario = merceVenduta;
+            merceInventario = merceVenduta;
 
-        for (Merce merce : getInventario())
-            merceInventario += merce.getQuantita();
+            for (Merce merce : getInventario())
+                merceInventario += merce.getQuantita();
 
-        return (merceVenduta * 100) / merceInventario;
+            return (merceVenduta * 100) / merceInventario;
+        }
+        return 0;
     }
 
     @Override

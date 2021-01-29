@@ -47,6 +47,18 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
         this.simplePuntoPrelievo = simplePuntoPrelievo;
     }
 
+    public String getCodiceRitiro() {
+        if (codiceRitiro.getText().length() != 12 || codiceRitiro.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("Codice non valido.");
+        return codiceRitiro.getText();
+    }
+
+    public String getIDCliente() {
+        if (IDCliente.getText().matches(".*[a-zA-Z]+.*"))
+            throw new IllegalArgumentException("ID non valido.");
+        return IDCliente.getText();
+    }
+
     /**
      * Collega i campi della MerceOrdine alle colonne della tabella.
      */
@@ -57,12 +69,6 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
         DescrizioneMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(3)));
         QuantitaMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(4)));
         StatoMerce.setCellValueFactory(merceOrdine -> new SimpleObjectProperty<>(merceOrdine.getValue().get(5)));
-    }
-
-    public String getCodiceRitiro() {
-        if (codiceRitiro.getText().length() != 12)
-            throw new IllegalArgumentException("Codice non valido.");
-        return codiceRitiro.getText();
     }
 
     public void setStatoMerce() {
@@ -84,11 +90,11 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
     @FXML
     public void verificaCodice() {
         try {
-            if (IDCliente.getText().isEmpty() || codiceRitiro.getText().isEmpty())
+            if (getIDCliente().isEmpty() || getCodiceRitiro().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
 
-            if (gestoreClienti.verificaCodice(Integer.parseInt(IDCliente.getText()), getCodiceRitiro())) {
-                ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(simplePuntoPrelievo.getOrdini(Integer.parseInt(IDCliente.getText())));
+            if (gestoreClienti.verificaCodice(Integer.parseInt(getIDCliente()), getCodiceRitiro())) {
+                ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(simplePuntoPrelievo.getOrdini(Integer.parseInt(getIDCliente())));
                 visualizzaMerci(merci);
                 successWindow("Verifica codice eseguita con successo!", "Il codice inserito appartiene al cliente.");
                 if (merci.isEmpty()) {
@@ -101,12 +107,12 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
         } catch (NullPointerException e) {
             errorWindow("Errore!", "Inserisci tutti i dati richiesti!");
         } catch (IllegalArgumentException exception) {
-            if (exception.getMessage().equals("ID cliente non valido.")) {
+            if (exception.getMessage().equals("ID non valido.")) {
                 errorWindow("Errore!", "ID cliente non valido.");
                 IDCliente.clear();
             }
             if (exception.getMessage().equals("Codice non valido.")) {
-                errorWindow("Codice ritiro non valido!", "Inserire un codice di 12 caratteri.");
+                errorWindow("Codice ritiro non valido!", "Inserire un codice di 12 numeri.");
                 codiceRitiro.clear();
             }
         } catch (IllegalStateException exception) {

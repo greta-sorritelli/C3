@@ -9,22 +9,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane fx:id="tab" layoutX="-3.0" layoutY="58.0" prefHeight="550.0" prefWidth="822.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="consegnaPP" text="Consegna al punto di prelievo">
+          <Tab fx:id="consegnaPP" onSelectionChanged="#updateMagazziniChoiceBox" text="Consegna al punto di prelievo">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" onMouseMoved="#updateMagazziniChoiceBox" prefHeight="600.0" prefWidth="641.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="641.0">
                      <children>
                         <Label layoutX="29.0" layoutY="70.0" text="Seleziona un punto di prelievo" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="70.0" />
-                        <ChoiceBox fx:id="choicePuntoPrelievo" layoutX="208.0" layoutY="66.0" onMouseClicked="#showMagazzini" prefHeight="25.0" prefWidth="524.0" AnchorPane.leftAnchor="208.0" />
+                        <ChoiceBox fx:id="choicePuntoPrelievo" layoutX="208.0" layoutY="66.0" onMousePressed="#showMagazzini" prefHeight="25.0" prefWidth="524.0" AnchorPane.leftAnchor="208.0" />
                         <Button layoutX="529.0" layoutY="261.0" mnemonicParsing="false" onAction="#setPuntoPrelievo" text="Manda alert al magazziniere" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="529.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="261.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="consegnaResidenza" text="Consegna alla residenza del cliente">
+          <Tab fx:id="consegnaResidenza" onSelectionChanged="#clearText" text="Consegna alla residenza del cliente">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
