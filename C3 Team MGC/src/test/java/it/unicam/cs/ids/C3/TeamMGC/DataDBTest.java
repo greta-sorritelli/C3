@@ -26,7 +26,7 @@ public class DataDBTest {
         updateData("delete from alert_corrieri;");
         updateData("delete from alert_magazzinieri;");
         updateData("delete from alert_clienti;");
-
+        updateData("delete from amministratore;");
 
         updateData("alter table clienti AUTO_INCREMENT = 1;");
         updateData("alter table codici_ritiro AUTO_INCREMENT = 1;");
@@ -41,12 +41,13 @@ public class DataDBTest {
         updateData("alter table alert_corrieri AUTO_INCREMENT = 1;");
         updateData("alter table alert_magazzinieri AUTO_INCREMENT = 1;");
         updateData("alter table personale AUTO_INCREMENT = 1;");
+        updateData("alter table amministratore AUTO_INCREMENT = 1;");
     }
 
     @Test
     void inserisciDatiDB() throws SQLException {
         //Amministratore
-        updateData("INSERT INTO sys.amministratore (ID, nomeUtente, password) VALUES ('1', 'admin', '12345678');");
+        updateData("INSERT INTO `sys`.`amministratore` (`ID`, `nomeUtente`, `password`) VALUES ('1', 'admin', '12345678');");
 
         //Clienti
         updateData("INSERT INTO sys.clienti (nome, cognome, codiceRitiro, dataCreazione, password) VALUES ('Mario', 'Rossi', '101010101010', '2021-01-01', '12345678');");

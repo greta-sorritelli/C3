@@ -203,7 +203,6 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo commento
     public ArrayList<String> inserisciDati(String nome, String cognome, String password) throws SQLException {
         Corriere simpleCorriere = new SimpleCorriere(nome, cognome, true);
         updateData("UPDATE sys.corrieri SET password = '" + password + "' WHERE (ID =" + simpleCorriere.getID() + ");");

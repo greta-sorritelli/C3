@@ -151,10 +151,10 @@ public class GestoreOrdini {
 
 
     /**
-     * todo rivedere commento e test
-     * Ritorna i dettagli della merce che si trova in un determinato {@link PuntoPrelievo}.
+     * todo test
+     * Ritorna i dettagli della merce di un determinato {@link Negozio}.
      *
-     * @param IDNegozio ID del punto di prelievo in cui si trova la merce della quale si vogliono conoscere i dettagli
+     * @param IDNegozio ID del negozio da cui proviene la merce della quale si vogliono conoscere i dettagli
      *
      * @return la descrizione della merce
      *

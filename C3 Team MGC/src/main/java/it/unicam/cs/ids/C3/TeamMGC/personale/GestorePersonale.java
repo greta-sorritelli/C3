@@ -168,11 +168,10 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      * @param nome    Nome dell' Addetto da inserire
      * @param cognome Cognome dell' Addetto da inserire
      *
-     * @return ArrayList dei dettagli dell' Addetto creato
+     * @return i dettagli dell' Addetto creato
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo commento
     public ArrayList<String> inserisciAddetto(String nome, String cognome, String password) throws SQLException {
         Personale addetto = new AddettoMagazzinoNegozio(IDNegozio, nome, cognome);
         updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + addetto.getID() + ");");
@@ -181,16 +180,16 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     }
 
     /**
-     * Crea e inserisce un nuovo {@link Commerciante} nella lista.
+     * Crea e inserisce un nuovo {@link Commerciante}.
      *
-     * @param nome    Nome del Commerciante da inserire
-     * @param cognome Cognome del Commerciante da inserire
+     * @param nome    Nome del Commerciante
+     * @param cognome Cognome del Commerciante
+     * @param password password del Commerciante
      *
-     * @return ArrayList dei dettagli del Commerciante creato
+     * @return i dettagli del Commerciante creato
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo commento
     public ArrayList<String> inserisciCommerciante(String nome, String cognome, String password) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.COMMERCIANTE + "';");
         if (rs.next())
@@ -202,16 +201,16 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     }
 
     /**
-     * Crea e inserisce un nuovo {@link Commesso} nella lista.
+     * Crea e inserisce un nuovo {@link Commesso}
      *
-     * @param nome    Nome del commesso da inserire
-     * @param cognome Cognome del commesso da inserire
+     * @param nome    Nome del commesso
+     * @param cognome Cognome del commesso
+     * @param password password del commesso
      *
-     * @return ArrayList dei dettagli del commesso creato
+     * @return i dettagli del commesso creato
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo commento
     public ArrayList<String> inserisciCommesso( String nome, String cognome, String password) throws SQLException {
         Personale commesso = new Commesso(IDNegozio, nome, cognome);
         updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + commesso.getID() + ");");

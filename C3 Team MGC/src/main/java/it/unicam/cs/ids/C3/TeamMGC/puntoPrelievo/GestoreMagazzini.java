@@ -5,6 +5,7 @@ import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
+import it.unicam.cs.ids.C3.TeamMGC.personale.Commesso;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -144,12 +145,12 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
     }
 
     /**
-     * todo
+     * Crea e inserisce un nuovo {@code Magazziniere}.
      *
-     * @param IDPuntoPrelievo
-     * @param nome
-     * @param cognome
-     * @param password
+     * @param IDPuntoPrelievo ID del punto di prelievo del magazziniere
+     * @param nome nome del magazziniere
+     * @param cognome cognome del magazziniere
+     * @param password password del magazziniere
      *
      * @throws SQLException Errore causato da una query SQL
      */
