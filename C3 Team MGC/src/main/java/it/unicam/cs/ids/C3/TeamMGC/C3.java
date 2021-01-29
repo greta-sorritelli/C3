@@ -20,7 +20,6 @@ public class C3 {
     public static void main(String[] args) {
         if (args.length == 0)
             launchGui();
-        // TODO - implement C3.main
         throw new UnsupportedOperationException();
     }
 

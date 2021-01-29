@@ -1,7 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.manager;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,13 +25,15 @@ public class GestoreAlert {
     }
 
     /**
+     * Ritorna i dettagli di un alert.
      *
-     * @param ID
-     * @param tipologiaUtente
-     * @return
-     * @throws SQLException
+     * @param ID              ID dell'utente a cui viene mandato l'alert
+     * @param tipologiaUtente tipologia dell'utente
+     *
+     * @return i dettagli dell'alert
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
-    //todo test e commento
     public ArrayList<ArrayList<String>> getDettagliAlert(int ID, String tipologiaUtente) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         switch (tipologiaUtente) {
@@ -51,12 +51,13 @@ public class GestoreAlert {
     }
 
     /**
+     * Metodo per la rimozione di un alert.
      *
-     * @param IDAlert
-     * @param tipologiaUtente
-     * @throws SQLException
+     * @param IDAlert         Id dell'alert da rimuovere
+     * @param tipologiaUtente tipologia dell'utente a cui è stato mandato l'alert
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
-    //todo test e commento
     public void deleteAlert(int IDAlert, String tipologiaUtente) throws SQLException {
         switch (tipologiaUtente) {
             case "CLIENTE":
@@ -72,12 +73,13 @@ public class GestoreAlert {
     }
 
     /**
+     * Salva le informazioni degli alert.
      *
-     * @param tmp
-     * @param query
-     * @throws SQLException
+     * @param tmp   Arraylist in cui vengono salvate le informazioni
+     * @param query query SQL con cui risalire agli alert nel DB.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
-    //todo test e commento
     private void getMessaggi(ArrayList<ArrayList<String>> tmp, String query) throws SQLException {
         ResultSet rs = executeQuery(query);
         while (rs.next()) {

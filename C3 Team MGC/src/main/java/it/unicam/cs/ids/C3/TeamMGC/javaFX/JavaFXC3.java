@@ -26,6 +26,7 @@ public class JavaFXC3 extends Application {
         Image ico = new Image("/png/icon.png");
         stage.getIcons().add(ico);
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
     }
 }
