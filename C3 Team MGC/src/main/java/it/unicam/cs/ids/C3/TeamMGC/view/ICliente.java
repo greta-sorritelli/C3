@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.view;
 
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXControllareAlert;
+import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXFiltrarePromozioni;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXFiltrarePuntiVendita;
 import javafx.fxml.FXML;
 
@@ -31,8 +32,12 @@ public class ICliente implements JavaFXController {
         openWindow("/cliente/FiltrarePuntiVendita.fxml", "Filtra i punti vendita", new JavaFXFiltrarePuntiVendita());
     }
 
+    /**
+     * Apre la finestra per filtrare le promozioni.
+     */
     @FXML
     public void filtrarePromozioni() {
-        //todo
+        openWindow("/cliente/FiltrarePromozioni.fxml", "Filtra le promozioni", new JavaFXFiltrarePromozioni());
+
     }
 }

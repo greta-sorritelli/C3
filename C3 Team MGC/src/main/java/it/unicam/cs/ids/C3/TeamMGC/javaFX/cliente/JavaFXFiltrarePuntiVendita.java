@@ -13,7 +13,6 @@ import javafx.scene.control.TableView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class JavaFXFiltrarePuntiVendita implements JavaFXController {
 
@@ -60,15 +59,10 @@ public class JavaFXFiltrarePuntiVendita implements JavaFXController {
     }
 
     @FXML
-    public void updateCategorieChoiceBox() {
-        if (Objects.isNull(categorieChoiceBox.getValue())) {
-            showCategorie();
-        }
-    }
-
-    @FXML
     public void visualizzaNegozi() {
         try {
+            if (categorieChoiceBox.getValue() == null)
+                throw new NullPointerException("Categoria non presente");
             if (gestoreNegozi.getDettagliItems(categorieChoiceBox.getValue()).isEmpty())
                 throw new NullPointerException("No negozi");
             setNegozioCellValueFactory();
@@ -76,10 +70,14 @@ public class JavaFXFiltrarePuntiVendita implements JavaFXController {
             negoziTable.getItems().addAll(gestoreNegozi.getDettagliItems(categorieChoiceBox.getValue()));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
-        }catch (NullPointerException exception) {
-            alertWindow("Non ci sono negozi con questa categoria.", "Effettuare una nuova ricerca.");
-            categorieChoiceBox.getItems().clear();
-            negoziTable.getItems().clear();
+        } catch (NullPointerException exception) {
+            if (exception.getMessage().equals("No negozi")) {
+                alertWindow("Non ci sono negozi con questa categoria.", "Effettuare una nuova ricerca.");
+                categorieChoiceBox.getItems().clear();
+                negoziTable.getItems().clear();
+            }
+            if (exception.getMessage().equals("Categoria non presente"))
+                alertWindow("Impossibile procedere!", "Selezionare la categoria.");
         }
     }
 }

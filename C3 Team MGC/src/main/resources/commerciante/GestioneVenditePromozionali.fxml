@@ -18,12 +18,12 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="164.0" layoutY="115.0" text="Prodotto" AnchorPane.leftAnchor="164.0" />
+                  <Label layoutX="164.0" layoutY="115.0" text="Prodotto" AnchorPane.leftAnchor="164.0" AnchorPane.topAnchor="115.0" />
                   <Label layoutX="151.0" layoutY="197.0" text="Nuovo prezzo" />
                   <Label layoutX="159.0" layoutY="277.0" text="Messaggio" />
-                  <ChoiceBox fx:id="merceChoiceBox" layoutX="305.0" layoutY="111.0" onMousePressed="#showMerce" prefHeight="25.0" prefWidth="340.0" />
-                  <TextField fx:id="prezzoNuovo" layoutX="305.0" layoutY="193.0" prefHeight="25.0" prefWidth="341.0" />
-                  <TextArea fx:id="messaggio" layoutX="305.0" layoutY="271.0" prefHeight="128.0" prefWidth="346.0" promptText="Promotional message..." />
+                  <ChoiceBox fx:id="merceChoiceBox" layoutX="305.0" layoutY="111.0" onMousePressed="#showMerce" prefHeight="25.0" prefWidth="391.0" />
+                  <TextField fx:id="prezzoNuovo" layoutX="305.0" layoutY="193.0" prefHeight="25.0" prefWidth="390.0" />
+                  <TextArea fx:id="messaggio" layoutX="305.0" layoutY="271.0" prefHeight="128.0" prefWidth="390.0" promptText="Promotional message..." />
                   <Label layoutX="38.0" layoutY="30.0" text="Inserisci i dati di una nuova promozione" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="30.0">
                      <font>
                         <Font name="System Bold" size="20.0" />

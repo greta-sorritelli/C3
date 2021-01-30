@@ -91,6 +91,7 @@ public class GestoreNegozi implements Gestore<Negozio> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     public ArrayList<ArrayList<String>> getDettagliItems(CategoriaNegozio categoria) throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi WHERE categoria= '" + categoria + "';");
@@ -99,6 +100,29 @@ public class GestoreNegozi implements Gestore<Negozio> {
         ArrayList<Negozio> tmp = negozi.stream().filter(negozio -> negozio.getCategoria().equals(categoria)).collect(Collectors.toCollection(ArrayList::new));
         for (Negozio negozio : tmp)
             dettagli.add(negozio.getDettagli());
+        disconnectToDB(rs);
+        return dettagli;
+    }
+
+    /**
+     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} con una certa categoria e con delle promozioni presenti nel DB.
+     *
+     * @param categoria Categoria del negozio.
+     *
+     * @return ArrayList di ArrayList dei dettagli dei Negozi.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    //todo test
+    public ArrayList<ArrayList<String>> getDettagliItemsWithPromozioni(CategoriaNegozio categoria) throws SQLException {
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT ID FROM sys.negozi inner join promozioni on ID = IDNegozio Where categoria = '" + categoria + "' ;");
+        while (rs.next())
+            addNegozio(rs);
+        ArrayList<Negozio> tmp = negozi.stream().filter(negozio -> negozio.getCategoria().equals(categoria)).collect(Collectors.toCollection(ArrayList::new));
+        for (Negozio negozio : tmp)
+            if (!negozio.getDettagliPromozioni().isEmpty())
+                dettagli.add(negozio.getDettagli());
         disconnectToDB(rs);
         return dettagli;
     }
