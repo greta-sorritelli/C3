@@ -3,6 +3,13 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Questa interfaccia è implementata dalle classi che hanno la responsabilità di gestire il comportamento di
+ * una singola Merce di un {@link Ordine}. Permette di accedere e modificare le informazioni
+ * associate alla merce.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public interface MerceOrdine {
 
     String getDescrizione();

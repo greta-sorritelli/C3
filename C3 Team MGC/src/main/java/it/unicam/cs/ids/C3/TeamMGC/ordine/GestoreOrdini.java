@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la gestione di ogni {@link Ordine}
+ * Classe per la gestione di ogni {@link Ordine}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -24,7 +25,7 @@ public class GestoreOrdini {
     }
 
     /**
-     * Metodo per ottenere l'istanza singleton del {@link GestoreOrdini}
+     * Metodo per ottenere l' istanza singleton del {@link GestoreOrdini}
      *
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
@@ -149,6 +150,29 @@ public class GestoreOrdini {
         return dettagli;
     }
 
+    /**
+     * Ritorna i dettagli della merce che si trova in un determinato {@link PuntoPrelievo}.
+     *
+     * @param IDPuntoPrelievo ID del punto di prelievo in cui si trova la merce della quale si vogliono conoscere i dettagli
+     *
+     * @return la descrizione della merce
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<ArrayList<String>> getDettagliMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
+        ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
+        while (rs.next())
+            addOrdine(rs);
+        disconnectToDB(rs);
+
+        for (Ordine ordine : ordini)
+            if (ordine.getPuntoPrelievo() == IDPuntoPrelievo)
+                for (MerceOrdine merceOrdine : ordine.getMerci())
+                    if (merceOrdine.getStato().equals(StatoOrdine.PAGATO))
+                        toReturn.add(merceOrdine.getDettagli());
+        return toReturn;
+    }
 
     /**
      * todo test
@@ -171,30 +195,6 @@ public class GestoreOrdini {
             if (ordine.getIDNegozio() == IDNegozio)
                 for (MerceOrdine merceOrdine : ordine.getMerci())
                     if (merceOrdine.getStato() != StatoOrdine.DA_PAGARE)
-                        toReturn.add(merceOrdine.getDettagli());
-        return toReturn;
-    }
-
-    /**
-     * Ritorna i dettagli della merce che si trova in un determinato {@link PuntoPrelievo}.
-     *
-     * @param IDPuntoPrelievo ID del punto di prelievo in cui si trova la merce della quale si vogliono conoscere i dettagli
-     *
-     * @return la descrizione della merce
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<ArrayList<String>> getDettagliMerciMagazzino(int IDPuntoPrelievo) throws SQLException {
-        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
-        ResultSet rs = executeQuery("select ID from ordini where IDPuntoPrelievo = '" + IDPuntoPrelievo + "';");
-        while (rs.next())
-            addOrdine(rs);
-        disconnectToDB(rs);
-
-        for (Ordine ordine : ordini)
-            if (ordine.getPuntoPrelievo() == IDPuntoPrelievo)
-                for (MerceOrdine merceOrdine : ordine.getMerci())
-                    if (merceOrdine.getStato().equals(StatoOrdine.PAGATO))
                         toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
@@ -279,14 +279,31 @@ public class GestoreOrdini {
         return getOrdine(IDOrdine).getDettagli();
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link Cliente} collegato all' {@link Ordine}.
+     *
+     * @param IDOrdine Codice Identificativo dell' Ordine
+     *
+     * @return l'ID del Cliente
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public int getIDClienteOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getIDCliente();
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link PuntoPrelievo} collegato all' {@link Ordine}.
+     *
+     * @param IDOrdine Codice Identificativo dell' Ordine
+     *
+     * @return l'ID del Punto di Prelievo
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public int getIDPuntoPrelievoOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getPuntoPrelievo();
     }
-
 
     /**
      * Ritorna la lista dei dettagli di tutte le {@link MerceOrdine Merci} con stato
@@ -360,6 +377,15 @@ public class GestoreOrdini {
         return toReturn;
     }
 
+    /**
+     * Ritorna la lista delle {@link MerceOrdine Merci} dell' {@link Ordine}.
+     *
+     * @param IDOrdine Codice Identificativo dell' Ordine
+     *
+     * @return i dettagli della merce
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public ArrayList<MerceOrdine> getMerciOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getMerci();
     }
@@ -385,6 +411,15 @@ public class GestoreOrdini {
         }
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link PuntoPrelievo} collegato all' {@link Ordine}.
+     *
+     * @param IDOrdine Codice Identificativo dell' Ordine
+     *
+     * @return l'ID del Punto di Prelievo
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public String getResidenzaOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getResidenza();
     }
@@ -393,7 +428,7 @@ public class GestoreOrdini {
      * Registra la {@link Merce} nell'{@link Ordine} creato.
      *
      * @param IDMerce  ID della merce
-     * @param quantita Quantita della merce
+     * @param quantita Quantità della merce
      * @param IDOrdine Ordine in cui registrare la merce
      * @param negozio  negozio dal quale viene acquistata la merce
      *
@@ -427,6 +462,14 @@ public class GestoreOrdini {
         return ordine.getDettagli();
     }
 
+    /**
+     * Associa il {@code Codice} del {@link Corriere} con la {@link MerceOrdine}.
+     *
+     * @param IDMerce    Codice Identificato della Merce
+     * @param IDCorriere Codice Identificativo del Corriere
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public void setIDCorriereMerce(int IDMerce, int IDCorriere) throws SQLException {
         getMerceOrdine(IDMerce).setIDCorriere(IDCorriere);
     }
@@ -443,6 +486,14 @@ public class GestoreOrdini {
         getOrdine(IDOrdine).setPuntoPrelievo(IDPuntoPrelievo);
     }
 
+    /**
+     * Imposta una Residenza ad un {@link Ordine}.
+     *
+     * @param IDOrdine  ID dell' ordine
+     * @param residenza Residenza del Cliente
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public void setResidenzaOrdine(int IDOrdine, String residenza) throws SQLException {
         getOrdine(IDOrdine).setResidenza(residenza);
     }

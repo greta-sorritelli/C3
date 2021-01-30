@@ -1,5 +1,9 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +12,7 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la creazione di un {@link SimpleOrdine}
+ * Classe per la gestione di un {@link SimpleOrdine}.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -55,7 +59,7 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * Costruttore per inserire i dati nel DB
+     * Costruttore per inserire i dati nel DB.
      *
      * @throws SQLException eccezione causata da una query SQL
      */
@@ -73,7 +77,7 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * Aggiunge la {@link MerceOrdine} all'{@link SimpleOrdine}.
+     * Aggiunge la {@link MerceOrdine} all' {@link SimpleOrdine Ordine}.
      *
      * @param merce Merce da aggiungere
      */
@@ -84,11 +88,11 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * Aggiunge la {@link MerceOrdine} all'{@link SimpleOrdine} prendendo i dati dal database.
+     * Aggiunge la {@link MerceOrdine} all' {@link SimpleOrdine Ordine} prendendo i dati dal database.
      *
-     * @param rs             ResultSet
+     * @param rs ResultSet
      *
-     * @throws SQLException  Errore causato da una query SQL
+     * @throws SQLException Errore causato da una query SQL
      */
     private void addMerce(ResultSet rs) throws SQLException {
         while (rs.next())
@@ -96,7 +100,7 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * Controlla se l' {@link Ordine} contiene la {@link MerceOrdine}.
+     * Controlla se l' {@link SimpleOrdine Ordine} contiene la {@link MerceOrdine}.
      * Se non è presente la aggiunge.
      *
      * @param simpleMerceOrdine la Merce da aggiungere
@@ -107,7 +111,7 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * Aggiunge l'{@code indirizzo} della residenza all'{@link SimpleOrdine}.
+     * Aggiunge l'{@code indirizzo} della residenza all'{@link SimpleOrdine Ordine}.
      *
      * @param indirizzo Indirizzo residenza del cliente
      *
@@ -122,7 +126,7 @@ public class SimpleOrdine implements Ordine {
     }
 
     /**
-     * Aggiunge la {@link SimpleMerceOrdine} all'{@link SimpleOrdine} del cliente.
+     * Aggiunge la {@link SimpleMerceOrdine} all'{@link SimpleOrdine Ordine} del cliente.
      *
      * @param merce    Merce da aggiungere
      * @param quantita Quantita della merce da aggiungere
@@ -145,15 +149,21 @@ public class SimpleOrdine implements Ordine {
         return ID == simpleOrdine.getID();
     }
 
+    /**
+     * Ritorna il Cognome del {@link Cliente} collegato all' {@link SimpleOrdine Ordine}.
+     *
+     * @return il cognome del Cliente
+     */
     @Override
     public String getCognomeCliente() {
         return cognomeCliente;
     }
 
     /**
-     * Ritorna un arraylist con i dettagli dell' {@link SimpleOrdine}.
+     * Ritorna un arraylist con i dettagli dell' {@link SimpleOrdine Ordine}.
      *
      * @return ArrayList dei dettagli dell' ordine
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -181,63 +191,125 @@ public class SimpleOrdine implements Ordine {
         return ordini;
     }
 
+    /**
+     * Ritorna il Codice Identificativo dell' {@link SimpleOrdine Ordine}.
+     *
+     * @return l'ID dell' ordine
+     */
     @Override
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link Cliente} collegato all' {@link SimpleOrdine Ordine}.
+     *
+     * @return l'ID del Cliente
+     */
     @Override
     public int getIDCliente() {
         return IDCliente;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link Negozio} collegato all' {@link SimpleOrdine Ordine}.
+     *
+     * @return l'ID del Negozio
+     */
     @Override
     public int getIDNegozio() {
         return IDNegozio;
     }
 
+    /**
+     * Ritorna la lista delle {@link MerceOrdine Merci} dell' {@link SimpleOrdine Ordine}.
+     *
+     * @return la lista delle merci
+     */
     @Override
-    public ArrayList<MerceOrdine> getMerci(){
+    public ArrayList<MerceOrdine> getMerci() {
         return new ArrayList<>(merci);
     }
 
+    /**
+     * Ritorna il Nome del {@link Cliente} collegato all' {@link SimpleOrdine Ordine}.
+     *
+     * @return il Nome del Cliente
+     */
     @Override
     public String getNomeCliente() {
         return nomeCliente;
     }
 
+    /**
+     * Ritorna l'ID del {@link PuntoPrelievo} collegato all' {@link SimpleOrdine Ordine}.
+     *
+     * @return l'ID del Punto di Prelievo
+     */
     @Override
     public int getPuntoPrelievo() {
         return IDPuntoPrelievo;
     }
 
+    /**
+     * Imposta un {@link PuntoPrelievo} all' {@link SimpleOrdine Ordine}.
+     *
+     * @param IDPuntoPrelievo ID del Punto di Prelievo da impostare
+     */
     @Override
     public void setPuntoPrelievo(int IDPuntoPrelievo) throws SQLException {
         updateData("UPDATE sys.ordini SET IDPuntoPrelievo = " + IDPuntoPrelievo + " WHERE ID = " + this.ID + ";");
         this.IDPuntoPrelievo = IDPuntoPrelievo;
     }
 
+    /**
+     * Ritorna la Residenza collegata all' {@link SimpleOrdine Ordine}.
+     *
+     * @return la residenza dell' ordine
+     */
     @Override
     public String getResidenza() {
         return residenza;
     }
 
+    /**
+     * Imposta una Residenza all' {@link SimpleOrdine Ordine}.
+     *
+     * @param residenza Residenza da impostare
+     */
     @Override
     public void setResidenza(String residenza) {
         this.residenza = residenza;
     }
 
+    /**
+     * Ritorna lo {@link StatoOrdine Stato} dell' {@link SimpleOrdine Ordine}.
+     *
+     * @return lo Stato dell' ordine
+     */
     @Override
     public StatoOrdine getStato() {
         return stato;
     }
 
+    /**
+     * Imposta lo {@link StatoOrdine Stato} all' {@link SimpleOrdine Ordine}.
+     *
+     * @param statoOrdine Stato da impostare
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     @Override
     public void setStato(StatoOrdine statoOrdine) throws SQLException {
         updateData("UPDATE sys.ordini SET stato = '" + statoOrdine + "' WHERE (ID = '" + this.ID + "');");
         this.stato = statoOrdine;
     }
 
+    /**
+     * Ritorna il Prezzo Totale dell' {@link SimpleOrdine Ordine}.
+     *
+     * @return il prezzo dell' ordine
+     */
     @Override
     public double getTotalePrezzo() {
         return totalePrezzo;
