@@ -91,7 +91,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<ArrayList<String>> getDettagliItems(CategoriaNegozio categoria) throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT * FROM sys.negozi WHERE categoria= '" + categoria + "';");
@@ -113,7 +112,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<ArrayList<String>> getDettagliItemsWithPromozioni(CategoriaNegozio categoria) throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
         ResultSet rs = executeQuery("SELECT ID FROM sys.negozi inner join promozioni on ID = IDNegozio Where categoria = '" + categoria + "' ;");
@@ -199,7 +197,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<String> inserisciNegozio(String nome, CategoriaNegozio categoria, String indirizzo, String telefono, String orarioApertura, String orarioChiusura) throws SQLException {
         Negozio simpleNegozio = new SimpleNegozio(nome, categoria, orarioApertura, orarioChiusura, indirizzo, telefono);
         addNegozioToList(simpleNegozio);
@@ -213,7 +210,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public void removeNegozio(int IDNegozio) throws SQLException {
         Negozio simpleNegozio = getItem(IDNegozio);
         negozi.remove(simpleNegozio);

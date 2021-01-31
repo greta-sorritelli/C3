@@ -100,7 +100,6 @@ public class SimpleNegozio implements Negozio {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    //todo test
     public void delete() throws SQLException {
         updateData("DELETE FROM sys.negozi WHERE (ID = '" + ID + "');");
         this.ID = -1;
@@ -119,7 +118,6 @@ public class SimpleNegozio implements Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     @Override
     public void eliminaPromozione(int IDMerce) throws SQLException {
         ResultSet rs = executeQuery("SELECT prezzoPrecedente FROM sys.promozioni where IDMerce = " + IDMerce + ";");
@@ -168,7 +166,6 @@ public class SimpleNegozio implements Negozio {
         toReturn.add(getTelefono());
         toReturn.add(String.valueOf(getInventario()));
         return toReturn;
-
     }
 
     /**
@@ -424,7 +421,6 @@ public class SimpleNegozio implements Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     @Override
     public void lanciaPromozione(int IDMerce, double nuovoPrezzo, String messaggio) throws SQLException {
         Merce tmp = getItem(IDMerce);
@@ -456,7 +452,6 @@ public class SimpleNegozio implements Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     @Override
     public void setNuoviDatiPromozione(int IDMerce, double prezzo, String messaggio) throws SQLException {
         updateData("UPDATE sys.promozioni SET messaggio = '" + messaggio + "', prezzoAttuale = '" + prezzo + "' WHERE (IDNegozio = '" + ID + "') and (IDMerce = '" + IDMerce + "');");
@@ -479,7 +474,7 @@ public class SimpleNegozio implements Negozio {
     public String toString() {
         return "ID=" + ID +
                 ", nome='" + nome + '\'' +
-                ", categorie=" + categoria +
+                ", categoria=" + categoria +
                 ", indirizzo='" + indirizzo + '\'';
     }
 

@@ -2,6 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import org.junit.jupiter.api.*;
 
@@ -28,6 +30,7 @@ class SimpleNegozioTest {
         negozioTest.inserisciNuovaMerce(10, "test Negozio", 10);
         negozioTest.inserisciNuovaMerce(5, "test Negozio", 1);
         negozioTest.inserisciNuovaMerce(50, "test Negozio", 20);
+        negozioTest.lanciaPromozione(1, 5, "Promozione");
     }
 
     @AfterAll
@@ -41,11 +44,34 @@ class SimpleNegozioTest {
     }
 
     @Test
-    void getPrezzoMedio() throws SQLException {
-        Negozio n = new SimpleNegozio("Negozio2", CategoriaNegozio.ABBIGLIAMENTO, "09:00", "16:00", "Via dei Test", "12345");
-        n.inserisciNuovaMerce(10, "test Negozio", 10);
-        n.inserisciNuovaMerce(5, "test Negozio", 1);
-        assertEquals(7.5,n.getPrezzoMedio());
+    void delete() throws SQLException {
+        Negozio toDelete = new SimpleNegozio("BurroBirra", CategoriaNegozio.ALIMENTARI, "08:00", "20:00", "Via Carducci", "321 5236987");
+        int tmpID = toDelete.getID();
+        toDelete.delete();
+        ResultSet rs = executeQuery("SELECT * FROM sys.negozi where ID = '" + tmpID + "';");
+        assertFalse(rs.next());
+        assertEquals(-1, toDelete.getID());
+        assertEquals("", toDelete.getNome());
+        assertNull(toDelete.getCategoria());
+        assertEquals("", toDelete.getTelefono());
+        assertEquals("", toDelete.getIndirizzo());
+        assertEquals("", toDelete.getOrarioApertura());
+        assertEquals("", toDelete.getOrarioChiusura());
+    }
+
+    @Test
+    void testToString() throws SQLException {
+        Negozio negozio = new SimpleNegozio("KingSport", CategoriaNegozio.SPORT, "08:00", "20:00", "Via Carducci,16", "321 5412896");
+        assertEquals("ID=" + negozio.getID() + ", nome='KingSport', categoria=SPORT, indirizzo='Via Carducci,16'",negozio.toString());
+    }
+
+    @Test
+    void eliminaPromozione() throws SQLException {
+        assertEquals(5, negozioTest.getItem(1).getPrezzo());
+        negozioTest.eliminaPromozione(1);
+        assertEquals(10, negozioTest.getItem(1).getPrezzo());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> negozioTest.eliminaPromozione(14526));
+        assertEquals("IDMerce non valido.", e1.getMessage());
     }
 
     @Test
@@ -66,11 +92,11 @@ class SimpleNegozioTest {
     }
 
     @Test
-    @Order(1)
+    @Order(0)
     void getDettagliMerce() throws SQLException {
         ArrayList<ArrayList<String>> merci = negozioTest.getDettagliItems();
         assertEquals(negozioTest.getID(), Integer.parseInt(merci.get(0).get(1)));
-        assertEquals("10.0", merci.get(0).get(2));
+        assertEquals("5.0", merci.get(0).get(2));
         assertEquals("test Negozio", merci.get(0).get(3));
         assertEquals("10", merci.get(0).get(4));
         assertEquals(negozioTest.getID(), Integer.parseInt(merci.get(1).get(1)));
@@ -114,18 +140,42 @@ class SimpleNegozioTest {
     @Test
     void getMerceVenduta() throws SQLException {
         Negozio negozio = new SimpleNegozio("Da Borsini", CategoriaNegozio.GIARDINAGGIO, "09:00", "16:00", "Via delle Probabilita, 100", "5644");
+        Negozio negozio1 = new SimpleNegozio("Sportland", CategoriaNegozio.SPORT, "09:00", "16:00", "Via delle Trombette, 10", "523698");
+
         GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
 
         Merce simpleMerce = new SimpleMerce(negozio.getID(), 14, "Cuscino", 10);
         Merce simpleMerce1 = new SimpleMerce(negozio.getID(), 18, "Big Bubble", 5);
+
         Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
+        ArrayList<String> ordine1 = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio1);
 
         gestoreOrdini.registraMerce(simpleMerce.getID(), 5, Integer.parseInt(ordine.get(0)), negozio);
         gestoreOrdini.registraMerce(simpleMerce1.getID(), 1, Integer.parseInt(ordine.get(0)), negozio);
         gestoreOrdini.terminaOrdine(Integer.parseInt(ordine.get(0)));
 
         assertEquals(40, negozio.getMerceVenduta());
+        assertEquals(0, negozio1.getMerceVenduta());
+
+        Merce simpleMerce2 = new SimpleMerce(negozio1.getID(), 10, "Lenzuolo", 20);
+        assertEquals(0, negozio1.getMerceVenduta());
+        assertFalse(negozio1.getInventario().isEmpty());
+
+        gestoreOrdini.registraMerce(simpleMerce2.getID(), 10, Integer.parseInt(ordine1.get(0)), negozio1);
+        gestoreOrdini.terminaOrdine(Integer.parseInt(ordine1.get(0)));
+        negozio1.removeMerce(simpleMerce2.getID());
+
+        assertEquals(100, negozio1.getMerceVenduta());
+
+    }
+
+    @Test
+    void getPrezzoMedio() throws SQLException {
+        Negozio n = new SimpleNegozio("Negozio2", CategoriaNegozio.ABBIGLIAMENTO, "09:00", "16:00", "Via dei Test", "12345");
+        n.inserisciNuovaMerce(10, "test Negozio", 10);
+        n.inserisciNuovaMerce(5, "test Negozio", 1);
+        assertEquals(7.5, n.getPrezzoMedio());
     }
 
     @Test
@@ -138,11 +188,36 @@ class SimpleNegozioTest {
     }
 
     @Test
+    void lanciaPromozione() throws SQLException {
+        Negozio negozio = new SimpleNegozio("BurroBirra", CategoriaNegozio.ALIMENTARI, "08:00", "20:00", "Via Carducci", "321 5236987");
+        ArrayList<String> dettagli = negozio.inserisciNuovaMerce(52, "gomma", 10);
+        negozio.lanciaPromozione(Integer.parseInt(dettagli.get(0)), 40, "Promozione gomma");
+        assertEquals(40, negozio.getItem(Integer.parseInt(dettagli.get(0))).getPrezzo());
+
+        ResultSet rs = executeQuery("SELECT prezzoAttuale FROM sys.promozioni where IDNegozio = " + negozio.getID() + ";");
+        if (rs.next())
+            assertEquals(40, rs.getDouble("prezzoAttuale"));
+    }
+
+    @Test
     void removeMerce() throws SQLException {
         Merce simpleMerce = new SimpleMerce(negozioTest.getID(), 15, "test delete", 10);
         assertTrue(negozioTest.getItems().contains(negozioTest.getItem(simpleMerce.getID())));
         negozioTest.removeMerce(simpleMerce.getID());
         assertFalse(negozioTest.getItems().contains(simpleMerce));
+    }
+
+    @Test
+    @Order(1)
+    void setNuoviDatiPromozione() throws SQLException {
+        negozioTest.setNuoviDatiPromozione(1, 2, "Promozione2");
+        assertEquals("Promozione2", negozioTest.getPromozione(1).get(1));
+        assertEquals(2, Double.parseDouble(negozioTest.getPromozione(1).get(2)));
+        assertEquals(10, Double.parseDouble(negozioTest.getPromozione(1).get(3)));
+
+        ResultSet rs = executeQuery("SELECT messaggio FROM sys.promozioni where IDNegozio = " + negozioTest.getID() + ";");
+        if (rs.next())
+            assertEquals("Promozione2", rs.getString("messaggio"));
     }
 
     @Test
@@ -184,4 +259,6 @@ class SimpleNegozioTest {
         assertEquals("Via degli assert", negozioTest.getIndirizzo());
         assertEquals("338599", negozioTest.getTelefono());
     }
+
+
 }
