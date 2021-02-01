@@ -192,7 +192,6 @@ public class SimpleNegozio implements Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     @Override
     public ArrayList<ArrayList<String>> getDettagliPromozioni() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.promozioni where IDNegozio = " + ID + ";");
@@ -361,7 +360,7 @@ public class SimpleNegozio implements Negozio {
     }
 
     /**
-     * Ritorna la Promozione  collegata alla {@link Merce}.
+     * Ritorna la Promozione collegata alla {@link Merce}.
      *
      * @param IDMerce Codice Identificativo della Merce
      *
@@ -369,7 +368,6 @@ public class SimpleNegozio implements Negozio {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     @Override
     public ArrayList<String> getPromozione(int IDMerce) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.promozioni where IDMerce = " + IDMerce + ";");

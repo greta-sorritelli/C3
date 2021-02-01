@@ -60,9 +60,29 @@ class SimpleNegozioTest {
     }
 
     @Test
+    @Order(2)
+    void getDettagliPromozioni() throws SQLException {
+        assertEquals(1, negozioTest.getDettagliPromozioni().size());
+        assertEquals("1", negozioTest.getDettagliPromozioni().get(0).get(0));
+        assertEquals("Promozione", negozioTest.getDettagliPromozioni().get(0).get(1));
+        assertEquals("5.0", negozioTest.getDettagliPromozioni().get(0).get(2));
+        assertEquals("10.0", negozioTest.getDettagliPromozioni().get(0).get(3));
+    }
+
+    @Test
+    @Order(1)
+    void getPromozione() throws SQLException {
+        assertEquals("Promozione", negozioTest.getPromozione(1).get(1));
+        assertEquals(5, Double.parseDouble(negozioTest.getPromozione(1).get(2)));
+        assertEquals(10, Double.parseDouble(negozioTest.getPromozione(1).get(3)));
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> negozioTest.getPromozione(14526));
+        assertEquals("IDMerce non valido.", e1.getMessage());
+    }
+
+    @Test
     void testToString() throws SQLException {
         Negozio negozio = new SimpleNegozio("KingSport", CategoriaNegozio.SPORT, "08:00", "20:00", "Via Carducci,16", "321 5412896");
-        assertEquals("ID=" + negozio.getID() + ", nome='KingSport', categoria=SPORT, indirizzo='Via Carducci,16'",negozio.toString());
+        assertEquals("ID=" + negozio.getID() + ", nome='KingSport', categoria=SPORT, indirizzo='Via Carducci,16'", negozio.toString());
     }
 
     @Test
@@ -208,7 +228,7 @@ class SimpleNegozioTest {
     }
 
     @Test
-    @Order(1)
+    @Order(3)
     void setNuoviDatiPromozione() throws SQLException {
         negozioTest.setNuoviDatiPromozione(1, 2, "Promozione2");
         assertEquals("Promozione2", negozioTest.getPromozione(1).get(1));
@@ -259,6 +279,4 @@ class SimpleNegozioTest {
         assertEquals("Via degli assert", negozioTest.getIndirizzo());
         assertEquals("338599", negozioTest.getTelefono());
     }
-
-
 }
