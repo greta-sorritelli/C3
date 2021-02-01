@@ -47,7 +47,7 @@ class GestoreOrdiniTest {
         Ordine ordine = gestoreOrdini.getOrdine(Integer.parseInt(ordineDettagli.get(0)));
         assertEquals(9, ordineDettagli.size());
         gestoreOrdini.addResidenza(ordine.getID(), "via Roma, 8");
-        assertEquals(ordine.getResidenza(), "via Roma, 8");
+        assertEquals(gestoreOrdini.getResidenzaOrdine(ordine.getID()), "via Roma, 8");
         gestoreOrdini.addResidenza(ordine.getID(), "via Colombo, 9");
         ArrayList<String> ordineNew = ordine.getDettagli();
         assertNotEquals(ordineDettagli, ordineNew);
@@ -193,12 +193,12 @@ class GestoreOrdiniTest {
 
         ArrayList<String> ordineLista = new ArrayList<>();
         ordineLista.add(ordine1.get(0));
-        ordineLista.add(String.valueOf(simpleCliente1.getID()));
+        ordineLista.add(String.valueOf(gestoreOrdini.getIDClienteOrdine(Integer.parseInt(ordine1.get(0)))));
         ordineLista.add("Maria");
         ordineLista.add("Giuseppa");
         ordineLista.add("6.0");
         ordineLista.add(StatoOrdine.PAGATO.toString());
-        ordineLista.add(String.valueOf(p.getID()));
+        ordineLista.add(String.valueOf(gestoreOrdini.getIDPuntoPrelievoOrdine(Integer.parseInt(ordine1.get(0)))));
         ordineLista.add(String.valueOf(negozio.getID()));
         ordineLista.add(gestoreOrdini.getOrdine(IDOrdine).getMerci().toString());
         assertEquals(ordineLista, gestoreOrdini.getDettagliOrdine(IDOrdine));
@@ -422,7 +422,7 @@ class GestoreOrdiniTest {
         gestoreOrdini.registraMerce(IDMerce1, 10, Integer.parseInt(ordine.get(0)), negozio);
         gestoreOrdini.terminaOrdine(Integer.parseInt(ordine.get(0)));
 
-        int IDMerceOrdine = gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getMerci().get(0).getID();
+        int IDMerceOrdine = gestoreOrdini.getMerciOrdine(Integer.parseInt(ordine.get(0))).get(0).getID();
 
         assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getMerceOrdine(IDMerceOrdine).getStato());
         assertEquals(StatoOrdine.PAGATO, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
@@ -439,13 +439,22 @@ class GestoreOrdiniTest {
     void setStatoOrdine() throws SQLException {
         Cliente simpleCliente = new SimpleCliente("Maria", "Giuseppa");
         ArrayList<String> ordine = gestoreOrdini.registraOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio);
+        ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(5, "Righello", 20);
+        int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
+
+        gestoreOrdini.registraMerce(IDMerce1,5,Integer.parseInt(ordine.get(0)),negozio);
+
+        int IDMerceOrdine = gestoreOrdini.getMerciOrdine(Integer.parseInt(ordine.get(0))).get(0).getID();
+
         assertEquals(StatoOrdine.DA_PAGARE, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
         gestoreOrdini.setStatoOrdine(Integer.parseInt(ordine.get(0)), StatoOrdine.IN_DEPOSITO);
         assertEquals(StatoOrdine.IN_DEPOSITO, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
+        assertEquals(StatoOrdine.IN_DEPOSITO,gestoreOrdini.getMerceOrdine(IDMerceOrdine).getStato());
 
         ResultSet rs = executeQuery("SELECT stato FROM sys.ordini where ID = " + Integer.parseInt(ordine.get(0)) + ";");
         if (rs.next())
             assertEquals(StatoOrdine.IN_DEPOSITO, StatoOrdine.valueOf(rs.getString("stato")));
+
     }
 
     @Test

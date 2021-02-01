@@ -175,7 +175,6 @@ public class GestoreOrdini {
     }
 
     /**
-     * todo test
      * Ritorna i dettagli della merce di un determinato {@link Negozio}.
      *
      * @param IDNegozio ID del negozio da cui proviene la merce della quale si vogliono conoscere i dettagli
@@ -232,7 +231,6 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo controllare test
     public ArrayList<ArrayList<String>> getDettagliMerciResidenza(String residenza) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where residenza = '" + residenza + "';");
@@ -270,7 +268,6 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public int getIDClienteOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getIDCliente();
     }
@@ -284,7 +281,6 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public int getIDPuntoPrelievoOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getPuntoPrelievo();
     }
@@ -345,7 +341,6 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo controllare test
     public ArrayList<ArrayList<String>> getMerciFromNegozioToMagazzino(int IDNegozio, int IDPuntoPrelievo) throws SQLException {
         ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         ResultSet rs = executeQuery("select ID from ordini where IDNegozio = '" + IDNegozio + "' and IDPuntoPrelievo ='"
@@ -371,7 +366,6 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<MerceOrdine> getMerciOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getMerci();
     }
@@ -406,7 +400,6 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public String getResidenzaOrdine(int IDOrdine) throws SQLException {
         return getOrdine(IDOrdine).getResidenza();
     }
@@ -449,7 +442,7 @@ public class GestoreOrdini {
         return ordine.getDettagli();
     }
 
-    //todo test e commento
+    //todo commento
     public void reset() {
         ordini.clear();
     }
@@ -508,7 +501,6 @@ public class GestoreOrdini {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo controllare test
     public void setStatoOrdine(int IDOrdine, StatoOrdine statoOrdine) throws SQLException {
         getOrdine(IDOrdine).setStato(statoOrdine);
         for (MerceOrdine merceOrdine : getOrdine(IDOrdine).getMerci())

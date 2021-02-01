@@ -14,13 +14,13 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleMerceOrdineTest {
     static MerceOrdine simpleMerceOrdineTest;
     static Ordine ordineTest;
     static Negozio negozioTest;
+    static Cliente clienteTest;
 
     @BeforeAll
     static void clearDB() throws SQLException {
@@ -29,9 +29,19 @@ class SimpleMerceOrdineTest {
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         negozioTest = new SimpleNegozio("Trinkets", CategoriaNegozio.ABBIGLIAMENTO, null, null, "Via delle Trombette", null);
-        Cliente simpleCliente = new SimpleCliente("Marco", "Papera");
-        ordineTest = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozioTest.getID());
+        clienteTest = new SimpleCliente("Marco", "Papera");
+        ordineTest = new SimpleOrdine(clienteTest.getID(), clienteTest.getNome(), clienteTest.getCognome(), negozioTest.getID());
         simpleMerceOrdineTest = new SimpleMerceOrdine(10, "test allSet", StatoOrdine.PAGATO, ordineTest.getID());
+    }
+
+    @Test
+    void creazioneMerceOrdine() throws SQLException {
+        assertEquals(ordineTest.getID(), simpleMerceOrdineTest.getIDOrdine());
+        assertEquals(StatoOrdine.PAGATO, simpleMerceOrdineTest.getStato());
+        assertEquals("test allSet", simpleMerceOrdineTest.getDescrizione());
+        assertEquals(10, simpleMerceOrdineTest.getPrezzo());
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimpleMerceOrdine(1000));
+        assertEquals("ID non valido.", e1.getMessage());
     }
 
     @Test
@@ -91,6 +101,22 @@ class SimpleMerceOrdineTest {
         ResultSet rs = executeQuery("SELECT quantita FROM sys.merci where ID = 1;");
         if (rs.next())
             assertEquals(10, rs.getInt("quantita"));
+    }
+
+    @Test
+    void setIDOrdine() throws SQLException {
+        Negozio negozio = new SimpleNegozio("SportLand", CategoriaNegozio.SPORT, null, null, "Via delle Trombette,15", null);
+        Cliente cliente = new SimpleCliente("Tommaso", "Cane");
+        Ordine ordine = new SimpleOrdine(cliente.getID(), cliente.getNome(), cliente.getCognome(), negozio.getID());
+        MerceOrdine merce = new SimpleMerceOrdine(5, "test", StatoOrdine.PAGATO, ordine.getID());
+
+        assertEquals(ordine.getID(), merce.getIDOrdine());
+        merce.setIDOrdine(ordineTest.getID());
+        assertEquals(ordineTest.getID(), simpleMerceOrdineTest.getIDOrdine());
+
+        ResultSet rs = executeQuery("SELECT IDOrdine FROM sys.merci where ID = " + merce.getID() + ";");
+        if (rs.next())
+            assertEquals(ordineTest.getID(), rs.getInt("IDOrdine"));
     }
 
     @Test
