@@ -9,9 +9,11 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.updateData;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,16 +50,15 @@ class SimplePuntoPrelievoTest {
     }
 
     @Test
-    void update() throws SQLException {
-        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Love Museum", "Bugs Bunny");
-        assertEquals(simplePuntoPrelievo.getIndirizzo(), "Love Museum");
-        assertEquals(simplePuntoPrelievo.getNome(), "Bugs Bunny");
-        updateData("UPDATE sys.punti_prelievo SET indirizzo = 'Love Court' where ID = '" + simplePuntoPrelievo.getID() + "';");
-        assertEquals(simplePuntoPrelievo.getIndirizzo(), "Love Museum");
-        assertEquals(simplePuntoPrelievo.getNome(), "Bugs Bunny");
-        simplePuntoPrelievo.update();
-        assertEquals(simplePuntoPrelievo.getIndirizzo(), "Love Court");
-        assertEquals(simplePuntoPrelievo.getNome(), "Bugs Bunny");
+    void delete() throws SQLException {
+        PuntoPrelievo toDelete = new SimplePuntoPrelievo("Via Monte", "B3");
+        int tmpID = toDelete.getID();
+        toDelete.delete();
+        ResultSet rs = executeQuery("SELECT * FROM sys.punti_prelievo where ID = '" + tmpID + "';");
+        assertFalse(rs.next());
+        assertEquals(-1, toDelete.getID());
+        assertEquals("", toDelete.getNome());
+        assertEquals("", toDelete.getIndirizzo());
     }
 
     @Test
@@ -155,5 +156,18 @@ class SimplePuntoPrelievoTest {
         assertNotEquals(simplePuntoPrelievo, simplePuntoPrelievo2);
         assertEquals("ID=" + simplePuntoPrelievo.getID() + ", indirizzo='Roma', nome='Magazzino Centrale Lazio", simplePuntoPrelievo.toString());
         assertEquals("ID=" + simplePuntoPrelievo2.getID() + ", indirizzo='Milano', nome='Magazzino Centrale Lombardia", simplePuntoPrelievo2.toString());
+    }
+
+    @Test
+    void update() throws SQLException {
+        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Love Museum", "Bugs Bunny");
+        assertEquals(simplePuntoPrelievo.getIndirizzo(), "Love Museum");
+        assertEquals(simplePuntoPrelievo.getNome(), "Bugs Bunny");
+        updateData("UPDATE sys.punti_prelievo SET indirizzo = 'Love Court' where ID = '" + simplePuntoPrelievo.getID() + "';");
+        assertEquals(simplePuntoPrelievo.getIndirizzo(), "Love Museum");
+        assertEquals(simplePuntoPrelievo.getNome(), "Bugs Bunny");
+        simplePuntoPrelievo.update();
+        assertEquals(simplePuntoPrelievo.getIndirizzo(), "Love Court");
+        assertEquals(simplePuntoPrelievo.getNome(), "Bugs Bunny");
     }
 }

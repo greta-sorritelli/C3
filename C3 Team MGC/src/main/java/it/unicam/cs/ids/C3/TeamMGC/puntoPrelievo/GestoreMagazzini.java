@@ -160,7 +160,6 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<String> inserisciMagazziniere(int IDPuntoPrelievo, String nome, String cognome, String password) throws SQLException {
         ArrayList<String> dettagli = new ArrayList<>();
         dettagli.add(String.valueOf(IDPuntoPrelievo));
@@ -180,9 +179,8 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public ArrayList<String> inserisciPuntoPrelievo(String nome, String indirizzo) throws SQLException {
-        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(nome, indirizzo);
+        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo(indirizzo, nome);
         addMagazzinoToList(simplePuntoPrelievo);
         return simplePuntoPrelievo.getDettagli();
     }

@@ -65,7 +65,6 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    //todo test
     public void delete() throws SQLException {
         updateData("DELETE FROM sys.punti_prelievo WHERE (ID = '" + ID + "');");
         this.ID = -1;
