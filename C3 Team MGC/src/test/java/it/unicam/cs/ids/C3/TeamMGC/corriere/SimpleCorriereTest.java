@@ -31,6 +31,30 @@ class SimpleCorriereTest {
         assertEquals("ID non valido.", e1.getMessage());
     }
 
+    @Test
+    void setNome() throws SQLException {
+        Corriere simpleCorriereTest = new SimpleCorriere("Greta", "Sorritelli", true);
+        assertEquals("Greta",simpleCorriereTest.getNome());
+        simpleCorriereTest.setNome("Clarissa");
+        assertEquals("Clarissa",simpleCorriereTest.getNome());
+
+        ResultSet rs = executeQuery("SELECT nome FROM sys.corrieri where ID = " + simpleCorriereTest.getID() + ";");
+        if (rs.next())
+            assertEquals("Clarissa", rs.getString("nome"));
+    }
+
+    @Test
+    void setCognome() throws SQLException {
+        Corriere simpleCorriereTest = new SimpleCorriere("Giuseppe", "Biondi", true);
+        assertEquals("Biondi",simpleCorriereTest.getCognome());
+        simpleCorriereTest.setCognome("Rossi");
+        assertEquals("Rossi",simpleCorriereTest.getCognome());
+
+        ResultSet rs = executeQuery("SELECT cognome FROM sys.corrieri where ID = " + simpleCorriereTest.getID() + ";");
+        if (rs.next())
+            assertEquals("Rossi", rs.getString("cognome"));
+    }
+
 
     @Test
     void getDettagli() throws SQLException {

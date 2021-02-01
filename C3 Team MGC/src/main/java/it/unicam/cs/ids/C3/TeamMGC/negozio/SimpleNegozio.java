@@ -441,7 +441,7 @@ public class SimpleNegozio implements Negozio {
         toDelete.delete();
     }
 
-    //todo test e commento
+    //todo commento
     @Override
     public void reset() {
         inventario.clear();
