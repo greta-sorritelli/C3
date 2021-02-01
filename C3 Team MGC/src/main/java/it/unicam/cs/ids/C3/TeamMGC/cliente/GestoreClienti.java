@@ -222,6 +222,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      *
      * @param IDCliente     ID del cliente da avvisare
      * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
+     * @param merceOrdine   Merce arrivata al destinazione
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -238,6 +239,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      *
      * @param IDCliente     ID del cliente da avvisare
      * @param puntoPrelievo Punto di prelievo dove verrà portata la merce
+     * @param merceOrdine   Merce da consegnare
      *
      * @throws SQLException Errore causato da una query SQL
      */

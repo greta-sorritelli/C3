@@ -27,6 +27,13 @@ public class SimpleNegozio implements Negozio {
     /**
      * Costruttore per inserire i dati nel DB.
      *
+     * @param nome           Nome del Negozio
+     * @param categoria      {@link CategoriaNegozio} del Negozio
+     * @param orarioApertura Orario di Apertura
+     * @param orarioChiusura Orario di Chiusura
+     * @param indirizzo      Indirizzo del Negozio
+     * @param telefono       Telefono del Negozio
+     *
      * @throws SQLException eccezione causata da una query SQL
      */
     public SimpleNegozio(String nome, CategoriaNegozio categoria, String orarioApertura, String orarioChiusura, String indirizzo, String telefono) throws SQLException {
@@ -47,6 +54,8 @@ public class SimpleNegozio implements Negozio {
 
     /**
      * Costruttore per importare i dati dal DB.
+     *
+     * @param ID ID del Negozio
      *
      * @throws SQLException eccezione causata da una query SQL
      */

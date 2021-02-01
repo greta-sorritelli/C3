@@ -2,10 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
-import it.unicam.cs.ids.C3.TeamMGC.personale.Commesso;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,7 +60,6 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
         if (!magazzini.contains(magazzino))
             magazzini.add(magazzino);
     }
-
 
     /**
      * Ritorna la lista dei dettagli dei {@link PuntoPrelievo Punti di Prelievo} presenti nel DB.
@@ -132,6 +128,8 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      *
      * @param IDPuntoPrelievo ID del punto prelievo in cui è presente in magazziniere
      * @param negozio         Negozio in cui deve andare il corriere
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     public void mandaAlert(int IDPuntoPrelievo, Negozio negozio) throws SQLException {
         updateData("INSERT INTO sys.alert_magazzinieri (IDPuntoPrelievo, messaggio) VALUES ('" + IDPuntoPrelievo +
@@ -154,9 +152,11 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      * Crea e inserisce un nuovo {@code Magazziniere}.
      *
      * @param IDPuntoPrelievo ID del punto di prelievo del magazziniere
-     * @param nome nome del magazziniere
-     * @param cognome cognome del magazziniere
-     * @param password password del magazziniere
+     * @param nome            nome del magazziniere
+     * @param cognome         cognome del magazziniere
+     * @param password        password del magazziniere
+     *
+     * @return l'insieme dei dettagli del Magazziniere creato
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -173,8 +173,8 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
     /**
      * Crea e inserisce un nuovo {@link PuntoPrelievo} nella lista.
      *
-     * @param nome       Nome del punto di prelievo
-     * @param indirizzo  Indirizzo del punto di prelievo
+     * @param nome      Nome del punto di prelievo
+     * @param indirizzo Indirizzo del punto di prelievo
      *
      * @return ArrayList dei dettagli del Punto di prelievo
      *

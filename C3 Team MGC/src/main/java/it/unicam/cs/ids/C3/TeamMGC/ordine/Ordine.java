@@ -18,6 +18,8 @@ public interface Ordine {
      * Aggiunge la {@link MerceOrdine} all'{@link Ordine}.
      *
      * @param merce Merce da aggiungere
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     void addMerce(MerceOrdine merce) throws SQLException;
 
@@ -81,6 +83,8 @@ public interface Ordine {
      * Ritorna la lista delle {@link MerceOrdine Merci} dell' {@link Ordine}.
      *
      * @return la lista delle merci
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     ArrayList<MerceOrdine> getMerci() throws SQLException;
 
@@ -102,6 +106,8 @@ public interface Ordine {
      * Imposta un {@link PuntoPrelievo} all' {@link Ordine}.
      *
      * @param IDPuntoPrelievo ID del Punto di Prelievo da impostare
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     void setPuntoPrelievo(int IDPuntoPrelievo) throws SQLException;
 

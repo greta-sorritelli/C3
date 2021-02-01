@@ -165,8 +165,9 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     /**
      * Crea e inserisce un nuovo {@link AddettoMagazzinoNegozio} nella lista.
      *
-     * @param nome    Nome dell' Addetto da inserire
-     * @param cognome Cognome dell' Addetto da inserire
+     * @param nome     Nome dell' Addetto da inserire
+     * @param cognome  Cognome dell' Addetto da inserire
+     * @param password Password dell' Addetto da inserire
      *
      * @return i dettagli dell' Addetto creato
      *

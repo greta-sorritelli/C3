@@ -36,8 +36,9 @@ public interface JavaFXController {
     /**
      * Metodo per aprire una finestra
      *
-     * @param a path del file fxml
-     * @param b titolo della finestra
+     * @param a          path del file fxml
+     * @param b          titolo della finestra
+     * @param controller Controller della Finestra
      */
     default void openWindow(String a, String b, Object controller) {
         try {

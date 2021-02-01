@@ -28,6 +28,11 @@ public class SimpleMerceOrdine implements MerceOrdine {
     /**
      * Costruttore per inserire i dati nel DB.
      *
+     * @param prezzo      Prezzo della Merce
+     * @param descrizione Descrizione della Merce
+     * @param stato       {@link StatoOrdine Stato} della Merce
+     * @param IDOrdine    ID dell' Ordine
+     *
      * @throws SQLException eccezione causata da una query SQL
      */
     public SimpleMerceOrdine(double prezzo, String descrizione, StatoOrdine stato, int IDOrdine) throws SQLException {
@@ -45,6 +50,8 @@ public class SimpleMerceOrdine implements MerceOrdine {
 
     /**
      * Costruttore per importare i dati dal DB.
+     *
+     * @param ID ID della Merce dell' Ordine
      *
      * @throws SQLException eccezione causata da una query SQL
      */

@@ -47,6 +47,9 @@ public class SimpleCliente implements Cliente {
     /**
      * Costruttore per inserire i dati nel DB.
      *
+     * @param nome    Nome del Cliente
+     * @param cognome Cognome del Cliente
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public SimpleCliente(String nome, String cognome) throws SQLException {

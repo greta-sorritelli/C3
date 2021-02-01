@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.personale;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+
 import java.sql.SQLException;
 
 public class Commesso extends Personale {
@@ -7,7 +9,7 @@ public class Commesso extends Personale {
     /**
      * Costruttore per importare i dati dal DB.
      *
-     * @param ID ID dell' Addetto Magazzino
+     * @param ID ID del Commesso
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -17,6 +19,10 @@ public class Commesso extends Personale {
 
     /**
      * Costruttore per inserire i dati nel DB.
+     *
+     * @param IDNegozio ID del {@link Negozio}
+     * @param nome      Nome del Commesso
+     * @param cognome   Cognome del Commesso
      *
      * @throws SQLException Errore causato da una query SQL
      */

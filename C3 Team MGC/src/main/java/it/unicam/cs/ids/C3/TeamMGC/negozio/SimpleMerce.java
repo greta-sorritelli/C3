@@ -22,6 +22,11 @@ public class SimpleMerce implements Merce {
     /**
      * Costruttore per la {@link SimpleMerce} all' interno dell' Inventario del Negozio.
      *
+     * @param IDNegozio   ID del {@link Negozio}
+     * @param prezzo      Prezzo della Merce
+     * @param descrizione Descrizione della Merce
+     * @param quantita    Quantità della Merce
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public SimpleMerce(int IDNegozio, double prezzo, String descrizione, int quantita) throws SQLException {

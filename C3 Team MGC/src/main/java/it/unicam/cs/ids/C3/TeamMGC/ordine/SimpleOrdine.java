@@ -12,7 +12,7 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la gestione di un {@link SimpleOrdine}.
+ * La classe implementa l' interfaccia {@link Ordine} ed ha la responsabilità di gestire un Ordine.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -60,6 +60,11 @@ public class SimpleOrdine implements Ordine {
 
     /**
      * Costruttore per inserire i dati nel DB.
+     *
+     * @param IDCliente      ID del {@link Cliente}
+     * @param nomeCliente    Nome del {@link Cliente}
+     * @param cognomeCliente Cognome del {@link Cliente}
+     * @param IDNegozio      ID del {@link Negozio}
      *
      * @throws SQLException eccezione causata da una query SQL
      */
@@ -129,7 +134,7 @@ public class SimpleOrdine implements Ordine {
      * Aggiunge la {@link SimpleMerceOrdine} all'{@link SimpleOrdine Ordine} del cliente.
      *
      * @param merce    Merce da aggiungere
-     * @param quantita Quantita della merce da aggiungere
+     * @param quantita Quantità della merce da aggiungere
      *
      * @throws SQLException Errore causato da una query SQL
      */

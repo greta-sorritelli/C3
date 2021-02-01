@@ -12,6 +12,10 @@ public class DatabaseConnection {
 
     /**
      * Connessione al DB
+     *
+     * @return la Connessione al DB
+     *
+     * @throws SQLException eccezione causata dalla query
      */
     public static Connection connectToDB() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/sys?serverTimezone=" + TimeZone.getDefault().getID();
@@ -29,6 +33,7 @@ public class DatabaseConnection {
      * @param query query SQL
      *
      * @return risultato della query
+     *
      * @throws SQLException eccezione causata dalla query
      */
     public static ResultSet executeQuery(String query) throws SQLException {

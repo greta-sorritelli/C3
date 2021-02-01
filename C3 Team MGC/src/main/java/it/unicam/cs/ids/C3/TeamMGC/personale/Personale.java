@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.personale;
 
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,9 +9,13 @@ import java.util.ArrayList;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
-
+/**
+ * Questa classe astratta gestisce il comportamento del Personale di un {@link Negozio}.
+ * Permette di accedere e modificare le informazioni associate al personale.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public abstract class Personale {
-
     private final int ID;
     private Ruolo ruolo;
     private int IDNegozio;
@@ -41,6 +47,11 @@ public abstract class Personale {
     /**
      * Costruttore per inserire i dati nel DB.
      *
+     * @param ruolo     {@link Ruolo} del Personale
+     * @param IDNegozio ID del {@link Negozio}
+     * @param nome      Nome del Personale
+     * @param cognome   Cognome del Personale
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public Personale(Ruolo ruolo, int IDNegozio, String nome, String cognome) throws SQLException {
@@ -54,12 +65,17 @@ public abstract class Personale {
         this.cognome = cognome;
     }
 
+    /**
+     * Ritorna il Cognome del {@link Personale}.
+     *
+     * @return il cognome del Personale
+     */
     public String getCognome() {
         return cognome;
     }
 
     /**
-     * Ritorna un arraylist con i dettagli del {@link Commesso}.
+     * Ritorna un arraylist con i dettagli del {@link Personale}.
      *
      * @return ArrayList dei dettagli
      *
@@ -76,23 +92,50 @@ public abstract class Personale {
         return toReturn;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link Personale}.
+     *
+     * @return il Codice Identificativo
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link Negozio} del {@link Personale}.
+     *
+     * @return il Codice Identificativo del Negozio
+     */
     public int getIDNegozio() {
         return IDNegozio;
     }
 
+    /**
+     * Imposta il Codice Identificativo del {@link Negozio}.
+     *
+     * @param IDNegozio ID del Negozio
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     public void setIDNegozio(int IDNegozio) throws SQLException {
         updateData("UPDATE sys.personale SET IDNegozio = '" + IDNegozio + "' WHERE (ID = '" + this.ID + "');");
         this.IDNegozio = IDNegozio;
     }
 
+    /**
+     * Ritorna il Nome del {@link Personale}.
+     *
+     * @return il nome del Personale
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Ritorna il {@link Ruolo} del {@link Personale}.
+     *
+     * @return il ruolo del Personale
+     */
     public Ruolo getRuolo() {
         return ruolo;
     }

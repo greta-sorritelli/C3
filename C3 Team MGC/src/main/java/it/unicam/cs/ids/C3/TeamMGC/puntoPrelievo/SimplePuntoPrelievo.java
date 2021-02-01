@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 
 import java.sql.ResultSet;
@@ -11,7 +10,8 @@ import java.util.Objects;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
- * Classe per la creazione di un {@link SimplePuntoPrelievo}
+ * La classe implementa l' interfaccia {@link PuntoPrelievo} ed ha la responsabilità di gestire un
+ * Punto di Prelievo.
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
@@ -41,7 +41,10 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
     }
 
     /**
-     * Costruttore per inserire i dati nel DB
+     * Costruttore per inserire i dati nel DB.
+     *
+     * @param indirizzo Indirizzo del Punto di Prelievo
+     * @param nome      Nome del Punto di Prelievo
      *
      * @throws SQLException eccezione causata da una query SQL
      */
@@ -57,7 +60,7 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
     }
 
     /**
-     * Elimina il {@link SimplePuntoPrelievo} dal db e aggiorna i dati dell' oggetto.
+     * Elimina il {@link SimplePuntoPrelievo} dal DB e aggiorna i dati dell' oggetto.
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -95,11 +98,21 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         return dettagli;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link SimplePuntoPrelievo}.
+     *
+     * @return l'ID del Punto di Prelievo
+     */
     @Override
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna l'Indirizzo del {@link SimplePuntoPrelievo}.
+     *
+     * @return l'indirizzo del Punto di Prelievo
+     */
     @Override
     public String getIndirizzo() {
         return indirizzo;
@@ -125,6 +138,11 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         return lista;
     }
 
+    /**
+     * Ritorna il Nome del {@link SimplePuntoPrelievo}.
+     *
+     * @return in nome del Punto di Prelievo
+     */
     @Override
     public String getNome() {
         return nome;

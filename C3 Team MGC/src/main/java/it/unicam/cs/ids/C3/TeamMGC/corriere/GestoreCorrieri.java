@@ -202,8 +202,9 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
     /**
      * Crea e inserisce un nuovo {@link Corriere} nella lista.
      *
-     * @param nome    Nome del corriere da inserire
-     * @param cognome Cognome del corriere da inserire
+     * @param nome     Nome del corriere da inserire
+     * @param cognome  Cognome del corriere da inserire
+     * @param password Password del corriere da inserire
      *
      * @return ArrayList dei dettagli del corriere creato
      *

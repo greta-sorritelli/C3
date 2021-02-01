@@ -57,6 +57,8 @@ public interface Cliente {
     /**
      * Crea un nuovo codice di ritiro e lo associa alla data in cui il {@link Cliente} effettua un acquisto.
      *
+     * @param codiceRitiro Nuovo Codice di Ritiro
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     String setCodiceRitiro(String codiceRitiro) throws SQLException;

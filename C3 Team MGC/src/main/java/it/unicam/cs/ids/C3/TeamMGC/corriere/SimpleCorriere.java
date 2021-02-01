@@ -42,6 +42,10 @@ public class SimpleCorriere implements Corriere {
     /**
      * Costruttore per inserire i dati nel DB.
      *
+     * @param nome          Nome del Corriere
+     * @param cognome       Cognome del Corriere
+     * @param disponibilita Stato di disponibilità del Corriere
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     public SimpleCorriere(String nome, String cognome, boolean disponibilita) throws SQLException {

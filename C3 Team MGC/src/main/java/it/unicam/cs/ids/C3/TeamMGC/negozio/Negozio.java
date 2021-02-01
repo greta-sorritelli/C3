@@ -113,6 +113,8 @@ public interface Negozio extends Gestore<Merce> {
      * Calcola il prezzo medio della merce del {@link Negozio}.
      *
      * @return Prezzo medio.
+     *
+     * @throws SQLException Errore causato da una query SQL
      */
     Double getPrezzoMedio() throws SQLException;
 
