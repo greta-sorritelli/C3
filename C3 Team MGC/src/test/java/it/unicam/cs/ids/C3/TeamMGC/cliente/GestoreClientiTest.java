@@ -70,8 +70,8 @@ class GestoreClientiTest {
     void inserisciDati() throws SQLException {
         ArrayList<String> test = gestoreClienti.inserisciDati("Sabrina","Spellman","12564");
         assertTrue(gestoreClienti.getItems().contains(gestoreClienti.getItem(Integer.parseInt(test.get(0)))));
-        assertEquals("Sabrina",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getNome());
-        assertEquals("Spellman",gestoreClienti.getItem(Integer.parseInt(test.get(0))).getCognome());
+        assertEquals("Sabrina",gestoreClienti.getNomeCliente(Integer.parseInt(test.get(0))));
+        assertEquals("Spellman",gestoreClienti.getCognomeCliente(Integer.parseInt(test.get(0))));
     }
 
     @Test
@@ -118,7 +118,7 @@ class GestoreClientiTest {
         Ordine simpleOrdine = new SimpleOrdine(Integer.parseInt(dettagli.get(0)), dettagli.get(1), dettagli.get(2), negozio.getID());
         String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID());
         Cliente simpleCliente = gestoreClienti.getItem(Integer.parseInt(dettagli.get(0)));
-        assertNotEquals("", simpleCliente.getCodiceRitiro());
+        assertNotEquals("", gestoreClienti.getCodiceRitiroCliente(simpleCliente.getID()));
         assertEquals(codice, simpleCliente.getCodiceRitiro());
         assertTrue(gestoreClienti.verificaCodice(simpleCliente.getID(), codice));
         assertEquals(codice, gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(dettagli.get(0)), simpleOrdine.getID()));
