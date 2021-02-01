@@ -31,6 +31,7 @@ class SimpleNegozioTest {
         negozioTest.inserisciNuovaMerce(5, "test Negozio", 1);
         negozioTest.inserisciNuovaMerce(50, "test Negozio", 20);
         negozioTest.lanciaPromozione(1, 5, "Promozione");
+
     }
 
     @AfterAll

@@ -441,6 +441,12 @@ public class SimpleNegozio implements Negozio {
         toDelete.delete();
     }
 
+    //todo test e commento
+    @Override
+    public void reset() {
+        inventario.clear();
+    }
+
     /**
      * Imposta i nuovi dati della {@code Promozione}.
      *

@@ -61,6 +61,52 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     }
 
     /**
+     * Ritorna la lista degli {@link AddettoMagazzinoNegozio addetti} di un negozio presenti nel DB.
+     *
+     * @return ArrayList degli addetti.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<Personale> getAddetti() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.ADDETTO_MAGAZZINO + "';");
+        while (rs.next())
+            addPersonale(rs);
+        disconnectToDB(rs);
+        return personale.stream().filter(commesso -> commesso.getRuolo().equals(Ruolo.ADDETTO_MAGAZZINO)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Ritorna il {@link Commerciante} di un negozio presente nel DB.
+     *
+     * @return Il commerciante.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public Personale getCommerciante() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.COMMERCIANTE + "';");
+        Personale tmp = null;
+        if (rs.next())
+            tmp = addPersonale(rs);
+        disconnectToDB(rs);
+        return tmp;
+    }
+
+    /**
+     * Ritorna la lista dei {@link Commesso commessi} di un negozio presenti nel DB.
+     *
+     * @return ArrayList dei commessi.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<Personale> getCommessi() throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.COMMESSO + "';");
+        while (rs.next())
+            addPersonale(rs);
+        disconnectToDB(rs);
+        return personale.stream().filter(commesso -> commesso.getRuolo().equals(Ruolo.COMMESSO)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * Ritorna la lista dei dettagli dei {@link Personale lavoratori} presenti nel DB.
      *
      * @return ArrayList di ArrayList dei dettagli dei lavoratori.
@@ -117,52 +163,6 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     }
 
     /**
-     * Ritorna la lista dei {@link Commesso commessi} di un negozio presenti nel DB.
-     *
-     * @return ArrayList dei commessi.
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<Personale> getCommessi() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.COMMESSO + "';");
-        while (rs.next())
-            addPersonale(rs);
-        disconnectToDB(rs);
-        return personale.stream().filter(commesso -> commesso.getRuolo().equals(Ruolo.COMMESSO)).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
-     * Ritorna il {@link Commerciante} di un negozio presente nel DB.
-     *
-     * @return Il commerciante.
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public Personale getCommerciante() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.COMMERCIANTE + "';");
-        Personale tmp = null;
-        if (rs.next())
-            tmp = addPersonale(rs);
-        disconnectToDB(rs);
-        return tmp;
-    }
-
-    /**
-     * Ritorna la lista degli {@link AddettoMagazzinoNegozio addetti} di un negozio presenti nel DB.
-     *
-     * @return ArrayList degli addetti.
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<Personale> getAddetti() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.ADDETTO_MAGAZZINO + "';");
-        while (rs.next())
-            addPersonale(rs);
-        disconnectToDB(rs);
-        return personale.stream().filter(commesso -> commesso.getRuolo().equals(Ruolo.ADDETTO_MAGAZZINO)).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * Crea e inserisce un nuovo {@link AddettoMagazzinoNegozio} nella lista.
      *
      * @param nome    Nome dell' Addetto da inserire
@@ -182,8 +182,8 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     /**
      * Crea e inserisce un nuovo {@link Commerciante}.
      *
-     * @param nome    Nome del Commerciante
-     * @param cognome Cognome del Commerciante
+     * @param nome     Nome del Commerciante
+     * @param cognome  Cognome del Commerciante
      * @param password password del Commerciante
      *
      * @return i dettagli del Commerciante creato
@@ -203,18 +203,24 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     /**
      * Crea e inserisce un nuovo {@link Commesso}
      *
-     * @param nome    Nome del commesso
-     * @param cognome Cognome del commesso
+     * @param nome     Nome del commesso
+     * @param cognome  Cognome del commesso
      * @param password password del commesso
      *
      * @return i dettagli del commesso creato
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    public ArrayList<String> inserisciCommesso( String nome, String cognome, String password) throws SQLException {
+    public ArrayList<String> inserisciCommesso(String nome, String cognome, String password) throws SQLException {
         Personale commesso = new Commesso(IDNegozio, nome, cognome);
         updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + commesso.getID() + ");");
         addPersonaleToList(commesso);
         return commesso.getDettagli();
+    }
+
+    //todo test e commento
+    @Override
+    public void reset() {
+        personale.clear();
     }
 }

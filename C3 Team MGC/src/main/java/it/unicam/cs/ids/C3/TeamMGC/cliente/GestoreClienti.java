@@ -105,6 +105,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     public String getCodiceRitiroCliente(int IDCliente) throws SQLException {
         return getItem(IDCliente).getCodiceRitiro();
     }
@@ -118,6 +119,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     public String getCognomeCliente(int IDCliente) throws SQLException {
         return getItem(IDCliente).getCognome();
     }
@@ -139,6 +141,12 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
             dettagli.add(simpleCliente.getDettagli());
         disconnectToDB(rs);
         return dettagli;
+    }
+
+    //todo test e commento
+    @Override
+    public void reset() {
+        clienti.clear();
     }
 
     /**
@@ -186,6 +194,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     public String getNomeCliente(int IDCliente) throws SQLException {
         return getItem(IDCliente).getNome();
     }

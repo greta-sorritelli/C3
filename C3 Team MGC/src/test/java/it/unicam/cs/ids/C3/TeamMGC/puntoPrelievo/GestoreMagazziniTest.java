@@ -21,8 +21,11 @@ class GestoreMagazziniTest {
 
     @BeforeAll
     static void preparaDB() throws SQLException {
+        gestoreMagazzini.reset();
         updateData("delete from sys.punti_prelievo;");
         updateData("alter table punti_prelievo AUTO_INCREMENT = 1;");
+        updateData("delete from sys.alert_magazzinieri;");
+        updateData("alter table alert_magazzinieri AUTO_INCREMENT = 1;");
         updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`, `indirizzo`) VALUES ('B1', 'via Giacinto');");
         updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`, `indirizzo`) VALUES ('B2', 'via Giuseppe');");
         updateData("INSERT INTO `sys`.`punti_prelievo` (`nome`, `indirizzo`) VALUES ('B3', 'via Paolo');");

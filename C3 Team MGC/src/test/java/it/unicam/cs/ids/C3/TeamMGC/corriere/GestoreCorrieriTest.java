@@ -23,6 +23,7 @@ class GestoreCorrieriTest {
 
     @BeforeAll
     static void preparaDB() throws SQLException {
+        gestoreCorrieri.reset();
         updateData("DELETE from sys.corrieri;");
         updateData("DELETE from sys.alert_corrieri;");
         updateData("alter table corrieri AUTO_INCREMENT = 1;");

@@ -131,6 +131,12 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
         return dettagli;
     }
 
+    //todo test e commento
+    @Override
+    public void reset() {
+        corrieri.clear();
+    }
+
     /**
      * Ritorna la Disponibilità del {@link Corriere} collegato all' {@code ID}.
      *

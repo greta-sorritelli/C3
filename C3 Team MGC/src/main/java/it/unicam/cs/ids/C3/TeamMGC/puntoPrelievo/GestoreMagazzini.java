@@ -84,6 +84,12 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
         return dettagli;
     }
 
+    //todo test e commento
+    @Override
+    public void reset() {
+        magazzini.clear();
+    }
+
     /**
      * Ritorna il {@link PuntoPrelievo} collegato all' {@code ID}.
      *

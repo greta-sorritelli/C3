@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 public interface Gestore<T> {
 
+    ArrayList<ArrayList<String>> getDettagliItems() throws SQLException;
+
     T getItem(int ID) throws SQLException;
 
     ArrayList<T> getItems() throws SQLException;
 
-    ArrayList<ArrayList<String>> getDettagliItems() throws SQLException;
+    void reset();
 }

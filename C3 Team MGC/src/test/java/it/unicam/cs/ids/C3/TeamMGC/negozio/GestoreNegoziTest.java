@@ -22,6 +22,7 @@ class GestoreNegoziTest {
 
     @BeforeAll
     static void preparaDB() throws SQLException {
+        gestoreNegozi.reset();
         updateData("delete from sys.negozi;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         updateData("delete from sys.ordini;");
@@ -64,7 +65,7 @@ class GestoreNegoziTest {
         ArrayList<String> merce = negozio.inserisciNuovaMerce(15, "mouse", 20);
         negozio.lanciaPromozione(Integer.parseInt(merce.get(0)), 10, "Promozione mouse");
         assertTrue(gestoreNegozi.getDettagliItemsWithPromozioni(CategoriaNegozio.ALIMENTARI).contains(negozio.getDettagli()));
-        assertEquals(negozio.getID(),Integer.parseInt(gestoreNegozi.getDettagliItemsWithPromozioni(CategoriaNegozio.ALIMENTARI).get(0).get(0)));
+        assertEquals(negozio.getID(), Integer.parseInt(gestoreNegozi.getDettagliItemsWithPromozioni(CategoriaNegozio.ALIMENTARI).get(0).get(0)));
     }
 
     @Test
@@ -125,10 +126,10 @@ class GestoreNegoziTest {
     void testGetDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> test1 = gestoreNegozi.getDettagliItems(CategoriaNegozio.ABBIGLIAMENTO);
         assertEquals("Ollivander", test1.get(0).get(1));
-        assertEquals("09:00",test1.get(0).get(3));
-        assertEquals("17:00",test1.get(0).get(4));
-        assertEquals("Via Vol de Mort",test1.get(0).get(5));
-        assertEquals("7854169",test1.get(0).get(6));
-        assertEquals(1,test1.size());
+        assertEquals("09:00", test1.get(0).get(3));
+        assertEquals("17:00", test1.get(0).get(4));
+        assertEquals("Via Vol de Mort", test1.get(0).get(5));
+        assertEquals("7854169", test1.get(0).get(6));
+        assertEquals(1, test1.size());
     }
 }

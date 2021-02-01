@@ -24,6 +24,7 @@ class GestoreOrdiniTest {
 
     @BeforeAll
     static void clearDB() throws SQLException {
+        gestoreOrdini.reset();
         updateData("delete from sys.ordini;");
         updateData("alter table ordini AUTO_INCREMENT = 1;");
         updateData("delete from sys.merci;");
@@ -431,7 +432,7 @@ class GestoreOrdiniTest {
 
         ResultSet rs = executeQuery("SELECT stato FROM sys.merci where ID = " + IDMerceOrdine + ";");
         if (rs.next())
-            assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE,StatoOrdine.valueOf(rs.getString("stato")));
+            assertEquals(StatoOrdine.AFFIDATO_AL_CORRIERE, StatoOrdine.valueOf(rs.getString("stato")));
     }
 
     @Test
@@ -444,7 +445,7 @@ class GestoreOrdiniTest {
 
         ResultSet rs = executeQuery("SELECT stato FROM sys.ordini where ID = " + Integer.parseInt(ordine.get(0)) + ";");
         if (rs.next())
-            assertEquals(StatoOrdine.IN_DEPOSITO,StatoOrdine.valueOf(rs.getString("stato")));
+            assertEquals(StatoOrdine.IN_DEPOSITO, StatoOrdine.valueOf(rs.getString("stato")));
     }
 
     @Test

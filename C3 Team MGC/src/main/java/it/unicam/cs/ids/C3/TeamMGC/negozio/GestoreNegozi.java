@@ -82,6 +82,12 @@ public class GestoreNegozi implements Gestore<Negozio> {
         return dettagli;
     }
 
+    //todo test e commento
+    @Override
+    public void reset() {
+        negozi.clear();
+    }
+
     /**
      * Ritorna la lista dei dettagli dei {@link Negozio Negozi} con una certa categoria presenti nel DB.
      *

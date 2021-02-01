@@ -22,6 +22,7 @@ class GestoreClientiTest {
 
     @BeforeAll
     static void clearDB() throws SQLException {
+        gestoreClienti.reset();
         updateData("delete from sys.clienti;");
         updateData("delete from sys.alert_clienti;");
         updateData("alter table clienti AUTO_INCREMENT = 1;");
