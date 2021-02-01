@@ -15,7 +15,6 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
     private final int IDNegozio;
     ArrayList<Personale> personale = new ArrayList<>();
 
-    //todo test tutto
     public GestorePersonale(int IDNegozio) {
         this.IDNegozio = IDNegozio;
     }
@@ -113,6 +112,7 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -153,6 +153,7 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     @Override
     public ArrayList<Personale> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "';");
@@ -173,6 +174,7 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     public ArrayList<String> inserisciAddetto(String nome, String cognome, String password) throws SQLException {
         Personale addetto = new AddettoMagazzinoNegozio(IDNegozio, nome, cognome);
         updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + addetto.getID() + ");");
@@ -191,6 +193,7 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     public ArrayList<String> inserisciCommerciante(String nome, String cognome, String password) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "' and ruolo='" + Ruolo.COMMERCIANTE + "';");
         if (rs.next())
@@ -212,6 +215,7 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
+    //todo test
     public ArrayList<String> inserisciCommesso(String nome, String cognome, String password) throws SQLException {
         Personale commesso = new Commesso(IDNegozio, nome, cognome);
         updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + commesso.getID() + ");");
@@ -219,7 +223,7 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
         return commesso.getDettagli();
     }
 
-    //todo test e commento
+    //todo commento
     @Override
     public void reset() {
         personale.clear();
