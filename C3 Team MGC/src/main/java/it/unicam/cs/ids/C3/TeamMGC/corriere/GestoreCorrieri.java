@@ -131,7 +131,7 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
         return dettagli;
     }
 
-    //todo test e commento
+    //todo commento
     @Override
     public void reset() {
         corrieri.clear();
@@ -184,19 +184,6 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
             addCorriere(rs);
         disconnectToDB(rs);
         return new ArrayList<>(corrieri);
-    }
-
-    /**
-     * Ritorna il Nome del {@link Corriere} collegato all' {@code ID}.
-     *
-     * @param IDCorriere Codice Identificativo del Corriere
-     *
-     * @return il nome del corriere
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public String getNomeCorriere(int IDCorriere) throws SQLException {
-        return getItem(IDCorriere).getNome();
     }
 
     /**

@@ -27,6 +27,7 @@ class SimpleNegozioTest {
         updateData("alter table inventario AUTO_INCREMENT = 1;");
         updateData("alter table negozi AUTO_INCREMENT = 1;");
         negozioTest = new SimpleNegozio("Negozio di Bici", CategoriaNegozio.SPORT, "09:00", "16:00", "Via dei Test", "12345");
+        negozioTest.reset();
         negozioTest.inserisciNuovaMerce(10, "test Negozio", 10);
         negozioTest.inserisciNuovaMerce(5, "test Negozio", 1);
         negozioTest.inserisciNuovaMerce(50, "test Negozio", 20);
