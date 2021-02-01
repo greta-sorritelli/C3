@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
 
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class SimpleMerceOrdine implements MerceOrdine {
     private int IDCorriere = -1;
 
     /**
-     * Costruttore per inserire i dati nel DB
+     * Costruttore per inserire i dati nel DB.
      *
      * @throws SQLException eccezione causata da una query SQL
      */
@@ -43,7 +44,9 @@ public class SimpleMerceOrdine implements MerceOrdine {
     }
 
     /**
-     * Costruttore per importare i dati dal DB
+     * Costruttore per importare i dati dal DB.
+     *
+     * @throws SQLException eccezione causata da una query SQL
      */
     public SimpleMerceOrdine(int ID) throws SQLException {
         ResultSet rs = executeQuery("select * from merci where ID ='" + ID + "';");
@@ -70,11 +73,23 @@ public class SimpleMerceOrdine implements MerceOrdine {
                 getIDOrdine() == that.getIDOrdine();
     }
 
+    /**
+     * Ritorna la Descrizione della {@link SimpleMerceOrdine}.
+     *
+     * @return la descrizione della merce
+     */
     @Override
     public String getDescrizione() {
         return descrizione;
     }
 
+    /**
+     * Imposta la Descrizione alla {@link SimpleMerceOrdine}.
+     *
+     * @param descrizione Nuova Descrizione
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     @Override
     public void setDescrizione(String descrizione) throws SQLException {
         updateData("UPDATE sys.merci SET descrizione = '" + descrizione + "' WHERE (ID = '" + ID + "');");
@@ -82,7 +97,10 @@ public class SimpleMerceOrdine implements MerceOrdine {
     }
 
     /**
-     * @return ArrayList<String> dei dettagli della merce
+     * Ritorna un arraylist con i dettagli della {@link SimpleMerceOrdine}.
+     *
+     * @return ArrayList dei dettagli della merce
+     *
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
@@ -98,60 +116,125 @@ public class SimpleMerceOrdine implements MerceOrdine {
         return toReturn;
     }
 
+    /**
+     * Ritorna il Codice Identificativo della {@link SimpleMerceOrdine}.
+     *
+     * @return l'ID della merce
+     */
     @Override
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ritorna il Codice Identificativo del {@link Corriere} che trasporta la {@link SimpleMerceOrdine}.
+     *
+     * @return l'ID del corriere
+     */
     @Override
     public int getIDCorriere() {
         return IDCorriere;
     }
 
+    /**
+     * Associa il {@link Corriere} alla {@link SimpleMerceOrdine}.
+     *
+     * @param IDCorriere Codice Identificativo del Corriere
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     @Override
     public void setIDCorriere(int IDCorriere) throws SQLException {
         updateData("UPDATE sys.merci SET IDCorriere = '" + IDCorriere + "' WHERE (ID = '" + ID + "');");
         this.IDCorriere = IDCorriere;
     }
 
+    /**
+     * Ritorna il Codice Identificativo dell' {@link Ordine} della {@link SimpleMerceOrdine}.
+     *
+     * @return l'ID dell' Ordine
+     */
     @Override
     public int getIDOrdine() {
         return IDOrdine;
     }
 
+    /**
+     * Associa l' {@link Ordine} alla {@link SimpleMerceOrdine}.
+     *
+     * @param IDOrdine Codice Identificativo dell' Ordine
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     @Override
     public void setIDOrdine(int IDOrdine) throws SQLException {
         updateData("UPDATE sys.merci SET IDOrdine = '" + IDOrdine + "' WHERE (ID = '" + ID + "');");
         this.IDOrdine = IDOrdine;
     }
 
+    /**
+     * Ritorna il Prezzo della {@link SimpleMerceOrdine}.
+     *
+     * @return il prezzo della merce
+     */
     @Override
     public double getPrezzo() {
         return prezzo;
     }
 
+    /**
+     * Imposta il Prezzo alla {@link SimpleMerceOrdine}.
+     *
+     * @param prezzo Nuovo Prezzo
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     @Override
     public void setPrezzo(double prezzo) throws SQLException {
         updateData("UPDATE sys.merci SET prezzo = '" + prezzo + "' WHERE (ID = '" + ID + "');");
         this.prezzo = prezzo;
     }
 
+    /**
+     * Ritorna la Quantità della {@link SimpleMerceOrdine}.
+     *
+     * @return la quantità della merce
+     */
     @Override
     public int getQuantita() {
         return quantita;
     }
 
+    /**
+     * Imposta la Quantità alla {@link SimpleMerceOrdine}.
+     *
+     * @param quantita Nuova Quantità
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     @Override
     public void setQuantita(int quantita) throws SQLException {
         updateData("UPDATE sys.merci SET quantita = '" + quantita + "' WHERE (ID = '" + ID + "');");
         this.quantita = quantita;
     }
 
+    /**
+     * Ritorna lo {@link StatoOrdine Stato} della {@link SimpleMerceOrdine}.
+     *
+     * @return lo stato della merce
+     */
     @Override
     public StatoOrdine getStato() {
         return stato;
     }
 
+    /**
+     * Imposta lo {@link StatoOrdine Stato} alla {@link SimpleMerceOrdine}.
+     *
+     * @param stato Stato della Merce
+     *
+     * @throws SQLException eccezione causata da una query SQL
+     */
     @Override
     public void setStato(StatoOrdine stato) throws SQLException {
         updateData("UPDATE sys.merci SET stato = '" + stato + "' WHERE (ID = '" + ID + "');");
