@@ -67,11 +67,13 @@ public abstract class Personale implements Comparable<Personale> {
     }
 
     /**
-     * todo
+     * Confronta 2 oggetti di tipo {@link Personale} attraverso il loro {@code ID}.
      *
-     * @param p
+     * @param p Oggetto da confrontare
      *
-     * @return
+     * @return <ul><li>0 se i due oggetti sono uguali,</li>
+     * <li>1 se questo oggetto ha l'ID maggiore,</li>
+     * <li>-1 se p ha l'ID maggiore.</li></ul>
      */
     @Override
     public int compareTo(Personale p) {
