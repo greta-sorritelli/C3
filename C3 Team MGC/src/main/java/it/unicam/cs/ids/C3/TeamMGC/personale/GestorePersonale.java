@@ -6,6 +6,7 @@ import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
@@ -55,8 +56,10 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      * @param p Personale da aggiungere
      */
     private void addPersonaleToList(Personale p) {
-        if (!personale.contains(p))
+        if (!personale.contains(p)) {
             personale.add(p);
+            Collections.sort(personale);
+        }
     }
 
     /**
@@ -112,7 +115,6 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo controllare test
     @Override
     public ArrayList<ArrayList<String>> getDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
@@ -153,7 +155,6 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo controllare test
     @Override
     public ArrayList<Personale> getItems() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM sys.personale where IDNegozio='" + IDNegozio + "';");
@@ -213,7 +214,6 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo controllare test
     public ArrayList<String> inserisciCommesso(String nome, String cognome, String password) throws SQLException {
         Personale commesso = new Commesso(IDNegozio, nome, cognome);
         updateData("UPDATE sys.personale SET password = '" + password + "' WHERE (ID =" + commesso.getID() + ");");

@@ -5,6 +5,7 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
@@ -15,7 +16,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.exe
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public abstract class Personale {
+public abstract class Personale implements Comparable<Personale> {
     private final int ID;
     private Ruolo ruolo;
     private int IDNegozio;
@@ -63,6 +64,32 @@ public abstract class Personale {
         this.IDNegozio = IDNegozio;
         this.nome = nome;
         this.cognome = cognome;
+    }
+
+    /**
+     * todo
+     *
+     * @param p
+     *
+     * @return
+     */
+    @Override
+    public int compareTo(Personale p) {
+        if (Objects.isNull(p))
+            throw new NullPointerException();
+        if (this.equals(p))
+            return 0;
+        if (this.getID() > p.getID())
+            return 1;
+        else return -1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Personale personale = (Personale) o;
+        return ID == personale.ID;
     }
 
     /**
@@ -138,6 +165,20 @@ public abstract class Personale {
      */
     public Ruolo getRuolo() {
         return ruolo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
+    }
+
+    @Override
+    public String toString() {
+        return "ID=" + ID +
+                ", ruolo=" + ruolo +
+                ", IDNegozio=" + IDNegozio +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'';
     }
 
     /**

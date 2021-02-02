@@ -70,16 +70,16 @@ class GestorePersonaleTest {
     @Test
     void getDettagliItems() throws SQLException {
         ArrayList<ArrayList<String>> test = gestorePersonale.getDettagliItems();
-        assertEquals("2", test.get(0).get(0));
-        assertEquals("ADDETTO_MAGAZZINO", test.get(0).get(1));
+        assertEquals("1", test.get(0).get(0));
+        assertEquals("COMMESSO", test.get(0).get(1));
         assertEquals(negozio.getID(), Integer.parseInt(test.get(0).get(2)));
-        assertEquals("Stefano", test.get(0).get(3));
-        assertEquals("Verdi", test.get(0).get(4));
-        assertEquals("1", test.get(1).get(0));
-        assertEquals("COMMESSO", test.get(1).get(1));
+        assertEquals("Andrea", test.get(0).get(3));
+        assertEquals("Rossi", test.get(0).get(4));
+        assertEquals("2", test.get(1).get(0));
+        assertEquals("ADDETTO_MAGAZZINO", test.get(1).get(1));
         assertEquals(negozio.getID(), Integer.parseInt(test.get(1).get(2)));
-        assertEquals("Andrea", test.get(1).get(3));
-        assertEquals("Rossi", test.get(1).get(4));
+        assertEquals("Stefano", test.get(1).get(3));
+        assertEquals("Verdi", test.get(1).get(4));
         assertEquals("3", test.get(2).get(0));
         assertEquals("COMMERCIANTE", test.get(2).get(1));
         assertEquals(negozio.getID(), Integer.parseInt(test.get(2).get(2)));
@@ -106,16 +106,16 @@ class GestorePersonaleTest {
     @Test
     void getItems() throws SQLException {
         ArrayList<Personale> test = gestorePersonale.getItems();
-        assertEquals(2, test.get(0).getID());
-        assertEquals(Ruolo.ADDETTO_MAGAZZINO, test.get(0).getRuolo());
+        assertEquals(1, test.get(0).getID());
+        assertEquals(Ruolo.COMMESSO, test.get(0).getRuolo());
         assertEquals(negozio.getID(), test.get(0).getIDNegozio());
-        assertEquals("Stefano", test.get(0).getNome());
-        assertEquals("Verdi", test.get(0).getCognome());
-        assertEquals(1, test.get(1).getID());
-        assertEquals(Ruolo.COMMESSO, test.get(1).getRuolo());
+        assertEquals("Andrea", test.get(0).getNome());
+        assertEquals("Rossi", test.get(0).getCognome());
+        assertEquals(2, test.get(1).getID());
+        assertEquals(Ruolo.ADDETTO_MAGAZZINO, test.get(1).getRuolo());
         assertEquals(negozio.getID(), test.get(1).getIDNegozio());
-        assertEquals("Andrea", test.get(1).getNome());
-        assertEquals("Rossi", test.get(1).getCognome());
+        assertEquals("Stefano", test.get(1).getNome());
+        assertEquals("Verdi", test.get(1).getCognome());
         assertEquals(3, test.get(2).getID());
         assertEquals(Ruolo.COMMERCIANTE, test.get(2).getRuolo());
         assertEquals(negozio.getID(), test.get(2).getIDNegozio());
@@ -149,10 +149,13 @@ class GestorePersonaleTest {
 
     @Test
     void inserisciCommesso() throws SQLException {
-//        ArrayList<String> commesso = gestorePersonale.inserisciCommesso("Clarissa", "Albanese", "12345678");
-//        int IDCommesso = Integer.parseInt(commesso.get(0));
-//        assertTrue(gestorePersonale.getDettagliItems().contains(commesso));
-//        assertEquals("Clarissa", gestorePersonale.getItem(IDCommesso).getNome());
-//        assertEquals("Albanese", gestorePersonale.getItem(IDCommesso).getCognome());
+        Negozio negozio = new SimpleNegozio("King", CategoriaNegozio.SPORT, "09:00", "18:30", "Via Ciao, 30", "1478526");
+        GestorePersonale g = new GestorePersonale(negozio.getID());
+
+        ArrayList<String> commesso = g.inserisciCommesso("Clarissa", "Albanese", "12345678");
+        int IDCommesso = Integer.parseInt(commesso.get(0));
+        assertTrue(g.getDettagliItems().contains(commesso));
+        assertEquals("Clarissa", g.getItem(IDCommesso).getNome());
+        assertEquals("Albanese", g.getItem(IDCommesso).getCognome());
     }
 }
