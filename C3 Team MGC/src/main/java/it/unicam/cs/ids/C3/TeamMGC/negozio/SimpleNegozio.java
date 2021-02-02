@@ -107,14 +107,22 @@ public class SimpleNegozio implements Negozio {
         }
     }
 
-    //todo commento e test
+    /**
+     * Confronta 2 oggetti di tipo {@link Negozio} attraverso il loro {@code ID}.
+     *
+     * @param n Oggetto da confrontare
+     *
+     * @return <ul><li>0 se i due oggetti sono uguali,</li>
+     * <li>1 se questo oggetto ha l'ID maggiore,</li>
+     * <li>-1 se n ha l'ID maggiore.</li></ul>
+     */
     @Override
-    public int compareTo(Negozio o) {
-        if (Objects.isNull(o))
+    public int compareTo(Negozio n) {
+        if (Objects.isNull(n))
             throw new NullPointerException();
-        if (this.equals(o))
+        if (this.equals(n))
             return 0;
-        if (this.getID() > o.getID())
+        if (this.getID() > n.getID())
             return 1;
         else return -1;
     }

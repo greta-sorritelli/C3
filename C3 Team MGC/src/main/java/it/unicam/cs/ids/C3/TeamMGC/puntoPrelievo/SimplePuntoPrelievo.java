@@ -59,14 +59,22 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         disconnectToDB(rs);
     }
 
-    //todo commento e test
+    /**
+     * Confronta 2 oggetti di tipo {@link PuntoPrelievo} attraverso il loro {@code ID}.
+     *
+     * @param p Oggetto da confrontare
+     *
+     * @return <ul><li>0 se i due oggetti sono uguali,</li>
+     * <li>1 se questo oggetto ha l'ID maggiore,</li>
+     * <li>-1 se p ha l'ID maggiore.</li></ul>
+     */
     @Override
-    public int compareTo(PuntoPrelievo o) {
-        if (Objects.isNull(o))
+    public int compareTo(PuntoPrelievo p) {
+        if (Objects.isNull(p))
             throw new NullPointerException();
-        if (this.equals(o))
+        if (this.equals(p))
             return 0;
-        if (this.getID() > o.getID())
+        if (this.getID() > p.getID())
             return 1;
         else return -1;
     }

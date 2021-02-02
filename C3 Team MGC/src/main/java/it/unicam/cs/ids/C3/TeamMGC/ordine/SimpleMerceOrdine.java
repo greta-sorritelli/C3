@@ -71,14 +71,22 @@ public class SimpleMerceOrdine implements MerceOrdine {
         }
     }
 
-    //todo commento e test
+    /**
+     * Confronta 2 oggetti di tipo {@link MerceOrdine} attraverso il loro {@code ID}.
+     *
+     * @param m Oggetto da confrontare
+     *
+     * @return <ul><li>0 se i due oggetti sono uguali,</li>
+     * <li>1 se questo oggetto ha l'ID maggiore,</li>
+     * <li>-1 se m ha l'ID maggiore.</li></ul>
+     */
     @Override
-    public int compareTo(MerceOrdine o) {
-        if (Objects.isNull(o))
+    public int compareTo(MerceOrdine m) {
+        if (Objects.isNull(m))
             throw new NullPointerException();
-        if (this.equals(o))
+        if (this.equals(m))
             return 0;
-        if (this.getID() > o.getID())
+        if (this.getID() > m.getID())
             return 1;
         else return -1;
     }

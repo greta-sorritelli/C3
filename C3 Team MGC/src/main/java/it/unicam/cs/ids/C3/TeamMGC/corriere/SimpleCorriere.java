@@ -62,16 +62,24 @@ public class SimpleCorriere implements Corriere {
         disconnectToDB(rs);
     }
 
-    //todo commento e test
+    /**
+     * Confronta 2 oggetti di tipo {@link Corriere} attraverso il loro {@code ID}.
+     *
+     * @param c Oggetto da confrontare
+     *
+     * @return <ul><li>0 se i due oggetti sono uguali,</li>
+     * <li>1 se questo oggetto ha l'ID maggiore,</li>
+     * <li>-1 se c ha l'ID maggiore.</li></ul>
+     */
     @Override
-    public int compareTo(Corriere o) {
-            if (Objects.isNull(o))
-                throw new NullPointerException();
-            if (this.equals(o))
-                return 0;
-            if (this.getID() > o.getID())
-                return 1;
-            else return -1;
+    public int compareTo(Corriere c) {
+        if (Objects.isNull(c))
+            throw new NullPointerException();
+        if (this.equals(c))
+            return 0;
+        if (this.getID() > c.getID())
+            return 1;
+        else return -1;
     }
 
     @Override

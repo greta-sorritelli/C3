@@ -149,7 +149,15 @@ public class SimpleOrdine implements Ordine {
         updateData("UPDATE sys.ordini SET totalePrezzo = '" + this.totalePrezzo + "' WHERE (ID = '" + this.ID + "');");
     }
 
-    //todo commento e test
+    /**
+     * Confronta 2 oggetti di tipo {@link Ordine} attraverso il loro {@code ID}.
+     *
+     * @param o Oggetto da confrontare
+     *
+     * @return <ul><li>0 se i due oggetti sono uguali,</li>
+     * <li>1 se questo oggetto ha l'ID maggiore,</li>
+     * <li>-1 se o ha l'ID maggiore.</li></ul>
+     */
     @Override
     public int compareTo(Ordine o) {
         if (Objects.isNull(o))

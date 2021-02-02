@@ -1,7 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
-import it.unicam.cs.ids.C3.TeamMGC.personale.Personale;
-
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,14 +62,22 @@ public class SimpleCliente implements Cliente {
         disconnectToDB(rs);
     }
 
-    //todo commento e test
+    /**
+     * Confronta 2 oggetti di tipo {@link Cliente} attraverso il loro {@code ID}.
+     *
+     * @param c Oggetto da confrontare
+     *
+     * @return <ul><li>0 se i due oggetti sono uguali,</li>
+     * <li>1 se questo oggetto ha l'ID maggiore,</li>
+     * <li>-1 se o ha l'ID maggiore.</li></ul>
+     */
     @Override
-    public int compareTo(Cliente o) {
-        if (Objects.isNull(o))
+    public int compareTo(Cliente c) {
+        if (Objects.isNull(c))
             throw new NullPointerException();
-        if (this.equals(o))
+        if (this.equals(c))
             return 0;
-        if (this.getID() > o.getID())
+        if (this.getID() > c.getID())
             return 1;
         else return -1;
     }
