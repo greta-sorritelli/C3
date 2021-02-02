@@ -7,6 +7,11 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
+/**
+ * Controller della pagina per la visualizzazione delle Statistiche.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXVisualizzaStatistiche implements JavaFXController {
 
     private final Negozio negozio;

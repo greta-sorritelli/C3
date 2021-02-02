@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
-import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreAlert;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -12,6 +11,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina che gestisce gli alert in arrivo.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXControllareAlert implements JavaFXController {
 
     private final String tipologiaUtente;

@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina per selezionare il Corriere.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXSelezionaCorriere implements JavaFXController {
 
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
@@ -79,7 +84,7 @@ public class JavaFXSelezionaCorriere implements JavaFXController {
                     successWindow("Alert mandato con successo!", "L' alert e' stato inviato al corriere.");
                     closeWindow((Stage) corriereTable.getScene().getWindow());
                 }
-            }else
+            } else
                 throw new IllegalArgumentException("Dati non presenti.");
         } catch (IllegalArgumentException exception) {
             alertWindow("Alert!", "Inserire tutti i dati richiesti.");

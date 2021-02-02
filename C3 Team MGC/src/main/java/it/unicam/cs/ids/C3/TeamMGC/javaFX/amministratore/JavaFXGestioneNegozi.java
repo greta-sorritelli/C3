@@ -13,6 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Controller della pagina per la gestione dei Negozi.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXGestioneNegozi implements JavaFXController {
 
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();

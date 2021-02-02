@@ -4,7 +4,9 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.amministratore.JavaFXLoginAdmin;
 import javafx.fxml.FXML;
 
 /**
- * Classe per la visualizzazione della home e la scelta del profilo
+ * Classe per la visualizzazione della home e la scelta del profilo.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class JavaFXC3Controller implements JavaFXController {
 
@@ -28,7 +30,7 @@ public class JavaFXC3Controller implements JavaFXController {
      * Apre la finestra per il login dell' amministratore.
      */
     @FXML
-    public void loginAdmin(){
+    public void loginAdmin() {
         openWindow("/amministratore/LoginAdmin.fxml", "Login Amministratore", new JavaFXLoginAdmin());
     }
 }

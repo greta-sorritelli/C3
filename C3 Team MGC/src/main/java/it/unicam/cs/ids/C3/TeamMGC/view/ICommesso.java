@@ -5,8 +5,14 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXComunicareCodiceRitiro;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso.JavaFXRicezionePagamento;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import java.sql.SQLException;
+import it.unicam.cs.ids.C3.TeamMGC.personale.Commesso;
 
+import java.sql.SQLException;
+/**
+ * Controller della Home del {@link Commesso}.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class ICommesso implements JavaFXController {
 
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();

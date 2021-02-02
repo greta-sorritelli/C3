@@ -16,6 +16,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Controller della pagina per il trasporto della Merce.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXTrasportareMerce implements JavaFXController {
 
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();

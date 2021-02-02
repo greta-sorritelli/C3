@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
@@ -16,8 +15,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Controller della pagina per confermare la consegna della Merce.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
-
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
@@ -100,7 +103,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
         try {
             if (selectedMerce != null) {
                 if (gestoreOrdini.getResidenzaOrdine(selectedMerce.getIDOrdine()) == null) {
-                   mandaAlertPuntoPrelievo();
+                    mandaAlertPuntoPrelievo();
                     successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al punto di prelievo.");
                 } else {
                     gestoreOrdini.setStatoMerce(selectedMerce.getID(), StatoOrdine.RITIRATO);
@@ -187,7 +190,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
             merceTable.getItems().clear();
             merceTable.getItems().addAll(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.IN_TRANSITO));
             merceTable.getItems().removeIf(merceSelezionata::contains);
-            if(merceTable.getItems().isEmpty()) {
+            if (merceTable.getItems().isEmpty()) {
                 successWindow("Merci consegnate con successo!", "Tutte le merci sono state consegnate.");
                 closeWindow((Stage) tab.getScene().getWindow());
             }

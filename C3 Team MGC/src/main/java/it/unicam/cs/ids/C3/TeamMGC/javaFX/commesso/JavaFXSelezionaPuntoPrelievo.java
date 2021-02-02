@@ -19,6 +19,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.Objects;
 
+/**
+ * Controller della pagina per selezionare il Punto di Prelievo.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
@@ -132,7 +137,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     }
 
     @FXML
-    public void clearText(){
+    public void clearText() {
         residenza.clear();
     }
 }

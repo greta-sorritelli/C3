@@ -11,8 +11,12 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
+/**
+ * Controller della pagina per la gestione delle vendite promozionali.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXGestioneVenditePromozionali implements JavaFXController {
 
     private final Negozio negozio;

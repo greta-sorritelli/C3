@@ -5,12 +5,17 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXControllareAlert;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXComunicareConCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.magazziniere.JavaFXConsegnareMerceAlCliente;
+import it.unicam.cs.ids.C3.TeamMGC.personale.AddettoMagazzinoNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
-
+/**
+ * Controller della Home del Magazziniere.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class IMagazziniere implements JavaFXController {
 
     private final PuntoPrelievo puntoPrelievo;

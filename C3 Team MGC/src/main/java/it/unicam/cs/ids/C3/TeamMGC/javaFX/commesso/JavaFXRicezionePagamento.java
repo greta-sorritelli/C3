@@ -17,6 +17,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Controller della pagina per la ricezione del Pagamento e terminare l' Ordine.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXRicezionePagamento implements JavaFXController {
 
     private final Negozio negozio;

@@ -12,6 +12,11 @@ import javafx.scene.control.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina per filtrare le Promozioni.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXFiltrarePromozioni implements JavaFXController {
 
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();

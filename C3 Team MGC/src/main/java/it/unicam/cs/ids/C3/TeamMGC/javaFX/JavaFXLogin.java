@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.Objects;
 
+/**
+ * Controller della pagina che gestisce il Login degli Utenti.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXLogin implements JavaFXController {
 
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();

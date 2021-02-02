@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
+/**
+ * Controller della pagina per la gestione del Login dell' Amministratore.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXLoginAdmin implements JavaFXController {
 
     @FXML
@@ -28,7 +33,7 @@ public class JavaFXLoginAdmin implements JavaFXController {
         try {
             if (nomeUtente.getText().isEmpty() || getPassword().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
-            if (GestoreLogin.checkInfo(nomeUtente.getText(),getPassword())) {
+            if (GestoreLogin.checkInfo(nomeUtente.getText(), getPassword())) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
                 openWindow("/amministratore/HomeAmministratore.fxml", "Home Amministratore", new IAmministratore());
                 closeWindow((Stage) nomeUtente.getScene().getWindow());

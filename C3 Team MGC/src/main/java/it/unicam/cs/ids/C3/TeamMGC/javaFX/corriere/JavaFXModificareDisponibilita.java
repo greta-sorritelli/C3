@@ -7,6 +7,11 @@ import javafx.scene.control.Label;
 
 import java.sql.SQLException;
 
+/**
+ * Controller della pagina per modificare la disponibilità del Corriere.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXModificareDisponibilita {
 
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();

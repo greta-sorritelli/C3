@@ -15,6 +15,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina per comunicare con il Corriere.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXComunicareConCorriere implements JavaFXController {
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
@@ -181,7 +186,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
             negoziTable.getItems().clear();
             negoziSelezionati.clear();
             negoziTable.getItems().addAll(gestoreNegozi.getDettagliItemsConOrdini(IDPuntoPrelievo));
-            if(negoziTable.getItems().isEmpty()){
+            if (negoziTable.getItems().isEmpty()) {
                 alertWindow("Alert!", "Non ci sono negozi in cui prelevare merci.");
                 closeWindow((Stage) negoziTable.getScene().getWindow());
             }

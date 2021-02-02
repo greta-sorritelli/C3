@@ -8,10 +8,16 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import it.unicam.cs.ids.C3.TeamMGC.personale.AddettoMagazzinoNegozio;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
 
+/**
+ * Controller della Home dell' {@link AddettoMagazzinoNegozio}.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class IAddettoMagazzino implements JavaFXController {
 
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();

@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.view;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.*;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXControllareAlert;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXConsegnareMerceADestinazione;
@@ -12,6 +13,11 @@ import javafx.scene.control.Alert;
 
 import java.sql.SQLException;
 
+/**
+ * Controller della Home del {@link Corriere}.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class ICorriere implements JavaFXController {
 
     GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
@@ -47,7 +53,7 @@ public class ICorriere implements JavaFXController {
     }
 
     /**
-     * Apre la finestra per modificare lo stato di disponibilita del corriere.
+     * Apre la finestra per modificare lo stato di disponibilità del corriere.
      */
     @FXML
     public void modificaDisponibilita() {
@@ -82,7 +88,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     public void controllaAlert() {
-        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(IDCorriere,tipologiaUtente));
+        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(IDCorriere, tipologiaUtente));
     }
 
 }

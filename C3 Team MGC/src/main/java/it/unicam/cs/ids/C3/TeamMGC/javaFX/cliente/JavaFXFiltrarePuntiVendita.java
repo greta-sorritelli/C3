@@ -14,6 +14,11 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina per filtrare i Punti Vendita.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXFiltrarePuntiVendita implements JavaFXController {
 
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();

@@ -8,6 +8,11 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
+/**
+ * Controller della pagina per comunicare il Codice di Ritiro al Cliente.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXComunicareCodiceRitiro implements JavaFXController {
 
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();

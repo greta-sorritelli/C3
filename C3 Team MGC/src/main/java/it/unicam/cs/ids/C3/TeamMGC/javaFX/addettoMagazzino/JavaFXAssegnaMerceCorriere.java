@@ -15,6 +15,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina che gestisce l' Assegnazione della Merce al Corriere.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXAssegnaMerceCorriere implements JavaFXController {
 
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
@@ -133,7 +138,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     public void confermaButton() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Attendere...");
-        alert.setContentText("L'affidamento della merce e' in corso.");
+        alert.setContentText("L' affidamento della merce e' in corso.");
         selezionaMerce(alert);
         confermaAssegnazioneMerce(alert);
     }
@@ -211,10 +216,10 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     }
 
     private void selezionaResidenza() {
-            if (!residenzaTextField.getText().isEmpty()) {
-                this.selectedResidenza = residenzaTextField.getText();
-            } else
-                throw new NullPointerException();
+        if (!residenzaTextField.getText().isEmpty()) {
+            this.selectedResidenza = residenzaTextField.getText();
+        } else
+            throw new NullPointerException();
     }
 
     /**
@@ -275,9 +280,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciMagazzino(selectedMagazzino.getID()));
             if (selectedResidenza != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciResidenza(residenzaTextField.getText()));
-            if(merceOrdineTable.getItems().isEmpty()){
+            if (merceOrdineTable.getItems().isEmpty()) {
                 alertWindow("Merci non presenti.", "Aggiorna piu' tardi.");
-               closeWindow((Stage) residenzaTextField.getScene().getWindow());
+                closeWindow((Stage) residenzaTextField.getScene().getWindow());
             }
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina che gestisce il SignIn degli Utenti.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXSignIn implements JavaFXController {
 
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();

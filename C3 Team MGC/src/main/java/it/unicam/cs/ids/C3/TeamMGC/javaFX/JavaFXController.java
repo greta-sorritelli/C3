@@ -10,6 +10,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Questa interfaccia è implementata dalle classi che hanno la responsabilità di gestire il comportamento di
+ * una finestra della GUI.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public interface JavaFXController {
 
     default void alertWindow(String warningHeader, String warningMessage) {
@@ -31,6 +37,12 @@ public interface JavaFXController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error!");
         showAlert(alert, errorHeader, errorMessage);
+    }
+
+    default void informationWindow(String successHeader, String successMessage) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info!");
+        showAlert(alert, successHeader, successMessage);
     }
 
     /**
@@ -62,12 +74,6 @@ public interface JavaFXController {
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    default void informationWindow(String successHeader, String successMessage) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Info!");
-        showAlert(alert, successHeader, successMessage);
     }
 
     default void successWindow(String successHeader, String successMessage) {

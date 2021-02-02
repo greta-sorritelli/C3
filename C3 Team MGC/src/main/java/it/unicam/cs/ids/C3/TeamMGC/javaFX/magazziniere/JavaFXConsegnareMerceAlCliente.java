@@ -14,6 +14,11 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina per confermare la consegna della Merce al Cliente.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
 
     private final PuntoPrelievo simplePuntoPrelievo;

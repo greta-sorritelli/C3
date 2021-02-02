@@ -10,6 +10,11 @@ import javafx.scene.control.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Controller della pagina per la gestione dei Punti di Prelievo.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class JavaFXGestionePuntiPrelievo implements JavaFXController {
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private final ArrayList<PuntoPrelievo> puntiSelezionati = new ArrayList<>();

@@ -5,10 +5,16 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.commerciante.JavaFXGestioneVenditeProm
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.commerciante.JavaFXVisualizzaStatistiche;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.personale.Commerciante;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
 
+/**
+ * Controller della Home del {@link Commerciante}.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class ICommerciante implements JavaFXController {
 
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
