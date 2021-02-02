@@ -9,7 +9,8 @@ import java.util.ArrayList;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public interface Cliente {
+public interface Cliente extends Comparable<Cliente> {
+
     /**
      * Ritorna il Codice di Ritiro collegato al {@link Cliente}.
      *

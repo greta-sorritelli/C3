@@ -7,6 +7,7 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
@@ -111,8 +112,10 @@ public class SimpleOrdine implements Ordine {
      * @param simpleMerceOrdine la Merce da aggiungere
      */
     private void addMerceToOrdine(MerceOrdine simpleMerceOrdine) {
-        if (!merci.contains(simpleMerceOrdine))
+        if (!merci.contains(simpleMerceOrdine)) {
             merci.add(simpleMerceOrdine);
+            Collections.sort(merci);
+        }
     }
 
     /**
@@ -144,6 +147,18 @@ public class SimpleOrdine implements Ordine {
         merci.add(merce);
         this.totalePrezzo += (merce.getPrezzo() * quantita);
         updateData("UPDATE sys.ordini SET totalePrezzo = '" + this.totalePrezzo + "' WHERE (ID = '" + this.ID + "');");
+    }
+
+    //todo commento e test
+    @Override
+    public int compareTo(Ordine o) {
+        if (Objects.isNull(o))
+            throw new NullPointerException();
+        if (this.equals(o))
+            return 0;
+        if (this.getID() > o.getID())
+            return 1;
+        else return -1;
     }
 
     @Override

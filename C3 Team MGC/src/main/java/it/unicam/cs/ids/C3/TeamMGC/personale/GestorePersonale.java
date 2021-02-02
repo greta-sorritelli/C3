@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.personale;
 
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -221,7 +222,9 @@ public class GestorePersonale extends GestoreLogin implements Gestore<Personale>
         return commesso.getDettagli();
     }
 
-    //todo commento
+    /**
+     * Svuota la lista dei {@link Personale Lavoratori}.
+     */
     @Override
     public void reset() {
         personale.clear();

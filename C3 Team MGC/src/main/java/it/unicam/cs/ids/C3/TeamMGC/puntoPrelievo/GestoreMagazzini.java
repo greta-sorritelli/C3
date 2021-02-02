@@ -7,6 +7,7 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
@@ -57,8 +58,10 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      * @param magazzino Punto di prelievo da aggiungere
      */
     private void addMagazzinoToList(PuntoPrelievo magazzino) {
-        if (!magazzini.contains(magazzino))
+        if (!magazzini.contains(magazzino)) {
             magazzini.add(magazzino);
+            Collections.sort(magazzini);
+        }
     }
 
     /**
@@ -80,7 +83,9 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
         return dettagli;
     }
 
-    //todo test e commento
+    /**
+     * Svuota la lista dei {@link PuntoPrelievo PuntiPrelievo}.
+     */
     @Override
     public void reset() {
         magazzini.clear();
@@ -192,7 +197,6 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     public void removePuntoPrelievo(int IDPuntoPrelievo) throws SQLException {
         PuntoPrelievo simplePuntoPrelievo = getItem(IDPuntoPrelievo);
         magazzini.remove(simplePuntoPrelievo);

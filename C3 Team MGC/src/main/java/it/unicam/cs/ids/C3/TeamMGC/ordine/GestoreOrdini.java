@@ -9,6 +9,7 @@ import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
@@ -58,8 +59,10 @@ public class GestoreOrdini {
      * @param ordine Ordine da aggiungere
      */
     private void addOrdineToList(Ordine ordine) {
-        if (!ordini.contains(ordine))
+        if (!ordini.contains(ordine)) {
             ordini.add(ordine);
+            Collections.sort(ordini);
+        }
     }
 
     /**
@@ -442,7 +445,9 @@ public class GestoreOrdini {
         return ordine.getDettagli();
     }
 
-    //todo commento
+    /**
+     * Svuota la lista degli {@link Ordine Ordini}.
+     */
     public void reset() {
         ordini.clear();
     }

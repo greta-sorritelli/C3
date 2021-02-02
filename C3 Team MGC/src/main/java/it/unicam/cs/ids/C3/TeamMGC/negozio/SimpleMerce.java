@@ -3,6 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.negozio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
@@ -63,6 +64,18 @@ public class SimpleMerce implements Merce {
             throw new IllegalArgumentException("ID non valido.");
         }
 
+    }
+
+    //todo commento e test
+    @Override
+    public int compareTo(Merce o) {
+        if (Objects.isNull(o))
+            throw new NullPointerException();
+        if (this.equals(o))
+            return 0;
+        if (this.getID() > o.getID())
+            return 1;
+        else return -1;
     }
 
     /**

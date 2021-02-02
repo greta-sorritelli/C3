@@ -3,6 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.cliente;
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.Ordine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
@@ -11,10 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
@@ -65,8 +63,10 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      * @param cliente Cliente da aggiungere
      */
     private void addClienteToList(Cliente cliente) {
-        if (!clienti.contains(cliente))
+        if (!clienti.contains(cliente)) {
             clienti.add(cliente);
+            Collections.sort(clienti);
+        }
     }
 
     /**
@@ -141,7 +141,9 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
         return dettagli;
     }
 
-    //todo commento
+    /**
+     * Svuota la lista dei {@link Cliente Clienti}.
+     */
     @Override
     public void reset() {
         clienti.clear();

@@ -59,6 +59,18 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
         disconnectToDB(rs);
     }
 
+    //todo commento e test
+    @Override
+    public int compareTo(PuntoPrelievo o) {
+        if (Objects.isNull(o))
+            throw new NullPointerException();
+        if (this.equals(o))
+            return 0;
+        if (this.getID() > o.getID())
+            return 1;
+        else return -1;
+    }
+
     /**
      * Elimina il {@link SimplePuntoPrelievo} dal DB e aggiorna i dati dell' oggetto.
      *

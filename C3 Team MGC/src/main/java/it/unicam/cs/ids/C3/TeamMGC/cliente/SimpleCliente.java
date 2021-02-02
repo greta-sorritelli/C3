@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
+import it.unicam.cs.ids.C3.TeamMGC.personale.Personale;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +62,18 @@ public class SimpleCliente implements Cliente {
         this.nome = nome;
         this.cognome = cognome;
         disconnectToDB(rs);
+    }
+
+    //todo commento e test
+    @Override
+    public int compareTo(Cliente o) {
+        if (Objects.isNull(o))
+            throw new NullPointerException();
+        if (this.equals(o))
+            return 0;
+        if (this.getID() > o.getID())
+            return 1;
+        else return -1;
     }
 
     @Override

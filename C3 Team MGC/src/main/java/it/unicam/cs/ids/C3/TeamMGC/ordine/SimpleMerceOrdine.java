@@ -71,6 +71,18 @@ public class SimpleMerceOrdine implements MerceOrdine {
         }
     }
 
+    //todo commento e test
+    @Override
+    public int compareTo(MerceOrdine o) {
+        if (Objects.isNull(o))
+            throw new NullPointerException();
+        if (this.equals(o))
+            return 0;
+        if (this.getID() > o.getID())
+            return 1;
+        else return -1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

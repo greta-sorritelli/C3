@@ -8,6 +8,7 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
@@ -59,8 +60,10 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @param negozio Negozio da aggiungere
      */
     private void addNegozioToList(Negozio negozio) {
-        if (!negozi.contains(negozio))
+        if (!negozi.contains(negozio)) {
             negozi.add(negozio);
+            Collections.sort(negozi);
+        }
     }
 
     /**
@@ -82,7 +85,9 @@ public class GestoreNegozi implements Gestore<Negozio> {
         return dettagli;
     }
 
-    //todo test e commento
+    /**
+     * Svuota la lista dei {@link Negozio Negozi}.
+     */
     @Override
     public void reset() {
         negozi.clear();

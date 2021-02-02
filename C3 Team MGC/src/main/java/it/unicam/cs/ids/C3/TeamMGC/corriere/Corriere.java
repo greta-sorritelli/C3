@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public interface Corriere {
+public interface Corriere extends Comparable<Corriere> {
     /**
      * Ritorna il Cognome del {@link Corriere}.
      *

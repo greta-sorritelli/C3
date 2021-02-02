@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,6 +60,18 @@ public class SimpleCorriere implements Corriere {
         this.cognome = cognome;
         this.disponibilita = disponibilita;
         disconnectToDB(rs);
+    }
+
+    //todo commento e test
+    @Override
+    public int compareTo(Corriere o) {
+            if (Objects.isNull(o))
+                throw new NullPointerException();
+            if (this.equals(o))
+                return 0;
+            if (this.getID() > o.getID())
+                return 1;
+            else return -1;
     }
 
     @Override
@@ -193,5 +207,4 @@ public class SimpleCorriere implements Corriere {
         }
         disconnectToDB(rs);
     }
-
 }

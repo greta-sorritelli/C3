@@ -5,6 +5,8 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
@@ -99,8 +101,22 @@ public class SimpleNegozio implements Negozio {
      * @param simpleMerce Merce da aggiungere
      */
     private void addMerceToList(Merce simpleMerce) {
-        if (!inventario.contains(simpleMerce))
+        if (!inventario.contains(simpleMerce)) {
             inventario.add(simpleMerce);
+            Collections.sort(inventario);
+        }
+    }
+
+    //todo commento e test
+    @Override
+    public int compareTo(Negozio o) {
+        if (Objects.isNull(o))
+            throw new NullPointerException();
+        if (this.equals(o))
+            return 0;
+        if (this.getID() > o.getID())
+            return 1;
+        else return -1;
     }
 
     /**
@@ -450,7 +466,9 @@ public class SimpleNegozio implements Negozio {
         toDelete.delete();
     }
 
-    //todo commento
+    /**
+     * Svuota l' {@code Inventario}.
+     */
     @Override
     public void reset() {
         inventario.clear();

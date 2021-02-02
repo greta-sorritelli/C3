@@ -8,6 +8,7 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
@@ -59,8 +60,10 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * @param corriere Corriere da aggiungere
      */
     private void addCorriereToList(Corriere corriere) {
-        if (!corrieri.contains(corriere))
+        if (!corrieri.contains(corriere)) {
             corrieri.add(corriere);
+            Collections.sort(corrieri);
+        }
     }
 
     /**
@@ -131,7 +134,9 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
         return dettagli;
     }
 
-    //todo commento
+    /**
+     * Svuota la lista dei {@link Corriere Corriere}.
+     */
     @Override
     public void reset() {
         corrieri.clear();
