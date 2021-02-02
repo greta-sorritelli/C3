@@ -2,9 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
+import it.unicam.cs.ids.C3.TeamMGC.negozio.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +40,19 @@ class SimpleMerceOrdineTest {
         assertEquals(10, simpleMerceOrdineTest.getPrezzo());
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimpleMerceOrdine(1000));
         assertEquals("ID non valido.", e1.getMessage());
+    }
+
+    @Test
+    void compareTo() throws SQLException {
+        MerceOrdine merce = new SimpleMerceOrdine(5, "test", StatoOrdine.AFFIDATO_AL_CORRIERE, ordineTest.getID());
+        MerceOrdine merceCopia = new SimpleMerceOrdine(merce.getID());
+        MerceOrdine merce2 = new SimpleMerceOrdine(15, "test", StatoOrdine.PAGATO, ordineTest.getID());
+
+        assertEquals(0, merce.compareTo(merceCopia));
+        assertEquals(-1, merce.compareTo(merce2));
+        assertEquals(1, merce2.compareTo(merce));
+
+        assertThrows(NullPointerException.class, () -> merce.compareTo(null));
     }
 
     @Test

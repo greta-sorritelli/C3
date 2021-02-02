@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
+import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,19 @@ class SimpleCorriereTest {
         assertTrue(simpleCorriere.getDisponibilita());
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimpleCorriere(1000));
         assertEquals("ID non valido.", e1.getMessage());
+    }
+
+    @Test
+    void compareTo() throws SQLException {
+        Corriere corriere = new SimpleCorriere("Clarissa", "Albanese", true);
+        Corriere corriereCopia = new SimpleCorriere(corriere.getID());
+        Corriere corriere2 = new SimpleCorriere("Matteo", "Rondini", true);
+
+        assertEquals(0, corriere.compareTo(corriereCopia));
+        assertEquals(-1, corriere.compareTo(corriere2));
+        assertEquals(1, corriere2.compareTo(corriere));
+
+        assertThrows(NullPointerException.class, () -> corriere.compareTo(null));
     }
 
     @Test

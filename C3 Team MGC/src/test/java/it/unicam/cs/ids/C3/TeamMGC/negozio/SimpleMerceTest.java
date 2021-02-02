@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +52,19 @@ class SimpleMerceTest {
         assertEquals(-1, toDelete.getPrezzo());
         assertEquals("", toDelete.getDescrizione());
         assertEquals(-1, toDelete.getQuantita());
+    }
+
+    @Test
+    void compareTo() throws SQLException {
+        Merce merce = new SimpleMerce(1, 15, "test", 10);
+        Merce merceCopia = new SimpleMerce(merce.getID());
+        Merce merce2 = new SimpleMerce(1, 25, "test1", 5);
+
+        assertEquals(0, merce.compareTo(merceCopia));
+        assertEquals(-1, merce.compareTo(merce2));
+        assertEquals(1, merce2.compareTo(merce));
+
+        assertThrows(NullPointerException.class, () -> merce.compareTo(null));
     }
 
     @Test
@@ -124,5 +139,10 @@ class SimpleMerceTest {
         assertEquals(12.0, simpleMerceTest.getPrezzo());
         assertEquals("test update 2.0", simpleMerceTest.getDescrizione());
         assertEquals(6, simpleMerceTest.getQuantita());
+    }
+
+    @Test
+    void testEquals_toString_hashCode() throws SQLException {
+        //todo
     }
 }

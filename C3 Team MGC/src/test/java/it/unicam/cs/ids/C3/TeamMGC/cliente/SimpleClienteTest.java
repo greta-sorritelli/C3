@@ -34,6 +34,19 @@ class SimpleClienteTest {
     }
 
     @Test
+    void compareTo() throws SQLException {
+        Cliente simpleCliente = new SimpleCliente("Mario", "Rossi");
+        Cliente simpleClienteCopia = new SimpleCliente(simpleCliente.getID());
+        Cliente simpleCliente2 = new SimpleCliente("Giuseppe", "Verdi");
+
+        assertEquals(0, simpleCliente.compareTo(simpleClienteCopia));
+        assertEquals(-1, simpleCliente.compareTo(simpleCliente2));
+        assertEquals(1, simpleCliente2.compareTo(simpleCliente));
+
+        assertThrows(NullPointerException.class, () -> simpleCliente.compareTo(null));
+    }
+
+    @Test
     void getDettagli() throws SQLException {
         Cliente simpleClienteTest = new SimpleCliente("Greta", "Sorritelli");
         ArrayList<String> clienteLista = new ArrayList<>();

@@ -2,6 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
@@ -62,6 +64,19 @@ class SimpleOrdineTest {
         assertEquals(negozio.getID(), ordine.getIDNegozio());
         Exception e1 = assertThrows(IllegalArgumentException.class, () -> new SimpleOrdine(1000));
         assertEquals("ID non valido.", e1.getMessage());
+    }
+
+    @Test
+    void compareTo() throws SQLException {
+        Ordine ordine = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+        Ordine ordineCopia = new SimpleOrdine(ordine.getID());
+        Ordine ordine2 = new SimpleOrdine(simpleCliente.getID(), simpleCliente.getNome(), simpleCliente.getCognome(), negozio.getID());
+
+        assertEquals(0, ordine.compareTo(ordineCopia));
+        assertEquals(-1, ordine.compareTo(ordine2));
+        assertEquals(1, ordine2.compareTo(ordine));
+
+        assertThrows(NullPointerException.class, () -> ordine.compareTo(null));
     }
 
     @Test

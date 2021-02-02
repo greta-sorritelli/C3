@@ -196,6 +196,19 @@ public class SimpleMerce implements Merce {
         return quantita;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimpleMerce that = (SimpleMerce) o;
+        return ID == that.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
+    }
+
     /**
      * Imposta la nuova Quantità della {@link SimpleMerce}.
      *

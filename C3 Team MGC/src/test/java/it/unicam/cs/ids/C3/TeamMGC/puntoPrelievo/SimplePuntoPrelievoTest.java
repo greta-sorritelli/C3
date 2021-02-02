@@ -2,6 +2,8 @@ package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
+import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;
@@ -59,6 +61,19 @@ class SimplePuntoPrelievoTest {
         assertEquals(-1, toDelete.getID());
         assertEquals("", toDelete.getNome());
         assertEquals("", toDelete.getIndirizzo());
+    }
+
+    @Test
+    void compareTo() throws SQLException {
+        PuntoPrelievo simplePuntoPrelievo = new SimplePuntoPrelievo("Cingoli", "Magazzino Centrale");
+        PuntoPrelievo simplePuntoPrelievoCopia = new SimplePuntoPrelievo(simplePuntoPrelievo.getID());
+        PuntoPrelievo simplePuntoPrelievo2 = new SimplePuntoPrelievo("Via Roma", "B2");
+
+        assertEquals(0, simplePuntoPrelievo.compareTo(simplePuntoPrelievoCopia));
+        assertEquals(-1, simplePuntoPrelievo.compareTo(simplePuntoPrelievo2));
+        assertEquals(1, simplePuntoPrelievo2.compareTo(simplePuntoPrelievo));
+
+        assertThrows(NullPointerException.class, () -> simplePuntoPrelievo.compareTo(null));
     }
 
     @Test

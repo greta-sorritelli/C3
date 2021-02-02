@@ -62,6 +62,19 @@ class SimpleNegozioTest {
     }
 
     @Test
+    void compareTo() throws SQLException {
+        Negozio negozio = new SimpleNegozio("BurroBirra", CategoriaNegozio.ALIMENTARI, "08:00", "20:00", "Via Carducci", "321 5236987");
+        Negozio negozioCopia = new SimpleNegozio(negozio.getID());
+        Negozio negozio2 = new SimpleNegozio("SportLand", CategoriaNegozio.SPORT, "08:00", "20:00", "Via Roma", "320 9988563");
+
+        assertEquals(0, negozio.compareTo(negozioCopia));
+        assertEquals(-1, negozio.compareTo(negozio2));
+        assertEquals(1, negozio2.compareTo(negozio));
+
+        assertThrows(NullPointerException.class, () -> negozio.compareTo(null));
+    }
+
+    @Test
     @Order(2)
     void getDettagliPromozioni() throws SQLException {
         assertEquals(1, negozioTest.getDettagliPromozioni().size());
@@ -280,5 +293,10 @@ class SimpleNegozioTest {
         assertEquals("15:00", negozioTest.getOrarioChiusura());
         assertEquals("Via degli assert", negozioTest.getIndirizzo());
         assertEquals("338599", negozioTest.getTelefono());
+    }
+
+    @Test
+    void testEquals_toString_hashCode() throws SQLException {
+        //todo
     }
 }

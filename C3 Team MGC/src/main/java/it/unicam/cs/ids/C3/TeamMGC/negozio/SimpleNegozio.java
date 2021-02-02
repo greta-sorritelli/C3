@@ -107,6 +107,19 @@ public class SimpleNegozio implements Negozio {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimpleNegozio that = (SimpleNegozio) o;
+        return ID == that.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
+    }
+
     /**
      * Confronta 2 oggetti di tipo {@link Negozio} attraverso il loro {@code ID}.
      *
