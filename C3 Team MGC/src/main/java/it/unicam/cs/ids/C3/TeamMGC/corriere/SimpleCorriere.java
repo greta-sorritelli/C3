@@ -1,7 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

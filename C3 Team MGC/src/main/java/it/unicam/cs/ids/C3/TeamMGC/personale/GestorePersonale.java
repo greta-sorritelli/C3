@@ -2,7 +2,6 @@ package it.unicam.cs.ids.C3.TeamMGC.personale;
 
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.manager.GestoreLogin;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

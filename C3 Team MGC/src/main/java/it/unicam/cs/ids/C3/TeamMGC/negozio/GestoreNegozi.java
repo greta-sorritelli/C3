@@ -1,7 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
-import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
-import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
 import it.unicam.cs.ids.C3.TeamMGC.manager.Gestore;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 

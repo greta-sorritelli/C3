@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Controller della pagina per il trasporto della Merce.
@@ -25,7 +24,7 @@ public class JavaFXTrasportareMerce implements JavaFXController {
 
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-    private int IDCorriere;
+    private final int IDCorriere;
     private final ArrayList<ArrayList<String>> merceDaTrasportare = new ArrayList<>();
 
     public JavaFXTrasportareMerce(int id) {

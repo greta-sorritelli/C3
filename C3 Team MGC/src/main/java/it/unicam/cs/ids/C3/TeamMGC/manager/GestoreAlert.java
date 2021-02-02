@@ -84,7 +84,6 @@ public class GestoreAlert {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    //todo test
     private void getMessaggi(ArrayList<ArrayList<String>> tmp, String query) throws SQLException {
         ResultSet rs = executeQuery(query);
         while (rs.next()) {

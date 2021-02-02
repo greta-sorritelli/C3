@@ -143,6 +143,13 @@ class SimpleMerceTest {
 
     @Test
     void testEquals_toString_hashCode() throws SQLException {
-        //todo
+        Merce simpleMerceTest = new SimpleMerce(1, 6.5, "test", 2);
+        Merce simpleMerceTestCopia = new SimpleMerce(simpleMerceTest.getID());
+        Merce simpleMerceTest2 = new SimpleMerce(1, 14, "test", 3);
+        assertEquals(simpleMerceTest, simpleMerceTestCopia);
+        assertNotEquals(simpleMerceTest, simpleMerceTest2);
+        assertEquals(simpleMerceTest.hashCode(),simpleMerceTestCopia.hashCode());
+        assertEquals("ID=" + simpleMerceTest.getID() + ", IDNegozio=1, prezzo=6.5, descrizione='test', quantita=2",simpleMerceTest.toString());
+        assertEquals("ID=" + simpleMerceTest2.getID() + ", IDNegozio=1, prezzo=14.0, descrizione='test', quantita=3",simpleMerceTest2.toString());
     }
 }

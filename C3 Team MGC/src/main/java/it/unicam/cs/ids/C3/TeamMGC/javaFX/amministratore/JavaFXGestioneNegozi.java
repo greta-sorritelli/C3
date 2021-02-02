@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Controller della pagina per la gestione dei Negozi.

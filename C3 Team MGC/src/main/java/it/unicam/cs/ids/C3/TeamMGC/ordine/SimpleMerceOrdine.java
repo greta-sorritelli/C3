@@ -18,9 +18,9 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class SimpleMerceOrdine implements MerceOrdine {
     private final int ID;
-    private int IDOrdine = -1;
-    private double prezzo = 0;
-    private String descrizione = "";
+    private int IDOrdine;
+    private double prezzo;
+    private String descrizione;
     private int quantita = 0;
     private StatoOrdine stato;
     private int IDCorriere = -1;

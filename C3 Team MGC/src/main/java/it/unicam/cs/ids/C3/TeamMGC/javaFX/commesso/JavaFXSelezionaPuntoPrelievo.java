@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.util.Objects;
 
 /**
  * Controller della pagina per selezionare il Punto di Prelievo.

@@ -11,12 +11,6 @@ import javafx.application.Application;
  */
 public class C3 {
 
-    private String nome;
-    private String indirizzo;
-    private String orarioApertura;
-    private String orarioChiusura;
-    private String telefono;
-
     public static void main(String[] args) {
         if (args.length == 0)
             launchGui();

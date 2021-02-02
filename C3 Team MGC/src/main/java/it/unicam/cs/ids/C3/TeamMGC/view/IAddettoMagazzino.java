@@ -24,7 +24,7 @@ public class IAddettoMagazzino implements JavaFXController {
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final Negozio negozio;
-    private int ID;
+    private final int ID;
 
     public IAddettoMagazzino(int ID, int IDNegozio) throws SQLException {
         this.ID = ID;

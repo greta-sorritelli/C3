@@ -297,6 +297,13 @@ class SimpleNegozioTest {
 
     @Test
     void testEquals_toString_hashCode() throws SQLException {
-        //todo
+        Negozio negozio = new SimpleNegozio("BurroBirra", CategoriaNegozio.ALIMENTARI, "08:00", "20:00", "Via Carducci", "321 5236987");
+        Negozio negozioCopia = new SimpleNegozio(negozio.getID());
+        Negozio negozio2 = new SimpleNegozio("BluBolle", CategoriaNegozio.CANCELLERIA, "08:00", "20:00", "Via Carducci", "321 5236987");
+        assertEquals(negozio, negozioCopia);
+        assertNotEquals(negozio, negozio2);
+        assertEquals(negozio.hashCode(),negozioCopia.hashCode());
+        assertEquals("ID=" + negozio.getID() + ", nome='BurroBirra', categoria=ALIMENTARI, indirizzo='Via Carducci'",negozio.toString());
+        assertEquals("ID=" + negozio2.getID() + ", nome='BluBolle', categoria=CANCELLERIA, indirizzo='Via Carducci'",negozio2.toString());
     }
 }

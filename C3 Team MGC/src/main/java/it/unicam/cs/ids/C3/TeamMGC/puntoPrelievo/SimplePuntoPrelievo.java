@@ -16,9 +16,9 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class SimplePuntoPrelievo implements PuntoPrelievo {
-    private int ID = 0;
-    private String indirizzo = "";
-    private String nome = "";
+    private int ID;
+    private String indirizzo;
+    private String nome;
 
     /**
      * Costruttore per importare i dati dal DB.

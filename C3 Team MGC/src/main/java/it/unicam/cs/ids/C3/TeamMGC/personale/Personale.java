@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
-import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.executeQuery;
 
 /**
  * Questa classe astratta gestisce il comportamento del Personale di un {@link Negozio}.

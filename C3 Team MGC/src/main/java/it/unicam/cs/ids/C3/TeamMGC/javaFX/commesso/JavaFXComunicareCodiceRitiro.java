@@ -2,7 +2,6 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX.commesso;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
-import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
