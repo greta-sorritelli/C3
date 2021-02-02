@@ -83,10 +83,8 @@ public interface Ordine {
      * Ritorna la lista delle {@link MerceOrdine Merci} dell' {@link Ordine}.
      *
      * @return la lista delle merci
-     *
-     * @throws SQLException Errore causato da una query SQL
      */
-    ArrayList<MerceOrdine> getMerci() throws SQLException;
+    ArrayList<MerceOrdine> getMerci();
 
     /**
      * Ritorna il Nome del {@link Cliente} collegato all' {@link Ordine}.

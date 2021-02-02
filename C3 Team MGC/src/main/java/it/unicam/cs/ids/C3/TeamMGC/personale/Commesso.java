@@ -4,6 +4,11 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 
 import java.sql.SQLException;
 
+/**
+ * La classe estende la classe astratta {@link Personale} ed ha la responsabilità di gestire un Commesso.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class Commesso extends Personale {
 
     /**

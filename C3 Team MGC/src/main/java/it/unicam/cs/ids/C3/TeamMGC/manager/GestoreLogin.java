@@ -5,14 +5,19 @@ import java.sql.SQLException;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
+/**
+ * Classe astratta per la gestione del {@code Login}.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public abstract class GestoreLogin {
 
     /**
      * Controlla se l'ID e la password inseriti sono corretti.
      *
      * @param tipologiaUtente tipologia di utente
-     * @param ID              ID dell'utente
-     * @param password        password dell'utente
+     * @param ID              ID dell' utente
+     * @param password        password dell' utente
      *
      * @return true se le informazioni sono giuste, false altrimenti
      *
@@ -42,9 +47,9 @@ public abstract class GestoreLogin {
     /**
      * Controlla se l'ID e la password e l'ID della sede di lavoro inseriti sono corretti.
      *
-     * @param tipologiaUtente tipologia dell'utente
-     * @param ID              ID dell'utente
-     * @param password        password dell'utente
+     * @param tipologiaUtente tipologia dell' utente
+     * @param ID              ID dell' utente
+     * @param password        password dell' utente
      * @param IDSedeLavoro    ID della sede di lavoro
      *
      * @return true se le informazioni sono giuste, false altrimenti
@@ -69,10 +74,10 @@ public abstract class GestoreLogin {
     }
 
     /**
-     * Controlla se le informazioni di accesso per l'amministratore del sistema sono giuste.
+     * Controlla se le informazioni di accesso per l' amministratore del sistema sono giuste.
      *
-     * @param nomeUtente nome utente dell'amministratore
-     * @param password password dell'amministratore
+     * @param nomeUtente nome utente dell' amministratore
+     * @param password   password dell' amministratore
      *
      * @return true se le informazioni sono giuste, false altrimenti
      *

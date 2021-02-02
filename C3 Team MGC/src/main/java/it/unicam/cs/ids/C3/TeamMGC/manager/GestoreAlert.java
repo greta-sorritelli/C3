@@ -6,8 +6,12 @@ import java.util.ArrayList;
 
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
+/**
+ * Classe per la gestione degli {@code Alert}.
+ *
+ * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
+ */
 public class GestoreAlert {
-
     private static GestoreAlert gestoreAlert;
 
     private GestoreAlert() {
@@ -27,10 +31,10 @@ public class GestoreAlert {
     /**
      * Ritorna i dettagli di un alert.
      *
-     * @param ID              ID dell'utente a cui viene mandato l'alert
-     * @param tipologiaUtente tipologia dell'utente
+     * @param ID              ID dell' utente a cui viene mandato l' alert
+     * @param tipologiaUtente Tipologia dell' utente
      *
-     * @return i dettagli dell'alert
+     * @return i dettagli dell' alert
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -53,8 +57,8 @@ public class GestoreAlert {
     /**
      * Metodo per la rimozione di un alert.
      *
-     * @param IDAlert         Id dell'alert da rimuovere
-     * @param tipologiaUtente tipologia dell'utente a cui è stato mandato l'alert
+     * @param IDAlert         Id dell' alert da rimuovere
+     * @param tipologiaUtente tipologia dell' utente a cui è stato mandato l' alert
      *
      * @throws SQLException Errore causato da una query SQL
      */

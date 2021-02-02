@@ -6,13 +6,11 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXFiltrarePromozioni;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXFiltrarePuntiVendita;
 import javafx.fxml.FXML;
 
-import java.sql.SQLException;
-
 public class ICliente implements JavaFXController {
     private final int IDCliente;
     private final String tipologiaUtente = "CLIENTE";
 
-    public ICliente(int ID) throws SQLException {
+    public ICliente(int ID) {
         this.IDCliente = ID;
     }
 
@@ -38,6 +36,5 @@ public class ICliente implements JavaFXController {
     @FXML
     public void filtrarePromozioni() {
         openWindow("/cliente/FiltrarePromozioni.fxml", "Filtra le promozioni", new JavaFXFiltrarePromozioni());
-
     }
 }

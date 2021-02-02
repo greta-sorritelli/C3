@@ -35,7 +35,7 @@ class SimpleMerceOrdineTest {
     }
 
     @Test
-    void creazioneMerceOrdine() throws SQLException {
+    void creazioneMerceOrdine() {
         assertEquals(ordineTest.getID(), simpleMerceOrdineTest.getIDOrdine());
         assertEquals(StatoOrdine.PAGATO, simpleMerceOrdineTest.getStato());
         assertEquals("test allSet", simpleMerceOrdineTest.getDescrizione());

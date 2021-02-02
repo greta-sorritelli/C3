@@ -86,7 +86,7 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
     }
 
     @FXML
-    public void lanciaPromozione() throws SQLException {
+    public void lanciaPromozione() {
         try {
             if (merceChoiceBox.getValue() == null || getPrezzo(prezzoNuovo).isEmpty() || messaggio.getText().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
