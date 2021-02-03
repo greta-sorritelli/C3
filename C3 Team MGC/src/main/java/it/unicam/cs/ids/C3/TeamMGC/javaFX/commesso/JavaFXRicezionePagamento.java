@@ -116,7 +116,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
     }
 
     public void selezionaPuntoPrelievo() {
-        openWindow("/commesso/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaPuntoPrelievo(Integer.parseInt(ordineTextField.getText()), negozio));
+        openWindow("/commesso/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaDestinazione(Integer.parseInt(ordineTextField.getText()), negozio));
     }
 
     /**

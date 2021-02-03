@@ -23,7 +23,7 @@ import java.sql.SQLException;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
+public class JavaFXSelezionaDestinazione implements JavaFXController {
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
@@ -31,7 +31,7 @@ public class JavaFXSelezionaPuntoPrelievo implements JavaFXController {
     private final int IDOrdine;
 
 
-    public JavaFXSelezionaPuntoPrelievo(int IDOrdine, Negozio negozio) {
+    public JavaFXSelezionaDestinazione(int IDOrdine, Negozio negozio) {
         this.IDOrdine = IDOrdine;
         this.negozio = negozio;
     }

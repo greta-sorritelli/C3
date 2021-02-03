@@ -21,11 +21,11 @@ public class ICorriere implements JavaFXController {
 
     GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
 
-    private final int IDCorriere;
+    private final int ID;
     private final String tipologiaUtente = "CORRIERE";
 
     public ICorriere(int ID) {
-        this.IDCorriere = ID;
+        this.ID = ID;
     }
 
     /**
@@ -38,12 +38,12 @@ public class ICorriere implements JavaFXController {
             alert.setHeaderText("Attendere...");
             alert.setContentText("Controllo della merce da consegnare.");
             alert.show();
-            if (gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.IN_TRANSITO).isEmpty()) {
+            if (gestoreOrdini.getDettagliMerciOfCorriere(ID, StatoOrdine.IN_TRANSITO).isEmpty()) {
                 alert.close();
                 throw new IllegalArgumentException("Merci non presenti.");
             }
             alert.close();
-            openWindow("/corriere/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(IDCorriere));
+            openWindow("/corriere/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(ID));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -56,7 +56,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     public void modificaDisponibilita() {
-        openWindow("/corriere/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(IDCorriere));
+        openWindow("/corriere/ModificareDisponibilita.fxml", "Modificare Disponibilita", new JavaFXModificareDisponibilita(ID));
     }
 
     /**
@@ -69,12 +69,12 @@ public class ICorriere implements JavaFXController {
             alert.setHeaderText("Attendere...");
             alert.setContentText("Controllo della merce da trasportare.");
             alert.show();
-            if (gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.AFFIDATO_AL_CORRIERE).isEmpty()) {
+            if (gestoreOrdini.getDettagliMerciOfCorriere(ID, StatoOrdine.AFFIDATO_AL_CORRIERE).isEmpty()) {
                 alert.close();
                 throw new IllegalArgumentException("Merci non presenti.");
             }
             alert.close();
-            openWindow("/corriere/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(IDCorriere));
+            openWindow("/corriere/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(ID));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -87,7 +87,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     public void controllaAlert() {
-        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(IDCorriere, tipologiaUtente));
+        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(ID, tipologiaUtente));
     }
 
 }
