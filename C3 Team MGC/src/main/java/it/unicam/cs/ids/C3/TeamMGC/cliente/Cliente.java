@@ -62,7 +62,7 @@ public interface Cliente extends Comparable<Cliente> {
      *
      * @throws SQLException Errore causato da una query SQL
      */
-    String setCodiceRitiro(String codiceRitiro) throws SQLException;
+    void setCodiceRitiro(String codiceRitiro) throws SQLException;
 
     /**
      * Aggiorna i valori all' interno dell' oggetto prendendo i dati dal DB.

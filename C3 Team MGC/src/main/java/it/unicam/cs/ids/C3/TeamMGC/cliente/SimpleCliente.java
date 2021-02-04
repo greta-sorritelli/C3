@@ -170,11 +170,10 @@ public class SimpleCliente implements Cliente {
      * @throws SQLException Errore causato da una query SQL
      */
     @Override
-    public String setCodiceRitiro(String codiceRitiro) throws SQLException {
+    public void setCodiceRitiro(String codiceRitiro) throws SQLException {
         dataCreazioneCodice = new SimpleDateFormat("yyyy-MM-dd").format(Date.from(Instant.now()));
         this.codiceRitiro = codiceRitiro;
         updateData("UPDATE sys.clienti SET codiceRitiro = '" + codiceRitiro + "', dataCreazione = '" + dataCreazioneCodice + "' WHERE (ID = '" + this.ID + "');");
-        return codiceRitiro;
     }
 
     /**

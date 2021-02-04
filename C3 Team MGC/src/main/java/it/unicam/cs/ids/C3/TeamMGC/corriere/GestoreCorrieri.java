@@ -19,7 +19,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
 
-    private static GestoreCorrieri gestoreCorrieri;
+    private static GestoreCorrieri instance;
     ArrayList<Corriere> corrieri = new ArrayList<>();
 
     private GestoreCorrieri() {
@@ -31,9 +31,9 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
     public static GestoreCorrieri getInstance() {
-        if (gestoreCorrieri == null)
-            gestoreCorrieri = new GestoreCorrieri();
-        return gestoreCorrieri;
+        if (instance == null)
+            instance = new GestoreCorrieri();
+        return instance;
     }
 
     /**

@@ -22,7 +22,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
 
-    private static GestoreClienti gestoreClienti;
+    private static GestoreClienti instance;
     private final ArrayList<Cliente> clienti = new ArrayList<>();
 
     private GestoreClienti() {
@@ -34,9 +34,9 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
     public static GestoreClienti getInstance() {
-        if (gestoreClienti == null)
-            gestoreClienti = new GestoreClienti();
-        return gestoreClienti;
+        if (instance == null)
+            instance = new GestoreClienti();
+        return instance;
     }
 
     /**
@@ -141,14 +141,6 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
     }
 
     /**
-     * Svuota la lista dei {@link Cliente Clienti}.
-     */
-    @Override
-    public void reset() {
-        clienti.clear();
-    }
-
-    /**
      * Ritorna il {@link Cliente} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Cliente
@@ -246,6 +238,14 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
                 "', 'Cliente non trovato alla residenza. Andare al Punto di Prelievo: " + puntoPrelievo.getNome()
                 + ", indirizzo: " + puntoPrelievo.getIndirizzo()
                 + ", per ritirare la merce: " + merceOrdine.getDescrizione() + ".');");
+    }
+
+    /**
+     * Svuota la lista dei {@link Cliente Clienti}.
+     */
+    @Override
+    public void reset() {
+        clienti.clear();
     }
 
     /**

@@ -107,19 +107,6 @@ public class SimpleNegozio implements Negozio {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SimpleNegozio that = (SimpleNegozio) o;
-        return ID == that.ID;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ID);
-    }
-
     /**
      * Confronta 2 oggetti di tipo {@link Negozio} attraverso il loro {@code ID}.
      *
@@ -174,6 +161,14 @@ public class SimpleNegozio implements Negozio {
             throw new IllegalArgumentException("IDMerce non valido.");
         updateData("DELETE FROM sys.promozioni WHERE (IDNegozio = '" + ID + "') and (IDMerce = '" + IDMerce + "');");
         getItem(IDMerce).setPrezzo(prezzoPrecedente);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimpleNegozio that = (SimpleNegozio) o;
+        return ID == that.ID;
     }
 
     /**
@@ -436,6 +431,11 @@ public class SimpleNegozio implements Negozio {
     @Override
     public String getTelefono() {
         return telefono;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 
     /**

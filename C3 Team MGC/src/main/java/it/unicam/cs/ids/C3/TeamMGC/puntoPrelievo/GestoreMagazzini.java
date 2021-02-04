@@ -18,7 +18,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPrelievo> {
 
-    private static GestoreMagazzini gestoreMagazzini;
+    private static GestoreMagazzini instance;
     ArrayList<PuntoPrelievo> magazzini = new ArrayList<>();
 
     private GestoreMagazzini() {
@@ -30,9 +30,9 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
     public static GestoreMagazzini getInstance() {
-        if (gestoreMagazzini == null)
-            gestoreMagazzini = new GestoreMagazzini();
-        return gestoreMagazzini;
+        if (instance == null)
+            instance = new GestoreMagazzini();
+        return instance;
     }
 
     /**
@@ -84,14 +84,6 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
     }
 
     /**
-     * Svuota la lista dei {@link PuntoPrelievo PuntiPrelievo}.
-     */
-    @Override
-    public void reset() {
-        magazzini.clear();
-    }
-
-    /**
      * Ritorna il {@link PuntoPrelievo} collegato all' {@code ID}.
      *
      * @param ID Codice Identificativo del Punto di prelievo
@@ -125,32 +117,6 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
             addMagazzino(rs);
         disconnectToDB(rs);
         return new ArrayList<>(magazzini);
-    }
-
-    /**
-     * Manda un alert al {@link PuntoPrelievo} per avvisare il magazziniere che serve un corriere per
-     * ritirare le merci presso un negozio.
-     *
-     * @param IDPuntoPrelievo ID del punto prelievo in cui è presente in magazziniere
-     * @param negozio         Negozio in cui deve andare il corriere
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public void mandaAlert(int IDPuntoPrelievo, Negozio negozio) throws SQLException {
-        updateData("INSERT INTO sys.alert_magazzinieri (IDPuntoPrelievo, messaggio) VALUES ('" + IDPuntoPrelievo +
-                "', 'Mandare un corriere al negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo() + ", per " +
-                "prelevare la merce.');");
-    }
-
-    /**
-     * Ricerca i {@link PuntoPrelievo Punti di prelievo} più vicini.
-     *
-     * @return ArrayList dei punti di prelievo
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<PuntoPrelievo> ricercaMagazziniVicini() throws SQLException {
-        return getItems();
     }
 
     /**
@@ -191,6 +157,21 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
     }
 
     /**
+     * Manda un alert al {@link PuntoPrelievo} per avvisare il magazziniere che serve un corriere per
+     * ritirare le merci presso un negozio.
+     *
+     * @param IDPuntoPrelievo ID del punto prelievo in cui è presente in magazziniere
+     * @param negozio         Negozio in cui deve andare il corriere
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public void mandaAlert(int IDPuntoPrelievo, Negozio negozio) throws SQLException {
+        updateData("INSERT INTO sys.alert_magazzinieri (IDPuntoPrelievo, messaggio) VALUES ('" + IDPuntoPrelievo +
+                "', 'Mandare un corriere al negozio: " + negozio.getNome() + ", indirizzo: " + negozio.getIndirizzo() + ", per " +
+                "prelevare la merce.');");
+    }
+
+    /**
      * Rimuove il {@link PuntoPrelievo} dalla lista di punti di prelievo.
      *
      * @param IDPuntoPrelievo ID del punto di prelievo da rimuovere.
@@ -201,6 +182,25 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
         PuntoPrelievo simplePuntoPrelievo = getItem(IDPuntoPrelievo);
         magazzini.remove(simplePuntoPrelievo);
         simplePuntoPrelievo.delete();
+    }
+
+    /**
+     * Svuota la lista dei {@link PuntoPrelievo PuntiPrelievo}.
+     */
+    @Override
+    public void reset() {
+        magazzini.clear();
+    }
+
+    /**
+     * Ricerca i {@link PuntoPrelievo Punti di prelievo} più vicini.
+     *
+     * @return ArrayList dei punti di prelievo
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<PuntoPrelievo> ricercaMagazziniVicini() throws SQLException {
+        return getItems();
     }
 
 }

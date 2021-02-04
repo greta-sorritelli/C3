@@ -19,7 +19,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class GestoreOrdini {
-    private static GestoreOrdini gestoreOrdini;
+    private static GestoreOrdini instance;
     private final ArrayList<Ordine> ordini = new ArrayList<>();
 
     private GestoreOrdini() {
@@ -31,9 +31,9 @@ public class GestoreOrdini {
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
     public static GestoreOrdini getInstance() {
-        if (gestoreOrdini == null)
-            gestoreOrdini = new GestoreOrdini();
-        return gestoreOrdini;
+        if (instance == null)
+            instance = new GestoreOrdini();
+        return instance;
     }
 
     /**

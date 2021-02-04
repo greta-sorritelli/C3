@@ -18,7 +18,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  */
 public class GestoreNegozi implements Gestore<Negozio> {
 
-    private static GestoreNegozi gestoreNegozi;
+    private static GestoreNegozi instance;
     ArrayList<Negozio> negozi = new ArrayList<>();
 
     private GestoreNegozi() {
@@ -30,9 +30,9 @@ public class GestoreNegozi implements Gestore<Negozio> {
      * @return l'unica istanza presente o una nuova se non è già esistente
      */
     public static GestoreNegozi getInstance() {
-        if (gestoreNegozi == null)
-            gestoreNegozi = new GestoreNegozi();
-        return gestoreNegozi;
+        if (instance == null)
+            instance = new GestoreNegozi();
+        return instance;
     }
 
     /**
@@ -84,14 +84,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
     }
 
     /**
-     * Svuota la lista dei {@link Negozio Negozi}.
-     */
-    @Override
-    public void reset() {
-        negozi.clear();
-    }
-
-    /**
      * Ritorna la lista dei dettagli dei {@link Negozio Negozi} con una certa categoria presenti nel DB.
      *
      * @param categoria Categoria del negozio.
@@ -108,28 +100,6 @@ public class GestoreNegozi implements Gestore<Negozio> {
         ArrayList<Negozio> tmp = negozi.stream().filter(negozio -> negozio.getCategoria().equals(categoria)).collect(Collectors.toCollection(ArrayList::new));
         for (Negozio negozio : tmp)
             dettagli.add(negozio.getDettagli());
-        disconnectToDB(rs);
-        return dettagli;
-    }
-
-    /**
-     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} con una certa categoria e con delle promozioni presenti nel DB.
-     *
-     * @param categoria Categoria del negozio.
-     *
-     * @return ArrayList di ArrayList dei dettagli dei Negozi.
-     *
-     * @throws SQLException Errore causato da una query SQL
-     */
-    public ArrayList<ArrayList<String>> getDettagliItemsWithPromozioni(CategoriaNegozio categoria) throws SQLException {
-        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
-        ResultSet rs = executeQuery("SELECT ID FROM sys.negozi inner join promozioni on ID = IDNegozio Where categoria = '" + categoria + "' ;");
-        while (rs.next())
-            addNegozio(rs);
-        ArrayList<Negozio> tmp = negozi.stream().filter(negozio -> negozio.getCategoria().equals(categoria)).collect(Collectors.toCollection(ArrayList::new));
-        for (Negozio negozio : tmp)
-            if (!negozio.getDettagliPromozioni().isEmpty())
-                dettagli.add(negozio.getDettagli());
         disconnectToDB(rs);
         return dettagli;
     }
@@ -152,6 +122,28 @@ public class GestoreNegozi implements Gestore<Negozio> {
             toReturn.add(getItem(rs.getInt("IDNegozio")).getDettagli());
         disconnectToDB(rs);
         return toReturn;
+    }
+
+    /**
+     * Ritorna la lista dei dettagli dei {@link Negozio Negozi} con una certa categoria e con delle promozioni presenti nel DB.
+     *
+     * @param categoria Categoria del negozio.
+     *
+     * @return ArrayList di ArrayList dei dettagli dei Negozi.
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
+    public ArrayList<ArrayList<String>> getDettagliItemsWithPromozioni(CategoriaNegozio categoria) throws SQLException {
+        ArrayList<ArrayList<String>> dettagli = new ArrayList<>();
+        ResultSet rs = executeQuery("SELECT ID FROM sys.negozi inner join promozioni on ID = IDNegozio Where categoria = '" + categoria + "' ;");
+        while (rs.next())
+            addNegozio(rs);
+        ArrayList<Negozio> tmp = negozi.stream().filter(negozio -> negozio.getCategoria().equals(categoria)).collect(Collectors.toCollection(ArrayList::new));
+        for (Negozio negozio : tmp)
+            if (!negozio.getDettagliPromozioni().isEmpty())
+                dettagli.add(negozio.getDettagli());
+        disconnectToDB(rs);
+        return dettagli;
     }
 
     /**
@@ -223,6 +215,14 @@ public class GestoreNegozi implements Gestore<Negozio> {
         Negozio simpleNegozio = getItem(IDNegozio);
         negozi.remove(simpleNegozio);
         simpleNegozio.delete();
+    }
+
+    /**
+     * Svuota la lista dei {@link Negozio Negozi}.
+     */
+    @Override
+    public void reset() {
+        negozi.clear();
     }
 
 }
