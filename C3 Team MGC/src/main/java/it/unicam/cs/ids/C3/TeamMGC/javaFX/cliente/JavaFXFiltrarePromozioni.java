@@ -105,7 +105,6 @@ public class JavaFXFiltrarePromozioni implements JavaFXController {
      * Collega i campi della Promozione alle colonne della tabella.
      */
     private void setPromozioneCellValueFactory() {
-
         prodotto.setCellValueFactory(p -> {
             try {
                 return new SimpleObjectProperty<>(selectedSimpleNegozio.getItem(Integer.parseInt(p.getValue().get(0))).getDescrizione());

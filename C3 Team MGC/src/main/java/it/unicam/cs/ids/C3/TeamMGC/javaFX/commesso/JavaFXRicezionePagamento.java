@@ -115,8 +115,8 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         }
     }
 
-    public void selezionaPuntoPrelievo() {
-        openWindow("/commesso/SelezionaPuntoPrelievo.fxml", "SelezionaPuntoPrelievo", new JavaFXSelezionaDestinazione(Integer.parseInt(ordineTextField.getText()), negozio));
+    public void selezionaDestinazione() {
+        openWindow("/commesso/SelezionaDestinazione.fxml", "SelezionaDestinazione", new JavaFXSelezionaDestinazione(Integer.parseInt(ordineTextField.getText()), negozio));
     }
 
     /**
@@ -146,7 +146,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
             if (!merceTable.getItems().isEmpty()) {
                 gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
                 successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.");
-                selezionaPuntoPrelievo();
+                selezionaDestinazione();
                 closeWindow((Stage) IDCliente.getScene().getWindow());
             } else
                 throw new IllegalArgumentException("Dati non presenti.");
