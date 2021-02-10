@@ -32,9 +32,9 @@ public class JavaFXModificareDisponibilita {
 
     public void getDisponibilita() throws SQLException {
         if (gestoreCorrieri.getDisponibilita(IDCorriere)) {
-            disponibilita.setText("disponibile");
+            disponibilita.setText("Disponibilita' attuale: DISPONIBILE");
         } else {
-            disponibilita.setText("non disponibile");
+            disponibilita.setText("Disponibilita' attuale: NON DISPONIBILE");
         }
         aggiornaButton();
     }

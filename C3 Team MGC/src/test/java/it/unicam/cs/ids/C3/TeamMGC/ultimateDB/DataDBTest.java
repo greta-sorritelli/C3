@@ -1,7 +1,6 @@
-package it.unicam.cs.ids.C3.TeamMGC;
+package it.unicam.cs.ids.C3.TeamMGC.ultimateDB;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 
@@ -11,6 +10,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.upd
  * Test per inserire valori di riferimento per poter utilizzare la GUI.
  */
 public class DataDBTest {
+
     @BeforeAll
     static void clearDB() throws SQLException {
         updateData("delete from sys.clienti;");
