@@ -93,6 +93,7 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
             } else
                 throw new IllegalArgumentException("Dati non presenti.");
         } catch (IllegalArgumentException exception) {
+            if(exception.getMessage().equals("Dati non presenti."))
             alertWindow("Alert!", "Inserire tutti i dati richiesti.");
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
@@ -101,7 +102,6 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
 
     public void mandaAlert() {
         try {
-            if (!gestoreCorrieri.getCorrieriDisponibili().isEmpty())
                 gestoreMagazzini.mandaAlert(choicePuntoPrelievo.getValue().getID(), negozio);
             successWindow("Alert mandato con successo!", "L' alert e' stato inviato al magazziniere.");
         } catch (SQLException exception) {
