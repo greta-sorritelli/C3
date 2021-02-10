@@ -27,6 +27,7 @@ public class DataDBTest {
         updateData("delete from alert_magazzinieri;");
         updateData("delete from alert_clienti;");
         updateData("delete from amministratore;");
+        updateData("delete from promozioni;");
 
         updateData("alter table clienti AUTO_INCREMENT = 1;");
         updateData("alter table codici_ritiro AUTO_INCREMENT = 1;");
@@ -42,12 +43,13 @@ public class DataDBTest {
         updateData("alter table alert_magazzinieri AUTO_INCREMENT = 1;");
         updateData("alter table personale AUTO_INCREMENT = 1;");
         updateData("alter table amministratore AUTO_INCREMENT = 1;");
+        updateData("alter table promozioni AUTO_INCREMENT = 1;");
     }
 
     @Test
     void inserisciDatiDB() throws SQLException {
         //Amministratore
-        updateData("INSERT INTO `sys`.`amministratore` (`ID`, `nomeUtente`, `password`) VALUES ('1', 'admin', '12345678');");
+        updateData("INSERT INTO sys.amministratore (ID, nomeUtente, password) VALUES ('1', 'admin', '12345678');");
 
         //Clienti
         updateData("INSERT INTO sys.clienti (nome, cognome, codiceRitiro, dataCreazione, password) VALUES ('Mario', 'Rossi', '101010101010', '2021-01-01', '12345678');");
@@ -63,6 +65,8 @@ public class DataDBTest {
 
         //Corrieri
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato, password) VALUES ('Luigi', 'Bianchi', 'true', '12345678');");
+        //todo
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, password) VALUES ('Luigi', 'Bianchi', 'true', '12345678');");
 
         //Ordini
         updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, IDPuntoPrelievo, IDNegozio) VALUES ('1', 'Mario', 'Rossi', '0', 'PAGATO', '1', '1');");
@@ -70,10 +74,12 @@ public class DataDBTest {
         updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, IDPuntoPrelievo, IDNegozio) VALUES ('1', 'Mario', 'Rossi', '0', 'IN_DEPOSITO', '2', '1');");
         updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, IDPuntoPrelievo, IDNegozio) VALUES ('1', 'Mario', 'Rossi', '0', 'AFFIDATO_AL_CORRIERE', '2', '1');");
         updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, IDPuntoPrelievo, IDNegozio) VALUES ('1', 'Mario', 'Rossi', '0', 'IN_TRANSITO', '2', '1');");
+        updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, IDPuntoPrelievo, IDNegozio) VALUES ('1', 'Mario', 'Rossi', '0', 'CORRIERE_SCELTO', '2', '1');");
 
         //Merci
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('1', '60.0', 'Felpa', '2', 'PAGATO');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('1', '1.5', 'Matita', '3', 'PAGATO');");
+
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('2', '2.0', 'Penna', '5', 'PAGATO');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('2', '1.0', 'Gomma', '2', 'PAGATO');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('2', '5.5', 'Astuccio', '1', 'PAGATO');");
@@ -81,9 +87,17 @@ public class DataDBTest {
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('2', '1.0', 'Quaderno', '10', 'PAGATO');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('2', '4.5', 'Forbici', '1', 'PAGATO');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('2', '59.0', 'Penna', '3', 'PAGATO');");
+
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('3', '59.0', 'Penna', '3', 'IN_DEPOSITO');");
+
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('4', '58.0', 'Pennino', '10', 'AFFIDATO_AL_CORRIERE', '1');");
-        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('5', '59.0', 'Penna', '3', 'IN_TRANSITO');");
+
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '5.0', 'T-shirt', '10', 'IN_TRANSITO', 1);");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '7.5', 'Pantaloni', '5', 'IN_TRANSITO', 1);");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '10.0', 'Pallone', '1', 'IN_TRANSITO', 1);");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '1.0', 'Casco', '4', 'IN_TRANSITO', 1);");
+
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('6', '24.5', 'Mouse', '1', 'CORRIERE_SCELTO', 1);");
 
         //Codici di Ritiro
         updateData("INSERT INTO sys.codici_ritiro (codice, IDCliente, IDOrdine, dataCreazione) VALUES ('101010101010', '1', '1', '2021-01-01');");
