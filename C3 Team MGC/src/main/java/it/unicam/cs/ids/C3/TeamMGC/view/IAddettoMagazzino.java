@@ -38,7 +38,7 @@ public class IAddettoMagazzino implements JavaFXController {
     private void assegnaMerceCorriere() {
         try {
             gestoreCorrieri.getCorrieriDisponibili();
-            if (gestoreOrdini.getDettagliMerce(StatoOrdine.PAGATO).isEmpty())
+            if (gestoreOrdini.getDettagliMerce(StatoOrdine.CORRIERE_SCELTO).isEmpty())
                 throw new IllegalArgumentException("Merci non disponibili.");
             openWindow("/addettoMagazzino/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere());
         } catch (SQLException exception) {

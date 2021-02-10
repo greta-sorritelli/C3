@@ -89,7 +89,7 @@ public class DataDBTest {
 
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('3', '59.0', 'Penna', '3', 'IN_DEPOSITO');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('3', '20.0', 'Matita', '10', 'IN_DEPOSITO');");
-
+//
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('4', '58.0', 'Pennino', '10', 'AFFIDATO_AL_CORRIERE', '1');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('3', '5.0', 'Inchiostro', '5', 'AFFIDATO_AL_CORRIERE', '1');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('2', '15.0', 'Evidenziatore', '3', 'AFFIDATO_AL_CORRIERE', '1');");

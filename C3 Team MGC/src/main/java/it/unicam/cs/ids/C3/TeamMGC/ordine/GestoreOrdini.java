@@ -154,7 +154,7 @@ public class GestoreOrdini {
     }
 
     /**
-     * Ritorna i dettagli della merce che si trova in un determinato {@link PuntoPrelievo}.
+     * Ritorna i dettagli della merce che deve essere portata ad un {@link PuntoPrelievo}.
      *
      * @param IDPuntoPrelievo ID del punto di prelievo in cui si trova la merce della quale si vogliono conoscere i dettagli
      *
@@ -172,7 +172,7 @@ public class GestoreOrdini {
         for (Ordine ordine : ordini)
             if (ordine.getPuntoPrelievo() == IDPuntoPrelievo)
                 for (MerceOrdine merceOrdine : ordine.getMerci())
-                    if (merceOrdine.getStato().equals(StatoOrdine.PAGATO))
+                    if (merceOrdine.getStato().equals(StatoOrdine.CORRIERE_SCELTO))
                         toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
