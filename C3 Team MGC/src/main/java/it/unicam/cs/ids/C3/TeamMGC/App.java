@@ -20,5 +20,4 @@ public class App {
     private static void launchGui() {
         Application.launch(JavaFXC3.class);
     }
-
 }

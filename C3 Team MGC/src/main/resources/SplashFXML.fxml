@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<StackPane fx:id="rootPane" prefHeight="344.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.ids.C3.TeamMGC.javaFX.SplashFXMLController">
+   <children>
+      <ImageView fitHeight="351.0" fitWidth="544.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@png/welcome.png" />
+         </image>
+      </ImageView>
+   </children>
+</StackPane>
