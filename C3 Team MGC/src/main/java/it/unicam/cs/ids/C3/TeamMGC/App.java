@@ -9,7 +9,7 @@ import javafx.application.Application;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public class C3 {
+public class App {
 
     public static void main(String[] args) {
         if (args.length == 0)
