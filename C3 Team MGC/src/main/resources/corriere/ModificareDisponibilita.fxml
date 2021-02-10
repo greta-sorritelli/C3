@@ -5,16 +5,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#getDisponibilita" prefHeight="343.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#getDisponibilita" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="35.0" layoutY="46.0" text="Modifica la tua disponibilità" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="34.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="disponibilita" layoutX="39.0" layoutY="100.0" prefHeight="18.0" prefWidth="318.0" AnchorPane.leftAnchor="42.0" />
-      <Button fx:id="disponibile" layoutX="42.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#setDisponibile" prefHeight="86.0" prefWidth="142.0" text="DISPONIBILE" AnchorPane.leftAnchor="42.0" />
-      <Button fx:id="nonDisponibile" layoutX="293.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#setNonDisponibile" prefHeight="86.0" prefWidth="160.0" text="NON DISPONIBILE" AnchorPane.rightAnchor="42.0" />
-      <Label layoutX="42.0" layoutY="163.0" text="Seleziona la disponibilità da impostare" AnchorPane.leftAnchor="42.0" />
+      <Label fx:id="disponibilita" layoutX="128.0" layoutY="115.0" prefHeight="52.0" prefWidth="318.0" AnchorPane.leftAnchor="128.0">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Button fx:id="disponibile" layoutX="65.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#setDisponibile" prefHeight="86.0" prefWidth="160.0" text="DISPONIBILE" AnchorPane.leftAnchor="65.0" />
+      <Button fx:id="nonDisponibile" layoutX="280.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#setNonDisponibile" prefHeight="86.0" prefWidth="160.0" text="NON DISPONIBILE" AnchorPane.rightAnchor="60.0" />
+      <Label layoutX="148.0" layoutY="250.0" text="Seleziona la disponibilità da impostare" AnchorPane.leftAnchor="148.0" />
    </children>
 </AnchorPane>

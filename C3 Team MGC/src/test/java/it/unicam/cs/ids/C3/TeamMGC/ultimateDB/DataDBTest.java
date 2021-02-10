@@ -65,8 +65,7 @@ public class DataDBTest {
 
         //Corrieri
         updateData("INSERT INTO sys.corrieri (nome, cognome, stato, password) VALUES ('Luigi', 'Bianchi', 'true', '12345678');");
-        //todo
-        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, password) VALUES ('Luigi', 'Bianchi', 'true', '12345678');");
+        updateData("INSERT INTO sys.corrieri (nome, cognome, stato, password) VALUES ('Maurizio', 'Mauri', 'true', '12345678');");
 
         //Ordini
         updateData("INSERT INTO sys.ordini (IDCliente, nomeCliente, cognomeCliente, totalePrezzo, stato, IDPuntoPrelievo, IDNegozio) VALUES ('1', 'Mario', 'Rossi', '0', 'PAGATO', '1', '1');");
@@ -89,15 +88,19 @@ public class DataDBTest {
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('2', '59.0', 'Penna', '3', 'PAGATO');");
 
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('3', '59.0', 'Penna', '3', 'IN_DEPOSITO');");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('3', '20.0', 'Matita', '10', 'IN_DEPOSITO');");
 
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('4', '58.0', 'Pennino', '10', 'AFFIDATO_AL_CORRIERE', '1');");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('3', '5.0', 'Inchiostro', '5', 'AFFIDATO_AL_CORRIERE', '1');");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('2', '15.0', 'Evidenziatore', '3', 'AFFIDATO_AL_CORRIERE', '1');");
 
-        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '5.0', 'T-shirt', '10', 'IN_TRANSITO', 1);");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '5.0', 'T-shirt', '2', 'IN_TRANSITO', 1);");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '7.5', 'Pantaloni', '5', 'IN_TRANSITO', 1);");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '10.0', 'Pallone', '1', 'IN_TRANSITO', 1);");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('5', '1.0', 'Casco', '4', 'IN_TRANSITO', 1);");
 
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('6', '24.5', 'Mouse', '1', 'CORRIERE_SCELTO', 1);");
+        updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('6', '30.0', 'Lampada', '2', 'CORRIERE_SCELTO', 1);");
 
         //Codici di Ritiro
         updateData("INSERT INTO sys.codici_ritiro (codice, IDCliente, IDOrdine, dataCreazione) VALUES ('101010101010', '1', '1', '2021-01-01');");
@@ -105,6 +108,14 @@ public class DataDBTest {
         //Inventario
         updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '60.0', 'Felpa', '10');");
         updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('1', '45.0', 'Jeans', '10');");
+
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('2', '15.0', 'Gonna', '5');");
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('2', '50.0', 'Camicia', '20');");
+
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('2', '35.0', 'Cappotto', '10');");
+
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('3', '50.0', 'Prosciutto crudo', '3');");
+        updateData("INSERT INTO sys.inventario (IDNegozio, prezzo, descrizione, quantita) VALUES ('3', '5.0', 'Pizza', '20');");
 
         //Magazzinieri
         updateData("INSERT INTO sys.magazzinieri (IDPuntoPrelievo, nome, cognome, password) VALUES ('1', 'Silvio', 'Marzocco', '12345678');");
