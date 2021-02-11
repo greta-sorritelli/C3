@@ -63,7 +63,6 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
             if (!residenza.getText().isEmpty()) {
                 gestoreCorrieri.getCorrieriDisponibili();
                 gestoreOrdini.addResidenza(IDOrdine, residenza.getText());
-                gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.CORRIERE_SCELTO);
                 successWindow("Residenza salvata con successo!", "Ora potrai scegliere il corriere da avvisare.");
                 sceltaCorriere();
                 closeWindow((Stage) residenza.getScene().getWindow());
@@ -80,7 +79,7 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
     }
 
     public void sceltaCorriere() {
-        openWindow("/commesso/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(residenza.getText(), negozio));
+        openWindow("/commesso/SelezionaCorriere.fxml", "SelezionaCorriere", new JavaFXSelezionaCorriere(residenza.getText(), negozio, IDOrdine));
     }
 
 

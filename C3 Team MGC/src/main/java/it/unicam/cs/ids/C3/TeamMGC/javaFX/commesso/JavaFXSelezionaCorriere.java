@@ -5,6 +5,8 @@ import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
@@ -23,14 +25,16 @@ import java.util.ArrayList;
 public class JavaFXSelezionaCorriere implements JavaFXController {
 
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-    private Corriere selectedSimpleCorriere;
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
+
     private final String residenza;
     private final Negozio negozio;
+    private final int IDOrdine;
 
-    public JavaFXSelezionaCorriere(String residenza, Negozio negozio) {
+    public JavaFXSelezionaCorriere(String residenza, Negozio negozio, int IDOrdine) {
         this.negozio = negozio;
-        this.selectedSimpleCorriere = null;
         this.residenza = residenza;
+        this.IDOrdine = IDOrdine;
     }
 
     /**
@@ -78,8 +82,9 @@ public class JavaFXSelezionaCorriere implements JavaFXController {
             if (!corriereTable.getSelectionModel().isEmpty()) {
                 int ID = Integer.parseInt(corriereTable.getSelectionModel().getSelectedItem().get(0));
                 if (gestoreCorrieri.getItem(ID) != null) {
-                    this.selectedSimpleCorriere = gestoreCorrieri.getItem(ID);
+//                    this.selectedSimpleCorriere = gestoreCorrieri.getItem(ID);
                     gestoreCorrieri.mandaAlert(ID, negozio, residenza);
+                    gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.CORRIERE_SCELTO);
                     successWindow("Alert mandato con successo!", "L' alert e' stato inviato al corriere.");
                     closeWindow((Stage) corriereTable.getScene().getWindow());
                 }
