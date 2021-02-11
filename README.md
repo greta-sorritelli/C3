@@ -85,7 +85,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <ul> <li>Effettuare pagamenti.</li>
   <li> Occuparsi delle statistiche.</li>
   <li> SignIn.</li> 
-  <li> Login./li> 
+  <li> Login.</li> 
   <li> Controllare alert.</li> 
   <li> Gestione negozi.</li> 
   <li> Gestione punti prelievo.</li> 
