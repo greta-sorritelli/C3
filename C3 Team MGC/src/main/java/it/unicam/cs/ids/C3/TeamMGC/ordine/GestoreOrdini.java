@@ -244,7 +244,7 @@ public class GestoreOrdini {
         for (Ordine ordine : ordini)
             if (ordine.getResidenza().equals(residenza))
                 for (MerceOrdine merceOrdine : ordine.getMerci())
-                    if (merceOrdine.getStato() == StatoOrdine.PAGATO)
+                    if (merceOrdine.getStato() == StatoOrdine.CORRIERE_SCELTO)
                         toReturn.add(merceOrdine.getDettagli());
         return toReturn;
     }
