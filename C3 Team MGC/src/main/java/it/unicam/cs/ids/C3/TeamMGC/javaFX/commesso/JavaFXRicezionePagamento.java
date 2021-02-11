@@ -80,7 +80,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
             quantita.clear();
             merceChoiceBox.getItems().clear();
             IDCliente.setEditable(false);
-            successWindow("Merce aggiunta con successo!", "La merce e' stata aggiunta all'ordine creato.");
+            successWindow("Merce aggiunta con successo!", "La merce e' stata aggiunta all'ordine creato.", 2);
             merceChoiceBox.getItems().clear();
             quantita.clear();
         } catch (IllegalArgumentException exception) {
@@ -145,7 +145,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         try {
             if (!merceTable.getItems().isEmpty()) {
                 gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
-                successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.");
+                successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.", 2);
                 selezionaDestinazione();
                 closeWindow((Stage) IDCliente.getScene().getWindow());
             } else

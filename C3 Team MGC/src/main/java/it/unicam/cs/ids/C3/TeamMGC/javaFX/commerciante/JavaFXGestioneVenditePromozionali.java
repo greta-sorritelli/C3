@@ -70,7 +70,7 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
                 for (ArrayList<String> promozione : sel)
                     if (promozione != null)
                         negozio.eliminaPromozione(Integer.parseInt(promozione.get(0)));
-                successWindow("Success!", "Promozioni eliminate con successo.");
+                successWindow("Success!", "Promozioni eliminate con successo.", 2);
                 sel.clear();
                 if (!negozio.getDettagliPromozioni().isEmpty())
                     visualizzaPromozioni();
@@ -95,7 +95,7 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
             if (merceChoiceBox.getValue() == null || getPrezzo(prezzoNuovo).isEmpty() || messaggio.getText().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
             negozio.lanciaPromozione(merceChoiceBox.getValue().getID(), Double.parseDouble(getPrezzo(prezzoNuovo)), messaggio.getText());
-            successWindow("Success!", "Promozione lanciata con successo.");
+            successWindow("Success!", "Promozione lanciata con successo.", 2);
             merceChoiceBox.getItems().clear();
             prezzoNuovo.clear();
             messaggio.clear();
@@ -118,7 +118,7 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
             if (promozioneChoiceBox.getValue() == null || getPrezzo(prezzoModificato).isEmpty())
                 throw new NullPointerException("Dati non presenti.");
             negozio.setNuoviDatiPromozione(Integer.parseInt(promozioneChoiceBox.getValue().get(0)), Double.parseDouble(getPrezzo(prezzoModificato)), messaggioModificato.getText());
-            successWindow("Success!", "Promozione modificata con successo.");
+            successWindow("Success!", "Promozione modificata con successo.", 2);
             promozioneChoiceBox.getItems().clear();
             prezzoModificato.clear();
             messaggioModificato.clear();

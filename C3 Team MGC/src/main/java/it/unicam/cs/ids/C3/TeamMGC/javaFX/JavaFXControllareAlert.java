@@ -52,7 +52,7 @@ public class JavaFXControllareAlert implements JavaFXController {
                     int ID = Integer.parseInt(alert.get(0));
                     gestoreAlert.deleteAlert(ID, tipologiaUtente);
                 }
-                successWindow("Success!", "Notifiche eliminate con successo.");
+                successWindow("Success!", "Notifiche eliminate con successo.", 2);
                 sel.clear();
                 visualizzaAlert();
             } else {

@@ -99,7 +99,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
                 for (ArrayList<String> m : merci)
                     gestoreOrdini.setStatoMerce(Integer.parseInt(m.get(0)), StatoOrdine.CORRIERE_SCELTO);
                 alert.close();
-                successWindow("Alert mandato con successo", "Il corriere e' stato avvisato.");
+                successWindow("Alert mandato con successo", "Il corriere e' stato avvisato.", 2);
                 visualizzaNegozi();
             }
         } catch (SQLException e) {

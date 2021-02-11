@@ -104,10 +104,10 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
             if (selectedMerce != null) {
                 if (gestoreOrdini.getResidenzaOrdine(selectedMerce.getIDOrdine()) == null) {
                     mandaAlertPuntoPrelievo();
-                    successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al punto di prelievo.");
+                    successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al punto di prelievo.", 2);
                 } else {
                     gestoreOrdini.setStatoMerce(selectedMerce.getID(), StatoOrdine.RITIRATO);
-                    successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al cliente.");
+                    successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al cliente.", 2);
                 }
                 merceSelezionata.add(selectedMerce.getDettagli());
                 selectedMerce = null;
@@ -155,7 +155,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
                 Ordine ordine = gestoreOrdini.getOrdine(selectedMerce.getIDOrdine());
                 int IDCliente = gestoreOrdini.getIDClienteOrdine(ordine.getID());
                 gestoreClienti.mandaAlertResidenza(IDCliente, magazziniChoiceBox.getValue(), selectedMerce);
-                successWindow("Destinazione cambiata con successo!", "La merce dovra' essere consegnata al punto di prelievo.");
+                successWindow("Destinazione cambiata con successo!", "La merce dovra' essere consegnata al punto di prelievo.", 2);
                 magazziniChoiceBox.getItems().clear();
                 merceSelezionata.add(selectedMerce.getDettagli());
                 selectedMerce = null;
@@ -191,7 +191,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
             merceTable.getItems().addAll(gestoreOrdini.getDettagliMerciOfCorriere(IDCorriere, StatoOrdine.IN_TRANSITO));
             merceTable.getItems().removeIf(merceSelezionata::contains);
             if (merceTable.getItems().isEmpty()) {
-                successWindow("Merci consegnate con successo!", "Tutte le merci sono state consegnate.");
+                successWindow("Merci consegnate con successo!", "Tutte le merci sono state consegnate.", 2);
                 closeWindow((Stage) tab.getScene().getWindow());
             }
         } catch (SQLException exception) {

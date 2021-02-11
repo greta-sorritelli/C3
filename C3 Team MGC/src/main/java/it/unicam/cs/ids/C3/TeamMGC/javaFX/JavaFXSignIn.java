@@ -267,7 +267,7 @@ public class JavaFXSignIn implements JavaFXController {
             gestorePersonale = new GestorePersonale(IDNegozioAddetto.getValue().getID());
             ArrayList<String> dettagli = gestorePersonale.inserisciAddetto(nomeAddetto.getText(), cognomeAddetto.getText(), getPassword(passwordAddetto));
             successWindow("Sign in successful!", "Addetto registrato con successo!\n" +
-                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordAddetto.getText() + ".");
+                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordAddetto.getText() + ".", 10);
             openWindow("/addettoMagazzino/HomeAddettoMagazzino.fxml", "Home Addetto magazzino del negozio", new IAddettoMagazzino(Integer.parseInt(dettagli.get(0)), Integer.parseInt(dettagli.get(2))));
             closeWindow((Stage) nomeAddetto.getScene().getWindow());
         } catch (SQLException exception) {
@@ -287,7 +287,7 @@ public class JavaFXSignIn implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             ArrayList<String> dettagli = gestoreClienti.inserisciDati(nomeCliente.getText(), cognomeCliente.getText(), getPassword(passwordCliente));
             successWindow("Sign in successful!", "Cliente registrato con successo!\n" +
-                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordCliente.getText() + ".");
+                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordCliente.getText() + ".", 10);
             openWindow("/cliente/HomeCliente.fxml", "Home Cliente", new ICliente(Integer.parseInt(dettagli.get(0))));
             closeWindow((Stage) nomeCliente.getScene().getWindow());
         } catch (SQLException exception) {
@@ -308,7 +308,7 @@ public class JavaFXSignIn implements JavaFXController {
             gestorePersonale = new GestorePersonale(IDNegozioCommerciante.getValue().getID());
             ArrayList<String> dettagli = gestorePersonale.inserisciCommerciante(nomeCommerciante.getText(), cognomeCommerciante.getText(), getPassword(passwordCommerciante));
             successWindow("Sign in successful!", "Commerciante registrato con successo!\n" +
-                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordCommerciante.getText() + ".");
+                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordCommerciante.getText() + ".", 10);
             openWindow("/commerciante/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante(Integer.parseInt(dettagli.get(0)), Integer.parseInt(dettagli.get(2))));
             closeWindow((Stage) nomeCommerciante.getScene().getWindow());
         } catch (SQLException exception) {
@@ -335,7 +335,7 @@ public class JavaFXSignIn implements JavaFXController {
             gestorePersonale = new GestorePersonale(IDNegozioCommesso.getValue().getID());
             ArrayList<String> dettagli = gestorePersonale.inserisciCommesso(nomeCommesso.getText(), cognomeCommesso.getText(), getPassword(passwordCommesso));
             successWindow("Sign in successful!", "Commesso registrato con successo.!\n" +
-                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordCommesso.getText() + ".");
+                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(3) + ", Cognome: " + dettagli.get(4) + ", Password: " + passwordCommesso.getText() + ".", 10);
             openWindow("/commesso/HomeCommesso.fxml", "Home Commesso", new ICommesso(Integer.parseInt(dettagli.get(0)), Integer.parseInt(dettagli.get(2))));
             closeWindow((Stage) nomeCommesso.getScene().getWindow());
         } catch (SQLException exception) {
@@ -355,7 +355,7 @@ public class JavaFXSignIn implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             ArrayList<String> dettagli = gestoreCorrieri.inserisciDati(nomeCorriere.getText(), cognomeCorriere.getText(), getPassword(passwordCorriere));
             successWindow("Sign in successful!", "Corriere registrato con successo!\n" +
-                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordCorriere.getText() + ".");
+                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordCorriere.getText() + ".", 10);
             openWindow("/corriere/HomeCorriere.fxml", "Home Corriere", new ICorriere(Integer.parseInt(dettagli.get(0))));
             closeWindow((Stage) nomeCorriere.getScene().getWindow());
         } catch (SQLException exception) {
@@ -375,7 +375,7 @@ public class JavaFXSignIn implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             ArrayList<String> dettagli = gestoreMagazzini.inserisciMagazziniere(IDPPMagazziniere.getValue().getID(), nomeMagazziniere.getText(), cognomeMagazziniere.getText(), getPassword(passwordMagazziniere));
             successWindow("Sign in successful!", "Magazziniere registrato con successo!\n" +
-                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordMagazziniere.getText() + ".");
+                    "ID: " + dettagli.get(0) + ", Nome: " + dettagli.get(1) + ", Cognome: " + dettagli.get(2) + ", Password: " + passwordMagazziniere.getText() + ".", 10);
             openWindow("/magazziniere/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere(Integer.parseInt(dettagli.get(0))));
             closeWindow((Stage) nomeMagazziniere.getScene().getWindow());
         } catch (SQLException exception) {

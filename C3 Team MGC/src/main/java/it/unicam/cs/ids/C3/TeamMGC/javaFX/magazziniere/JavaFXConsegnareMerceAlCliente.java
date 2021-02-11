@@ -84,7 +84,7 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
                 merceOrdineTable.getItems().clear();
                 IDCliente.clear();
                 codiceRitiro.clear();
-                successWindow("Consegna merce eseguita con successo!", "La merce e' stata consegnata al cliente.");
+                successWindow("Consegna merce eseguita con successo!", "La merce e' stata consegnata al cliente.", 2);
             } else
                 throw new IllegalArgumentException("Merce non presente nella tabella.");
         } catch (Exception exception) {
@@ -101,9 +101,9 @@ public class JavaFXConsegnareMerceAlCliente implements JavaFXController {
             if (gestoreClienti.verificaCodice(Integer.parseInt(getIDCliente()), getCodiceRitiro())) {
                 ArrayList<ArrayList<String>> merci = gestoreOrdini.getInDepositMerci(simplePuntoPrelievo.getOrdini(Integer.parseInt(getIDCliente())));
                 visualizzaMerci(merci);
-                successWindow("Verifica codice eseguita con successo!", "Il codice inserito appartiene al cliente.");
+                successWindow("Verifica codice eseguita con successo!", "Il codice inserito appartiene al cliente.", 2);
                 if (merci.isEmpty()) {
-                    informationWindow("Riprovare piu' tardi!", "Non ci sono merci da consegnare al cliente.");
+                    informationWindow("Riprovare piu' tardi!", "Non ci sono merci da consegnare al cliente.", 2);
                     IDCliente.clear();
                     codiceRitiro.clear();
                 }

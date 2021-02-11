@@ -85,7 +85,7 @@ public class JavaFXSelezionaCorriere implements JavaFXController {
 //                    this.selectedSimpleCorriere = gestoreCorrieri.getItem(ID);
                     gestoreCorrieri.mandaAlert(ID, negozio, residenza);
                     gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.CORRIERE_SCELTO);
-                    successWindow("Alert mandato con successo!", "L' alert e' stato inviato al corriere.");
+                    successWindow("Alert mandato con successo!", "L' alert e' stato inviato al corriere.", 2);
                     closeWindow((Stage) corriereTable.getScene().getWindow());
                 }
             } else

@@ -78,9 +78,9 @@ public class JavaFXGestioneNegozi implements JavaFXController {
                 else
                     tab.getSelectionModel().select(registra);
             } else
-                alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.", 2);
+                alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.");
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -131,16 +131,16 @@ public class JavaFXGestioneNegozi implements JavaFXController {
             orarioA.clear();
             orarioC.clear();
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         } catch (NumberFormatException exception) {
-            alertWindow("Formato orario non valido!", "Inserire un orario nel formato 00:00.", 2);
+            alertWindow("Formato orario non valido!", "Inserire un orario nel formato 00:00.");
         } catch (IllegalArgumentException exception) {
             if (exception.getMessage().equals("Formato telefono non valido.")) {
-                alertWindow("Formato telefono non valido!", "Inserire solo numeri.", 2);
+                alertWindow("Formato telefono non valido!", "Inserire solo numeri.");
                 telefono.clear();
             }
             if (exception.getMessage().equals("Dati non presenti"))
-                alertWindow("Alert!", "Inserire tutti i dati richiesti.", 2);
+                alertWindow("Alert!", "Inserire tutti i dati richiesti.");
         }
     }
 
@@ -183,11 +183,11 @@ public class JavaFXGestioneNegozi implements JavaFXController {
             negoziSelezionati.clear();
             negoziTable.getItems().addAll(gestoreNegozi.getDettagliItems());
             if (negoziTable.getItems().isEmpty()) {
-                alertWindow("Alert!", "Non ci sono negozi.", 2);
+                alertWindow("Alert!", "Non ci sono negozi.");
                 tab.getSelectionModel().select(registra);
             }
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 }

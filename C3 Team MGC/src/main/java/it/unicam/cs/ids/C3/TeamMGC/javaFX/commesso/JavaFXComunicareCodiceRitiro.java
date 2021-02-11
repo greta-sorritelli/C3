@@ -45,7 +45,7 @@ public class JavaFXComunicareCodiceRitiro implements JavaFXController {
             String vecchioCodice = gestoreClienti.getCodiceRitiroCliente(Integer.parseInt(getIDCliente()));
             String codice = gestoreClienti.verificaEsistenzaCodice(Integer.parseInt(getIDCliente()), Integer.parseInt(getIDOrdine()));
             if (vecchioCodice.equals(codice))
-                informationWindow("Il cliente ha gia' un codice", "Codice cliente : " + codice, 2);
+                informationWindow("Il cliente ha gia' un codice", "Codice cliente : " + codice, 5);
             else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("Nuovo codice creato");
@@ -54,18 +54,18 @@ public class JavaFXComunicareCodiceRitiro implements JavaFXController {
             }
             CodiceRitiroAttuale.setText(codice);
         } catch (NullPointerException exception) {
-            errorWindow("Errore!", "Inserire tutti i dati richiesti.", 2);
+            errorWindow("Errore!", "Inserire tutti i dati richiesti.");
         } catch (IllegalArgumentException exception) {
             if (exception.getMessage().equals("ID cliente non valido.")) {
-                errorWindow("Errore!", "ID cliente non valido.", 2);
+                errorWindow("Errore!", "ID cliente non valido.");
                 IDCliente.clear();
             }
             if (exception.getMessage().equals("ID ordine non valido.")) {
-                errorWindow("Errore!", "ID ordine non valido.", 2);
+                errorWindow("Errore!", "ID ordine non valido.");
                 IDOrdine.clear();
             }
         } catch (SQLException exception) {
-            errorWindow("Errore!", "Error DB.", 2);
+            errorWindow("Errore!", "Error DB.");
         }
 
     }

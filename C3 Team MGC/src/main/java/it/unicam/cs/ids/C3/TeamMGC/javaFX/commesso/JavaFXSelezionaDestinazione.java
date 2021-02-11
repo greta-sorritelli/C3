@@ -39,6 +39,7 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
     /**
      * TabPane della finestra
      */
+    //todo levare
     @FXML
     TabPane tab;
 
@@ -63,7 +64,7 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
             if (!residenza.getText().isEmpty()) {
                 gestoreCorrieri.getCorrieriDisponibili();
                 gestoreOrdini.addResidenza(IDOrdine, residenza.getText());
-                successWindow("Residenza salvata con successo!", "Ora potrai scegliere il corriere da avvisare.");
+                successWindow("Residenza salvata con successo!", "Ora potrai scegliere il corriere da avvisare.", 2);
                 sceltaCorriere();
                 closeWindow((Stage) residenza.getScene().getWindow());
             } else
@@ -102,7 +103,7 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
     public void mandaAlert() {
         try {
                 gestoreMagazzini.mandaAlert(choicePuntoPrelievo.getValue().getID(), negozio);
-            successWindow("Alert mandato con successo!", "L' alert e' stato inviato al magazziniere.");
+            successWindow("Alert mandato con successo!", "L' alert e' stato inviato al magazziniere.", 2);
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         }
@@ -111,7 +112,7 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
     public void setStatoOrdine() {
         try {
             gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.RITIRATO);
-            successWindow("Ordine ritirato con successo!", "Lo stato dell' ordine e' stato impostato a ritirato.");
+            successWindow("Ordine ritirato con successo!", "Lo stato dell' ordine e' stato impostato a ritirato.", 2);
             closeWindow((Stage) residenza.getScene().getWindow());
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

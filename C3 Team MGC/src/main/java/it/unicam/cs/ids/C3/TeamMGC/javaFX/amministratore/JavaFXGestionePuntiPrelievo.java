@@ -24,8 +24,6 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
     @FXML
     Tab registra = new Tab();
     @FXML
-    Tab elimina = new Tab();
-    @FXML
     TextField nome;
     @FXML
     TextField indirizzo;
@@ -68,9 +66,9 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
             nome.clear();
             indirizzo.clear();
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
-            alertWindow("Alert!", "Inserire tutti i dati richiesti.", 2);
+            alertWindow("Alert!", "Inserire tutti i dati richiesti.");
         }
     }
 
@@ -93,9 +91,9 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
                 else
                     tab.getSelectionModel().select(registra);
             } else
-                alertWindow("Impossibile proseguire", "Selezionare uno o piu' punti di prelievo.", 2);
+                alertWindow("Impossibile proseguire", "Selezionare uno o piu' punti di prelievo.");
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -107,11 +105,11 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
             puntiSelezionati.clear();
             puntiPrelievoTable.getItems().addAll(gestoreMagazzini.getDettagliItems());
             if (puntiPrelievoTable.getItems().isEmpty()) {
-                alertWindow("Alert!", "Non ci sono punti di prelievo.", 2);
+                alertWindow("Alert!", "Non ci sono punti di prelievo.");
                 tab.getSelectionModel().select(registra);
             }
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 }

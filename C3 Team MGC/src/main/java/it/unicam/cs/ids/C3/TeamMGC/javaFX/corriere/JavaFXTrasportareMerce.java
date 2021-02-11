@@ -22,6 +22,7 @@ import java.util.ArrayList;
  */
 public class JavaFXTrasportareMerce implements JavaFXController {
 
+    //todo levare
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final int IDCorriere;
@@ -79,7 +80,7 @@ public class JavaFXTrasportareMerce implements JavaFXController {
             if (!merceTable.getSelectionModel().isEmpty()) {
                 for (ArrayList<String> merce : merceTable.getSelectionModel().getSelectedItems())
                     setStatoMerce(Integer.parseInt(merce.get(0)));
-                successWindow("Merce in transito.", "La merce selezionata e' in transito.");
+                successWindow("Merce in transito.", "La merce selezionata e' in transito.", 2);
                 visualizzaMerce();
             } else
                 alertWindow("Nessuna merce selezionata.", "Selezionare almeno una merce.");

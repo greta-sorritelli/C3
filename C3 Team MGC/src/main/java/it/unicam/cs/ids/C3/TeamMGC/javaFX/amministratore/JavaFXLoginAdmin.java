@@ -38,14 +38,14 @@ public class JavaFXLoginAdmin implements JavaFXController {
                 openWindow("/amministratore/HomeAmministratore.fxml", "Home Amministratore", new IAmministratore());
                 closeWindow((Stage) nomeUtente.getScene().getWindow());
             } else
-                errorWindow("Login non effettuato.", "Nome utente o password errati.", 2);
+                errorWindow("Login non effettuato.", "Nome utente o password errati.");
         } catch (IllegalArgumentException e) {
-            errorWindow("Error!", "Password errata.", 2);
+            errorWindow("Error!", "Password errata.");
             password.clear();
         } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.", 2);
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB." + exception.getMessage(), 2);
+            errorWindow("Error!", "Errore nel DB." + exception.getMessage());
         }
     }
 }

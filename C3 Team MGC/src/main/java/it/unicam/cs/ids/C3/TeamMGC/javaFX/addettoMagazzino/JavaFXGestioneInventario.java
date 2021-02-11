@@ -113,18 +113,18 @@ public class JavaFXGestioneInventario implements JavaFXController {
             visualizzaMerciInserite();
             successWindow("Aggiunta prodotto eseguita con successo!", "La merce e' stata inserita correttamente nell' inventario.", 2);
         } catch (NullPointerException exception) {
-            errorWindow("Impossibile inserire la merce!", "Inserire i dati richiesti.", 2);
+            errorWindow("Impossibile inserire la merce!", "Inserire i dati richiesti.");
         } catch (IllegalArgumentException exception) {
             if (exception.getMessage().equals("Formato prezzo non valido.")) {
-                errorWindow("Formato prezzo non valido!", "Inserire di nuovo il prezzo.", 2);
+                errorWindow("Formato prezzo non valido!", "Inserire di nuovo il prezzo.");
                 prezzo.clear();
             }
             if (exception.getMessage().equals("Formato quantita non valido.")) {
-                errorWindow("Formato quantita' non valido!", "Inserire di nuovo la quantita'.", 2);
+                errorWindow("Formato quantita' non valido!", "Inserire di nuovo la quantita'.");
                 quantita.clear();
             }
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -146,9 +146,9 @@ public class JavaFXGestioneInventario implements JavaFXController {
             } else
                 throw new IllegalArgumentException("Merci non selezionate.");
         } catch (IllegalArgumentException exception) {
-            errorWindow("Errore!", "Selezionare la merce.", 2);
+            errorWindow("Errore!", "Selezionare la merce.");
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         }
     }
 
@@ -188,11 +188,11 @@ public class JavaFXGestioneInventario implements JavaFXController {
             merceChoiceBox.getItems().clear();
             successWindow("Modifica prodotto eseguita con successo!", "La quantita' della merce e' stata modificata.", 2);
         } catch (NullPointerException exception) {
-            errorWindow("Errore!", "Inserire i dati richiesti.", 2);
+            errorWindow("Errore!", "Inserire i dati richiesti.");
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.", 2);
+            errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
-            errorWindow("Formato quantita' non valido!", "Inserire di nuovo la quantita.", 2);
+            errorWindow("Formato quantita' non valido!", "Inserire di nuovo la quantita.");
             quantita1.clear();
         }
     }
@@ -203,11 +203,11 @@ public class JavaFXGestioneInventario implements JavaFXController {
             merceChoiceBox.getItems().clear();
             merceChoiceBox.setItems(FXCollections.observableArrayList(negozio.getItems()));
             if (merceChoiceBox.getItems().isEmpty()) {
-                alertWindow("Merci non presenti.", "Aggiorna piu' tardi.", 2);
+                alertWindow("Merci non presenti.", "Aggiorna piu' tardi.");
                 tab.getSelectionModel().select(aggiunta);
             }
         } catch (Exception exception) {
-            errorWindow("Errore!", "Error.", 2);
+            errorWindow("Errore!", "Error.");
         }
     }
 
@@ -236,11 +236,11 @@ public class JavaFXGestioneInventario implements JavaFXController {
             for (ArrayList<String> m : negozio.getDettagliItems())
                 merceTable2.getItems().add(m);
             if (merceTable2.getItems().isEmpty()) {
-                alertWindow("Prodotti non presenti.", "Aggiorna piu' tardi.", 2);
+                alertWindow("Prodotti non presenti.", "Aggiorna piu' tardi.");
                 tab.getSelectionModel().select(aggiunta);
             }
         } catch (Exception exception) {
-            errorWindow("Errore!", "Error.", 2);
+            errorWindow("Errore!", "Error.");
         }
     }
 

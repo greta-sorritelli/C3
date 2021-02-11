@@ -23,6 +23,7 @@ import java.util.Objects;
  */
 public class JavaFXLogin implements JavaFXController {
 
+    //todo levare
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
@@ -56,7 +57,7 @@ public class JavaFXLogin implements JavaFXController {
             int idNegozio = Integer.parseInt(IDSede.getText());
             gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("ADDETTO_MAGAZZINO", id, password.getText(), idNegozio)) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
                 openWindow("/addettoMagazzino/HomeAddettoMagazzino.fxml", "Home Addetto magazzino del negozio", new IAddettoMagazzino(id, idNegozio));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -78,7 +79,7 @@ public class JavaFXLogin implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             int id = Integer.parseInt(ID.getText());
             if (gestoreClienti.checkInfo("CLIENTE", id, password.getText())) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
                 openWindow("/cliente/HomeCliente.fxml", "Home Cliente", new ICliente(id));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -102,7 +103,7 @@ public class JavaFXLogin implements JavaFXController {
             int idNegozio = Integer.parseInt(IDSede.getText());
             gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("COMMERCIANTE", id, password.getText(), idNegozio)) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
                 openWindow("/commerciante/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante(id, idNegozio));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -126,7 +127,7 @@ public class JavaFXLogin implements JavaFXController {
             int idNegozio = Integer.parseInt(IDSede.getText());
             gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("COMMESSO", id, password.getText(), idNegozio)) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
                 openWindow("/commesso/HomeCommesso.fxml", "Home Commesso", new ICommesso(id, idNegozio));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -148,7 +149,7 @@ public class JavaFXLogin implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             int id = Integer.parseInt(ID.getText());
             if (gestoreCorrieri.checkInfo("CORRIERE", id, password.getText())) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
                 openWindow("/corriere/HomeCorriere.fxml", "Home Corriere", new ICorriere(id));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -170,7 +171,7 @@ public class JavaFXLogin implements JavaFXController {
                 throw new NullPointerException("Dati non presenti.");
             int idMagazzino = Integer.parseInt(IDSede.getText());
             if (gestoreMagazzini.checkInfo("MAGAZZINIERE", idMagazzino, password.getText())) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
                 openWindow("/magazziniere/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere(idMagazzino));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else

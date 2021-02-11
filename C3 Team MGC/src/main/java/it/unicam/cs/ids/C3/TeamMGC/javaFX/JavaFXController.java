@@ -8,9 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-
 import java.io.IOException;
 
 /**
@@ -21,10 +19,10 @@ import java.io.IOException;
  */
 public interface JavaFXController {
 
-    default void alertWindow(String warningHeader, String warningMessage, int sec) {
+    default void alertWindow(String warningHeader, String warningMessage) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning!");
-        showAlert(alert, warningHeader, warningMessage, sec);
+        showAlert(alert, warningHeader, warningMessage, 2);
     }
 
     /**
@@ -36,10 +34,10 @@ public interface JavaFXController {
         stage.close();
     }
 
-    default void errorWindow(String errorHeader, String errorMessage, int sec) {
+    default void errorWindow(String errorHeader, String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error!");
-        showAlert(alert, errorHeader, errorMessage, sec);
+        showAlert(alert, errorHeader, errorMessage, 2);
     }
 
     default void informationWindow(String successHeader, String successMessage, int sec) {
