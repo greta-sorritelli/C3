@@ -32,7 +32,7 @@ public class SplashFXMLController implements Initializable, JavaFXController {
     /**
      * Apre la finestra principale.
      */
-    class SplashScreen extends Thread {
+    private class SplashScreen extends Thread {
         @Override
         public void run() {
             try {

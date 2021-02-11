@@ -7,8 +7,10 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXModificareDisponibilita
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXTrasportareMerce;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.util.Duration;
 
 import java.sql.SQLException;
 
@@ -37,12 +39,16 @@ public class ICorriere implements JavaFXController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Attendere...");
             alert.setContentText("Controllo della merce da consegnare.");
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(e -> alert.close());
             alert.show();
+            delay.play();
+//            alert.show();
             if (gestoreOrdini.getDettagliMerciOfCorriere(ID, StatoOrdine.IN_TRANSITO).isEmpty()) {
-                alert.close();
+//                alert.close();
                 throw new IllegalArgumentException("Merci non presenti.");
             }
-            alert.close();
+//            alert.close();
             openWindow("/corriere/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(ID));
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");

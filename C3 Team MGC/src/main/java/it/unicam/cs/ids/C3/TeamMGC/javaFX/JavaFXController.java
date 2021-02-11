@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -73,7 +76,10 @@ public interface JavaFXController {
     private void showAlert(Alert alert, String header, String message) {
         alert.setHeaderText(header);
         alert.setContentText(message);
-        alert.showAndWait();
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(e -> alert.hide());
+        alert.show();
+        delay.play();
     }
 
     default void successWindow(String successHeader, String successMessage) {
@@ -81,5 +87,4 @@ public interface JavaFXController {
         alert.setTitle("Success!");
         showAlert(alert, successHeader, successMessage);
     }
-
 }
