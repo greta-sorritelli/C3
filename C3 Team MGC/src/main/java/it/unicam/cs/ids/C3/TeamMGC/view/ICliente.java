@@ -7,6 +7,8 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXFiltrarePromozioni;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.cliente.JavaFXFiltrarePuntiVendita;
 import javafx.fxml.FXML;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Controller della Home del {@link Cliente}.
  *

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller della pagina che gestisce gli alert in arrivo.
@@ -77,6 +78,12 @@ public class JavaFXControllareAlert implements JavaFXController {
             errorWindow("Error!", "Errore nel DB." + exception.getMessage());
         } catch (NullPointerException e) {
             alertWindow("Non ci sono notifiche.", "Aggiornare piu' tardi.");
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+                errorWindow("Error!", "Errore.");
+            }
             closeWindow((Stage) alertTable.getScene().getWindow());
         }
     }

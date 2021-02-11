@@ -102,7 +102,7 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
         selezionaMerce();
         try {
             if (selectedMerce != null) {
-                if (gestoreOrdini.getResidenzaOrdine(selectedMerce.getIDOrdine()) == null) {
+                if (gestoreOrdini.getIDPuntoPrelievoOrdine(selectedMerce.getIDOrdine()) != -1) {
                     mandaAlertPuntoPrelievo();
                     successWindow("Merce consegnata con successo!", "La merce e' stata consegnata al punto di prelievo.", 2);
                 } else {

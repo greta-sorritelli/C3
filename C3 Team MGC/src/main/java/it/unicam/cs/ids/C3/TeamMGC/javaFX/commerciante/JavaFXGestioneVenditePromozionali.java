@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller della pagina per la gestione delle vendite promozionali.
@@ -71,6 +72,12 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
                     if (promozione != null)
                         negozio.eliminaPromozione(Integer.parseInt(promozione.get(0)));
                 successWindow("Success!", "Promozioni eliminate con successo.", 2);
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    errorWindow("Error!", "Errore.");
+                }
                 sel.clear();
                 if (!negozio.getDettagliPromozioni().isEmpty())
                     visualizzaPromozioni();

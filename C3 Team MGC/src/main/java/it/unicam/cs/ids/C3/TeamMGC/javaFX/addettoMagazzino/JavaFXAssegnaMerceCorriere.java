@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller della pagina che gestisce l' Assegnazione della Merce al Corriere.
@@ -282,6 +283,12 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciResidenza(residenzaTextField.getText()));
             if (merceOrdineTable.getItems().isEmpty()) {
                 alertWindow("Merci non presenti.", "Aggiorna piu' tardi.");
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    errorWindow("Error!", "Errore.");
+                }
                 closeWindow((Stage) residenzaTextField.getScene().getWindow());
             }
         } catch (SQLException exception) {
