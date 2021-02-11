@@ -14,7 +14,8 @@ oltre alla più difficile collocazione dei punti vendita in relazione a specific
 Il progetto si pone dunque come obiettivo quello di fornire un supporto tramite punti di prelievo
 per rendere l’esperienza degli acquisti in centro più facile e interessante.
 
-<h3>**_Iterazione 1_**</h3>
+<h3>Iterazione 1</h3>
+
 - _Identificazione degli attori principali_: Commerciante, Commesso, Corriere, Magazziniere, Addetto magazzino
   del negozio e Cliente.
 - _Identificazione casi d' uso_:
@@ -31,7 +32,8 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Consegna la merce al punto di prelievo.</li>
   <li> Modificare lo stato di disponibilità.</li> </ul>
   <p>&nbsp;</p>
--  _Assegnamento priorità dei casi d' uso_;
+
+- _Assegnamento priorità dei casi d' uso_;
 - _Specifica dei casi d' uso principali_ di corriere, commesso, addetto e magazziniere;
 - _Realizzazione classi di analisi_;
 - _Realizzazione diagrammi di sequenza_:
@@ -47,7 +49,8 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
 - _Inizio implementazione componenti base_.
 ************************************************************************************************************
 
-<h3>**_Iterazione 2_**</h3>
+<h3>Iterazione 2</h3>
+
 - _Scrittura scenari nuovi casi d' uso_:
   <p>&nbsp;</p>
   <ul> <li>Gestire vendite promozionali.</li>
@@ -55,6 +58,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Filtrare le promozioni.</li> 
   <li> Gestione inventario.</li> </ul>
   <p>&nbsp;</p>
+
 - _Revisione e correzione casi d' uso precedenti_;
 - _Modifica modello di analisi_: aggiunta di nuovi gestori e modifica struttura di personale;
 - _Realizzazione nuovi diagrammi di sequenza_:
@@ -73,7 +77,8 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
 - _Proseguimento implementazione_.
 ************************************************************************************************************
 
-<h3>**_Iterazione 3_**</h3>
+<h3>Iterazione 3</h3>
+
 - _Aggiunta dell' attore astratto utente e correzione associazione casi d' uso/attori_;
 - _Scrittura scenari casi d' uso finali_:
   <p>&nbsp;</p>
@@ -86,6 +91,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Gestione punti prelievo.</li> 
   <li> Lanciare vendita combinata.</li> </ul>
   <p>&nbsp;</p>
+
 - _Revisione e correzione casi d' uso precedenti_;
 - _Modifica modello di analisi_: aggiunta nuovi gestori, metodi, attributi e rifinizione relazioni e classi precedenti;
 - _Realizzazione nuovi diagrammi di sequenza_:
