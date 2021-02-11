@@ -64,13 +64,13 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
             if (nome.getText().isEmpty() || indirizzo.getText().isEmpty())
                 throw new IllegalArgumentException("Dati non presenti");
             gestoreMagazzini.inserisciPuntoPrelievo(nome.getText(), indirizzo.getText());
-            successWindow("Success!", "Punto prelievo registrato con successo.");
+            successWindow("Success!", "Punto prelievo registrato con successo.", 2);
             nome.clear();
             indirizzo.clear();
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         } catch (IllegalArgumentException exception) {
-            alertWindow("Alert!", "Inserire tutti i dati richiesti.");
+            alertWindow("Alert!", "Inserire tutti i dati richiesti.", 2);
         }
     }
 
@@ -86,16 +86,16 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
                     }
                 for (PuntoPrelievo p : puntiSelezionati)
                     gestoreMagazzini.removePuntoPrelievo(p.getID());
-                successWindow("Success!", "Punti prelievo eliminati con successo.");
+                successWindow("Success!", "Punti prelievo eliminati con successo.", 2);
                 sel.clear();
                 if (!gestoreMagazzini.getDettagliItems().isEmpty())
                     visualizzaPuntiPrelievo();
                 else
                     tab.getSelectionModel().select(registra);
             } else
-                alertWindow("Impossibile proseguire", "Selezionare uno o piu' punti di prelievo.");
+                alertWindow("Impossibile proseguire", "Selezionare uno o piu' punti di prelievo.", 2);
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 
@@ -107,11 +107,11 @@ public class JavaFXGestionePuntiPrelievo implements JavaFXController {
             puntiSelezionati.clear();
             puntiPrelievoTable.getItems().addAll(gestoreMagazzini.getDettagliItems());
             if (puntiPrelievoTable.getItems().isEmpty()) {
-                alertWindow("Alert!", "Non ci sono punti di prelievo.");
+                alertWindow("Alert!", "Non ci sono punti di prelievo.", 2);
                 tab.getSelectionModel().select(registra);
             }
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 }

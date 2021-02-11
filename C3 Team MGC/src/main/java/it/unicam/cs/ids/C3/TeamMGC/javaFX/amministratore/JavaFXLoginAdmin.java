@@ -34,18 +34,18 @@ public class JavaFXLoginAdmin implements JavaFXController {
             if (nomeUtente.getText().isEmpty() || getPassword().isEmpty())
                 throw new NullPointerException("Dati non presenti.");
             if (GestoreLogin.checkInfo(nomeUtente.getText(), getPassword())) {
-                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.");
+                successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
                 openWindow("/amministratore/HomeAmministratore.fxml", "Home Amministratore", new IAmministratore());
                 closeWindow((Stage) nomeUtente.getScene().getWindow());
             } else
-                errorWindow("Login non effettuato.", "Nome utente o password errati.");
+                errorWindow("Login non effettuato.", "Nome utente o password errati.", 2);
         } catch (IllegalArgumentException e) {
-            errorWindow("Error!", "Password errata.");
+            errorWindow("Error!", "Password errata.", 2);
             password.clear();
         } catch (NullPointerException exception) {
-            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.");
+            alertWindow("Dati non presenti!", "Inserire tutti i dati richiesti.", 2);
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB." + exception.getMessage());
+            errorWindow("Error!", "Errore nel DB." + exception.getMessage(), 2);
         }
     }
 }

@@ -71,16 +71,16 @@ public class JavaFXGestioneNegozi implements JavaFXController {
                     }
                 for (Negozio negozio : negoziSelezionati)
                     gestoreNegozi.removeNegozio(negozio.getID());
-                successWindow("Success!", "Negozi eliminati con successo.");
+                successWindow("Success!", "Negozi eliminati con successo.", 2);
                 sel.clear();
                 if (!gestoreNegozi.getDettagliItems().isEmpty())
                     visualizzaNegozi();
                 else
                     tab.getSelectionModel().select(registra);
             } else
-                alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.");
+                alertWindow("Impossibile proseguire", "Selezionare uno o piu' negozi.", 2);
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 
@@ -123,7 +123,7 @@ public class JavaFXGestioneNegozi implements JavaFXController {
             if (nome.getText().isEmpty() || categorieChoiceBox.getValue() == null || getTelefono().isEmpty() || indirizzo.getText().isEmpty() || orarioA.getText().isEmpty() || orarioC.getText().isEmpty())
                 throw new IllegalArgumentException("Dati non presenti");
             gestoreNegozi.inserisciNegozio(nome.getText(), categorieChoiceBox.getValue(), indirizzo.getText(), getTelefono(), getOrario(orarioA), getOrario(orarioC));
-            successWindow("Success!", "Negozio registrato con successo.");
+            successWindow("Success!", "Negozio registrato con successo.", 2);
             nome.clear();
             categorieChoiceBox.getItems().clear();
             indirizzo.clear();
@@ -131,16 +131,16 @@ public class JavaFXGestioneNegozi implements JavaFXController {
             orarioA.clear();
             orarioC.clear();
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         } catch (NumberFormatException exception) {
-            alertWindow("Formato orario non valido!", "Inserire un orario nel formato 00:00.");
+            alertWindow("Formato orario non valido!", "Inserire un orario nel formato 00:00.", 2);
         } catch (IllegalArgumentException exception) {
             if (exception.getMessage().equals("Formato telefono non valido.")) {
-                alertWindow("Formato telefono non valido!", "Inserire solo numeri.");
+                alertWindow("Formato telefono non valido!", "Inserire solo numeri.", 2);
                 telefono.clear();
             }
             if (exception.getMessage().equals("Dati non presenti"))
-                alertWindow("Alert!", "Inserire tutti i dati richiesti.");
+                alertWindow("Alert!", "Inserire tutti i dati richiesti.", 2);
         }
     }
 
@@ -183,11 +183,11 @@ public class JavaFXGestioneNegozi implements JavaFXController {
             negoziSelezionati.clear();
             negoziTable.getItems().addAll(gestoreNegozi.getDettagliItems());
             if (negoziTable.getItems().isEmpty()) {
-                alertWindow("Alert!", "Non ci sono negozi.");
+                alertWindow("Alert!", "Non ci sono negozi.", 2);
                 tab.getSelectionModel().select(registra);
             }
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 }

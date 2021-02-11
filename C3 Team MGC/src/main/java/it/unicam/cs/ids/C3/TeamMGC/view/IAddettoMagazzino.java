@@ -42,12 +42,12 @@ public class IAddettoMagazzino implements JavaFXController {
                 throw new IllegalArgumentException("Merci non disponibili.");
             openWindow("/addettoMagazzino/AssegnaMerceCorriere.fxml", "AssegnaMerce", new JavaFXAssegnaMerceCorriere());
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         } catch (IllegalArgumentException e) {
             if (e.getMessage().equals("Corrieri disponibili non presenti."))
-                alertWindow("Corrieri non disponibili.", "Aggiorna piu' tardi.");
+                alertWindow("Corrieri non disponibili.", "Aggiorna piu' tardi.", 2);
             if (e.getMessage().equals("Merci non disponibili."))
-                alertWindow("Non ci sono merci da affidare al corriere.", "Aggiorna piu' tardi.");
+                alertWindow("Non ci sono merci da affidare al corriere.", "Aggiorna piu' tardi.", 2);
         }
     }
 

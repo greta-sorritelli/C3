@@ -35,9 +35,9 @@ public class IMagazziniere implements JavaFXController {
             gestoreCorrieri.getCorrieriDisponibili();
             openWindow("/magazziniere/ComunicareConCorriere.fxml", "Comunicare Con il Corriere", new JavaFXComunicareConCorriere(puntoPrelievo.getID()));
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }catch (IllegalArgumentException exception){
-            alertWindow("Riprovare piu' tardi.", "Non ci sono corrieri disponibili.");
+            alertWindow("Riprovare piu' tardi.", "Non ci sono corrieri disponibili.", 2);
         }
     }
 

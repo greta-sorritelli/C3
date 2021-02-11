@@ -21,10 +21,10 @@ import java.io.IOException;
  */
 public interface JavaFXController {
 
-    default void alertWindow(String warningHeader, String warningMessage) {
+    default void alertWindow(String warningHeader, String warningMessage, int sec) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning!");
-        showAlert(alert, warningHeader, warningMessage);
+        showAlert(alert, warningHeader, warningMessage, sec);
     }
 
     /**
@@ -36,16 +36,16 @@ public interface JavaFXController {
         stage.close();
     }
 
-    default void errorWindow(String errorHeader, String errorMessage) {
+    default void errorWindow(String errorHeader, String errorMessage, int sec) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error!");
-        showAlert(alert, errorHeader, errorMessage);
+        showAlert(alert, errorHeader, errorMessage, sec);
     }
 
-    default void informationWindow(String successHeader, String successMessage) {
+    default void informationWindow(String successHeader, String successMessage, int sec) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info!");
-        showAlert(alert, successHeader, successMessage);
+        showAlert(alert, successHeader, successMessage, sec);
     }
 
     /**
@@ -73,18 +73,18 @@ public interface JavaFXController {
         }
     }
 
-    private void showAlert(Alert alert, String header, String message) {
+    private void showAlert(Alert alert, String header, String message, int sec) {
         alert.setHeaderText(header);
         alert.setContentText(message);
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        delay.setOnFinished(e -> alert.hide());
+        PauseTransition delay = new PauseTransition(Duration.seconds(sec));
+        delay.setOnFinished(e -> alert.close());
         alert.show();
         delay.play();
     }
 
-    default void successWindow(String successHeader, String successMessage) {
+    default void successWindow(String successHeader, String successMessage, int sec) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Success!");
-        showAlert(alert, successHeader, successMessage);
+        showAlert(alert, successHeader, successMessage, sec);
     }
 }

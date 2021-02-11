@@ -43,6 +43,7 @@ public class ICorriere implements JavaFXController {
             delay.setOnFinished(e -> alert.close());
             alert.show();
             delay.play();
+            informationWindow("Attendere...", "Controllo della merce da consegnare.", 3);
 //            alert.show();
             if (gestoreOrdini.getDettagliMerciOfCorriere(ID, StatoOrdine.IN_TRANSITO).isEmpty()) {
 //                alert.close();
@@ -51,9 +52,9 @@ public class ICorriere implements JavaFXController {
 //            alert.close();
             openWindow("/corriere/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(ID));
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         } catch (IllegalArgumentException exception) {
-            alertWindow("Riprovare piu' tardi.", "Non ci sono merci da consegnare.");
+            alertWindow("Riprovare piu' tardi.", "Non ci sono merci da consegnare.", 2);
         }
     }
 
@@ -82,9 +83,9 @@ public class ICorriere implements JavaFXController {
             alert.close();
             openWindow("/corriere/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(ID));
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         } catch (IllegalArgumentException exception) {
-            alertWindow("Riprovare piu' tardi.", "Non ci sono merci da trasportare.");
+            alertWindow("Riprovare piu' tardi.", "Non ci sono merci da trasportare.", 2);
         }
     }
 

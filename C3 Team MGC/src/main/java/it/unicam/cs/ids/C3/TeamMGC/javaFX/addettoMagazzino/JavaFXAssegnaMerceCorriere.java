@@ -126,11 +126,11 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                     }
                 }
                 alert.close();
-                successWindow("Assegnazione eseguita con successo", "La merce selezionata e' stata affidata al corriere.");
+                successWindow("Assegnazione eseguita con successo", "La merce selezionata e' stata affidata al corriere.", 2);
                 visualizzaMerce();
             }
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 
@@ -156,10 +156,10 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                     merceOrdine.setDisable(true);
                 }
             } else {
-                alertWindow("Impossibile proseguire", "Selezionare un corriere.");
+                alertWindow("Impossibile proseguire", "Selezionare un corriere.", 2);
             }
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 
@@ -175,7 +175,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             corrieri.setDisable(true);
             destinazione.setDisable(true);
         } catch (NullPointerException e) {
-            errorWindow("Selezionare una destinazione!", "Seleziona un punto di prelievo o inserisci una residenza.");
+            errorWindow("Selezionare una destinazione!", "Seleziona un punto di prelievo o inserisci una residenza.", 2);
         }
     }
 
@@ -194,9 +194,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
                 }
                 sel.clear();
             } else
-                alertWindow("Impossibile proseguire", "Selezionare la merce da affidare al corriere.");
+                alertWindow("Impossibile proseguire", "Selezionare la merce da affidare al corriere.", 2);
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 
@@ -211,7 +211,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             } else
                 throw new NullPointerException();
         } catch (SQLException e) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 
@@ -265,9 +265,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             corriereTable.getItems().clear();
             corriereTable.getItems().addAll(gestoreCorrieri.getDettagliCorrieriDisponibili());
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         } catch (IllegalArgumentException e) {
-            alertWindow("Corrieri non disponibili.", "Aggiorna piu' tardi.");
+            alertWindow("Corrieri non disponibili.", "Aggiorna piu' tardi.", 2);
         }
     }
 
@@ -281,11 +281,11 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             if (selectedResidenza != null)
                 merceOrdineTable.getItems().addAll(gestoreOrdini.getDettagliMerciResidenza(residenzaTextField.getText()));
             if (merceOrdineTable.getItems().isEmpty()) {
-                alertWindow("Merci non presenti.", "Aggiorna piu' tardi.");
+                alertWindow("Merci non presenti.", "Aggiorna piu' tardi.", 2);
                 closeWindow((Stage) residenzaTextField.getScene().getWindow());
             }
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 
@@ -299,7 +299,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             magazzinoTable.getItems().clear();
             magazzinoTable.getItems().addAll(gestoreMagazzini.getDettagliItems());
         } catch (SQLException exception) {
-            errorWindow("Error!", "Errore nel DB.");
+            errorWindow("Error!", "Errore nel DB.", 2);
         }
     }
 }
