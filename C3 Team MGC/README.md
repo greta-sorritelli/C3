@@ -18,7 +18,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
 - _Identificazione degli attori principali_: Commerciante, Commesso, Corriere, Magazziniere, Addetto magazzino
   del negozio e Cliente.
 - _Identificazione casi d' uso_:
-  <p>&nbsp;</p>
+
   <ul> <li>Registrazione sulla piattaforma.</li>
   <li> Ricezione pagamento ordine.</li> 
   <li> Seleziona punto di prelievo.</li> 
@@ -31,12 +31,11 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Consegna la merce al punto di prelievo.</li>
   <li> Modificare lo stato di disponibilità.</li> </ul>
   <p>&nbsp;</p>
-  
 -  _Assegnamento priorità dei casi d' uso_;
 - _Specifica dei casi d' uso principali_ di corriere, commesso, addetto e magazziniere;
 - _Realizzazione classi di analisi_;
 - _Realizzazione diagrammi di sequenza_:
-  <p>&nbsp;</p>
+
   <ul> <li>Comunicare codice di ritiro ordine.</li>
   <li> Consegnare la merce al cliente.</li> 
   <li> Ricezione pagamento ordine.</li> 
@@ -50,7 +49,6 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
 
 <h3>Iterazione 2</h3>
 - _Scrittura scenari nuovi casi d' uso_:
-  <p>&nbsp;</p>
   <ul> <li>Gestire vendite promozionali.</li>
   <li> Filtrare i punti vendita.</li> 
   <li> Filtrare le promozioni.</li> 
@@ -60,7 +58,6 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
 - _Revisione e correzione casi d' uso precedenti_;
 - _Modifica modello di analisi_: aggiunta di nuovi gestori e modifica struttura di personale;
 - _Realizzazione nuovi diagrammi di sequenza_:
-  <p>&nbsp;</p>
   <ul> <li>Assegnare al corriere la merce.</li>
   <li> Comunicare con il corriere.</li> 
   <li> Consegna la merce a destinazione.</li> 
@@ -78,7 +75,6 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
 <h3>Iterazione 3</h3>
 - _Aggiunta dell' attore astratto utente e correzione associazione casi d' uso/attori_;
 - _Scrittura scenari casi d' uso finali_:
-  <p>&nbsp;</p>
   <ul> <li>Effettuare pagamenti.</li>
   <li> Occuparsi delle statistiche.</li>
   <li> SignIn.</li> 
@@ -92,7 +88,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
 - _Revisione e correzione casi d' uso precedenti_;
 - _Modifica modello di analisi_: aggiunta nuovi gestori, metodi, attributi e rifinizione relazioni e classi precedenti;
 - _Realizzazione nuovi diagrammi di sequenza_:
-  <p>&nbsp;</p>
+
   <ul> <li>Gestione negozi.</li>
   <li> Gestione punti prelievo.</li> 
   <li> Controllare alert.</li> 
