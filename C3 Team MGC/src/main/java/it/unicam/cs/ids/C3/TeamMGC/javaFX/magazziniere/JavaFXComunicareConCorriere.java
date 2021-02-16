@@ -7,10 +7,12 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -129,6 +131,9 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     private void selezionaNegozio(Alert alert) {
         try {
             if (!negoziTable.getSelectionModel().isEmpty()) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished(e -> alert.close());
+                alert.setOnShown(e -> delay.playFromStart());
                 alert.showAndWait();
                 ArrayList<ArrayList<String>> sel = new ArrayList<>(negoziTable.getSelectionModel().getSelectedItems());
                 for (ArrayList<String> negozio : sel)

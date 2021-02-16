@@ -7,10 +7,13 @@ import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -182,6 +185,9 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     private void selezionaMerce(Alert alert) {
         try {
             if (!merceOrdineTable.getSelectionModel().isEmpty()) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished(e -> alert.close());
+                alert.setOnShown(e -> delay.playFromStart());
                 alert.showAndWait();
                 ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
                 for (ArrayList<String> merce : sel) {
