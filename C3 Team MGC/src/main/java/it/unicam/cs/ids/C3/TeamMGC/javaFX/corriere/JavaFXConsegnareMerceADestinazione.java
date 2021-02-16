@@ -143,9 +143,23 @@ public class JavaFXConsegnareMerceADestinazione implements JavaFXController {
     public void ricercaMagazzini() {
         selezionaMerce();
         if (selectedMerce != null) {
-            tab.getSelectionModel().select(ricerca);
-            ricerca.setDisable(false);
-            merce.setDisable(true);
+            try {
+                if (gestoreOrdini.getOrdine(selectedMerce.getIDOrdine()).getPuntoPrelievo() == 0) {
+                    tab.getSelectionModel().select(ricerca);
+                    ricerca.setDisable(false);
+                    merce.setDisable(true);
+                }
+                else
+                    throw new IllegalArgumentException();
+            } catch (SQLException throwables) {
+                errorWindow("Error!", "Errore nel DB.");
+                ricerca.setDisable(true);
+                merce.setDisable(false);
+            } catch (IllegalArgumentException e) {
+                alertWindow("Impossibile selezionare un punto di prelievo.", "La merce e' gia' assegnata ad un punto di prelievo.");
+                ricerca.setDisable(true);
+                merce.setDisable(false);
+            }
         }
     }
 
