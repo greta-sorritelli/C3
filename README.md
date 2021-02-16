@@ -31,7 +31,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Consegnare la merce al cliente.</li>
   <li> Consegna la merce al punto di prelievo.</li>
   <li> Modificare lo stato di disponibilità.</li> </ul>
-  <p>&nbsp;</p>
+  
 
 - _Assegnamento priorità dei casi d' uso_;
 - _Specifica dei casi d' uso principali_ di corriere, commesso, addetto e magazziniere;
@@ -43,7 +43,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Ricezione pagamento ordine.</li> 
   <li> Seleziona corriere.</li> 
   <li> Seleziona punto di prelievo.</li> </ul>
-  <p>&nbsp;</p>
+  
 
 - _Realizzazione modello di progetto_;
 - _Inizio implementazione componenti base_.
@@ -57,7 +57,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Filtrare i punti vendita.</li> 
   <li> Filtrare le promozioni.</li> 
   <li> Gestione inventario.</li> </ul>
-  <p>&nbsp;</p>
+  
 
 - _Revisione e correzione casi d' uso precedenti_;
 - _Modifica modello di analisi_: aggiunta di nuovi gestori e modifica struttura di personale;
@@ -70,7 +70,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Registrazione sulla piattaforma.</li> 
   <li> Trasportare la merce.</li> 
   <li> Modificare lo stato di disponibilità.</li> </ul>
-  <p>&nbsp;</p>
+  
 
 - _Revisione modello di progetto_: aggiunta packages e gestori;
 - _Realizzazione modello persistenza_;
@@ -90,7 +90,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Gestione negozi.</li> 
   <li> Gestione punti prelievo.</li> 
   <li> Lanciare vendita combinata.</li> </ul>
-  <p>&nbsp;</p>
+  
 
 - _Revisione e correzione casi d' uso precedenti_;
 - _Modifica modello di analisi_: aggiunta nuovi gestori, metodi, attributi e rifinizione relazioni e classi precedenti;
@@ -105,7 +105,7 @@ per rendere l’esperienza degli acquisti in centro più facile e interessante.
   <li> Login.</li> 
   <li> SignIn.</li> 
   <li> Occuparsi delle statistiche.</li> </ul>
-  <p>&nbsp;</p>
+  
 
 - _Revisione modello di progetto_: aggiunta interfacce, gestori e rifinizione finale delle classi;
 - _Realizzazione modello persistenza_;
