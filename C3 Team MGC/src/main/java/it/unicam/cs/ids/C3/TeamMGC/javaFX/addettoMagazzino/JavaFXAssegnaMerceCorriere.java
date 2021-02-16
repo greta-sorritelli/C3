@@ -182,7 +182,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
     private void selezionaMerce(Alert alert) {
         try {
             if (!merceOrdineTable.getSelectionModel().isEmpty()) {
-                alert.show();
+                alert.showAndWait();
                 ArrayList<ArrayList<String>> sel = new ArrayList<>(merceOrdineTable.getSelectionModel().getSelectedItems());
                 for (ArrayList<String> merce : sel) {
                     if (merce != null) {

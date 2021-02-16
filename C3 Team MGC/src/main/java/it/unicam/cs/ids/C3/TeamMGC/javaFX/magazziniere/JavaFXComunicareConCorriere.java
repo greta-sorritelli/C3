@@ -129,7 +129,7 @@ public class JavaFXComunicareConCorriere implements JavaFXController {
     private void selezionaNegozio(Alert alert) {
         try {
             if (!negoziTable.getSelectionModel().isEmpty()) {
-                alert.show();
+                alert.showAndWait();
                 ArrayList<ArrayList<String>> sel = new ArrayList<>(negoziTable.getSelectionModel().getSelectedItems());
                 for (ArrayList<String> negozio : sel)
                     if (negozio != null) {
