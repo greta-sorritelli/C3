@@ -163,6 +163,7 @@ class GestoreOrdiniTest {
         gestoreOrdini.registraMerce(IDMerce2, 8, IDOrdine, negozio);
 
         gestoreOrdini.terminaOrdine(IDOrdine);
+        gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.CORRIERE_SCELTO);
         gestoreOrdini.getOrdine(IDOrdine).setResidenza("Camerino, Piazza della Computer Science 30");
 
         ArrayList<ArrayList<String>> toTest = gestoreOrdini.getDettagliMerciResidenza("Camerino, Piazza della Computer Science 30");
@@ -173,8 +174,8 @@ class GestoreOrdiniTest {
         assertEquals("25.0", toTest.get(1).get(2));
         assertEquals("Jeans", toTest.get(0).get(3));
         assertEquals("Caricatore", toTest.get(1).get(3));
-        assertEquals(StatoOrdine.PAGATO.toString(), toTest.get(0).get(5));
-        assertEquals(StatoOrdine.PAGATO.toString(), toTest.get(1).get(5));
+        assertEquals(StatoOrdine.CORRIERE_SCELTO.toString(), toTest.get(0).get(5));
+        assertEquals(StatoOrdine.CORRIERE_SCELTO.toString(), toTest.get(1).get(5));
     }
 
     @Test
@@ -307,6 +308,7 @@ class GestoreOrdiniTest {
         gestoreOrdini.registraMerce(IDMerce2, 8, IDOrdine, negozio);
         gestoreOrdini.terminaOrdine(IDOrdine);
         gestoreOrdini.getOrdine(IDOrdine).setPuntoPrelievo(p.getID());
+        gestoreOrdini.setStatoOrdine(IDOrdine, StatoOrdine.CORRIERE_SCELTO);
 
         ArrayList<ArrayList<String>> toTest = gestoreOrdini.getDettagliMerciMagazzino(p.getID());
         assertFalse(toTest.isEmpty());
@@ -316,8 +318,8 @@ class GestoreOrdiniTest {
         assertEquals("14.0", toTest.get(1).get(2));
         assertEquals("Chitarra", toTest.get(0).get(3));
         assertEquals("Custodia", toTest.get(1).get(3));
-        assertEquals(StatoOrdine.PAGATO.toString(), toTest.get(0).get(5));
-        assertEquals(StatoOrdine.PAGATO.toString(), toTest.get(1).get(5));
+        assertEquals(StatoOrdine.CORRIERE_SCELTO.toString(), toTest.get(0).get(5));
+        assertEquals(StatoOrdine.CORRIERE_SCELTO.toString(), toTest.get(1).get(5));
     }
 
     @Test
@@ -442,14 +444,14 @@ class GestoreOrdiniTest {
         ArrayList<String> merceDettagli1 = negozio.inserisciNuovaMerce(5, "Righello", 20);
         int IDMerce1 = Integer.parseInt(merceDettagli1.get(0));
 
-        gestoreOrdini.registraMerce(IDMerce1,5,Integer.parseInt(ordine.get(0)),negozio);
+        gestoreOrdini.registraMerce(IDMerce1, 5, Integer.parseInt(ordine.get(0)), negozio);
 
         int IDMerceOrdine = gestoreOrdini.getMerciOrdine(Integer.parseInt(ordine.get(0))).get(0).getID();
 
         assertEquals(StatoOrdine.DA_PAGARE, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
         gestoreOrdini.setStatoOrdine(Integer.parseInt(ordine.get(0)), StatoOrdine.IN_DEPOSITO);
         assertEquals(StatoOrdine.IN_DEPOSITO, gestoreOrdini.getOrdine(Integer.parseInt(ordine.get(0))).getStato());
-        assertEquals(StatoOrdine.IN_DEPOSITO,gestoreOrdini.getMerceOrdine(IDMerceOrdine).getStato());
+        assertEquals(StatoOrdine.IN_DEPOSITO, gestoreOrdini.getMerceOrdine(IDMerceOrdine).getStato());
 
         ResultSet rs = executeQuery("SELECT stato FROM sys.ordini where ID = " + Integer.parseInt(ordine.get(0)) + ";");
         if (rs.next())
