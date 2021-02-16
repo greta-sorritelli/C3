@@ -72,12 +72,6 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
                     if (promozione != null)
                         negozio.eliminaPromozione(Integer.parseInt(promozione.get(0)));
                 successWindow("Success!", "Promozioni eliminate con successo.", 2);
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                    errorWindow("Error!", "Errore.");
-                }
                 sel.clear();
                 if (!negozio.getDettagliPromozioni().isEmpty())
                     visualizzaPromozioni();
@@ -171,6 +165,12 @@ public class JavaFXGestioneVenditePromozionali implements JavaFXController {
             promozioneChoiceBox.setItems(FXCollections.observableArrayList(negozio.getDettagliPromozioni()));
             if (promozioneChoiceBox.getItems().isEmpty()) {
                 alertWindow("Promozioni non presenti.", "Aggiorna piu' tardi.");
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    errorWindow("Error!", "Errore.");
+                }
                 tab.getSelectionModel().select(lancia);
             }
         } catch (SQLException exception) {

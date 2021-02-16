@@ -12,9 +12,7 @@ import javafx.application.Application;
 public class App {
 
     public static void main(String[] args) {
-        if (args.length == 0)
-            launchGui();
-        throw new UnsupportedOperationException();
+        launchGui();
     }
 
     private static void launchGui() {

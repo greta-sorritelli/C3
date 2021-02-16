@@ -78,7 +78,6 @@ public interface JavaFXController {
         delay.setOnFinished(e -> alert.close());
         alert.setOnShown(e -> delay.playFromStart());
         alert.showAndWait();
-//        delay.play();
     }
     default void successWindow(String successHeader, String successMessage, int sec) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

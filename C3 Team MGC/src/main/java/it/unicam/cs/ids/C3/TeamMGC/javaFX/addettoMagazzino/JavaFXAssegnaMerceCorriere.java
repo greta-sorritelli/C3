@@ -11,7 +11,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -284,7 +283,7 @@ public class JavaFXAssegnaMerceCorriere implements JavaFXController {
             if (merceOrdineTable.getItems().isEmpty()) {
                 alertWindow("Merci non presenti.", "Aggiorna piu' tardi.");
                 try {
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                     errorWindow("Error!", "Errore.");

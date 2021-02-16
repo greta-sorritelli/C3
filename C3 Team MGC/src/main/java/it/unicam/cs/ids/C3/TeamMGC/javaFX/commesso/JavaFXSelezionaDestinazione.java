@@ -15,9 +15,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Controller della pagina per selezionare il Punto di Prelievo.
@@ -66,12 +64,6 @@ public class JavaFXSelezionaDestinazione implements JavaFXController {
                 gestoreCorrieri.getCorrieriDisponibili();
                 gestoreOrdini.addResidenza(IDOrdine, residenza.getText());
                 successWindow("Residenza salvata con successo!", "Ora potrai scegliere il corriere da avvisare.", 2);
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                    errorWindow("Error!", "Errore.");
-                }
                 sceltaCorriere();
                 closeWindow((Stage) residenza.getScene().getWindow());
             } else

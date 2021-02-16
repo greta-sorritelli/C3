@@ -7,19 +7,14 @@ import it.unicam.cs.ids.C3.TeamMGC.negozio.Merce;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.MerceOrdine;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.SimpleMerceOrdine;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Controller della pagina per la ricezione del Pagamento e terminare l' Ordine.
@@ -149,14 +144,7 @@ public class JavaFXRicezionePagamento implements JavaFXController {
         try {
             if (!merceTable.getItems().isEmpty()) {
                 gestoreOrdini.terminaOrdine(Integer.parseInt(ordineTextField.getText()));
-
                 successWindow("Ordine terminato con successo!", "Lo stato dell' ordine e' stato impostato a pagato.", 2);
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                    errorWindow("Error!", "Errore.");
-                }
                 selezionaDestinazione();
                 closeWindow((Stage) IDCliente.getScene().getWindow());
             } else

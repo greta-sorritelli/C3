@@ -12,10 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Controller della pagina che gestisce il Login degli Utenti.
@@ -59,7 +57,6 @@ public class JavaFXLogin implements JavaFXController {
             gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("ADDETTO_MAGAZZINO", id, password.getText(), idNegozio)) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
-                waitAlert();
                 openWindow("/addettoMagazzino/HomeAddettoMagazzino.fxml", "Home Addetto magazzino del negozio", new IAddettoMagazzino(id, idNegozio));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -82,7 +79,6 @@ public class JavaFXLogin implements JavaFXController {
             int id = Integer.parseInt(ID.getText());
             if (gestoreClienti.checkInfo("CLIENTE", id, password.getText())) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
-                waitAlert();
                 openWindow("/cliente/HomeCliente.fxml", "Home Cliente", new ICliente(id));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -107,7 +103,6 @@ public class JavaFXLogin implements JavaFXController {
             gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("COMMERCIANTE", id, password.getText(), idNegozio)) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
-                waitAlert();
                 openWindow("/commerciante/HomeCommerciante.fxml", "Home Commerciante", new ICommerciante(id, idNegozio));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -132,7 +127,6 @@ public class JavaFXLogin implements JavaFXController {
             gestorePersonale = new GestorePersonale(idNegozio);
             if (gestorePersonale.checkInfo("COMMESSO", id, password.getText(), idNegozio)) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
-                waitAlert();
                 openWindow("/commesso/HomeCommesso.fxml", "Home Commesso", new ICommesso(id, idNegozio));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -155,7 +149,6 @@ public class JavaFXLogin implements JavaFXController {
             int id = Integer.parseInt(ID.getText());
             if (gestoreCorrieri.checkInfo("CORRIERE", id, password.getText())) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
-                waitAlert();
                 openWindow("/corriere/HomeCorriere.fxml", "Home Corriere", new ICorriere(id));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -178,7 +171,6 @@ public class JavaFXLogin implements JavaFXController {
             int idMagazzino = Integer.parseInt(IDSede.getText());
             if (gestoreMagazzini.checkInfo("MAGAZZINIERE", idMagazzino, password.getText())) {
                 successWindow("Login effettuato.", "Il login e' stato effettuato con successo.", 2);
-                waitAlert();
                 openWindow("/magazziniere/HomeMagazziniere.fxml", "Home Magazziniere", new IMagazziniere(idMagazzino));
                 closeWindow((Stage) ID.getScene().getWindow());
             } else
@@ -266,12 +258,4 @@ public class JavaFXLogin implements JavaFXController {
         }
     }
 
-    private void waitAlert(){
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
-            errorWindow("Error!", "Errore.");
-        }
-    }
 }

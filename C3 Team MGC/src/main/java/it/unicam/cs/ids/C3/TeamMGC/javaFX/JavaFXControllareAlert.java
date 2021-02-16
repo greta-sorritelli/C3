@@ -79,7 +79,7 @@ public class JavaFXControllareAlert implements JavaFXController {
         } catch (NullPointerException e) {
             alertWindow("Non ci sono notifiche.", "Aggiornare piu' tardi.");
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
                 errorWindow("Error!", "Errore.");
