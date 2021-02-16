@@ -8,6 +8,8 @@ import it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere.JavaFXTrasportareMerce;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.layout.AnchorPane;
 import java.sql.SQLException;
 
 /**
@@ -21,6 +23,8 @@ public class ICorriere implements JavaFXController {
 
     private final int ID;
     private final String tipologiaUtente = "CORRIERE";
+    @FXML
+    AnchorPane pane;
 
     public ICorriere(int ID) {
         this.ID = ID;
@@ -32,11 +36,11 @@ public class ICorriere implements JavaFXController {
     @FXML
     public void consegnaMerce() {
         try {
-            informationWindow("Attendere...", "Controllo della merce da consegnare.", 3);
             if (gestoreOrdini.getDettagliMerciOfCorriere(ID, StatoOrdine.IN_TRANSITO).isEmpty()) {
                 throw new IllegalArgumentException("Merci non presenti.");
             }
             openWindow("/corriere/ConsegnareMerceADestinazione.fxml", "Consegna Merce", new JavaFXConsegnareMerceADestinazione(ID));
+            resetMouse();
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -58,11 +62,11 @@ public class ICorriere implements JavaFXController {
     @FXML
     public void trasportoMerce() {
         try {
-            informationWindow("Attendere...", "Controllo della merce da trasportare.", 3);
             if (gestoreOrdini.getDettagliMerciOfCorriere(ID, StatoOrdine.AFFIDATO_AL_CORRIERE).isEmpty()) {
                 throw new IllegalArgumentException("Merci non presenti.");
             }
             openWindow("/corriere/TrasportareMerce.fxml", "TrasportareMerce", new JavaFXTrasportareMerce(ID));
+            resetMouse();
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
         } catch (IllegalArgumentException exception) {
@@ -78,4 +82,12 @@ public class ICorriere implements JavaFXController {
         openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(ID, tipologiaUtente));
     }
 
+    @FXML
+    public void waitingMouse() {
+        pane.getScene().setCursor(Cursor.WAIT);
+    }
+
+    private void resetMouse() {
+        pane.getScene().setCursor(Cursor.DEFAULT);
+    }
 }
