@@ -43,8 +43,10 @@ public class ICorriere implements JavaFXController {
             resetMouse();
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
+            resetMouse();
         } catch (IllegalArgumentException exception) {
             alertWindow("Riprovare piu' tardi.", "Non ci sono merci da consegnare.");
+            resetMouse();
         }
     }
 
@@ -69,8 +71,10 @@ public class ICorriere implements JavaFXController {
             resetMouse();
         } catch (SQLException exception) {
             errorWindow("Error!", "Errore nel DB.");
+            resetMouse();
         } catch (IllegalArgumentException exception) {
             alertWindow("Riprovare piu' tardi.", "Non ci sono merci da trasportare.");
+            resetMouse();
         }
     }
 

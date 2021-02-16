@@ -89,7 +89,7 @@ public class DataDBTest {
 
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('3', '59.0', 'Penna', '3', 'IN_DEPOSITO');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato) VALUES ('3', '20.0', 'Matita', '10', 'IN_DEPOSITO');");
-//
+
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('4', '58.0', 'Pennino', '10', 'AFFIDATO_AL_CORRIERE', '1');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('3', '5.0', 'Inchiostro', '5', 'AFFIDATO_AL_CORRIERE', '1');");
         updateData("INSERT INTO sys.merci (IDOrdine, prezzo, descrizione, quantita, stato, IDCorriere) VALUES ('2', '15.0', 'Evidenziatore', '3', 'AFFIDATO_AL_CORRIERE', '1');");
@@ -128,5 +128,9 @@ public class DataDBTest {
 
         //Addetto
         updateData("INSERT INTO sys.personale (IDNegozio, ruolo, nome, cognome, password) VALUES ('1', 'ADDETTO_MAGAZZINO', 'Lucia', 'Tiezzi', '12345678');");
+
+        //Promozioni
+        updateData("INSERT INTO `sys`.`promozioni` (`IDNegozio`, `IDMerce`, `messaggio`, `prezzoAttuale`, `prezzoPrecedente`) VALUES ('1', '1', 'Sconto del 30%', '42', '60');");
+        updateData("INSERT INTO `sys`.`promozioni` (`IDNegozio`, `IDMerce`, `messaggio`, `prezzoAttuale`, `prezzoPrecedente`) VALUES ('2', '3', '10€ di sconto', '5', '15');");
     }
 }
