@@ -76,10 +76,10 @@ public interface JavaFXController {
         alert.setContentText(message);
         PauseTransition delay = new PauseTransition(Duration.seconds(sec));
         delay.setOnFinished(e -> alert.close());
-        alert.show();
-        delay.play();
+        alert.setOnShown(e -> delay.playFromStart());
+        alert.showAndWait();
+//        delay.play();
     }
-
     default void successWindow(String successHeader, String successMessage, int sec) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Success!");
