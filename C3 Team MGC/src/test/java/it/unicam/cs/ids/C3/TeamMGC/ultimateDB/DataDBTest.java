@@ -131,6 +131,6 @@ public class DataDBTest {
 
         //Promozioni
         updateData("INSERT INTO `sys`.`promozioni` (`IDNegozio`, `IDMerce`, `messaggio`, `prezzoAttuale`, `prezzoPrecedente`) VALUES ('1', '1', 'Sconto del 30%', '42', '60');");
-        updateData("INSERT INTO `sys`.`promozioni` (`IDNegozio`, `IDMerce`, `messaggio`, `prezzoAttuale`, `prezzoPrecedente`) VALUES ('2', '3', '10€ di sconto', '5', '15');");
+        updateData("INSERT INTO `sys`.`promozioni` (`IDNegozio`, `IDMerce`, `messaggio`, `prezzoAttuale`, `prezzoPrecedente`) VALUES ('2', '3', '10 euro di sconto', '5', '15');");
     }
 }
