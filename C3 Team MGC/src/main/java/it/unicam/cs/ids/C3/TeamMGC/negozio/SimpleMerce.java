@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -76,9 +78,7 @@ public class SimpleMerce implements Merce {
      * <li>-1 se m ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(Merce m) {
-        if (Objects.isNull(m))
-            throw new NullPointerException();
+    public int compareTo(@NonNull Merce m) {
         if (this.equals(m))
             return 0;
         if (this.getID() > m.getID())

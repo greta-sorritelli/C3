@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -117,9 +118,7 @@ public class SimpleNegozio implements Negozio {
      * <li>-1 se n ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(Negozio n) {
-        if (Objects.isNull(n))
-            throw new NullPointerException();
+    public int compareTo(@NonNull Negozio n) {
         if (this.equals(n))
             return 0;
         if (this.getID() > n.getID())

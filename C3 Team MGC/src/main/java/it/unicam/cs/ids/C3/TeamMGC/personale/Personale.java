@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.personale;
 
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,9 +76,7 @@ public abstract class Personale implements Comparable<Personale> {
      * <li>-1 se p ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(Personale p) {
-        if (Objects.isNull(p))
-            throw new NullPointerException();
+    public int compareTo(@NonNull Personale p) {
         if (this.equals(p))
             return 0;
         if (this.getID() > p.getID())

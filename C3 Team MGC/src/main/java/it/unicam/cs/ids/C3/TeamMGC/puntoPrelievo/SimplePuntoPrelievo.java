@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo;
 
 import it.unicam.cs.ids.C3.TeamMGC.ordine.*;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,9 +70,7 @@ public class SimplePuntoPrelievo implements PuntoPrelievo {
      * <li>-1 se p ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(PuntoPrelievo p) {
-        if (Objects.isNull(p))
-            throw new NullPointerException();
+    public int compareTo(@NonNull PuntoPrelievo p) {
         if (this.equals(p))
             return 0;
         if (this.getID() > p.getID())

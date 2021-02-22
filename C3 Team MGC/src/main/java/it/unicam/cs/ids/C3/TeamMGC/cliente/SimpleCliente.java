@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.cliente;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,9 +74,7 @@ public class SimpleCliente implements Cliente {
      * <li>-1 se o ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(Cliente c) {
-        if (Objects.isNull(c))
-            throw new NullPointerException();
+    public int compareTo(@NonNull Cliente c) {
         if (this.equals(c))
             return 0;
         if (this.getID() > c.getID())

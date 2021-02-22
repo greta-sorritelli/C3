@@ -3,6 +3,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.PuntoPrelievo;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -159,9 +160,7 @@ public class SimpleOrdine implements Ordine {
      * <li>-1 se o ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(Ordine o) {
-        if (Objects.isNull(o))
-            throw new NullPointerException();
+    public int compareTo(@NonNull Ordine o) {
         if (this.equals(o))
             return 0;
         if (this.getID() > o.getID())

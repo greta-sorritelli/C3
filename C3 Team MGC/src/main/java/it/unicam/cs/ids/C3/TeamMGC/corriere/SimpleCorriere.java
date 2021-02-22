@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -70,9 +72,7 @@ public class SimpleCorriere implements Corriere {
      * <li>-1 se c ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(Corriere c) {
-        if (Objects.isNull(c))
-            throw new NullPointerException();
+    public int compareTo(@NonNull Corriere c) {
         if (this.equals(c))
             return 0;
         if (this.getID() > c.getID())

@@ -2,6 +2,7 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleMerce;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,9 +82,7 @@ public class SimpleMerceOrdine implements MerceOrdine {
      * <li>-1 se m ha l'ID maggiore.</li></ul>
      */
     @Override
-    public int compareTo(MerceOrdine m) {
-        if (Objects.isNull(m))
-            throw new NullPointerException();
+    public int compareTo(@NonNull MerceOrdine m) {
         if (this.equals(m))
             return 0;
         if (this.getID() > m.getID())
