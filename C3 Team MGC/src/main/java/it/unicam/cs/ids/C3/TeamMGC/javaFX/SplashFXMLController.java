@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +28,6 @@ public class SplashFXMLController implements Initializable, JavaFXController {
     public void initialize(URL location, ResourceBundle resources) {
         new SplashScreen().start();
     }
-
 
     /**
      * Apre la finestra principale.

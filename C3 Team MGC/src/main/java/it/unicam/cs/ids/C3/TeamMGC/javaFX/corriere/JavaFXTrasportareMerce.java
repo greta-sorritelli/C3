@@ -1,7 +1,6 @@
 
 package it.unicam.cs.ids.C3.TeamMGC.javaFX.corriere;
 
-import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
 import it.unicam.cs.ids.C3.TeamMGC.javaFX.JavaFXController;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.StatoOrdine;
@@ -22,11 +21,8 @@ import java.util.ArrayList;
  */
 public class JavaFXTrasportareMerce implements JavaFXController {
 
-    //todo levare
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
-    private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final int IDCorriere;
-    private final ArrayList<ArrayList<String>> merceDaTrasportare = new ArrayList<>();
 
     public JavaFXTrasportareMerce(int id) {
         this.IDCorriere = id;

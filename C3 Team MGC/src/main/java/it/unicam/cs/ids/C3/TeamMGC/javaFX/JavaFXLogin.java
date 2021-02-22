@@ -2,7 +2,6 @@ package it.unicam.cs.ids.C3.TeamMGC.javaFX;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.GestoreClienti;
 import it.unicam.cs.ids.C3.TeamMGC.corriere.GestoreCorrieri;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.GestoreNegozi;
 import it.unicam.cs.ids.C3.TeamMGC.personale.GestorePersonale;
 import it.unicam.cs.ids.C3.TeamMGC.puntoPrelievo.GestoreMagazzini;
 import it.unicam.cs.ids.C3.TeamMGC.view.*;
@@ -22,10 +21,8 @@ import java.util.Objects;
  */
 public class JavaFXLogin implements JavaFXController {
 
-    //todo levare
     private final GestoreClienti gestoreClienti = GestoreClienti.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-    private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
     private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
 
     @FXML

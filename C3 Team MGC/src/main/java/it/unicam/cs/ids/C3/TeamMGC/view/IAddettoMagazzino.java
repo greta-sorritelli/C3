@@ -20,7 +20,6 @@ import java.sql.SQLException;
  */
 public class IAddettoMagazzino implements JavaFXController {
 
-    private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
     private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final Negozio negozio;
@@ -28,7 +27,7 @@ public class IAddettoMagazzino implements JavaFXController {
 
     public IAddettoMagazzino(int ID, int IDNegozio) throws SQLException {
         this.ID = ID;
-        this.negozio = gestoreNegozi.getItem(IDNegozio);
+        this.negozio = GestoreNegozi.getInstance().getItem(IDNegozio);
     }
 
     /**

@@ -19,11 +19,10 @@ public class IMagazziniere implements JavaFXController {
 
     private final PuntoPrelievo puntoPrelievo;
     private final GestoreCorrieri gestoreCorrieri = GestoreCorrieri.getInstance();
-    private final GestoreMagazzini gestoreMagazzini = GestoreMagazzini.getInstance();
     private final String tipologiaUtente = "MAGAZZINIERE";
 
     public IMagazziniere(int IDMagazzino) throws SQLException {
-        this.puntoPrelievo = gestoreMagazzini.getItem(IDMagazzino);
+        this.puntoPrelievo = GestoreMagazzini.getInstance().getItem(IDMagazzino);
     }
 
     /**
@@ -56,6 +55,4 @@ public class IMagazziniere implements JavaFXController {
     public void controllaAlert() {
         openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(puntoPrelievo.getID(), tipologiaUtente));
     }
-
-
 }
