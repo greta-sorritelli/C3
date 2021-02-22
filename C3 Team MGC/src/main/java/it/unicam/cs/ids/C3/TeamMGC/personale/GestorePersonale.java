@@ -14,7 +14,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 public class GestorePersonale extends GestoreLogin implements Gestore<Personale> {
 
     private final int IDNegozio;
-    ArrayList<Personale> personale = new ArrayList<>();
+    private final ArrayList<Personale> personale = new ArrayList<>();
 
     public GestorePersonale(int IDNegozio) {
         this.IDNegozio = IDNegozio;

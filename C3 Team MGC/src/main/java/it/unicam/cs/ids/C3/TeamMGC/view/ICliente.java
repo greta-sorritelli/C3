@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
  */
 public class ICliente implements JavaFXController {
     private final int ID;
-    private final String tipologiaUtente = "CLIENTE";
+    public final String TIPOLOGIA_UTENTE = "CLIENTE";
 
     public ICliente(int ID) {
         this.ID = ID;
@@ -25,7 +25,7 @@ public class ICliente implements JavaFXController {
      */
     @FXML
     public void controllaAlert() {
-        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(ID, tipologiaUtente));
+        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(ID, TIPOLOGIA_UTENTE));
     }
 
     /**

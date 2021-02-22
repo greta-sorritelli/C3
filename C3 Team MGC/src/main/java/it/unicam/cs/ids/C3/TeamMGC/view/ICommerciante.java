@@ -17,13 +17,12 @@ import java.sql.SQLException;
  */
 public class ICommerciante implements JavaFXController {
 
-    private final GestoreNegozi gestoreNegozi = GestoreNegozi.getInstance();
     private final Negozio negozio;
     private final int ID;
 
     public ICommerciante(int ID, int IDNegozio) throws SQLException {
         this.ID = ID;
-        this.negozio = gestoreNegozi.getItem(IDNegozio);
+        this.negozio = GestoreNegozi.getInstance().getItem(IDNegozio);
     }
 
     /**

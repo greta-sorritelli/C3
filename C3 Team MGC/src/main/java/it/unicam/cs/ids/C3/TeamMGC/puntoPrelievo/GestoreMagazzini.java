@@ -19,7 +19,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPrelievo> {
 
     private static GestoreMagazzini instance;
-    ArrayList<PuntoPrelievo> magazzini = new ArrayList<>();
+    private final ArrayList<PuntoPrelievo> magazzini = new ArrayList<>();
 
     private GestoreMagazzini() {
     }

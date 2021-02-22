@@ -19,10 +19,10 @@ import java.sql.SQLException;
  */
 public class ICorriere implements JavaFXController {
 
-    GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
-
+    private final GestoreOrdini gestoreOrdini = GestoreOrdini.getInstance();
     private final int ID;
-    private final String tipologiaUtente = "CORRIERE";
+    public final String TIPOLOGIA_UTENTE = "CORRIERE";
+
     @FXML
     AnchorPane pane;
 
@@ -83,7 +83,7 @@ public class ICorriere implements JavaFXController {
      */
     @FXML
     public void controllaAlert() {
-        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(ID, tipologiaUtente));
+        openWindow("/ControllaAlert.fxml", "Visualizza le notifiche", new JavaFXControllareAlert(ID, TIPOLOGIA_UTENTE));
     }
 
     @FXML

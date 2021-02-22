@@ -19,7 +19,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 public class GestoreNegozi implements Gestore<Negozio> {
 
     private static GestoreNegozi instance;
-    ArrayList<Negozio> negozi = new ArrayList<>();
+    private final ArrayList<Negozio> negozi = new ArrayList<>();
 
     private GestoreNegozi() {
     }

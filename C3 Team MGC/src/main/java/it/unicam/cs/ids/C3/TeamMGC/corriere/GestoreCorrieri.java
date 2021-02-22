@@ -20,7 +20,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
 
     private static GestoreCorrieri instance;
-    ArrayList<Corriere> corrieri = new ArrayList<>();
+    private final ArrayList<Corriere> corrieri = new ArrayList<>();
 
     private GestoreCorrieri() {
     }
