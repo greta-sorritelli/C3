@@ -2,8 +2,6 @@ package it.unicam.cs.ids.C3.TeamMGC.ordine;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.Negozio;
 import it.unicam.cs.ids.C3.TeamMGC.negozio.SimpleNegozio;

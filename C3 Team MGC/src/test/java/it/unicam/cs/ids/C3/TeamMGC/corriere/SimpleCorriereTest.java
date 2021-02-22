@@ -1,8 +1,5 @@
 package it.unicam.cs.ids.C3.TeamMGC.corriere;
 
-import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
-import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.negozio.CategoriaNegozio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

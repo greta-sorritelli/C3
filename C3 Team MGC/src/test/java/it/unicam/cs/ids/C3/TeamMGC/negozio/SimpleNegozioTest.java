@@ -2,8 +2,6 @@ package it.unicam.cs.ids.C3.TeamMGC.negozio;
 
 import it.unicam.cs.ids.C3.TeamMGC.cliente.Cliente;
 import it.unicam.cs.ids.C3.TeamMGC.cliente.SimpleCliente;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.Corriere;
-import it.unicam.cs.ids.C3.TeamMGC.corriere.SimpleCorriere;
 import it.unicam.cs.ids.C3.TeamMGC.ordine.GestoreOrdini;
 import org.junit.jupiter.api.*;
 
