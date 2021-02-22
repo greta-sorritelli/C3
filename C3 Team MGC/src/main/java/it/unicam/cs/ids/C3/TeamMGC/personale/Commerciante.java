@@ -34,5 +34,4 @@ public class Commerciante extends Personale {
     public Commerciante(int IDNegozio, String nome, String cognome) throws SQLException {
         super(Ruolo.COMMERCIANTE, IDNegozio, nome, cognome);
     }
-
 }

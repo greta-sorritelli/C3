@@ -243,5 +243,4 @@ public class GestoreCorrieri extends GestoreLogin implements Gestore<Corriere> {
     public void setDisponibilita(int IDCorriere, boolean disponibilita) throws SQLException {
         getItem(IDCorriere).setDisponibilita(disponibilita);
     }
-
 }

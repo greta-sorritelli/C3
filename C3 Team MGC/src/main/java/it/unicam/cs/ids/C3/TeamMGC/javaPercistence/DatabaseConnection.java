@@ -61,6 +61,13 @@ public class DatabaseConnection {
             connection.close();
     }
 
+    /**
+     * Termina la connessione con il database
+     *
+     * @param rs ResultSet in uso
+     *
+     * @throws SQLException Errore con il DB
+     */
     public static void disconnectToDB(ResultSet rs) throws SQLException {
         Statement statement = rs.getStatement();
         Connection connection = statement.getConnection();

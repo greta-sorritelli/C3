@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public interface Negozio extends Gestore<Merce>, Comparable<Negozio> {
+
     /**
      * Elimina il {@link Negozio} dal DB e aggiorna i dati dell' oggetto.
      *

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public interface Ordine extends Comparable<Ordine> {
+
     /**
      * Aggiunge la {@link MerceOrdine} all'{@link Ordine}.
      *

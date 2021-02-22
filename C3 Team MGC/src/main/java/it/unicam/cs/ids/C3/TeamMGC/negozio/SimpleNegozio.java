@@ -18,6 +18,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class SimpleNegozio implements Negozio {
+
     private final ArrayList<Merce> inventario = new ArrayList<>();
     private int ID;
     private String nome;
@@ -180,6 +181,13 @@ public class SimpleNegozio implements Negozio {
         return categoria;
     }
 
+    /**
+     * Imposta la categoria ad un {@link SimpleNegozio}
+     *
+     * @param categoria categoria da importare
+     *
+     * @throws SQLException Errore causato da una query SQL
+     */
     @Override
     public void setCategoria(CategoriaNegozio categoria) throws SQLException {
         updateData("UPDATE sys.negozi SET categoria = '" + categoria + "' WHERE (ID = '" + getID() + "');");
@@ -551,5 +559,4 @@ public class SimpleNegozio implements Negozio {
         }
         disconnectToDB(rs);
     }
-
 }

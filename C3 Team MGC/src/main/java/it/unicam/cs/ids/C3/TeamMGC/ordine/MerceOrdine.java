@@ -12,7 +12,8 @@ import java.util.ArrayList;
  *
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
-public interface MerceOrdine extends Comparable<MerceOrdine>{
+public interface MerceOrdine extends Comparable<MerceOrdine> {
+
     /**
      * Ritorna la Descrizione della {@link MerceOrdine}.
      *

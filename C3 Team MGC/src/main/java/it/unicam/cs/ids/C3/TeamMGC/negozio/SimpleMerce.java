@@ -16,6 +16,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class SimpleMerce implements Merce {
+
     private int ID;
     private int IDNegozio;
     private double prezzo;
@@ -246,5 +247,4 @@ public class SimpleMerce implements Merce {
         }
         disconnectToDB(rs);
     }
-
 }

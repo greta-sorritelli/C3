@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public interface PuntoPrelievo extends Comparable<PuntoPrelievo>{
+
     /**
      * Elimina il {@link PuntoPrelievo} dal DB e aggiorna i dati dell' oggetto.
      *

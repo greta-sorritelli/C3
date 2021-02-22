@@ -34,5 +34,4 @@ public class Commesso extends Personale {
     public Commesso(int IDNegozio, String nome, String cognome) throws SQLException {
         super(Ruolo.COMMESSO, IDNegozio, nome, cognome);
     }
-
 }

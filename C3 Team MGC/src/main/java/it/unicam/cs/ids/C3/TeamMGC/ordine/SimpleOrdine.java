@@ -19,6 +19,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class SimpleOrdine implements Ordine {
+
     private final int ID;
     private final int IDCliente;
     private final int IDNegozio;

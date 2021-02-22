@@ -224,5 +224,4 @@ public class GestoreNegozi implements Gestore<Negozio> {
     public void reset() {
         negozi.clear();
     }
-
 }

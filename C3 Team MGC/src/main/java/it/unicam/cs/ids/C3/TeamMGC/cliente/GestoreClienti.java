@@ -124,7 +124,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
     /**
      * Ritorna la lista dei dettagli dei {@link Cliente Clienti} presenti nel DB.
      *
-     * @return ArrayList di ArrayList dei dettagli dei Clienti.
+     * @return i dettagli dei Clienti.
      *
      * @throws SQLException Errore causato da una query SQL
      */
@@ -196,7 +196,7 @@ public class GestoreClienti extends GestoreLogin implements Gestore<Cliente> {
      * @param cognome  Cognome del cliente da inserire
      * @param password Password del cliente da inserire
      *
-     * @return ArrayList dei dettagli del cliente creato
+     * @return i dettagli del cliente creato
      *
      * @throws SQLException Errore causato da una query SQL
      */

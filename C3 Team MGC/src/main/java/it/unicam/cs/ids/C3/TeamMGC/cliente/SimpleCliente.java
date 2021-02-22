@@ -18,6 +18,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class SimpleCliente implements Cliente {
+
     private final int ID;
     private String nome;
     private String cognome;

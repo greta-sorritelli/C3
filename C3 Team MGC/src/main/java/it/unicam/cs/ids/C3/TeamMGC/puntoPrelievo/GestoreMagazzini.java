@@ -202,5 +202,4 @@ public class GestoreMagazzini extends GestoreLogin implements Gestore<PuntoPreli
     public ArrayList<PuntoPrelievo> ricercaMagazziniVicini() throws SQLException {
         return getItems();
     }
-
 }

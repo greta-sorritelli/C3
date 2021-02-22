@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public interface Merce extends Comparable<Merce> {
+
     /**
      * Elimina la {@link Merce} dal DB e aggiorna i dati dell' oggetto.
      *

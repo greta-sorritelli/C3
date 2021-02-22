@@ -3,7 +3,6 @@ package it.unicam.cs.ids.C3.TeamMGC.manager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
 
 /**
@@ -12,6 +11,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class GestoreAlert {
+
     private static GestoreAlert gestoreAlert;
 
     private GestoreAlert() {

@@ -19,6 +19,7 @@ import static it.unicam.cs.ids.C3.TeamMGC.javaPercistence.DatabaseConnection.*;
  * @author Matteo Rondini, Greta Sorritelli, Clarissa Albanese
  */
 public class GestoreOrdini {
+
     private static GestoreOrdini instance;
     private final ArrayList<Ordine> ordini = new ArrayList<>();
 
@@ -546,5 +547,4 @@ public class GestoreOrdini {
             addOrdine(rs);
         disconnectToDB(rs);
     }
-
 }
